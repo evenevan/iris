@@ -1,0 +1,49 @@
+input[type=submit] {
+    height: 35px;
+    width: 300px;
+    margin: 3px;
+    border: solid;
+    border-width: 1px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    border-color: #ffffff;
+    background-color: #2b2b2b;
+    color: #ffffff;
+}
+
+input[type=submit]:active {
+    background-color: #ffffff;
+    color: #000000
+}
+
+input[type=text] {
+    outline: none;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: solid;
+    border-width: 1px;
+    padding: 2px 5px;
+    width: 48%;
+    transition: 0.5s;
+    background-color: #2b2b2b;
+    color: #ffffff;
+}
+
+input[type=text]:focus {
+    width: 96%;
+}
+
+body {
+    position: relative;
+    font-size: 15px;
+    min-width: 300px;
+    background-color: #2b2b2b;
+    color: white;
+}
+
+#dataReturn {
+    transition: height 0.5s;
+}
+  

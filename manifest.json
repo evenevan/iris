@@ -1,0 +1,25 @@
+{
+  "name": "HyGuard",
+  "description": "Check any player's account!",
+  "version": "0.1",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/shield16.png",
+      "32": "/images/shield32.png",
+      "48": "/images/shield48.png",
+      "128": "/images/shield128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/shield16.png",
+    "32": "/images/shield32.png",
+    "48": "/images/shield48.png",
+    "128": "/images/shield128.png"
+  }
+}
