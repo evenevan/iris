@@ -5,13 +5,18 @@
 	<title></title>
 </head>
 <body>
+	<div class="header">
+		<img src="images/shield128.png"/>
+		<h3>HyGuard</h3>
+	</div>
 	<fieldset>
 		<legend><b>Input</b></legend>
-		Player:<br>
-		<form id="submitForm" name="submitForm">
-			<input id="player" type="text" placeholder="Username/UUID" autocomplete="off" spellcheck="false" pattern="(^[a-zA-Z0-9_]{1,16}$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" required="" size="36" maxlength="36"><br>
-			<input type="submit" value="Check Player">
+		<form id="submitPlayer">
+		 	<input id="player" type="text" placeholder="Username/UUID" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,16}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" required="" size="36" maxlength="36">
+			 <br>
+			 <input type="submit" value="Check Player">
 		</form>
+		<a href="options.html" id="optionsHyperlink">Options</a>
 		<script src="./processPlayer.js"></script>
 	</fieldset>
 	<fieldset>

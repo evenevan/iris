@@ -12,54 +12,52 @@ input[type=submit] {
     color: #ffffff;
 }
 
-/* Submit Button Clicked */
 input[type=submit]:active {
-    background-image: url("images/search_icon1024_2.png");
     background-color: #ffffff;
     color: #000000
 }
 
-/* Search Box */
 input[type=text] {
     outline: none;
-    margin-top: 10px;
+    display: block;
+    margin: 10px auto 0px;
     border: solid;
     border-width: 1px;
     padding: 5px 5px;
-    width: 140.5px;
     transition: 0.5s;
     background-color: #2b2b2b;
     color: #ffffff;
 }
 
-/* Typing In Search Box */
-input[type=text]:focus {
-    width: 281px;
+.checkboxText {
+    font-size: 11px;
 }
 
-/* Option Hyperlink */
-#optionsHyperlink {
+.notes {
+    margin-top: 5px;
+    margin-left: -20px;
+}
+
+#backHyperlink {
     font-size: 12px;
     color: #ffffff;
 }
 
-/* NameMC Shortcut Hyperlink */
-a:link, a:visited {
-    color: white;
+#saveConfirmation {
+    position: relative;
+    top: 5px;
 }
 
-/* Main Body */
+input[type=checkbox] {
+    cursor: pointer;
+}
+
 body {
     position: relative;
     font-size: 15px;
     min-width: 325px;
     background-color: #2b2b2b;
     color: white;
-}
-
-/* Output Box */
-#dataReturn {
-    transition: height 0.5s;
 }
 
 /* HyGuard Shield */
