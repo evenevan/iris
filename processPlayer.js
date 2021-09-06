@@ -2,7 +2,7 @@
 const form = document.getElementById('submitPlayer');
 form.addEventListener('submit', processPlayer);
 
-const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //obviously not designed by me lol
+const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from https://stackoverflow.com/a/57888548 under CC BY-SA 4.0
     const controller = new AbortController();
     const promise = fetch(url, { signal: controller.signal, ...options });
     if (signal) signal.addEventListener("abort", () => controller.abort());
@@ -12,12 +12,11 @@ const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //obviously not
 
 function processPlayer(event) {
     event.preventDefault();
+    let dataReturn = document.getElementById('dataReturn');
+    let player = document.getElementById('player').value;
+    document.getElementById('player').value = '';
+    dataReturn.innerHTML = 'Loading..';
     chrome.storage.sync.get('userOptions', function(userOptions) {
-      let dataReturn = document.getElementById('dataReturn');
-      let player = document.getElementById('player').value;
-      document.getElementById('player').value = '';
-      dataReturn.innerHTML = 'Loading..';
-      console.log(player)
       if (userOptions.userOptions.useHypixelAPI === true && !userOptions.userOptions.key) return dataReturn.innerHTML = 'You don\'t have a valid API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use /api new on Hypixel and enter the key!';
       if (userOptions.userOptions.useHypixelAPI === true) {
         if (/^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/i.test(player)) return hypixelRequestPlayer(player, undefined, dataReturn, userOptions.userOptions);
@@ -146,18 +145,9 @@ async function slothpixelProcessData(playerData, statusData, dataReturn, userOpt
     userData.language = playerData?.language ?? 'Unavailable';
     userData.version = playerData?.playerData?.mc_version ?? 'Unavailable';
     userData.status = statusData.online && playerData?.last_login > playerData?.last_logout ? 'Online' : !statusData.online && playerData?.last_login < playerData?.last_logout ? 'Offline' : 'Unavailable';
-    userData.isOnline = statusData?.session?.online === true ? true : false; 
+    userData.isOnline = statusData?.online === true ? true : false; 
 
-    if (!statusData.online) {
-      userData.offline = {}
-      userData.offline.playtime = playerData?.last_login && playerData?.last_login < playerData?.last_logout ? lastPlaytime : 'Unavailable';
-      userData.offline.lastGame = playerData?.last_game ?? 'Unavailable';
-      userData.online = {}
-      userData.online.playtime = null;
-      userData.online.gameType = null;
-      userData.online.mode = null;
-      userData.online.map = null;
-    } else {
+    if (statusData?.online === true) {
       userData.offline = {}
       userData.offline.playtime = null;
       userData.offline.lastGame = null;
@@ -166,6 +156,15 @@ async function slothpixelProcessData(playerData, statusData, dataReturn, userOpt
       userData.online.gameType = statusData?.game?.type ?? 'Unavailable';
       userData.online.mode = statusData?.game?.mode ?? 'Unavailable';
       userData.online.map = statusData?.game?.map ?? 'Unavailable';
+    } else {
+      userData.offline = {}
+      userData.offline.playtime = playerData?.last_login && playerData?.last_login < playerData?.last_logout ? lastPlaytime : 'Unavailable';
+      userData.offline.lastGame = playerData?.last_game ?? 'Unavailable';
+      userData.online = {}
+      userData.online.playtime = null;
+      userData.online.gameType = null;
+      userData.online.mode = null;
+      userData.online.map = null;
     }
 
     userData.lastLogin = playerData?.last_login ? `${lastLoginTimestamp}<br>> ${timeSinceLastLogin} ago` : 'Unavailable';
@@ -244,7 +243,7 @@ async function slothpixelProcessData(playerData, statusData, dataReturn, userOpt
 
     userData.megaWalls = {}
     userData.megaWalls.coins = playerData?.stats?.MegaWalls?.coins ?? 0;
-    userData.megaWalls.KD = playerData?.stats?.UHC?.kill_death_ratio?? 'Unavailable';
+    userData.megaWalls.KD = playerData?.stats?.UHC?.kill_death_ratio ?? 'Unavailable';
     userData.megaWalls.WL = playerData?.stats?.UHC?.win_loss_ratio ?? 'Unavailable';
     userData.megaWalls.wins = playerData?.stats?.MegaWalls?.wins ?? 0;
     userData.megaWalls.kills = playerData?.stats?.MegaWalls?.kills ?? 0;
@@ -252,7 +251,7 @@ async function slothpixelProcessData(playerData, statusData, dataReturn, userOpt
 
     return formReply(userData, dataReturn, userOptions);
   } catch (err) {
-    console.log(err.stack)
+    console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack)
     return dataReturn.innerHTML = `${err.name}: ${err.message}. Please contact Attituding#6517 if this error continues appearing.`;
   }
 }
@@ -344,18 +343,9 @@ async function hypixelProcessData(playerData, statusData, dataReturn, userOption
     userData.language = playerData?.userLanguage ?? 'Unavailable';
     userData.version = playerData?.mcVersionRp ?? 'Unavailable';
     userData.status = statusData?.session?.online && playerData?.lastLogin > playerData?.lastLogout ? 'Online' : !statusData?.session?.online && playerData?.lastLogin < playerData?.lastLogout ? 'Offline' : 'Unavailable';
-    userData.isOnline = statusData?.session?.online === true ? true : false; 
+    userData.isOnline = statusData?.session?.online === true ? true : false;
 
-    if (!statusData?.session?.online) {
-      userData.offline = {}
-      userData.offline.playtime = playerData?.lastLogin && playerData?.lastLogin < playerData?.lastLogout ? lastPlaytime : 'Unavailable';
-      userData.offline.lastGame = playerData?.mostRecentGameType ?? 'Unavailable';
-      userData.online = {}
-      userData.online.playtime = null;
-      userData.online.gameType = null;
-      userData.online.mode = null;
-      userData.online.map = null;
-    } else {
+    if (statusData?.session?.online === true) {
       userData.offline = {}
       userData.offline.playtime = null;
       userData.offline.lastGame = null;
@@ -364,6 +354,15 @@ async function hypixelProcessData(playerData, statusData, dataReturn, userOption
       userData.online.gameType = statusData?.session?.gameType ?? 'Unavailable';
       userData.online.mode = statusData?.session?.mode ?? 'Unavailable';
       userData.online.map = statusData?.session?.map ?? 'Unavailable';
+    } else {
+      userData.offline = {}
+      userData.offline.playtime = playerData?.lastLogin && playerData?.lastLogin < playerData?.lastLogout ? lastPlaytime : 'Unavailable';
+      userData.offline.lastGame = playerData?.mostRecentGameType ?? 'Unavailable';
+      userData.online = {}
+      userData.online.playtime = null;
+      userData.online.gameType = null;
+      userData.online.mode = null;
+      userData.online.map = null;
     }
 
     userData.lastLogin = playerData?.lastLogin ? `${lastLoginTimestamp}<br>> ${timeSinceLastLogin} ago` : 'Unavailable';
@@ -371,7 +370,7 @@ async function hypixelProcessData(playerData, statusData, dataReturn, userOption
     userData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `<br><strong>UTC Offset Used:</strong> ${tzOffsetString}` : '';
 
     userData.bedwars = {}
-    userData.bedwars.level = playerData?.achievements.bedwars_level;
+    userData.bedwars.level = playerData?.achievements.bedwars_level ?? 0;
     userData.bedwars.coins = playerData?.stats?.Bedwars?.coins ?? 0;
     userData.bedwars.wins = playerData?.stats?.Bedwars?.wins_bedwars ?? 0;
     userData.bedwars.gamesPlayed = playerData?.stats?.Bedwars?.games_played_bedwars ?? 0;
@@ -397,17 +396,17 @@ async function hypixelProcessData(playerData, statusData, dataReturn, userOption
     userData.blitz.deaths = playerData?.stats?.HungerGames?.deaths ?? 0;
 
     userData.pit = {}
-    userData.pit.gold = playerData?.stats?.Pit?.pit_stats_ptl?.cash_earned;
+    userData.pit.gold = playerData?.stats?.Pit?.pit_stats_ptl?.cash_earned ?? 0;
     userData.pit.prestige = playerData?.achievements?.pit_prestiges ?? 0;
     userData.pit.playtime = playerData?.stats?.Pit?.pit_stats_ptl?.playtime_minutes;
     userData.pit.bestStreak = playerData?.stats?.Pit?.pit_stats_ptl?.max_streak;
-    userData.pit.chatMessages = playerData?.stats?.Pit?.pit_stats_ptl?.chat_messages;
+    userData.pit.chatMessages = playerData?.stats?.Pit?.pit_stats_ptl?.chat_messages ?? 0;
     userData.pit.KD = ratio(playerData?.stats?.Pit?.pit_stats_ptl?.kills, playerData?.stats?.Pit?.pit_stats_ptl?.deaths);
     userData.pit.kills = playerData?.stats?.Pit?.pit_stats_ptl?.kills ?? 0;
     userData.pit.deaths = playerData?.stats?.Pit?.pit_stats_ptl?.deaths ?? 0;
 
     userData.skywars = {}
-    userData.skywars.level = playerData?.achievements.skywars_you_re_a_star;
+    userData.skywars.level = playerData?.achievements.skywars_you_re_a_star ?? 0;
     userData.skywars.coins = playerData?.stats?.SkyWars?.coins ?? 0;
     userData.skywars.KD = ratio(playerData?.stats?.SkyWars?.kills, playerData?.stats?.SkyWars?.deaths);
     userData.skywars.WL = ratio(playerData?.stats?.SkyWars?.wins, playerData?.stats?.SkyWars?.losses);
@@ -455,14 +454,14 @@ async function hypixelProcessData(playerData, statusData, dataReturn, userOption
 
     return formReply(userData, dataReturn, userOptions);
   } catch (err) {
-    console.log(err.stack)
+    console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack)
     return dataReturn.innerHTML = `${err.name}: ${err.message}. Please contact Attituding#6517 if this error continues appearing.`;
   }
 }
 
 function formReply(userData, dataReturn, userOptions) {
   try {
-    console.log(userData)
+    console.log(new Date().toLocaleTimeString('en-IN', { hour12: true }), userData)
     let playerDataString = '';
   
     playerDataString += `<strong>Username:</strong> ${userData.username}<br>`;
@@ -512,7 +511,7 @@ function formReply(userData, dataReturn, userOptions) {
         break;
       case 'Pit':
       case 'PIT':
-          playerDataString += `<br><br><strong>${playerPossesive} Stats for the Pit:</strong><br>Total Gold Earned: ${userData.pit.gold}<br>Prestige: ${userData.pit.prestige}<br>Playtime: ${userData.pit.playtime} minutes<br>Best Streak: ${userData.pit.bestStreak}<br>Chat Messages: ${userData.pit.chatMessages}<br>K/D Ratio: ${userData.pit.KD}<br>Kills: ${userData.pit.kills}<br>Deaths: ${userData.pit.deaths}`;
+          playerDataString += `<br><br><strong>${playerPossesive} Stats for the Pit:</strong><br>Total Gold Earned: ${userData.pit.gold}<br>Prestige: ${userData.pit.prestige}<br>Total Playtime: ${userData.pit.playtime} minutes<br>Best Streak: ${userData.pit.bestStreak}<br>Chat Messages: ${userData.pit.chatMessages}<br>K/D Ratio: ${userData.pit.KD}<br>Kills: ${userData.pit.kills}<br>Deaths: ${userData.pit.deaths}`;
         break;
       case 'SkyWars':
       case 'SKYWARS':
@@ -541,7 +540,7 @@ function formReply(userData, dataReturn, userOptions) {
   
     return dataReturn.innerHTML = playerDataString;
   } catch (err) {
-    console.log(err.stack)
+    console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack)
     return dataReturn.innerHTML = `${err.name}: ${err.message}. Please contact Attituding#6517 if this error continues appearing.`;
   }
 }

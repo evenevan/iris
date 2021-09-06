@@ -10,13 +10,14 @@ form.addEventListener('submit', updateOptions);
 async function updateOptions(event) {
     event.preventDefault();
 
-    let userOptions = new Object();
-        userOptions.stats = document.getElementById('gameStats').checked;
-        userOptions.useHypixelAPI = document.getElementById('useHypixelAPI').checked;
-        userOptions.key = document.getElementById('apiKey').value;
+    let userOptions = {
+        stats: document.getElementById('gameStats').checked,
+        useHypixelAPI: document.getElementById('useHypixelAPI').checked,
+        key: document.getElementById('apiKey').value
+    }
 
     chrome.storage.sync.set({'userOptions': userOptions}, function() {
-        console.log('Options saved as ' + userOptions.toString());
+        console.log(new Date().toLocaleTimeString('en-IN', { hour12: true }), 'Options saved as ', userOptions);
     });
     
     let saveConfirmation = document.getElementById('saveConfirmation');
