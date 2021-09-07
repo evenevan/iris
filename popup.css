@@ -1,6 +1,7 @@
+/* Button Design */ /* Check Player & Options */
 input[type=submit] {
     padding: 5px 5px;
-    width: 293px;
+    width: 308px;
     border: solid;
     border-width: 1px;
     display: block;
@@ -12,7 +13,7 @@ input[type=submit] {
     color: #ffffff;
 }
 
-/* Submit Button Clicked */
+/* Submit Button Clicked */ /* Check Player & Options */
 input[type=submit]:active {
     background-image: url("images/search_icon1024_2.png");
     background-color: #ffffff;
@@ -28,7 +29,7 @@ input[type=text] {
     border: solid;
     border-width: 1px;
     padding: 5px 5px;
-    width: 141px;
+    width: 156px;
     transition: 0.5s;
     background-color: #2b2b2b;
     color: #ffffff;
@@ -36,13 +37,7 @@ input[type=text] {
 
 /* Typing In Search Box */
 input[type=text]:focus {
-    width: 282px;
-}
-
-/* Option Hyperlink */
-#optionsHyperlink {
-    font-size: 12px;
-    color: #ffffff;
+    width: 297px;
 }
 
 /* NameMC Shortcut Hyperlink */
@@ -54,7 +49,7 @@ a:link, a:visited {
 body {
     position: relative;
     font-size: 15px;
-    min-width: 325px;
+    min-width: 340px;
     background-color: #2b2b2b;
     color: white;
 }

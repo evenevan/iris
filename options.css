@@ -1,6 +1,7 @@
+/* Button Design */ /* Save & Back */
 input[type=submit] {
     padding: 5px 5px;
-    width: 293px;
+    width: 308px;
     border: solid;
     border-width: 1px;
     display: block;
@@ -12,15 +13,18 @@ input[type=submit] {
     color: #ffffff;
 }
 
+/* Submit Button Clicked */ /* Save & Back */
 input[type=submit]:active {
     background-color: #ffffff;
     color: #000000
 }
 
+/* API Key Box */
 input[type=text] {
     outline: none;
     display: block;
     margin: 10px auto 0px;
+    width: 297px;
     border: solid;
     border-width: 1px;
     padding: 5px 5px;
@@ -29,33 +33,33 @@ input[type=text] {
     color: #ffffff;
 }
 
+/* Checkbox Input Text */
 .checkboxText {
     font-size: 11px;
 }
 
+/* Notes Fieldset */
 .notes {
     margin-top: 5px;
     margin-left: -20px;
 }
 
-#backHyperlink {
-    font-size: 12px;
-    color: #ffffff;
-}
-
+/* Shows "Options saved at x" */
 #saveConfirmation {
     position: relative;
     top: 5px;
 }
 
+/* Turns the cursor to a pointer */
 input[type=checkbox] {
     cursor: pointer;
 }
 
+/* Main Body */
 body {
     position: relative;
     font-size: 15px;
-    min-width: 325px;
+    min-width: 340px;
     background-color: #2b2b2b;
     color: white;
 }

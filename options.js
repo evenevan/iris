@@ -1,7 +1,8 @@
 chrome.storage.sync.get('userOptions', function(userOptions) {
-    document.getElementById('gameStats').checked = userOptions.userOptions.stats ?? true;
+    document.getElementById('gameStats').checked = userOptions.userOptions.gameStats ?? true;
+    document.getElementById('paragraphOutput').checked = userOptions.userOptions.paragraphOutput ?? false;
     document.getElementById('useHypixelAPI').checked = userOptions.userOptions.useHypixelAPI ?? false;
-    document.getElementById('apiKey').value = userOptions.userOptions.key ?? '';
+    document.getElementById('apiKey').value = userOptions.userOptions.apiKey ?? '';
 });
 
 const form = document.getElementById('saveOptions');
@@ -11,9 +12,10 @@ async function updateOptions(event) {
     event.preventDefault();
 
     let userOptions = {
-        stats: document.getElementById('gameStats').checked,
+        gameStats: document.getElementById('gameStats').checked,
+        paragraphOutput: document.getElementById('paragraphOutput').checked,
         useHypixelAPI: document.getElementById('useHypixelAPI').checked,
-        key: document.getElementById('apiKey').value
+        apiKey: document.getElementById('apiKey').value
     }
 
     chrome.storage.sync.set({'userOptions': userOptions}, function() {
