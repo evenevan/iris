@@ -47,8 +47,8 @@ export function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted) {
 
 async function hypixelProcessData(playerData, statusData) {
   try {
-    let tzOffset =  new Date().getTimezoneOffset() / 60
-    let tzOffsetString = `UTC${createOffset(new Date())}`
+    let tzOffset =  new Date().getTimezoneOffset() / 60;
+    let tzOffsetString = `UTC${createOffset(new Date())}`;
     
     let timeSinceLastLogin = `${secondsToDays(new Date() - (playerData?.lastLogin ?? 0))}${new Date(new Date() - (playerData?.lastLogin ?? 0)).toISOString().substr(11, 8)}`,
           timeSinceLastLogout = `${secondsToDays(new Date() - (playerData?.lastLogout ?? 0))}${new Date(new Date() - (playerData?.lastLogout ?? 0)).toISOString().substr(11, 8)}`;
@@ -112,9 +112,11 @@ async function hypixelProcessData(playerData, statusData) {
       userData.online.map = null;
     }
   
-    userData.lastLogin = playerData?.lastLogin ? `${lastLoginTimestamp}<br>> ${timeSinceLastLogin} ago` : 'Unavailable';
-    userData.lastLogout = playerData?.lastLogout ? `${lastLogoutTimestamp}<br>> ${timeSinceLastLogout} ago` : 'Unavailable';
-    userData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `<br><strong>UTC Offset Used:</strong> ${tzOffsetString}` : '';
+    userData.lastLoginStamp = playerData?.lastLogin ? `${lastLoginTimestamp}` : 'Unavailable';
+    userData.lastLoginSince = playerData?.lastLogin ? `${timeSinceLastLogin} ago` : 'Unavailable';
+    userData.lastLogoutStamp = playerData?.lastLogout ? `${lastLogoutTimestamp}` : 'Unavailable';
+    userData.lastLogoutSince = playerData?.lastLogout ? `${timeSinceLastLogout} ago` : 'Unavailable';
+    userData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `<strong>UTC Offset Used:</strong> ${tzOffsetString}` : '';
   
     userData.bedwars = {}
     userData.bedwars.level = playerData?.achievements.bedwars_level ?? 0;

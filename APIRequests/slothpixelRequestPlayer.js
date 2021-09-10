@@ -48,8 +48,8 @@ export function slothpixelRequestPlayer(player, undefinedIfHasntAborted) {
 
 function slothpixelProcessData(playerData, statusData) {
   try {
-    let tzOffset =  new Date().getTimezoneOffset() / 60
-    let tzOffsetString = `UTC${createOffset(new Date())}`
+    let tzOffset =  new Date().getTimezoneOffset() / 60;
+    let tzOffsetString = `UTC${createOffset(new Date())}`;
 
     let timeSinceLastLogin = `${secondsToDays(new Date() - playerData?.last_login)}${new Date(new Date() - playerData?.last_login).toISOString().substr(11, 8)}`,
         timeSinceLastLogout = `${secondsToDays(new Date() - playerData?.last_logout)}${new Date(new Date() - playerData?.last_logout).toISOString().substr(11, 8)}`;
@@ -89,7 +89,7 @@ function slothpixelProcessData(playerData, statusData) {
     userData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.username}'` : `${playerData?.username}'s`;
     userData.uuid = playerData?.uuid ?? '';
     userData.language = playerData?.language ?? 'Unavailable';
-    userData.version = playerData?.playerData?.mc_version ?? 'Unavailable';
+    userData.version = playerData?.mc_version ?? 'Unavailable';
     userData.status = statusData.online && (playerData?.last_login ?? 0) >= (playerData?.last_logout ?? 0) ? 'Online' : !statusData.online && (playerData?.last_login ?? 0) <= (playerData?.last_logout ?? 0) ? 'Offline' : 'Unavailable';
     userData.isOnline = statusData?.online === true ? true : false; 
 
@@ -113,9 +113,11 @@ function slothpixelProcessData(playerData, statusData) {
       userData.online.map = null;
     }
 
-    userData.lastLogin = playerData?.last_login ? `${lastLoginTimestamp}<br>> ${timeSinceLastLogin} ago` : 'Unavailable';
-    userData.lastLogout = playerData?.last_logout ? `${lastLogoutTimestamp}<br>> ${timeSinceLastLogout} ago` : 'Unavailable';
-    userData.utcOffset = playerData?.last_login || playerData?.last_logout ? `<br><strong>UTC Offset Used:</strong> ${tzOffsetString}` : '';
+    userData.lastLoginStamp = playerData?.last_login ? `${lastLoginTimestamp}` : 'Unavailable';
+    userData.lastLoginSince = playerData?.last_login ? `${timeSinceLastLogin} ago` : 'Unavailable';
+    userData.lastLogoutStamp = playerData?.last_logout ? `${lastLogoutTimestamp}` : 'Unavailable';
+    userData.lastLogoutSince = playerData?.last_logout ? `${timeSinceLastLogout} ago` : 'Unavailable';
+    userData.utcOffset = playerData?.last_login || playerData?.last_logout ? `<strong>UTC Offset Used:</strong> ${tzOffsetString}` : '';
 
     userData.bedwars = {}
     userData.bedwars.level = playerData?.stats?.BedWars?.level ?? 0;
