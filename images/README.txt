@@ -1,0 +1,1 @@
+These images are all original. They were made with paint.net and took way too long.Feel free to use them I suppose. The 128 x 128x versions are preferable as they are 64 times smaller and so load much faster.

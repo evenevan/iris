@@ -1,5 +1,5 @@
 /* Button Design */ /* Check Player & Options */
-input[type=submit] {
+.actionButton {
     padding: 5px 5px;
     width: 308px;
     border: solid;
@@ -14,14 +14,14 @@ input[type=submit] {
 }
 
 /* Submit Button Clicked */ /* Check Player & Options */
-input[type=submit]:active {
-    background-image: url("images/search_icon1024_2.png");
+.actionButton:active {
+    background-image: url("images/search_icon1024_1.png");
     background-color: #ffffff;
     color: #000000
 }
 
-/* Search Box */
-input[type=text] {
+/* Player Input Box */
+#player {
     outline: none;
     display:-moz-inline-stack;
     margin: 10px auto 0px;
@@ -36,7 +36,7 @@ input[type=text] {
 }
 
 /* Typing In Search Box */
-input[type=text]:focus {
+#player:focus {
     width: 297px;
 }
 
@@ -45,44 +45,19 @@ a:link, a:visited {
     color: white;
 }
 
-/* Main Body */
-body {
-    position: relative;
-    font-size: 15px;
-    min-width: 340px;
-    background-color: #2b2b2b;
-    color: white;
+/* Main Page Switcher */
+#main {
+    background-image: url("images/player128_W.png");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* Output Box */
-#dataReturn {
-    transition: height 0.5s;
-}
-
-/* HyGuard Shield */
-.header img {
-    float: left;
-    width: 25px;
-    height: 25px;
-}
-
-/* HyGuard Header - Text & Image */
-.header {
-    margin-top: -10px;
-    margin-bottom: -10px;
-}
-
-/* width */ /* Scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
- 
-/* Handle */ /* Scrollbar */
-::-webkit-scrollbar-thumb {
-    background: #AAAAAA; 
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #717171; 
+/* Options Page Switcher */
+#options {
+    background-image: url("images/options128_GR.png");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }

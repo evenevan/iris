@@ -1,0 +1,68 @@
+/* Main Body */
+body {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    min-width: 390px;
+    min-height: 100px;
+    background-color: #2b2b2b;
+    color: white;
+}
+
+/* Options/Main Page Switcher */
+.pageButtons {
+    width: 40px;
+    height: 40px;
+    display: block;
+    border: none;
+    padding-top: 10px;
+    margin: 10px auto;
+    background-color: #404040;
+    color: #ffffff;
+}
+
+/* The navigation bar */
+.navigation {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 40px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #404040; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+/* Add a top margin to avoid content overlay */
+.content {
+    margin-left: 40px;
+    padding: 5px;
+}
+
+/* HyGuard Shield */
+#icon {
+    background-image: url("images/shield128.png");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* width */ /* Scrollbar */
+::-webkit-scrollbar {
+    width: 15px;
+}
+ 
+/* Handle */ /* Scrollbar */
+::-webkit-scrollbar-thumb {
+    background-color: #AAAAAA;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #717171;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
