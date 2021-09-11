@@ -47,7 +47,7 @@ a:link, a:visited {
 
 /* Main Page Switcher */
 #main {
-    background-image: url("images/player128_W.png");
+    background-image: url("images/player64_W.png");
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
@@ -55,9 +55,25 @@ a:link, a:visited {
 
 /* Options Page Switcher */
 #options {
-    background-image: url("images/options128_GR.png");
+    background-image: url("images/options64_GR.png");
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
+}
+
+#options:hover {
+    background-image: url("images/options64_W.png");
+}
+
+#exit {
+    background-image: url("images/exit64_GR.png");
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#exit:hover {
+    background-image: url("images/exit64_W.png");
 }

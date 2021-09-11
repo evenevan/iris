@@ -15,7 +15,7 @@ export function explanationMessage(userData, userOptions) {
 
       playerDataString += '<br><br>'
     
-      playerDataString += `During this session, ${userData.offline.lastGame !== 'Unavailable' ? `${userData.username} played or joined the lobby <strong>${userData.offline.lastGame}</strong>` : `${userData.username} played an <strong>unknown</strong> game.`}`;
+      playerDataString += `During this session, ${userData.offline.lastGame !== 'Unavailable' ? `${userData.username} played or joined the lobby <strong>${userData.offline.lastGame}</strong>.` : `${userData.username} played an <strong>unknown</strong> game.`}`;
     } else {
       playerDataString += `In their current session, ${userData.username} logged in on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong> ago).`;
 

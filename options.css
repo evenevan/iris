@@ -57,16 +57,20 @@ input[type=checkbox] {
 
 /* Main Page Switcher */
 #main {
-    background-image: url("images/player128_GR.png");
+    background-image: url("images/player64_GR.png");
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
 }
 
+#main:hover {
+    background-image: url("images/player64_W.png");
+}
+
 /* Options Page Switcher */
 #options {
-    background-image: url("images/options128_W.png");
+    background-image: url("images/options64_W.png");
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
