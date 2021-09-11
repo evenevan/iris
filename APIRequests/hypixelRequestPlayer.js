@@ -119,7 +119,7 @@ async function hypixelProcessData(playerData, statusData) {
     userData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `<strong>UTC Offset Used:</strong> ${tzOffsetString}` : '';
   
     userData.bedwars = {}
-    userData.bedwars.level = playerData?.achievements.bedwars_level ?? 0;
+    userData.bedwars.level = playerData?.achievements?.bedwars_level ?? 0;
     userData.bedwars.coins = playerData?.stats?.Bedwars?.coins ?? 0;
     userData.bedwars.wins = playerData?.stats?.Bedwars?.wins_bedwars ?? 0;
     userData.bedwars.gamesPlayed = playerData?.stats?.Bedwars?.games_played_bedwars ?? 0;
@@ -155,7 +155,7 @@ async function hypixelProcessData(playerData, statusData) {
     userData.pit.deaths = playerData?.stats?.Pit?.pit_stats_ptl?.deaths ?? 0;
   
     userData.skywars = {}
-    userData.skywars.level = playerData?.achievements.skywars_you_re_a_star ?? 0;
+    userData.skywars.level = playerData?.achievements?.skywars_you_re_a_star ?? 0;
     userData.skywars.coins = playerData?.stats?.SkyWars?.coins ?? 0;
     userData.skywars.KD = ratio(playerData?.stats?.SkyWars?.kills, playerData?.stats?.SkyWars?.deaths);
     userData.skywars.WL = ratio(playerData?.stats?.SkyWars?.wins, playerData?.stats?.SkyWars?.losses);
