@@ -1,8 +1,9 @@
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install") { //On first install
         let userOptions = {
-            gameStats: true,
             paragraphOutput: false,
+            typewriterOutput: false,
+            gameStats: true,
             useHypixelAPI: false,
             apiKey: ''
         }

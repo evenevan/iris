@@ -9,10 +9,12 @@
     <fieldset>
       <legend><b>Options</b></legend>
       <form id="saveOptions">
+             <input type="checkbox" id="paragraphOutput">
+              <label for="paragraphOutput" class="checkboxText"> Show the output as sentences rather than bullet points</label><br>
+             <input type="checkbox" id="typewriterOutput">
+              <label for="typewriterOutput" class="checkboxText"> Show the output with a typewriter-esque animation</label><br>
              <input type="checkbox" id="gameStats">
               <label for="gameStats" class="checkboxText"> If available, show stats for a player's recent gametype</label><br>
-             <input type="checkbox" id="paragraphOutput">
-              <label for="useHypixelAPI" class="checkboxText"> Show the output as sentences rather than bullet points</label><br>
              <input type="checkbox" id="useHypixelAPI">
               <label for="useHypixelAPI" class="checkboxText"> Use the Hypixel API instead of the Slothpixel API</label><br>
              <input id="apiKey" type="text" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}" size="36" maxlength="36">

@@ -5,9 +5,16 @@ body {
     margin: 0;
     font-size: 15px;
     min-width: 390px;
-    min-height: 100px;
+    min-height: 500px;
     background-color: #2b2b2b;
     color: white;
+}
+
+/* Fieldset For Border Color */
+.fieldset {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ffffff;
 }
 
 /* Options/Main Page Switcher */

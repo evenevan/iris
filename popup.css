@@ -1,12 +1,12 @@
 /* Button Design */ /* Check Player & Options */
 .actionButton {
-    padding: 5px 5px;
-    width: 308px;
+    display: block;
+    box-sizing: border-box;
+    margin: 10px auto 0px;
     border: solid;
     border-width: 1px;
-    display: block;
-    margin: 10px auto 0px;
-    text-align: center;
+    padding: 5px 5px;
+    width: 99%;
     cursor: pointer;
     border-color: #ffffff;
     background-color: #2b2b2b;
@@ -15,7 +15,6 @@
 
 /* Submit Button Clicked */ /* Check Player & Options */
 .actionButton:active {
-    background-image: url("images/search_icon1024_1.png");
     background-color: #ffffff;
     color: #000000
 }
@@ -23,21 +22,15 @@
 /* Player Input Box */
 #player {
     outline: none;
-    display:-moz-inline-stack;
-    margin: 10px auto 0px;
-    margin-top: 10px;
+    display: block;
+    box-sizing: border-box;
+    margin: 0px auto; /* 5px because the .content box already has a 5px margin */
     border: solid;
     border-width: 1px;
     padding: 5px 5px;
-    width: 156px;
-    transition: 0.5s;
+    width: 99%;
     background-color: #2b2b2b;
     color: #ffffff;
-}
-
-/* Typing In Search Box */
-#player:focus {
-    width: 297px;
 }
 
 /* NameMC Shortcut Hyperlink */

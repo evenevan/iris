@@ -1,5 +1,6 @@
 chrome.storage.sync.get('userOptions', function(userOptions) {
     document.getElementById('gameStats').checked = userOptions.userOptions.gameStats ?? true;
+    document.getElementById('typewriterOutput').checked = userOptions.userOptions.typewriterOutput ?? false;
     document.getElementById('paragraphOutput').checked = userOptions.userOptions.paragraphOutput ?? false;
     document.getElementById('useHypixelAPI').checked = userOptions.userOptions.useHypixelAPI ?? false;
     document.getElementById('apiKey').value = userOptions.userOptions.apiKey ?? '';
@@ -12,8 +13,9 @@ async function updateOptions(event) {
     event.preventDefault();
 
     let userOptions = {
-        gameStats: document.getElementById('gameStats').checked,
         paragraphOutput: document.getElementById('paragraphOutput').checked,
+        typewriterOutput: document.getElementById('typewriterOutput').checked,
+        gameStats: document.getElementById('gameStats').checked,
         useHypixelAPI: document.getElementById('useHypixelAPI').checked,
         apiKey: document.getElementById('apiKey').value
     }
