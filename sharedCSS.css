@@ -23,7 +23,6 @@ fieldset {
     height: 40px;
     display: block;
     border: none;
-
     margin: 10px auto;
     background-color: #404040;
     color: #ffffff;
@@ -42,7 +41,7 @@ fieldset {
 }
 
 /* Add a top margin to avoid content overlay */
-.content {
+.input {
     margin-left: 40px;
     padding: 5px;
 }

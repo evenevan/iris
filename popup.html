@@ -5,14 +5,15 @@
 	<link href="sharedCSS.css" rel="stylesheet">
 </head>
 <body>
-	<div class="content">
+	<div class="input">
 		<form id="submitPlayer">
 			<input id="player" type="text" placeholder="Username/UUID" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,16}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" required="" size="36" maxlength="36">
 			<input class="actionButton" type="submit" value="Check Player">
 		</form>
-		<fieldset>
-			<legend><b>Output</b></legend>
-			<p id="outputElement">Awaiting Input</p>
+		<fieldset class="outputFieldset">
+			<div class="output">
+				<p id="outputElement">Awaiting Input</p>
+			</div>
 		</fieldset>
 	</div>
 	<div class="navigation">

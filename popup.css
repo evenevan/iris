@@ -33,6 +33,11 @@
     color: #ffffff;
 }
 
+.output {
+    overflow: auto;
+    height: 490px;
+}
+
 /* NameMC Shortcut Hyperlink */
 a:link, a:visited {
     color: white;
