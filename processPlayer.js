@@ -13,10 +13,10 @@ async function processPlayer(event) {
   let outputElement = document.getElementById('outputElement');
   let player = document.getElementById('player').value.replace(/^\s/, '');
   document.getElementById('player').value = '';
-  outputElement.innerHTML = 'Loading..';
   chrome.storage.sync.get('userOptions', async function(userOptions) {
-    if (userOptions.userOptions.useHypixelAPI === true && !userOptions.userOptions.apiKey) return outputElement.innerHTML = 'You don\'t have a valid API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use /api new on Hypixel and enter the key!';
     try {
+      if (userOptions.userOptions.useHypixelAPI === true && !userOptions.userOptions.apiKey) {let x =  new Error(); x.name = 'KeyError'; throw x;}
+      outputElement.innerHTML = 'Loading..';
       let userData = await callAPIs(player, userOptions.userOptions);
       let text = playerDataString(userData, userOptions.userOptions);
       return outputField(text, outputElement, userOptions.userOptions);
@@ -44,7 +44,7 @@ function playerDataString(userData, userOptions) {
 async function outputField(text, outputElement, userOptions) {
   if (userOptions.typewriterOutput === false) return outputElement.innerHTML = text;
 
-  for (let i = 0; i < text.length; i++) {
+  for (let i = 0; i < text.length; i += 2) {
     outputElement.innerHTML = text.slice(0, i + 1);
     await new Promise(t => setTimeout(t, 0));
   }
@@ -63,6 +63,9 @@ function errorHandler(err, player, userOptions, outputElement) {
     break;
     case 'HTTPError':
       outputElement.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this continues.`;
+    break;
+    case 'KeyError':
+      outputElement.innerHTML = `You don't have a valid API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use /api new on Hypixel and enter the key!`;
     break;
     case 'RangeError':
       outputElement.innerHTML = `A RangeError occured. Please contact Attituding#6517 with the extension version and the player you are trying to check.`;

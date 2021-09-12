@@ -4,8 +4,8 @@ body {
     padding: 0;
     margin: 0;
     font-size: 15px;
-    min-width: 390px;
-    min-height: 600px;
+    min-width: 400px;
+    height: 600px;
     background-color: #2b2b2b;
     color: white;
 }
@@ -31,7 +31,7 @@ fieldset {
 /* The navigation bar */
 .navigation {
     height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 40px; /* Set the width of the sidebar */
+    width: 45px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
@@ -42,8 +42,7 @@ fieldset {
 
 /* Add a top margin to avoid content overlay */
 .input {
-    margin-left: 40px;
-    padding: 5px;
+    margin-left: 45px;
 }
 
 /* HyGuard Shield */

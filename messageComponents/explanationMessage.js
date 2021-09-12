@@ -11,7 +11,7 @@ export function explanationMessage(userData, userOptions) {
     playerDataString += '<br><br>';
 
     if (userData.isOnline === false) {
-      playerDataString += `${userData.username} last logged in on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong>) and then logged out after <strong>${userData.offline.playtime}</strong>.`
+      playerDataString += `${userData.username} logged in last on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong>) and then logged out after <strong>${userData.offline.playtime}</strong>.`
 
       playerDataString += '<br><br>'
     

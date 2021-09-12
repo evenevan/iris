@@ -24,7 +24,7 @@
     outline: none;
     display: block;
     box-sizing: border-box;
-    margin: 0px auto; /* 5px because the .content box already has a 5px margin */
+    margin: 10px auto; /* 5px because the .content box already has a 5px margin */
     border: solid;
     border-width: 1px;
     padding: 5px 5px;
@@ -34,8 +34,9 @@
 }
 
 .output {
+    margin-bottom: -10px;
     overflow: auto;
-    height: 490px;
+    height: 500px;
 }
 
 /* NameMC Shortcut Hyperlink */
