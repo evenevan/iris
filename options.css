@@ -1,47 +1,60 @@
-/* Button Design */ /* Save & Back */
-.actionButton {
-    padding: 5px 5px;
-    width: 308px;
-    border: solid;
-    border-width: 1px;
-    display: block;
-    margin: 10px auto 0px;
-    text-align: center;
-    cursor: pointer;
-    border-color: #ffffff;
-    background-color: #2b2b2b;
-    color: #ffffff;
+/*  
+START OF SLIDER - Yoinked from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch, modified a bit
+*/
+.switch {
+  position: relative;
+  display: inline-block;
+  top: 3px; /* Hard coded offset */
+  width: 30px;
+  height: 15px;
 }
 
-/* Submit Button Clicked */ /* Save & Back */
-.actionButton:active {
-    background-color: #ffffff;
-    color: #000000
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-/* API Key Box */
-input[type=text] {
-    outline: none;
-    display: block;
-    margin: 10px auto 0px;
-    width: 297px;
-    border: solid;
-    border-width: 1px;
-    padding: 5px 5px;
-    transition: 0.5s;
-    background-color: #2b2b2b;
-    color: #ffffff;
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #FF5555;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 1px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #00AA00;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+/*  
+END OF SLIDER
+*/
 
 /* Checkbox Input Text */
 .checkboxText {
-    font-size: 11px;
-}
-
-/* Notes Fieldset */
-.notes {
-    margin-top: 5px;
-    margin-left: -20px;
+    font-size: 12px;
 }
 
 /* Shows "Options saved at x" */
@@ -57,21 +70,30 @@ input[type=checkbox] {
 
 /* Main Page Switcher */
 #main {
-    background-image: url("images/player64_GR.png");
-    background-size: 80%;
-    background-position: center;
-    background-repeat: no-repeat;
+    font-size: 30px;
     cursor: pointer;
+    color: #c3c3c3;
 }
 
 #main:hover {
-    background-image: url("images/player64_W.png");
+    font-size: 30px;
+    cursor: pointer;
+    color: #ffffff;
 }
 
 /* Options Page Switcher */
 #options {
-    background-image: url("images/options64_W.png");
-    background-size: 80%;
-    background-position: center;
-    background-repeat: no-repeat;
+    font-size: 25px;
+    color: #ffffff;
+}
+
+/* Information Page Switcher */
+#information {
+    font-size: 30px;
+    cursor: pointer;
+    color: #c3c3c3;
+}
+
+#information:hover {
+    color: #ffffff;
 }

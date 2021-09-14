@@ -2,6 +2,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install") { //On first install
         let userOptions = {
             paragraphOutput: false,
+            authorNameOutput: false,
             typewriterOutput: false,
             gameStats: true,
             useHypixelAPI: false,

@@ -1,0 +1,34 @@
+/* Notes Fieldset */
+.notes {
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: -20px;
+}
+
+/* Main Page Switcher */
+#main {
+    font-size: 30px;
+    cursor: pointer;
+    color: #c3c3c3;
+}
+
+#main:hover {
+    color: #ffffff;
+}
+
+/* Options Page Switcher */
+#options {
+    font-size: 25px;
+    cursor: pointer;
+    color: #c3c3c3;
+}
+
+#options:hover {
+    color: #ffffff;
+}
+
+/* Information Page Switcher */
+#information {
+    font-size: 30px;
+    color: #ffffff;
+}

@@ -11,24 +11,24 @@ export function explanationMessage(userData, userOptions) {
     playerDataString += '<br><br>';
 
     if (userData.isOnline === false) {
-      playerDataString += `${userData.username} logged in last on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong>) and then logged out after <strong>${userData.offline.playtime}</strong>.`
+      playerDataString += `Your account logged in last on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong>) and then logged out after <strong>${userData.offline.playtime}</strong>.`
 
       playerDataString += '<br><br>'
     
-      playerDataString += `During this session, ${userData.offline.lastGame !== 'Unavailable' ? `${userData.username} played or joined the lobby <strong>${userData.offline.lastGame}</strong>.` : `${userData.username} played an <strong>unknown</strong> game.`}`;
+      playerDataString += `During this session, ${userData.offline.lastGame !== 'Unavailable' ? `you played or joined the lobby <strong>${userData.offline.lastGame}</strong>.` : `${userData.username} played an <strong>unknown</strong> game.`}`;
     } else {
-      playerDataString += `In their current session, ${userData.username} logged in on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong> ago).`;
+      playerDataString += `You started your current session on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong> ago).`;
 
-      playerDataString += ` Their current playtime is <strong>${userData.online.playtime}</strong>.`;
+      playerDataString += ` Your account's current playtime is <strong>${userData.online.playtime}</strong>.`;
 
       playerDataString += '<br><br>';
 
-      playerDataString += `They are currently playing ${userData.online.gameType !== 'Unavailable' ? `<strong>${userData.online.gameType}</strong>` : 'an <strong>unknown</strong> gametype'} in ${userData.online.mode !== 'Unavailable' ? `the mode <strong>${userData.online.mode}</strong>` : 'an <strong>unknown</strong> mode'} on ${userData.online.map !== 'Unavailable' ? `the map <strong>${userData.online.map}</strong>` : 'an <strong>unknown</strong> map'}.`;
+      playerDataString += `Your account is currently playing ${userData.online.gameType !== 'Unavailable' ? `<strong>${userData.online.gameType}</strong>` : 'an <strong>unknown</strong> gametype'} in ${userData.online.mode !== 'Unavailable' ? `the mode <strong>${userData.online.mode}</strong>` : 'an <strong>unknown</strong> mode'} on ${userData.online.map !== 'Unavailable' ? `the map <strong>${userData.online.map}</strong>` : 'an <strong>unknown</strong> map'}.`;
     }
 
     playerDataString += '<br><br>';
 
-    playerDataString += `The account is using ${userData.version !== 'Unavailable' ? `Minecraft version <strong>${userData.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${userData.language !== 'Unavailable' ? `the language <strong>${userData.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
+    playerDataString += `Your account is using ${userData.version !== 'Unavailable' ? `Minecraft version <strong>${userData.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${userData.language !== 'Unavailable' ? `the language <strong>${userData.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
   
     if (userOptions.gameStats === true && (userData.online.gameType ?? userData.offline.lastGame)) switch (userData.online.gameType ?? userData.offline.lastGame) {
       case 'Bed Wars':
@@ -74,6 +74,14 @@ export function explanationMessage(userData, userOptions) {
           playerDataString += `<br><br><strong>${playerPossesive} Stats for Mega Walls:</strong><br>Coins: ${userData.megaWalls.coins}<br>K/D Ratio: ${userData.megaWalls.KD}<br>W/L Ratio: ${userData.megaWalls.WL}<br>Wins: ${userData.megaWalls.wins}<br>Kills: ${userData.megaWalls.kills}<br>Deaths: ${userData.megaWalls.deaths}`;
         break;
     }
+
+    if (userOptions.authorNameOutput === true) {
+      playerDataString = playerDataString.replace(/Your/gm, `${playerPossesive}`);
+      playerDataString = playerDataString.replace(/your/gm, 'their');
+      playerDataString = playerDataString.replace(/you/gm, `${userData.username}`);
+    }
+
+    console.log(playerDataString)
 
     return playerDataString;
   } catch (err) {

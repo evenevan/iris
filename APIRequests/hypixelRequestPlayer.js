@@ -86,7 +86,7 @@ async function hypixelProcessData(playerData, statusData) {
     let userData = new Object();
     userData.username = playerData?.displayname ?? '';
     userData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.displayname}'` : `${playerData?.displayname}'s`;
-    userData.uuid = playerData?.uuid ?? '';
+    userData.uuid = playerData?.uuid ?? 'Unavailable';
     userData.language = playerData?.userLanguage ?? 'Unavailable';
     userData.version = playerData?.mcVersionRp ?? 'Unavailable';
     userData.status = statusData?.session?.online && (playerData?.lastLogin ?? 0) >= (playerData?.lastLogout ?? 0) ? 'Online' : !statusData?.session?.online && (playerData?.lastLogin ?? 0) <= (playerData?.lastLogout ?? 0) ? 'Offline' : 'Unavailable';

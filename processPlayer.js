@@ -48,6 +48,7 @@ async function outputField(text, outputElement, userOptions) {
     outputElement.innerHTML = text.slice(0, i + 1);
     await new Promise(t => setTimeout(t, 0));
   }
+  outputElement.innerHTML = text;
 }
 
 function errorHandler(err, player, userOptions, outputElement) {

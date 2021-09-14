@@ -3,40 +3,60 @@
 <head>
 	<link href="options.css" rel="stylesheet">
   <link href="sharedCSS.css" rel="stylesheet">
+  <link rel="preload" href="/images/shield128.png" as="image">
 </head>
 <body>
-  <div class="input">
-    <fieldset>
-      <legend><b>Options</b></legend>
-      <form id="saveOptions">
-             <input type="checkbox" id="paragraphOutput">
-              <label for="paragraphOutput" class="checkboxText"> Show the output as sentences rather than bullet points</label><br>
-             <input type="checkbox" id="typewriterOutput">
+  <div class="container">
+		<fieldset>
+			<legend style="font-size: 17px;"><b>Options</b></legend>
+			<div class="fieldsetContent">
+				<form id="saveOptions">
+          <span style="font-size: 14px;"><b>Output options</b></span><br>
+            <label class="switch">
+              <input type="checkbox" id="typewriterOutput">
+              <span class="slider"></span>
+            </label>
               <label for="typewriterOutput" class="checkboxText"> Show the output with a typewriter-esque animation</label><br>
-             <input type="checkbox" id="gameStats">
+            <label class="switch">
+              <input type="checkbox" id="paragraphOutput">
+              <span class="slider"></span>
+            </label>
+              <label for="paragraphOutput" class="checkboxText"> Show the output as sentences rather than bullet points</label><br>
+            <div id="authorNameOutputContainer">
+              <label class="switch">
+                <input type="checkbox" id="authorNameOutput">
+                <span class="slider"></span>
+              </label>
+                <label for="authorNameOutput" class="checkboxText"> Address the player by name rather than "You" or "Your"</label><br>
+            </div>
+          <span style="font-size: 14px;"><b>Content options</b></span><br>
+            <label class="switch">
+              <input type="checkbox" id="gameStats">
+              <span class="slider"></span>
+            </label>
               <label for="gameStats" class="checkboxText"> If available, show stats for a player's recent gametype</label><br>
-             <input type="checkbox" id="useHypixelAPI">
+            <label class="switch">
+              <input type="checkbox" id="useHypixelAPI">
+              <span class="slider"></span>
+            </label>
               <label for="useHypixelAPI" class="checkboxText"> Use the Hypixel API instead of the Slothpixel API</label><br>
-             <input id="apiKey" type="text" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}" size="36" maxlength="36">
-             <input class="actionButton" type="submit" value="Save">
-      </form>
-        <span id="saveConfirmation"></span>
-    </fieldset>
-      <fieldset>
-      <legend><b>Notes</b></legend>
-            <ul class="notes">
-              <li>Stats will only show for the following gamemodes. More may be added later</li>
-                <ul class="notes">
-                  <li>Bed Wars, Duels, Blitz Survival Games, The Pit, Sky Wars, Speed UHC, UHC Champions, The Walls, Mega Walls</li>
-                </ul>
-            </ul>
-    </fieldset>
-  </div>
+            <input id="apiKey" type="text" class="inlineInput" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}" size="36" maxlength="36">
+            <input class="actionButton" type="submit" value="Save">
+        </form>
+				<span id="saveConfirmation"></span>
+			</div>
+		</fieldset>
+	</div>
   <div class="navigation">
     <button class="pageButtons" id="icon" type="button" value="" disabled></button>
-    <form action="popup.html">
-      <input class="pageButtons" id="main" type="submit" value=""/>
-      <input class="pageButtons" id="options" type="submit" value="" disabled/>
+    <form action="player.html">
+      <input class="pageButtons" id="main" type="submit" title="Player Search" value="&#128269;&#xFE0E;"/>
+    </form>
+    <form action="options.html">
+      <input class="pageButtons" id="options" type="submit" title="Options" value="&#128295;&#xFE0E;" disabled/>
+    </form>
+    <form action="information.html">
+      <input class="pageButtons" id="information" type="submit" title="Information" value="&#128712;"/>
     </form>
   </div>
   <script src="./options.js"></script>

@@ -87,7 +87,7 @@ function slothpixelProcessData(playerData, statusData) {
     let userData = new Object();
     userData.username = playerData?.username ?? '';
     userData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.username}'` : `${playerData?.username}'s`;
-    userData.uuid = playerData?.uuid ?? '';
+    userData.uuid = playerData?.uuid ?? 'Unavailable';
     userData.language = playerData?.language ?? 'Unavailable';
     userData.version = playerData?.mc_version ?? 'Unavailable';
     userData.status = statusData.online && (playerData?.last_login ?? 0) >= (playerData?.last_logout ?? 0) ? 'Online' : !statusData.online && (playerData?.last_login ?? 0) <= (playerData?.last_logout ?? 0) ? 'Offline' : 'Unavailable';
