@@ -17,6 +17,7 @@ export async function requestUUID(username, undefinedIfHasntAborted) {
             let responseJson = await response.json();
             let newError = new Error(`HTTP status ${response.status}; ${responseJson.cause}`);
             newError.name = "HTTPError";
+            newError.status = response.status;
             throw newError;
           }
           return response.json();

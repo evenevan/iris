@@ -5,7 +5,7 @@ export function explanationMessage(userData, userOptions) {
   
     playerDataString += `<strong>Username:</strong> ${userData.username}<br>`;
     playerDataString += `<strong>UUID:</strong> ${userData.uuid}<br>`
-    playerDataString += `${userData.utcOffset}<br>`;
+    playerDataString += userData.utcOffset;
     playerDataString += `<strong>Status:</strong> ${userData.status}`;
   
     playerDataString += '<br><br>';

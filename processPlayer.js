@@ -57,13 +57,14 @@ function errorHandler(err, player, userOptions, outputElement) {
   let usernameOrUUID = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/i.test(player) ? 'UUID' : 'username';
   switch (err.name) {
     case 'AbortError':
-      outputElement.innerHTML = `The ${apiType} failed to respond twice. It may be down. Try switching to the ${oppositeAPIType} if this continues.`;
+      outputElement.innerHTML = `The ${apiType} failed to respond twice. It may be down. Try switching to the ${oppositeAPIType} if this persists.`;
     break;
     case 'NotFound':
       outputElement.innerHTML = `The ${usernameOrUUID} "${player}" isn't a valid player and couldn't be found. <a href="https://namemc.com/search?q=${player}" title="Opens a new tab to NameMC with your search query" target="_blank">NameMC</a>`;
     break;
     case 'HTTPError':
-      outputElement.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this continues.`;
+      if (err.status === 500 && userOptions.useHypixelAPI === false) outputElement.innerHTML = `Slothpixel returned an error; this happens regularly. Try switching to the ${oppositeAPIType} if this persists.`;
+      else outputElement.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this persists.`;
     break;
     case 'KeyError':
       outputElement.innerHTML = `You don't have a valid API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use /api new on Hypixel and enter the key!`;
@@ -72,7 +73,7 @@ function errorHandler(err, player, userOptions, outputElement) {
       outputElement.innerHTML = `A RangeError occured. Please contact Attituding#6517 with the extension version and the player you are trying to check.`;
     break;
     default:
-      outputElement.innerHTML = `An error occured. ${err.name}: ${err.message}. Try switching to the ${oppositeAPIType}. Please contact Attituding#6517 if this error continues appearing.`;
+      outputElement.innerHTML = `An error occured. ${err.name}: ${err.message}. Try switching to the ${oppositeAPIType}. Please contact Attituding#6517 if this error persists appearing.`;
     break;
   }
 }

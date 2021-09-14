@@ -17,6 +17,7 @@ export function slothpixelRequestPlayer(player, undefinedIfHasntAborted) {
               let responseJson = await response.json();
               let newError = new Error(`HTTP status ${response.status}; ${responseJson.error}`);
               newError.name = "HTTPError";
+              newError.status = response.status;
               throw newError;
             }
             return response.json();
@@ -29,6 +30,7 @@ export function slothpixelRequestPlayer(player, undefinedIfHasntAborted) {
               let responseJson = await response.json();
               let newError = new Error(`HTTP status ${response.status}; ${responseJson.error}`);
               newError.name = "HTTPError";
+              newError.status = response.status;
               throw newError;
             }
             return response.json();
@@ -117,7 +119,7 @@ function slothpixelProcessData(playerData, statusData) {
     userData.lastLoginSince = playerData?.last_login ? `${timeSinceLastLogin} ago` : 'Unavailable';
     userData.lastLogoutStamp = playerData?.last_logout ? `${lastLogoutTimestamp}` : 'Unavailable';
     userData.lastLogoutSince = playerData?.last_logout ? `${timeSinceLastLogout} ago` : 'Unavailable';
-    userData.utcOffset = playerData?.last_login || playerData?.last_logout ? `<strong>UTC Offset Used:</strong> ${tzOffsetString}` : '';
+    userData.utcOffset = playerData?.last_login || playerData?.last_logout ? `<strong>UTC Offset Used:</strong> ${tzOffsetString}<br>` : '';
 
     userData.bedwars = {}
     userData.bedwars.level = playerData?.stats?.BedWars?.level ?? 0;

@@ -16,6 +16,7 @@ export function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted) {
               let responseJson = await response.json();
               let newError = new Error(`HTTP status ${response.status}; ${responseJson}`);
               newError.name = "HTTPError";
+              newError.status = response.status;
               throw newError;
             }
             return response.json();
@@ -27,6 +28,7 @@ export function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted) {
               let responseJson = await response.json();
               let newError = new Error(`HTTP status ${response.status}; ${responseJson.cause}`);
               newError.name = "HTTPError";
+              newError.status = response.status;
               throw newError;
             }
             return response.json();
@@ -116,7 +118,7 @@ async function hypixelProcessData(playerData, statusData) {
     userData.lastLoginSince = playerData?.lastLogin ? `${timeSinceLastLogin} ago` : 'Unavailable';
     userData.lastLogoutStamp = playerData?.lastLogout ? `${lastLogoutTimestamp}` : 'Unavailable';
     userData.lastLogoutSince = playerData?.lastLogout ? `${timeSinceLastLogout} ago` : 'Unavailable';
-    userData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `<strong>UTC Offset Used:</strong> ${tzOffsetString}` : '';
+    userData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `<strong>UTC Offset Used:</strong> ${tzOffsetString}<br>` : '';
   
     userData.bedwars = {}
     userData.bedwars.level = playerData?.achievements?.bedwars_level ?? 0;
