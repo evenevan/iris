@@ -6,7 +6,7 @@ const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from 
     return promise.finally(() => clearTimeout(timeout));
 };
 
-export function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted) {
+export async function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted) {
     let controller = new AbortController();
     return Promise.all([
         fetchTimeout(`https://api.hypixel.net/player?uuid=${uuid}&key=${apiKey}`, 2000, {
@@ -87,12 +87,14 @@ async function hypixelProcessData(playerData, statusData) {
   
     let userData = new Object();
     userData.username = playerData?.displayname ?? '';
-    userData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.displayname}'` : `${playerData?.displayname}'s`;
+    userData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.displayname ?? ''}'` : `${playerData?.displayname ?? ''}'s`;
     userData.uuid = playerData?.uuid ?? 'Unavailable';
     userData.language = playerData?.userLanguage ?? 'Unavailable';
     userData.version = playerData?.mcVersionRp ?? 'Unavailable';
-    userData.status = statusData?.session?.online && (playerData?.lastLogin ?? 0) >= (playerData?.lastLogout ?? 0) ? 'Online' : !statusData?.session?.online && (playerData?.lastLogin ?? 0) <= (playerData?.lastLogout ?? 0) ? 'Offline' : 'Unavailable';
+    userData.legacyAPI = playerData?.lastLogin < 149486473400 ? true : false;
+    userData.status = statusData?.session?.online && playerData?.lastLogin > playerData?.lastLogout ? 'Online' : !statusData?.session?.online && playerData?.lastLogin < playerData?.lastLogout ? 'Offline' : !statusData?.session?.online && playerData?.lastLogin < 1494864734000 ? 'Offline' : 'Unavailable';
     userData.isOnline = statusData?.session?.online === true ? true : false;
+    userData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `${tzOffsetString}` : 'Unavailable';
   
     if (statusData?.session?.online === true) {
       userData.offline = {}
@@ -118,7 +120,6 @@ async function hypixelProcessData(playerData, statusData) {
     userData.lastLoginSince = playerData?.lastLogin ? `${timeSinceLastLogin} ago` : 'Unavailable';
     userData.lastLogoutStamp = playerData?.lastLogout ? `${lastLogoutTimestamp}` : 'Unavailable';
     userData.lastLogoutSince = playerData?.lastLogout ? `${timeSinceLastLogout} ago` : 'Unavailable';
-    userData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `<strong>UTC Offset Used:</strong> ${tzOffsetString}<br>` : '';
   
     userData.bedwars = {}
     userData.bedwars.level = playerData?.achievements?.bedwars_level ?? 0;

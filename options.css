@@ -27,7 +27,7 @@ START OF SLIDER - Yoinked from https://www.w3schools.com/howto/tryit.asp?filenam
   transition: .4s;
 }
 
-.slider:before {
+.slider::before {
   position: absolute;
   content: "";
   height: 13px;
@@ -43,7 +43,7 @@ input:checked + .slider {
   background-color: #00AA00;
 }
 
-input:checked + .slider:before {
+input:checked + .slider::before {
   -webkit-transform: translateX(15px);
   -ms-transform: translateX(15px);
   transform: translateX(15px);

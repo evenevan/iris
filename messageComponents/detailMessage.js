@@ -4,7 +4,11 @@ export function detailMessage(userData, userOptions) {
   
     playerDataString += `<strong>Username:</strong> ${userData.username}<br>`;
     playerDataString += `<strong>UUID:</strong> ${userData.uuid}<br>`
-    playerDataString += userData.utcOffset;
+
+    if (userData.legacyAPI === true) playerDataString += `<strong>Legacy API:</strong> Missing data`;
+    
+    if (userData.utcOffset !== 'Unavailable') playerDataString += `<strong>UTC Offset Used:</strong> ${utcOffset}<br>`;
+
   
     playerDataString += '<br>';
   

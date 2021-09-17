@@ -5,7 +5,11 @@ export function explanationMessage(userData, userOptions) {
   
     playerDataString += `<strong>Username:</strong> ${userData.username}<br>`;
     playerDataString += `<strong>UUID:</strong> ${userData.uuid}<br>`
-    playerDataString += userData.utcOffset;
+
+    if (userData.utcOffset !== 'Unavailable') playerDataString += `<strong>UTC Offset Used:</strong> ${userData.utcOffset}<br>`;
+
+    if (userData.legacyAPI === true) playerDataString += `<strong>Legacy API:</strong> Missing data<br>`;
+
     playerDataString += `<strong>Status:</strong> ${userData.status}`;
   
     playerDataString += '<br><br>';
