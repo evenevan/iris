@@ -53,19 +53,24 @@ function slothpixelProcessData(playerData, statusData) {
     let tzOffset =  new Date().getTimezoneOffset() / 60;
     let tzOffsetString = `UTC${createOffset(new Date())}`;
 
-    let timeSinceLastLogin = `${secondsToDays(new Date() - playerData?.last_login)}${new Date(new Date() - playerData?.last_login).toISOString().substr(11, 8)}`,
-        timeSinceLastLogout = `${secondsToDays(new Date() - playerData?.last_logout)}${new Date(new Date() - playerData?.last_logout).toISOString().substr(11, 8)}`;
+    let timeSinceLastLogin = cleanTime(Date.now() - playerData?.last_login),
+        timeSinceLastLogout = cleanTime(Date.now() - playerData?.last_logout);
 
     let lastLoginTimestamp = cleanDate(new Date(playerData?.last_login + tzOffset)) + ", " + new Date(playerData?.last_login + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
     let lastLogoutTimestamp = cleanDate(new Date(playerData?.last_logout + tzOffset)) + ", " + new Date(playerData?.last_logout + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
 
-    let lastPlaytime = `${secondsToDays(playerData?.last_logout - playerData?.last_login)}${new Date(playerData?.last_logout - playerData?.last_login).toISOString().substr(11, 8)}`;
+    let lastPlaytime = cleanTime(playerData?.last_logout - playerData?.last_login);
 
-    function secondsToDays(ms) { //calculating days from seconds
-        ms = ms / 1000;
-        let day = Math.floor(ms / (3600 * 24));
-        let days = day > 0 ? day + (day == 1 ? ' day ' : ' days ') : '';
-        return days;
+    function cleanTime(ms) { //Takes MS
+        if (ms < 0) return null;
+        let seconds = Math.round(ms / 1000);
+        let days = Math.floor(seconds / (24 * 60 * 60));
+        seconds -= days * 24 * 60 * 60
+        let hours = Math.floor(seconds / (60 * 60));
+        seconds -= hours * 60 * 60
+        let minutes = Math.floor(seconds / 60);
+        seconds -= minutes * 60;
+        return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;
     }
     
     function cleanDate(epoch) {
@@ -117,10 +122,10 @@ function slothpixelProcessData(playerData, statusData) {
       userData.online.map = null;
     }
 
-    userData.lastLoginStamp = playerData?.last_login ? `${lastLoginTimestamp}` : 'Unavailable';
-    userData.lastLoginSince = playerData?.last_login ? `${timeSinceLastLogin} ago` : 'Unavailable';
-    userData.lastLogoutStamp = playerData?.last_logout ? `${lastLogoutTimestamp}` : 'Unavailable';
-    userData.lastLogoutSince = playerData?.last_logout ? `${timeSinceLastLogout} ago` : 'Unavailable';
+    userData.lastLoginStamp = playerData?.last_login ? lastLoginTimestamp : 'Unavailable';
+    userData.lastLoginSince = playerData?.last_login ? timeSinceLastLogin : 'Unavailable';
+    userData.lastLogoutStamp = playerData?.last_logout ? timeSinceLastLogin : 'Unavailable';
+    userData.lastLogoutSince = playerData?.last_logout ? timeSinceLastLogout : 'Unavailable';
 
     userData.bedwars = {}
     userData.bedwars.level = playerData?.stats?.BedWars?.level ?? 0;

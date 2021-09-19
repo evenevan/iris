@@ -7,8 +7,7 @@ export function detailMessage(userData, userOptions) {
 
     if (userData.legacyAPI === true) playerDataString += `<strong>Legacy API:</strong> Missing data`;
     
-    if (userData.utcOffset !== 'Unavailable') playerDataString += `<strong>UTC Offset Used:</strong> ${utcOffset}<br>`;
-
+    if (userData.utcOffset !== 'Unavailable') playerDataString += `<strong>UTC Offset Used:</strong> ${userData.utcOffset}<br>`;
   
     playerDataString += '<br>';
   

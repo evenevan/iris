@@ -1,6 +1,9 @@
+.text {
+    font-size: 15px;
+}
+
 /* Notes Fieldset */
 .notes {
-    font-size: 14px;
     margin-top: 5px;
     margin-left: -20px;
 }

@@ -52,13 +52,25 @@ async function hypixelProcessData(playerData, statusData) {
     let tzOffset =  new Date().getTimezoneOffset() / 60;
     let tzOffsetString = `UTC${createOffset(new Date())}`;
     
-    let timeSinceLastLogin = `${secondsToDays(new Date() - (playerData?.lastLogin ?? 0))}${new Date(new Date() - (playerData?.lastLogin ?? 0)).toISOString().substr(11, 8)}`,
-          timeSinceLastLogout = `${secondsToDays(new Date() - (playerData?.lastLogout ?? 0))}${new Date(new Date() - (playerData?.lastLogout ?? 0)).toISOString().substr(11, 8)}`;
+    let timeSinceLastLogin = cleanTime(Date.now() - (playerData?.lastLogin ?? 0)),
+        timeSinceLastLogout = cleanTime(Date.now() - (playerData?.lastLogout ?? 0));
     
     let lastLoginTimestamp = cleanDate(new Date((playerData?.lastLogin ?? 0) + tzOffset)) + ", " + new Date((playerData?.lastLogin ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
     let lastLogoutTimestamp = cleanDate(new Date((playerData?.lastLogout ?? 0) + tzOffset)) + ", " + new Date((playerData?.lastLogout ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
     
-    let lastPlaytime = `${secondsToDays((playerData?.lastLogout ?? 0) - (playerData?.lastLogin ?? 0))}${new Date((playerData?.lastLogout ?? 0) - (playerData?.lastLogin ?? 0)).toISOString().substr(11, 8)}`;
+    let lastPlaytime = cleanTime((playerData?.lastLogout ?? 0) - (playerData?.lastLogin ?? 0));
+
+    function cleanTime(ms) {
+      if (ms < 0) return null;
+      let seconds = Math.round(ms / 1000);
+      let days = Math.floor(seconds / (24 * 60 * 60));
+      seconds -= days * 24 * 60 * 60
+      let hours = Math.floor(seconds / (60 * 60));
+      seconds -= hours * 60 * 60
+      let minutes = Math.floor(seconds / 60);
+      seconds -= minutes * 60;
+      return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;
+    }
     
     function secondsToDays(ms) { //calculating days from seconds
         ms = ms / 1000;
@@ -116,10 +128,10 @@ async function hypixelProcessData(playerData, statusData) {
       userData.online.map = null;
     }
   
-    userData.lastLoginStamp = playerData?.lastLogin ? `${lastLoginTimestamp}` : 'Unavailable';
-    userData.lastLoginSince = playerData?.lastLogin ? `${timeSinceLastLogin} ago` : 'Unavailable';
-    userData.lastLogoutStamp = playerData?.lastLogout ? `${lastLogoutTimestamp}` : 'Unavailable';
-    userData.lastLogoutSince = playerData?.lastLogout ? `${timeSinceLastLogout} ago` : 'Unavailable';
+    userData.lastLoginStamp = playerData?.lastLogin ? lastLoginTimestamp : 'Unavailable';
+    userData.lastLoginSince = playerData?.lastLogin ? timeSinceLastLogin : 'Unavailable';
+    userData.lastLogoutStamp = playerData?.lastLogout ? lastLogoutTimestamp : 'Unavailable';
+    userData.lastLogoutSince = playerData?.lastLogout ? timeSinceLastLogout : 'Unavailable';
   
     userData.bedwars = {}
     userData.bedwars.level = playerData?.achievements?.bedwars_level ?? 0;

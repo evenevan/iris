@@ -1,37 +1,35 @@
-chrome.storage.sync.get('userOptions', function(userOptions) {
-    document.getElementById('typewriterOutput').checked = userOptions.userOptions.typewriterOutput ?? false;
-    document.getElementById('paragraphOutput').checked = userOptions.userOptions.paragraphOutput ?? false;
-    document.getElementById('authorNameOutput').checked = userOptions.userOptions.authorNameOutput ?? false;
-    document.getElementById('gameStats').checked = userOptions.userOptions.gameStats ?? true;
-    document.getElementById('useHypixelAPI').checked = userOptions.userOptions.useHypixelAPI ?? false;
-    document.getElementById('apiKey').value = userOptions.userOptions.apiKey ?? '';
+let userOptions;
+chrome.storage.sync.get('userOptions', function(chromeStorage) {
+    if ((chromeStorage.userOptions.paragraphOutput ?? false) === false) document.getElementById('authorNameOutputContainer').style.display = 'none';
 
-    if ((userOptions.userOptions.paragraphOutput ?? false) === false) document.getElementById('authorNameOutputContainer').style.display = 'none';
+    document.getElementById('typewriterOutput').checked = chromeStorage.userOptions.typewriterOutput ?? false;
+    document.getElementById('paragraphOutput').checked = chromeStorage.userOptions.paragraphOutput ?? false;
+    document.getElementById('authorNameOutput').checked = chromeStorage.userOptions.authorNameOutput ?? false;
+    document.getElementById('gameStats').checked = chromeStorage.userOptions.gameStats ?? true;
+    document.getElementById('useHypixelAPI').checked = chromeStorage.userOptions.useHypixelAPI ?? false;
+    document.getElementById('apiKey').value = chromeStorage.userOptions.apiKey ?? '';
+
+    userOptions = chromeStorage.userOptions;
 });
 
-document.getElementById('paragraphOutput').addEventListener('change', function() { //Hides or shows the authorNameOutput option based on paragraphOutput
-    if (this.checked) document.getElementById('authorNameOutputContainer').style.display = 'block';
-    else document.getElementById('authorNameOutputContainer').style.display = 'none';
+document.querySelectorAll("input[type=checkbox]").forEach(function(checkbox) {
+    checkbox.addEventListener('change', async function() {
+        if (this.id === 'paragraphOutput') this.checked === true ? 
+        document.getElementById('authorNameOutputContainer').style.display = 'block' : 
+        document.getElementById('authorNameOutputContainer').style.display = 'none';
+        userOptions[this.id] = this.checked;
+        await chrome.storage.sync.set({'userOptions': userOptions});
+    })
 });
 
-document.getElementById('saveOptions').addEventListener('submit', updateOptions);
-
-async function updateOptions(event) {
-    event.preventDefault();
-
-    let userOptions = {
-        typewriterOutput: document.getElementById('typewriterOutput').checked,
-        paragraphOutput: document.getElementById('paragraphOutput').checked,
-        authorNameOutput: document.getElementById('authorNameOutput').checked,
-        gameStats: document.getElementById('gameStats').checked,
-        useHypixelAPI: document.getElementById('useHypixelAPI').checked,
-        apiKey: document.getElementById('apiKey').value
+let apiKeyInput = document.getElementById('apiKey');
+apiKeyInput.addEventListener('input', async function() {
+    let regex = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/g
+    if (regex.test(apiKeyInput.value) || apiKeyInput.value === '') {
+        document.getElementById('apiKeyError').innerHTML = '';
+        userOptions.apiKey = apiKeyInput.value;
+        await chrome.storage.sync.set({'userOptions': userOptions});
+    } else {
+        document.getElementById('apiKeyError').innerHTML = '&#9888; Invalid API key! Hypixel API keys follow the UUID v4 format. Get one with <b>/api</b> on Hypixel &#9888;';
     }
-
-    chrome.storage.sync.set({'userOptions': userOptions}, function() {
-        console.log(new Date().toLocaleTimeString('en-IN', { hour12: true }), 'Options saved as ', userOptions);
-    });
-    
-    let saveConfirmation = document.getElementById('saveConfirmation');
-    saveConfirmation.textContent = `Saved your set options at ${new Date().toLocaleTimeString('en-IN', { hour12: true })}`
-}
+});

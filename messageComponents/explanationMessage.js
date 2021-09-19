@@ -15,13 +15,13 @@ export function explanationMessage(userData, userOptions) {
     playerDataString += '<br><br>';
 
     if (userData.isOnline === false) {
-      playerDataString += `Your account logged in last on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong>) and then logged out after <strong>${userData.offline.playtime}</strong>.`
+      playerDataString += `Your last session started on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong> ago) and ended <strong>${userData.offline.playtime}</strong> later after logging out.`
 
       playerDataString += '<br><br>'
     
       playerDataString += `During this session, ${userData.offline.lastGame !== 'Unavailable' ? `you played or joined the lobby <strong>${userData.offline.lastGame}</strong>.` : `${userData.username} played an <strong>unknown</strong> game.`}`;
     } else {
-      playerDataString += `You started your current session on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong> ago).`;
+      playerDataString += `Your current session began on <strong>${userData.lastLoginStamp}</strong> (<strong>${userData.lastLoginSince}</strong> ago).`;
 
       playerDataString += ` Your account's current playtime is <strong>${userData.online.playtime}</strong>.`;
 
@@ -80,12 +80,11 @@ export function explanationMessage(userData, userOptions) {
     }
 
     if (userOptions.authorNameOutput === true) {
-      playerDataString = playerDataString.replace(/Your/gm, `${playerPossesive}`);
-      playerDataString = playerDataString.replace(/your/gm, 'their');
-      playerDataString = playerDataString.replace(/you/gm, `${userData.username}`);
+      playerDataString = playerDataString.replace(/Your/gm, playerPossesive);
+      playerDataString = playerDataString.replace(/your/gm, playerPossesive);
+      playerDataString = playerDataString.replace(/You/gm, userData.username);
+      playerDataString = playerDataString.replace(/you/gm, userData.username);
     }
-
-    console.log(playerDataString)
 
     return playerDataString;
   } catch (err) {

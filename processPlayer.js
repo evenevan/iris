@@ -67,7 +67,7 @@ function errorHandler(err, player, userOptions, outputElement) {
       else outputElement.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this persists.`;
     break;
     case 'KeyError':
-      outputElement.innerHTML = `You don't have a valid API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use /api new on Hypixel and enter the key!`;
+      outputElement.innerHTML = `You don't have an API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use /api new on Hypixel and enter the key!`;
     break;
     case 'RangeError':
       outputElement.innerHTML = `A RangeError occured. Please contact Attituding#6517 with the extension version and the player you are trying to check.`;
