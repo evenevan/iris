@@ -27,9 +27,7 @@ export async function requestUUID(username, undefinedIfHasntAborted) {
         return response[0].data.player.id;
       })
       .catch(async (err) => {
-        if (err.name === "AbortError") {
-            if (undefinedIfHasntAborted === undefined) return requestUUID(player, true); //Simple way to try again without an infinite loop
-        }
+        if (err.name === "AbortError" && undefinedIfHasntAborted === undefined) return requestUUID(player, true); //Simple way to try again without an infinite loop
         console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack);
         throw err;
       });

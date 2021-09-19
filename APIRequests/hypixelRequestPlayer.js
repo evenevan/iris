@@ -14,7 +14,7 @@ export async function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted
           }).then(async function(response) {
             if (!response.ok) {
               let responseJson = await response.json();
-              let newError = new Error(`HTTP status ${response.status}; ${responseJson}`);
+              let newError = new Error(`HTTP status ${response.status}; ${responseJson.cause}`);
               newError.name = "HTTPError";
               newError.status = response.status;
               throw newError;
@@ -39,9 +39,7 @@ export async function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted
         return hypixelProcessData(player[0].player, player[1]);
       })
       .catch(async (err) => {
-        if (err.name === "AbortError") {
-            if (undefinedIfHasntAborted === undefined) return requestUUID(player, dataReturn, userOptions, true); //Simple way to try again without an infinite loop
-        }
+        if (err.name === "AbortError" && undefinedIfHasntAborted === undefined) return hypixelRequestPlayer(uuid, apiKey, true); //Simple way to try again without an infinite loop
         console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack);
         throw err;
       });

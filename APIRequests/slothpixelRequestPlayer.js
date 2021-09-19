@@ -40,9 +40,7 @@ export async function slothpixelRequestPlayer(player, undefinedIfHasntAborted) {
         return slothpixelProcessData(player[0], player[1]);
       })
       .catch(async (err) => {
-        if (err.name === "AbortError") {
-            if (undefinedIfHasntAborted === undefined) return requestUUID(player, true); //Simple way to try again without an infinite loop
-        }
+        if (err.name === "AbortError" && undefinedIfHasntAborted === undefined) return requestUUID(player, true); //Simple way to try again without an infinite loop
         console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack);
         throw err;
       });
@@ -124,7 +122,7 @@ function slothpixelProcessData(playerData, statusData) {
 
     userData.lastLoginStamp = playerData?.last_login ? lastLoginTimestamp : 'Unavailable';
     userData.lastLoginSince = playerData?.last_login ? timeSinceLastLogin : 'Unavailable';
-    userData.lastLogoutStamp = playerData?.last_logout ? timeSinceLastLogin : 'Unavailable';
+    userData.lastLogoutStamp = playerData?.last_logout ? lastLogoutTimestamp : 'Unavailable';
     userData.lastLogoutSince = playerData?.last_logout ? timeSinceLastLogout : 'Unavailable';
 
     userData.bedwars = {}
