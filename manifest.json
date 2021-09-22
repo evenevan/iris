@@ -1,14 +1,14 @@
 {
-  "name": "HyGuard",
+  "name": "Iris",
   "description": "Check any player's account!",
-  "version": "0.1",
+  "version": "0.9",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
   "permissions": ["storage"],
   "action": {
-    "default_popup": "player.html",
+    "default_popup": "./player/player.html",
     "default_icon": {
       "16": "/images/shield16.png",
       "32": "/images/shield32.png",

@@ -73,6 +73,8 @@ Start of Custom Tool Tips - Yoinked from https://www.w3schools.com/css/css_toolt
  
   /* Position the tooltip text - see examples below! */
   position: absolute;
+  left: 0px;
+  top: 22.5px;
   z-index: 1;
 }
 
@@ -86,14 +88,14 @@ End of Custom Tool Tips
 
 /* Checkbox Input Text */
 .checkboxText {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 /* Shows "Options saved at x" */
 #apiKeyError {
     color: #FF5555;
     position: relative;
-    top: -5px;
+    top: 5px;
 }
 
 /* Turns the cursor to a pointer */
@@ -102,13 +104,13 @@ input[type=checkbox] {
 }
 
 /* Main Page Switcher */
-#main {
+#player {
     font-size: 30px;
     cursor: pointer;
     color: #c3c3c3;
 }
 
-#main:hover {
+#player:hover {
     font-size: 30px;
     cursor: pointer;
     color: #ffffff;
@@ -118,6 +120,17 @@ input[type=checkbox] {
 #options {
     font-size: 25px;
     color: #ffffff;
+}
+
+/* Search History Switcher */
+#history {
+  font-size: 40px;
+  cursor: pointer;
+  color: #c3c3c3;
+}
+
+#history:hover {
+  color: #ffffff;
 }
 
 /* Information Page Switcher */

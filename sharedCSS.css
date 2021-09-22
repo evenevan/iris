@@ -46,16 +46,18 @@ fieldset {
     width: 355px;
 }
 
+/* Expands the fieldsets to their max size and allows for overflow */
 .fieldsetContent {
     height: 560px;
     overflow-y: auto; /* This may come back to bite me. It stops a child margin from expanding the parent */
 }
 
+/* Text input lbocks */
 .inlineInput {
     outline: none;
     display: block;
     box-sizing: border-box;
-    margin: 10px auto;
+    margin: 5px auto 0px;
     border: solid;
     border-width: 1px;
     padding: 5px 5px;
@@ -66,13 +68,12 @@ fieldset {
 
 /* Button Design */ /* Check Player Button */
 .actionButton {
-    display: block;
+    display: inline;
     box-sizing: border-box;
-    margin: 10px auto 0px;
+    margin: 5px auto 0px;
     border: solid;
     border-width: 1px;
     padding: 5px 5px;
-    width: 100%;
     cursor: pointer;
     border-color: #ffffff;
     background-color: #2b2b2b;

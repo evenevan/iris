@@ -1,4 +1,4 @@
-export function detailMessage(apiData, userData) {
+export function detailMessage(apiData, userOptions) {
   try {
     let playerDataString = '';
   
@@ -11,8 +11,8 @@ export function detailMessage(apiData, userData) {
   
     playerDataString += '<br>';
   
-    playerDataString += `<strong>Language:</strong> ${apiData.language}<br>`;
     playerDataString += `<strong>Version:</strong> ${apiData.version}<br>`;
+    playerDataString += `<strong>Language:</strong> ${apiData.language}<br>`;
   
     playerDataString += '<br>';
   
@@ -22,19 +22,19 @@ export function detailMessage(apiData, userData) {
       playerDataString += `<strong>Last Playtime:</strong> ${apiData.offline.playtime}<br>`;
       playerDataString += `<strong>Last Gametype:</strong> ${apiData.offline.lastGame}<br>`;
     } else {
-      playerDataString += `<strong>Playtime:</strong> ${apiData.online.playtime}<br>`;
+      playerDataString += `<strong>Playtime:</strong> ${cleanTime(timeAgo(lastLoginMS))}<br>`;
       playerDataString += `<strong>Game Type:</strong> ${apiData.online.gameType}<br>`;
       playerDataString += `<strong>Game Mode:</strong> ${apiData.online.mode}<br>`;
       playerDataString += `<strong>Game Map:</strong> ${apiData.online.map}<br>`;
       if (!apiData.online.gameType && !apiData.online.mode && !apiData.online.map) playerDataString += `<strong>Game Data: Not available! Limited API?<br>`;
     }
     
-    playerDataString += `<strong>Last Login:</strong> ${apiData.lastLoginStamp}<br> -> ${apiData.lastLoginSince} ago<br>`;
-    playerDataString += `<strong>Last Logout:</strong> ${apiData.lastLogoutStamp}<br> -> ${apiData.lastLogoutSince} ago<br>`;
+    playerDataString += `<strong>Last Login:</strong> ${apiData.lastLoginStamp}<br>&#8627;${cleanTime(timeAgo(apiData.lastLoginMS))} ago<br>`;
+    playerDataString += `<strong>Last Logout:</strong> ${apiData.lastLogoutStamp}<br>&#8627;${cleanTime(timeAgo(apiData.lastLogoutMS))} ago<br>`;
   
     let playerPossesive = apiData.possesive;
   
-    if (userData.options.gameStats === true && (apiData.online.gameType ?? apiData.offline.lastGame)) switch (apiData.online.gameType ?? apiData.offline.lastGame) {
+    if (userOptions.gameStats === true && (apiData.online.gameType ?? apiData.offline.lastGame)) switch (apiData.online.gameType ?? apiData.offline.lastGame) {
       case 'Bed Wars':
       case 'Bedwars':  
       case 'BEDWARS':
@@ -42,7 +42,7 @@ export function detailMessage(apiData, userData) {
         break;
       case 'Duels':
       case 'DUELS':
-          playerDataString += `><br><strong>${playerPossesive} Stats for Duels:</strong><br>Coins: ${apiData.duels.coins}<br>Cosmetic Count: ${apiData.duels.cosmetics}<br>K/D Ratio: ${apiData.duels.KD}<br>W/L Ratio: ${apiData.duels.WL}<br>Wins: ${apiData.duels.wins}<br>Kills: ${apiData.duels.kills}<br>Deaths: ${apiData.duels.deaths}`;
+          playerDataString += `<br><strong>${playerPossesive} Stats for Duels:</strong><br>Coins: ${apiData.duels.coins}<br>Cosmetic Count: ${apiData.duels.cosmetics}<br>K/D Ratio: ${apiData.duels.KD}<br>W/L Ratio: ${apiData.duels.WL}<br>Wins: ${apiData.duels.wins}<br>Kills: ${apiData.duels.kills}<br>Deaths: ${apiData.duels.deaths}`;
         break;
       case 'Blitz Survival Games':
       case 'Blitz':
@@ -80,8 +80,25 @@ export function detailMessage(apiData, userData) {
     }
 
     return playerDataString;
+
+    function timeAgo(ms) {
+      if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';
+      return Date.now() - ms;
+    }
+
+    function cleanTime(ms) { //Takes MS
+      if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';
+      let seconds = Math.round(ms / 1000);
+      let days = Math.floor(seconds / (24 * 60 * 60));
+      seconds -= days * 24 * 60 * 60
+      let hours = Math.floor(seconds / (60 * 60));
+      seconds -= hours * 60 * 60
+      let minutes = Math.floor(seconds / 60);
+      seconds -= minutes * 60;
+      return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;
+    }
+
   } catch (err) {
-    console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack);
     throw err;
   }
 }

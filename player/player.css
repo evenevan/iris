@@ -1,0 +1,60 @@
+/* Spacing to keep the buttons on one line */
+#submitButton {
+    width: 241.8px;
+}
+
+#clearButton {
+    width: 80.6px;
+}
+
+/* Scroll Overflow Element */
+.scrollOverflow {
+    margin: 15px auto 0px;
+    height: 470px;
+    overflow: auto;
+}
+
+/* NameMC Shortcut Hyperlink */
+a:link, a:visited {
+    color: white;
+}
+
+/* Main Page Switcher */
+#player {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+/* Options Page Switcher */
+#options {
+    font-size: 25px;
+    cursor: pointer;
+    color: #c3c3c3;
+}
+
+#options:hover {
+    color: #ffffff;
+}
+
+/* Search History Switcher */
+#history {
+    font-size: 40px;
+    cursor: pointer;
+    color: #c3c3c3;
+}
+
+#history:hover {
+    color: #ffffff;
+}
+
+/* Information Page Switcher */
+#information {
+    font-size: 30px;
+    cursor: pointer;
+    color: #c3c3c3;
+}
+
+#information:hover {
+    color: #ffffff;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="history.css" rel="stylesheet">
+  <link href="../sharedCSS.css" rel="stylesheet">
+  <link rel="preload" href="../images/shield128.png" as="image">
+</head>
+<body>
+  <div class="container">
+	<fieldset>
+	<legend style="font-size: 17px;" ><b>Search History</b></legend>
+      <div class="fieldsetContent">
+        <p id="outputElement" class="text"></p>
+      </div>
+    </fieldset>
+  </div>
+  <div class="navigation">
+    <button class="pageButtons" id="icon" type="button" value="" disabled></button>
+    <form action="../player/player.html">
+      <input class="pageButtons" id="player" type="submit" title="Player Search" value="&#128269;&#xFE0E;"/>
+    </form>
+    <form action="../options/options.html">
+      <input class="pageButtons" id="options" type="submit" title="Options" value="&#128295;&#xFE0E;"/>
+    </form>
+    <form action="../history/history.html">
+        <input class="pageButtons" id="history" type="submit" title="Search History" value="&#8987;&#xFE0E;" disabled/>
+    </form>
+    <form action="../information/information.html">
+      <input class="pageButtons" id="information" type="submit" title="Information Search" value="&#128712;"/>
+    </form>
+  </div>
+  <script src="./history.js" type = "module"></script>
+</body>
+</html>

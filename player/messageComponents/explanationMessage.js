@@ -1,4 +1,4 @@
-export function explanationMessage(apiData, userData) {
+export function explanationMessage(apiData, userOptions) {
   try {
     let playerDataString = '';
     let playerPossesive = apiData.possesive;
@@ -15,13 +15,13 @@ export function explanationMessage(apiData, userData) {
     playerDataString += '<br><br>';
 
     if (apiData.isOnline === false) {
-      playerDataString += `Your last session started on <strong>${apiData.lastLoginStamp}</strong> (<strong>${apiData.lastLoginSince}</strong> ago) and ended <strong>${apiData.offline.playtime}</strong> later after logging out.`
+      playerDataString += `Your last session started on <strong>${apiData.lastLoginStamp}</strong> (<strong>${cleanTime(timeAgo(apiData.lastLoginMS))}</strong> ago) and ended <strong>${apiData.offline.playtime}</strong> later after logging out.`
 
       playerDataString += '<br><br>'
     
       playerDataString += `During this session, ${apiData.offline.lastGame !== 'Unavailable' ? `you played or joined the lobby <strong>${apiData.offline.lastGame}</strong>.` : `${apiData.username} played an <strong>unknown</strong> game.`}`;
     } else {
-      playerDataString += `Your current session began on <strong>${apiData.lastLoginStamp}</strong> (<strong>${apiData.lastLoginSince}</strong> ago).`;
+      playerDataString += `Your current session began on <strong>${apiData.lastLoginStamp}</strong> (<strong>${cleanTime(timeAgo(apiData.lastLoginMS))}</strong> ago).`;
 
       playerDataString += ` Your account's current playtime is <strong>${apiData.online.playtime}</strong>.`;
 
@@ -34,7 +34,7 @@ export function explanationMessage(apiData, userData) {
 
     playerDataString += `Your account is using ${apiData.version !== 'Unavailable' ? `Minecraft version <strong>${apiData.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${apiData.language !== 'Unavailable' ? `the language <strong>${apiData.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
   
-    if (userData.options.gameStats === true && (apiData.online.gameType ?? apiData.offline.lastGame)) switch (apiData.online.gameType ?? apiData.offline.lastGame) {
+    if (userOptions.gameStats === true && (apiData.online.gameType ?? apiData.offline.lastGame)) switch (apiData.online.gameType ?? apiData.offline.lastGame) {
       case 'Bed Wars':
       case 'Bedwars':  
       case 'BEDWARS':
@@ -79,7 +79,7 @@ export function explanationMessage(apiData, userData) {
         break;
     }
 
-    if (userData.options.authorNameOutput === true) {
+    if (userOptions.authorNameOutput === true) {
       playerDataString = playerDataString.replace(/Your/gm, playerPossesive);
       playerDataString = playerDataString.replace(/your/gm, playerPossesive);
       playerDataString = playerDataString.replace(/You/gm, apiData.username);
@@ -87,8 +87,25 @@ export function explanationMessage(apiData, userData) {
     }
 
     return playerDataString;
+
+    function timeAgo(ms) {
+      if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';
+      return Date.now() - ms;
+    }
+
+    function cleanTime(ms) { //Takes MS
+      if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';
+      let seconds = Math.round(ms / 1000);
+      let days = Math.floor(seconds / (24 * 60 * 60));
+      seconds -= days * 24 * 60 * 60
+      let hours = Math.floor(seconds / (60 * 60));
+      seconds -= hours * 60 * 60
+      let minutes = Math.floor(seconds / 60);
+      seconds -= minutes * 60;
+      return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;
+    }
+
   } catch (err) {
-    console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack);
     throw err;
   }
 }

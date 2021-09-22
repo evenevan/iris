@@ -1,19 +1,15 @@
-/* Scroll Overflow Element */
-.scrollOverflow {
-    margin: 15px auto 0px;
-    height: 470px;
-    overflow: auto;
-}
-
-/* NameMC Shortcut Hyperlink */
-a:link, a:visited {
-    color: white;
+.text {
+    font-size: 14px;
 }
 
 /* Main Page Switcher */
-#main {
+#player {
     font-size: 30px;
     cursor: pointer;
+    color: #c3c3c3;
+}
+
+#player:hover {
     color: #ffffff;
 }
 
@@ -25,6 +21,12 @@ a:link, a:visited {
 }
 
 #options:hover {
+    color: #ffffff;
+}
+
+/* Search History Switcher */
+#history {
+    font-size: 40px;
     color: #ffffff;
 }
 
