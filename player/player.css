@@ -7,16 +7,16 @@
     width: 80.6px;
 }
 
+.inlineInput:not(:placeholder-shown):invalid + #submitButton {
+    border-color: #FF5555;
+    cursor: not-allowed;
+}
+
 /* Scroll Overflow Element */
 .scrollOverflow {
     margin: 15px auto 0px;
     height: 470px;
     overflow: auto;
-}
-
-/* NameMC Shortcut Hyperlink */
-a:link, a:visited {
-    color: white;
 }
 
 /* Main Page Switcher */

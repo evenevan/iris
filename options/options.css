@@ -98,6 +98,11 @@ End of Custom Tool Tips
     top: 5px;
 }
 
+#errorOutput {
+  position: relative;
+  top: 5px;
+}
+
 /* Turns the cursor to a pointer */
 input[type=checkbox] {
     cursor: pointer;

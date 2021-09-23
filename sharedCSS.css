@@ -90,6 +90,11 @@ fieldset {
     border-color: #FF5555;
 }
 
+/* Hyperlink Color */
+a:link, a:visited {
+    color: white;
+}
+
 /* HyGuard Shield */
 #icon {
     background-image: url("images/shield128.png");
