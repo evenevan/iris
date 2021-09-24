@@ -1,6 +1,6 @@
-import * as storage from '../storage.js';
+errorEventCreate();
 
-errorEventCreate()
+import * as storage from '../storage.js';
 
 let outputElement = document.getElementById('errorOutput');
 
@@ -48,28 +48,35 @@ let outputElement = document.getElementById('errorOutput');
 })().catch(errorHandler);
 
 function errorEventCreate() {
-  window.addEventListener('error', errorHandler);
-  window.addEventListener('unhandledrejection', errorHandler);
+  window.addEventListener('error', x => errorHandler(x, x.constructor.name));
+  window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
 }
 
-function errorHandler(event) {
+function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
   try {
-    let errorType = event?.error ? 'Unhandled Error' : event?.reason ? 'Unhandled Promise Rejection' : 'error';
-    let err = event?.error ?? event?.reason ?? event; //Unhandled error ?? Unhandled promise rejection ?? Error object
+    let err = event?.error ?? event?.reason ?? event;
     let errorOutput = outputElement ?? document.getElementById('errorOutput');
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err.stack);
-    //Discord Webhook here, make it conditonal for checkPlayer
-    switch (err.name) {
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err?.stack ?? event);
+    switch (err?.name) {
       case 'Unchecked runtime.lastError':
-        errorOutput.innerHTML = `An error occured. ${err.name}: ${err.message}. That's all we know.`;
+        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. That's all we know.`;
+      break;
+      case null:
+      case undefined:
+        errorOutput.innerHTML = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
       break;
       default:
-        errorOutput.innerHTML = `An error occured. ${err.name}: ${err.message}. Please contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
       break;
     }
   } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err.stack);
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err?.stack ?? event);
   }
 }
 
-function b(a){return a?Math.random().toString(16)[2]:(""+1e7+-1e3+-4e3+-8e3+-1e11).replace(/1|0/g,b)} 
+//uuid for error tracing in the future
+//absolutely incredible
+function b(a){return a?Math.random().toString(16)[2]:(""+1e7+-1e3+-4e3+-8e3+-1e11).replace(/1|0/g,b)}
+//https://gist.github.com/jed/982883
+let uuid = () => ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,c =>(c^(window.crypto||window.msCrypto).getRandomValues(new Uint8Array(1))[0]&15>>c/4).toString(16));
+//https://gist.github.com/jed/982883#gistcomment-3644691

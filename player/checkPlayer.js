@@ -1,11 +1,11 @@
+errorEventCreate();
+
 import * as storage from '../storage.js';
 import { hypixelRequestPlayer } from './APIRequests/hypixelRequestPlayer.js';
 import { slothpixelRequestPlayer } from './APIRequests/slothpixelRequestPlayer.js';
 import { requestUUID } from './APIRequests/requestUUID.js';
 import { detailMessage } from './messageComponents/detailMessage.js';
 import { explanationMessage } from './messageComponents/explanationMessage.js';
-
-errorEventCreate();
 
 let userOptions;
 let player;
@@ -97,21 +97,19 @@ async function updatePlayerHistory(apiData) {
 }
 
 function errorEventCreate() {
-  window.addEventListener('error', errorHandler);
-  window.addEventListener('unhandledrejection', errorHandler);
+  window.addEventListener('error', x => errorHandler(x, x.constructor.name));
+  window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
 }
 
-function errorHandler(event) {
+function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
   try {
-    let errorType = event?.error ? 'Unhandled Error' : event?.reason ? 'Unhandled Promise Rejection' : 'error';
-    let err = event?.error ?? event?.reason ?? event; //Unhandled error ?? Unhandled promise rejection ?? Error object
+    let err = event?.error ?? event?.reason ?? event;
     let errorOutput = outputElement ?? document.getElementById('outputElement');
     let apiType = userOptions?.useHypixelAPI === true ? 'Hypixel API' : 'Slothpixel API'; //The UUID API could fail, but switching to the Slothpixel API would "fix" it
     let oppositeAPIType = userOptions?.useHypixelAPI === false ? 'Hypixel API' : 'Slothpixel API';
     let usernameOrUUID = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/i.test(player) ? 'UUID' : 'username';
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err.stack);
-    //Discord Webhook here, make it conditonal for checkPlayer
-    switch (err.name) {
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err?.stack ?? event);
+    switch (err?.name) {
       case 'Unchecked runtime.lastError':
         errorOutput.innerHTML = `An error occured. ${err.name}: ${err.message}. That's all we know.`;
       break;
@@ -132,11 +130,15 @@ function errorHandler(event) {
       case 'RangeError':
         errorOutput.innerHTML = `A RangeError occured. Please contact Attituding#6517 with the extension version and the player you are trying to check.`;
       break;
+      case null:
+      case undefined:
+        errorOutput.innerHTML = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
+      break;
       default:
-        errorOutput.innerHTML = `An error occured. ${err.name}: ${err.message}. Please contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
       break;
     }
   } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err.stack);
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err?.stack ?? event);
   }
 }

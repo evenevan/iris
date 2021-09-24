@@ -1,12 +1,12 @@
-import * as storage from '../storage.js';
-
 errorEventCreate();
+
+import * as storage from '../storage.js';
 
 let outputElement = document.getElementById('outputElement');
 let submitButton = document.getElementById('submitButton');
 
 document.getElementById('clearButton').addEventListener('click', clearButton().catch(errorHandler));
-document.getElementById('playerValue').addEventListener('input', x => invalidPlayer(x).catch(errorHandler));
+document.getElementById('playerValue').addEventListener('input', invalidPlayer);
 
 async function clearButton() {
   try {
@@ -20,9 +20,8 @@ async function clearButton() {
   }
 }
 
-async function invalidPlayer(event) { //Probably a terrible idea to make it async just for the .catch. Seems to work though. Performance isn't really a concern.
+function invalidPlayer(event) {
   try {
-    x - x
     let uuid = /[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}/g;
     let username = /( ?)[a-zA-Z0-9_]{1,16}( ?)/g;
     if (username.test(event.value) || uuid.test(event.value)) {
@@ -33,31 +32,33 @@ async function invalidPlayer(event) { //Probably a terrible idea to make it asyn
         submitButton.disabled = true;
     }
   } catch (err) {
-    throw err;
+    errorHandler(err);
   }
 }
 
 function errorEventCreate() {
-  window.addEventListener('error', errorHandler);
-  window.addEventListener('unhandledrejection', errorHandler);
+  window.addEventListener('error', x => errorHandler(x, x.constructor.name));
+  window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
 }
 
-function errorHandler(event) {
+function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
   try {
-    let errorType = event?.error ? 'Unhandled Error' : event?.reason ? 'Unhandled Promise Rejection' : 'error';
-    let err = event?.error ?? event?.reason ?? event; //Unhandled error ?? Unhandled promise rejection ?? Error object
+    let err = event?.error ?? event?.reason ?? event;
     let errorOutput = outputElement ?? document.getElementById('outputElement');
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err.stack);
-    //Discord Webhook here, make it conditonal for checkPlayer
-    switch (err.name) {
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err?.stack ?? event);
+    switch (err?.name) {
       case 'Unchecked runtime.lastError':
-        errorOutput.innerHTML = `An error occured. ${err.name}: ${err.message}. That's all we know.`;
+        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. That's all we know.`;
+      break;
+      case null:
+      case undefined:
+        errorOutput.innerHTML = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
       break;
       default:
-        errorOutput.innerHTML = `An error occured. ${err.name}: ${err.message}. Please contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
       break;
     }
   } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err.stack);
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err?.stack ?? event);
   }
 }
