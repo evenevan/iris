@@ -46,11 +46,11 @@ import * as storage from '../storage.js';
     }
   });
 
-  let localStorageBytes = await storage.localStorageBytes(null).catch(errorHandler); //null returns the total storage
-  let syncStorageBytes = await storage.syncStorageBytes(null).catch(errorHandler);
+  let playerHistoryBytes = await storage.localStorageBytes('playerHistory').catch(errorHandler); //null returns the total storage
+  let userOptionsBytes = await storage.syncStorageBytes('userOptions').catch(errorHandler);
 
-  document.getElementById('localStorageBytes').innerHTML = `${(localStorageBytes / 1024).toFixed(2)}KB - ${(localStorageBytes / 1048576).toFixed(5)}MB`
-  document.getElementById('syncStorageBytes').innerHTML = `${(syncStorageBytes / 1024).toFixed(2)}KB - ${(syncStorageBytes / 1048576).toFixed(5)}MB`
+  document.getElementById('playerHistoryBytes').innerHTML = `Search History: ${(playerHistoryBytes / 1024).toFixed(2)} Kilobytes`
+  document.getElementById('userOptionsBytes').innerHTML = `Settings: ${(userOptionsBytes / 1024).toFixed(2)} Kilobytes`
 })().catch(errorHandler);
 
 function errorEventCreate() {
