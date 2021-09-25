@@ -7,24 +7,24 @@ import { requestUUID } from './APIRequests/requestUUID.js';
 import { detailMessage } from './messageComponents/detailMessage.js';
 import { explanationMessage } from './messageComponents/explanationMessage.js';
 
+let outputElement = document.getElementById('outputElement');
 let userOptions;
 let player;
-let outputElement = document.getElementById('outputElement');
 
 storage.getSyncStorage('userOptions').then(function(chromeStorage) {
   userOptions = chromeStorage.userOptions;
   document.getElementById('submitPlayer').addEventListener('submit', x => processPlayer(x).catch(errorHandler));
-  persistentPlayer().catch(errorHandler);
+  persistentPlayer(userOptions).catch(errorHandler);
 }).catch(errorHandler); //Should only handle errors from getting userOptions
 
-async function persistentPlayer() {
+async function persistentPlayer(userOptions) {
   try {
     if (userOptions.persistentLastPlayer === false) return;
     let { playerHistory } = await storage.getLocalStorage('playerHistory');
     if (playerHistory.lastSearches.length === 0 || playerHistory.lastSearchCleared === true) return;
     let text = playerDataString(playerHistory.lastSearches[0].apiData, userOptions);
     userOptions.typewriterOutput = false;
-    return await outputField(text, userOptions);
+    return await outputField(text, userOptions, outputElement);
   } catch (err) {
     throw err;
   }
@@ -40,7 +40,7 @@ async function processPlayer(event) {
     let apiData = await callAPIs(player, userOptions);
     let text = playerDataString(apiData, userOptions);
     await updatePlayerHistory(apiData); //Might add a <promise>.catch to allow it to continue if this fails
-    return await outputField(text, userOptions);
+    return await outputField(text, userOptions, outputElement);
   } catch (err) {
     throw err;
   }
@@ -65,7 +65,7 @@ function playerDataString(apiData, userOptions) {
   else return explanationMessage(apiData, userOptions);
 }
 
-async function outputField(text, userOptions) {
+async function outputField(text, userOptions, outputElement) {
   try {
     if (userOptions.typewriterOutput === false) return outputElement.innerHTML = text;
 
@@ -88,8 +88,9 @@ async function updatePlayerHistory(apiData) {
   
     let { playerHistory } = await storage.getLocalStorage('playerHistory');
     playerHistory.lastSearches.unshift(thisPlayerHistory);
-    playerHistory.lastSearches.splice(7);
+    playerHistory.lastSearches.splice(50);
     playerHistory.lastSearchCleared = false;
+    console.log(playerHistory)
     return await storage.setLocalStorage({ playerHistory: playerHistory });
   } catch (err) {
     throw err;
@@ -101,18 +102,15 @@ function errorEventCreate() {
   window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
 }
 
-function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
+function errorHandler(event, errorType = "caughtError") { //Default type is "caughtError"
   try {
     let err = event?.error ?? event?.reason ?? event;
-    let errorOutput = outputElement ?? document.getElementById('outputElement');
+    let errorOutput = document.getElementById('outputElement');
     let apiType = userOptions?.useHypixelAPI === true ? 'Hypixel API' : 'Slothpixel API'; //The UUID API could fail, but switching to the Slothpixel API would "fix" it
     let oppositeAPIType = userOptions?.useHypixelAPI === false ? 'Hypixel API' : 'Slothpixel API';
     let usernameOrUUID = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/i.test(player) ? 'UUID' : 'username';
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err?.stack ?? event);
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {
-      case 'Unchecked runtime.lastError':
-        errorOutput.innerHTML = `An error occured. ${err.name}: ${err.message}. That's all we know.`;
-      break;
       case 'AbortError':
         errorOutput.innerHTML = `The ${apiType} failed to respond twice. It may be down. Try switching to the ${oppositeAPIType} if this persists.`;
       break;
@@ -120,15 +118,16 @@ function errorHandler(event, errorType = 'caughtError') { //Default type is "cau
         errorOutput.innerHTML = `The ${usernameOrUUID} "${player}" isn't a valid player and couldn't be found. <a href="https://namemc.com/search?q=${player}" title="Opens a new tab to NameMC with your search query" target="_blank">NameMC</a>`;
       break;
       case 'HTTPError':
-        if (err.status === 500 && userOptions?.useHypixelAPI === false) errorOutput.innerHTML = `Slothpixel returned an error; this happens regularly. Try switching to the ${oppositeAPIType} if this persists.`;
-        if (err.status === 403 && userOptions?.useHypixelAPI === true) errorOutput.innerHTML = `Invalid API key! Please either switch to the Slothpixel API or get a new API key with <b>/api</b> on Hypixel.`;
+        console.log(err.status === 500, userOptions?.useHypixelAPI === false)
+        if (err.status === 500 && userOptions?.useHypixelAPI === false) errorOutput.innerHTML = `Slothpixel returned an error; this happens regularly. Try switching to the Hypixel API if this continues.`;
+        else if (err.status === 403 && userOptions?.useHypixelAPI === true) errorOutput.innerHTML = `Invalid API key! Please either switch to the Slothpixel API or get a new API key with <b>/api</b> on Hypixel.`;
         else errorOutput.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this persists.`;
       break;
       case 'KeyError':
         errorOutput.innerHTML = `You don't have an API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use /api new on Hypixel and enter the key!`;
       break;
-      case 'RangeError':
-        errorOutput.innerHTML = `A RangeError occured. Please contact Attituding#6517 with the extension version and the player you are trying to check.`;
+      case 'ChromeError':
+        errorOutput.innerHTML = `An error occured. ${err?.message}`;
       break;
       case null:
       case undefined:
@@ -139,6 +138,6 @@ function errorHandler(event, errorType = 'caughtError') { //Default type is "cau
       break;
     }
   } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err?.stack ?? event);
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err?.stack ?? event);
   }
 }

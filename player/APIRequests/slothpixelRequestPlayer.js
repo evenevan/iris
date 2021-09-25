@@ -6,7 +6,7 @@ const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from 
     return promise.finally(() => clearTimeout(timeout));
 };
 
-export async function slothpixelRequestPlayer(player, undefinedIfHasntAborted) {
+export async function slothpixelRequestPlayer(player, timesAborted) {
     let controller = new AbortController();
     return Promise.all([
         fetchTimeout(`https://api.slothpixel.me/api/players/${player}`, 2000, {
@@ -40,7 +40,7 @@ export async function slothpixelRequestPlayer(player, undefinedIfHasntAborted) {
         return slothpixelProcessData(player[0], player[1]);
       })
       .catch(async (err) => {
-        if (err.name === "AbortError" && undefinedIfHasntAborted === undefined) return requestUUID(player, true); //Simple way to try again without an infinite loop
+        if (err.name === "AbortError" && timesAborted < 1) return slothpixelRequestPlayer(player, timesAborted++); //Simple way to try again without an infinite loop
         throw err;
       });
 }
@@ -50,8 +50,12 @@ function slothpixelProcessData(playerData, statusData) {
     let tzOffset =  new Date().getTimezoneOffset() / 60;
     let tzOffsetString = `UTC${createOffset(new Date())}`;
 
-    let lastLoginTimestamp = cleanDate(new Date(playerData?.last_login + tzOffset)) + ", " + new Date(playerData?.last_login + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
-    let lastLogoutTimestamp = cleanDate(new Date(playerData?.last_logout + tzOffset)) + ", " + new Date(playerData?.last_logout + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
+    let firstLoginTime = new Date(playerData?.first_login ?? 0 + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
+    let firstLoginDate = cleanDate(new Date(playerData?.first_login ?? 0 + tzOffset));
+    let lastLoginTime = new Date(playerData?.last_login ?? 0 + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
+    let lastLoginDate = cleanDate(new Date(playerData?.last_login ?? 0+ tzOffset));
+    let lastLogoutTime =  new Date(playerData?.last_logout ?? 0 + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
+    let lastLogoutDate = cleanDate(new Date(playerData?.last_logout ?? 0+ tzOffset));
 
     let lastPlaytime = cleanTime(playerData?.last_logout - playerData?.last_login);
 
@@ -91,7 +95,7 @@ function slothpixelProcessData(playerData, statusData) {
     apiData.uuid = playerData?.uuid ?? 'Unavailable';
     apiData.language = playerData?.language ?? 'Unavailable';
     apiData.version = playerData?.mc_version ?? 'Unavailable';
-    apiData.legacyAPI = playerData?.last_login < 149486473400 ? true : false;
+    apiData.legacyAPI = playerData?.last_login < 1494864734000 ? true : false;
     apiData.status = statusData.online && playerData?.last_login > playerData?.last_logout ? 'Online' : !statusData.online && playerData?.last_login < playerData?.last_logout ? 'Offline' : !statusData.online && playerData?.last_login < 1494864734000 ? 'Offline' : 'Unavailable';
     apiData.isOnline = statusData?.online === true ? true : false; 
     apiData.utcOffset = playerData?.last_login || playerData?.last_logout ? `${tzOffsetString}` : 'Unavailable';
@@ -114,9 +118,14 @@ function slothpixelProcessData(playerData, statusData) {
       apiData.online.map = null;
     }
 
-    apiData.lastLoginStamp = playerData?.last_login ? lastLoginTimestamp : 'Unavailable';
+    apiData.firstLoginTime = playerData?.first_login ? firstLoginTime : 'Unavailable';
+    apiData.firstLoginDate = playerData?.first_login ? firstLoginDate : 'Unavailable';
+    apiData.firstLoginMS = playerData?.first_login ? playerData?.first_login : null;
+    apiData.lastLoginTime = playerData?.last_login ? lastLoginTime : 'Unavailable';
+    apiData.lastLoginDate = playerData?.last_login ? lastLoginDate : 'Unavailable';
     apiData.lastLoginMS = playerData?.last_login ? playerData?.last_login : null;
-    apiData.lastLogoutStamp = playerData?.last_logout ? lastLogoutTimestamp : 'Unavailable';
+    apiData.lastLogoutTime = playerData?.last_logout ? lastLogoutTime : 'Unavailable';
+    apiData.lastLogoutDate = playerData?.last_logout ? lastLogoutDate : 'Unavailable';
     apiData.lastLogoutMS = playerData?.last_logout ? playerData?.last_logout : null;
 
     apiData.bedwars = {}

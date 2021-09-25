@@ -1,14 +1,18 @@
 /* Spacing to keep the buttons on one line */
 #submitButton {
-    width: 241.8px;
+    width: 260.5px;
 }
 
 #clearButton {
-    width: 80.6px;
+    width: 86.8px;
 }
 
 .inlineInput:not(:placeholder-shown):invalid + #submitButton {
     border-color: #FF5555;
+    cursor: not-allowed;
+}
+
+.inlineInput:placeholder-shown:invalid + #submitButton {
     cursor: not-allowed;
 }
 

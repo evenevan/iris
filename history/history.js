@@ -1,5 +1,10 @@
+errorEventCreate();
+
+import * as storage from '../storage.js';
+
 (async () => {
-    let { playerHistory } = await getLocalStorage('playerHistory');
+  try {
+    let { playerHistory } = await storage.getLocalStorage('playerHistory');
 
     let outputElement = document.getElementById('outputElement');
 
@@ -7,16 +12,27 @@
       
     for (let i = 0; i < playerHistory?.lastSearches.length ?? 0; i++) {
       let tempString = '';
-      let searchEpoch = playerHistory?.lastSearches[i]?.epoch * 1
-      let searchString = new Date(searchEpoch ?? null);
-      tempString += `<b>${searchString ? `${searchString.toLocaleString('en-IN', { hour12: true })} - ${cleanTime(timeAgo(searchEpoch))} ago` : 'Unavailable'}</b><br>`;
+      let searchEpoch = (playerHistory?.lastSearches[i]?.epoch) * 1 ?? 0
+      let searchTime = new Date(searchEpoch).toLocaleTimeString('en-IN', { hour12: true });
+      let searchDate = cleanDate(new Date(searchEpoch));
+      tempString += `<b>#${i + 1} - ${searchEpoch ? `${searchTime}, ${searchDate} - ${cleanTime(timeAgo(searchEpoch))} ago` : 'Unknown Ago'}</b><br>`;
       tempString += `&nbsp;&nbsp;<b>Username:</b> ${playerHistory?.lastSearches[i]?.apiData?.username}<br>`;
       tempString += `&nbsp;&nbsp;<b>UUID:</b> ${playerHistory?.lastSearches[i]?.uuid}<br>`;
       playerHistoryArray.push(tempString);
     }
     
     outputElement.innerHTML = playerHistoryArray.join("<br>");
+  } catch(err) {
+    errorHandler(err);
+  }
 })();
+
+function cleanDate(epoch) {
+  let date = epoch.getDate();
+  let month = new Intl.DateTimeFormat('en-US', {month: 'short'}).format(epoch);
+  let year = epoch.getFullYear();
+  return month + " " + date + ", " + year;
+}
 
 function timeAgo(ms) {
   if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';
@@ -35,22 +51,29 @@ function cleanTime(ms) { //Takes MS
   return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;
 }
 
-function getLocalStorage(key){ //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
-  return new Promise((resolve, reject) =>
-    chrome.storage.local.get(key, function(result) {
-      if (!chrome.runtime.lastError) return resolve(result);
-      console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), chrome.runtime.lastError);
-      reject(Error(chrome.runtime.lastError));
-    })
-  )
+function errorEventCreate() {
+  window.addEventListener('error', x => errorHandler(x, x.constructor.name));
+  window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
 }
-  
-function setLocalStorage(data) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
-  return new Promise((resolve, reject) =>
-    chrome.storage.local.set(data, function() {
-      if (!chrome.runtime.lastError) return resolve();
-      console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), chrome.runtime.lastError);
-      reject(Error(chrome.runtime.lastError));
-     })
-  )
+
+function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
+  try {
+    let err = event?.error ?? event?.reason ?? event;
+    let errorOutput = document.getElementById('errorOutput');
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
+    switch (err?.name) {
+      case 'ChromeError':
+        errorOutput.innerHTML = `An error occured. ${err?.message}`;
+      break;
+      case null:
+      case undefined:
+        errorOutput.innerHTML = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
+      break;
+      default:
+        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
+      break;
+    }
+  } catch (err) {
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err?.stack ?? event);
+  }
 }

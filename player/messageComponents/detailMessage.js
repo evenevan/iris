@@ -5,7 +5,7 @@ export function detailMessage(apiData, userOptions) {
     playerDataString += `<strong>Username:</strong> ${apiData.username}<br>`;
     playerDataString += `<strong>UUID:</strong> ${apiData.uuid}<br>`
 
-    if (apiData.legacyAPI === true) playerDataString += `<strong>Legacy API:</strong> Missing data`;
+    if (apiData.legacyAPI === true) playerDataString += `<strong>Legacy API:</strong> Missing data<br>`;
     
     if (apiData.utcOffset !== 'Unavailable') playerDataString += `<strong>UTC Offset Used:</strong> ${apiData.utcOffset}<br>`;
   
@@ -29,8 +29,9 @@ export function detailMessage(apiData, userOptions) {
       if (!apiData.online.gameType && !apiData.online.mode && !apiData.online.map) playerDataString += `<strong>Game Data: Not available! Limited API?<br>`;
     }
     
-    playerDataString += `<strong>Last Login:</strong> ${apiData.lastLoginStamp}<br>&#8627;${cleanTime(timeAgo(apiData.lastLoginMS))} ago<br>`;
-    playerDataString += `<strong>Last Logout:</strong> ${apiData.lastLogoutStamp}<br>&#8627;${cleanTime(timeAgo(apiData.lastLogoutMS))} ago<br>`;
+    playerDataString += `<strong>First Login:</strong> ${apiData.firstLoginTime}, ${apiData.firstLoginDate}&nbsp;<br>&#8627;&nbsp;${cleanTime(timeAgo(apiData.firstLoginMS))} ago<br>`;
+    playerDataString += `<strong>Last Login:</strong> ${apiData.lastLoginTime}, ${apiData.lastLoginDate}&nbsp;<br>&#8627;&nbsp;${cleanTime(timeAgo(apiData.lastLoginMS))} ago<br>`;
+    playerDataString += `<strong>Last Logout:</strong> ${apiData.lastLogoutTime}, ${apiData.lastLogoutDate}&nbsp;<br>&#8627;&nbsp;${cleanTime(timeAgo(apiData.lastLogoutMS))} ago<br>`;
   
     let playerPossesive = apiData.possesive;
   

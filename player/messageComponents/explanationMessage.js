@@ -15,13 +15,13 @@ export function explanationMessage(apiData, userOptions) {
     playerDataString += '<br><br>';
 
     if (apiData.isOnline === false) {
-      playerDataString += `Your last session started on <strong>${apiData.lastLoginStamp}</strong> (<strong>${cleanTime(timeAgo(apiData.lastLoginMS))}</strong> ago) and ended <strong>${apiData.offline.playtime}</strong> later after logging out.`
+      playerDataString += `Your last session started at ${cleanTimeStamp(apiData.lastLoginTime, apiData.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData.lastLoginMS))}</strong> ago) and ended <strong>${apiData.offline.playtime}</strong> later after logging out. Your first-ever login was at ${cleanTimeStamp(apiData.firstLoginTime, apiData.firstLoginDate)}.`
 
       playerDataString += '<br><br>'
     
       playerDataString += `During this session, ${apiData.offline.lastGame !== 'Unavailable' ? `you played or joined the lobby <strong>${apiData.offline.lastGame}</strong>.` : `${apiData.username} played an <strong>unknown</strong> game.`}`;
     } else {
-      playerDataString += `Your current session began on <strong>${apiData.lastLoginStamp}</strong> (<strong>${cleanTime(timeAgo(apiData.lastLoginMS))}</strong> ago).`;
+      playerDataString += `Your current session began at ${cleanTimeStamp(apiData.lastLoginTime, apiData.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData.lastLoginMS))}</strong> ago). Your first-ever login was on ${cleanTimeStamp(apiData.firstLoginTime, apiData.firstLoginDate)}.`;
 
       playerDataString += ` Your account's current playtime is <strong>${apiData.online.playtime}</strong>.`;
 
@@ -87,6 +87,11 @@ export function explanationMessage(apiData, userOptions) {
     }
 
     return playerDataString;
+
+    function cleanTimeStamp(time, date) {
+      if (time === 'Unavailable' || date === 'Unavailable') return '<strong>Unavailable</strong>';
+      return `<strong>${time}</strong> on <strong>${date}</strong>`; //Not ideal for readability. Then again, neither is the rest of my code.
+    }
 
     function timeAgo(ms) {
       if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';

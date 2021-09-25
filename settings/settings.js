@@ -2,8 +2,6 @@ errorEventCreate();
 
 import * as storage from '../storage.js';
 
-let outputElement = document.getElementById('errorOutput');
-
 (async () => {
   let { userOptions } = await storage.getSyncStorage('userOptions').catch(errorHandler);
     
@@ -45,6 +43,12 @@ let outputElement = document.getElementById('errorOutput');
       throw err;
     }
   });
+
+  let localStorageBytes = await storage.localStorageBytes(null).catch(errorHandler); //null returns the total storage
+  let syncStorageBytes = await storage.syncStorageBytes(null).catch(errorHandler);
+
+  document.getElementById('localStorageBytes').innerHTML = `${(localStorageBytes / 1000).toFixed(2)}KB`
+  document.getElementById('syncStorageBytes').innerHTML = `${(syncStorageBytes / 1000).toFixed(2)}KB`
 })().catch(errorHandler);
 
 function errorEventCreate() {
@@ -55,11 +59,11 @@ function errorEventCreate() {
 function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
   try {
     let err = event?.error ?? event?.reason ?? event;
-    let errorOutput = outputElement ?? document.getElementById('errorOutput');
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err?.stack ?? event);
+    let errorOutput = document.getElementById('errorOutput');
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {
-      case 'Unchecked runtime.lastError':
-        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. That's all we know.`;
+      case 'ChromeError':
+        errorOutput.innerHTML = `An error occured. ${err?.message}`;
       break;
       case null:
       case undefined:
@@ -70,7 +74,7 @@ function errorHandler(event, errorType = 'caughtError') { //Default type is "cau
       break;
     }
   } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err?.stack ?? event);
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err?.stack ?? event);
   }
 }
 

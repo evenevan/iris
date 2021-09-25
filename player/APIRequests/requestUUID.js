@@ -6,7 +6,7 @@ const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from 
     return promise.finally(() => clearTimeout(timeout));
 };
 
-export async function requestUUID(username, undefinedIfHasntAborted) {
+export async function requestUUID(username, timesAborted) {
     let controller = new AbortController();
     return Promise.all([
         fetchTimeout(`https://playerdb.co/api/player/minecraft/${username}`, 2000, {
@@ -27,7 +27,7 @@ export async function requestUUID(username, undefinedIfHasntAborted) {
         return response[0].data.player.id;
       })
       .catch(async (err) => {
-        if (err.name === "AbortError" && undefinedIfHasntAborted === undefined) return requestUUID(player, true); //Simple way to try again without an infinite loop
+        if (err.name === "AbortError" && timesAborted < 1) return requestUUID(player, timesAborted++); //Simple way to try again without an infinite loop
         throw err;
       });
   };

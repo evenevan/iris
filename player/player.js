@@ -2,10 +2,7 @@ errorEventCreate();
 
 import * as storage from '../storage.js';
 
-let outputElement = document.getElementById('outputElement');
-let submitButton = document.getElementById('submitButton');
-
-document.getElementById('clearButton').addEventListener('click', clearButton().catch(errorHandler));
+document.getElementById('clearButton').addEventListener('click', () => clearButton().catch(errorHandler));
 document.getElementById('playerValue').addEventListener('input', invalidPlayer);
 
 async function clearButton() {
@@ -20,16 +17,21 @@ async function clearButton() {
   }
 }
 
-function invalidPlayer(event) {
+function invalidPlayer() {
   try {
+    console.log('y')
+    let submitButton = document.getElementById('submitButton');
     let uuid = /[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}/g;
     let username = /( ?)[a-zA-Z0-9_]{1,16}( ?)/g;
-    if (username.test(event.value) || uuid.test(event.value)) {
-        submitButton.value = 'Check Player';
-        submitButton.disabled = false;
+    if (username.test(this.value) || uuid.test(this.value)) {
+      submitButton.value = 'Check Player';
+      submitButton.disabled = false;
+    } else if (this.value === '') {
+      submitButton.value = 'Check Player';
+      submitButton.disabled = true;
     } else {
-        submitButton.value = 'Invalid Player!';
-        submitButton.disabled = true;
+      submitButton.value = 'Invalid Player';
+      submitButton.disabled = true;
     }
   } catch (err) {
     errorHandler(err);
@@ -44,11 +46,11 @@ function errorEventCreate() {
 function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
   try {
     let err = event?.error ?? event?.reason ?? event;
-    let errorOutput = outputElement ?? document.getElementById('outputElement');
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - An ${errorType} occured.`, err?.stack ?? event);
+    let errorOutput = document.getElementById('outputElement');
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {
-      case 'Unchecked runtime.lastError':
-        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. That's all we know.`;
+      case 'ChromeError':
+        errorOutput.innerHTML = `An error occured. ${err?.message}`;
       break;
       case null:
       case undefined:
@@ -59,6 +61,6 @@ function errorHandler(event, errorType = 'caughtError') { //Default type is "cau
       break;
     }
   } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - The error handler failed.`, err?.stack ?? event);
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err?.stack ?? event);
   }
 }

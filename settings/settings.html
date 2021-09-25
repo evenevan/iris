@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="options.css" rel="stylesheet">
+	<link href="settings.css" rel="stylesheet">
   <link href="../sharedCSS.css" rel="stylesheet">
   <link rel="preload" href="../images/shield128.png" as="image">
 </head>
 <body>
   <div class="container">
 		<fieldset>
-			<legend style="font-size: 17px;"><b>Options</b></legend>
+			<legend style="font-size: 17px;"><b>Settings</b></legend>
 			<div class="fieldsetContent">
+        <span style="font-size: 15px;"><b>Local Storage - </b></span><div class="toolTip"><u>Info</u><span class="toolTipText">Local Storage is used for your search history and will not sync to </span></div><br>
+          <span id="localStorageBytes"></span><br>
+          <br>
+        <span style="font-size: 15px;"><b>Sync Storage - </b></span><div class="toolTip"><u>Info</u><span class="toolTipText">Sync Storage is used for your settings and will sync if a different computer is used</span></div><br>
+          <span id="syncStorageBytes"></span><br>
+          <br>
 				<form id="saveOptions">
           <span style="font-size: 15px;"><b>Styling</b></span><br>
             <label class="switch">
@@ -48,7 +54,7 @@
               <label for="useHypixelAPI" class="checkboxText"> Use Hypixel's API instead of Slothpixel's API</label><br>
             <br>
             <span style="font-size: 15px;"><b>Hypixel API Key - </b></span><div class="toolTip"><u>Info</u><span class="toolTipText">An API key is required to use the Hypixel API. Use /api new on Hypixel to get one</span></div><br>
-            <input id="apiKey" type="text" class="inlineInput" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}" size="36" maxlength="36">
+            <input id="apiKey" type="text" class="inlineInput" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}" size="36" maxlength="36"><br>
         </form>
         <span id="apiKeyError"></span>
         <span id="errorOutput"></span>
@@ -60,7 +66,7 @@
     <form action="../player/player.html">
       <input class="pageButtons" id="player" type="submit" title="Player Search" value="&#128269;&#xFE0E;"/>
     </form>
-    <form action="../options/options.html">
+    <form action="../settings/settings.html">
       <input class="pageButtons" id="options" type="submit" title="Options" value="&#128295;&#xFE0E;" disabled/>
     </form>
     <form action="../history/history.html">
@@ -70,6 +76,6 @@
       <input class="pageButtons" id="information" type="submit" title="Information" value="&#128712;"/>
     </form>
   </div>
-  <script src="./options.js" type="module"></script>
+  <script src="./settings.js" type="module"></script>
 </body>
 </html>

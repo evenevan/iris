@@ -6,7 +6,7 @@ const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from 
     return promise.finally(() => clearTimeout(timeout));
 };
 
-export async function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted) {
+export async function hypixelRequestPlayer(uuid, apiKey, timesAborted = 0) {
     let controller = new AbortController();
     return Promise.all([
         fetchTimeout(`https://api.hypixel.net/player?uuid=${uuid}&key=${apiKey}`, 2000, {
@@ -39,7 +39,7 @@ export async function hypixelRequestPlayer(uuid, apiKey, undefinedIfHasntAborted
         return hypixelProcessData(player[0].player, player[1]);
       })
       .catch(async (err) => {
-        if (err.name === "AbortError" && undefinedIfHasntAborted === undefined) return hypixelRequestPlayer(uuid, apiKey, true); //Simple way to try again without an infinite loop
+        if (err.name === "AbortError" && timesAborted < 1) return hypixelRequestPlayer(uuid, apiKey, timesAborted++); //Simple way to try again without an infinite loop
         throw err;
       });
 };
@@ -48,9 +48,13 @@ async function hypixelProcessData(playerData, statusData) {
   try {
     let tzOffset =  new Date().getTimezoneOffset() / 60;
     let tzOffsetString = `UTC${createOffset(new Date())}`;
-    
-    let lastLoginTimestamp = cleanDate(new Date((playerData?.lastLogin ?? 0) + tzOffset)) + ", " + new Date((playerData?.lastLogin ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
-    let lastLogoutTimestamp = cleanDate(new Date((playerData?.lastLogout ?? 0) + tzOffset)) + ", " + new Date((playerData?.lastLogout ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
+
+    let firstLoginTime = new Date((playerData?.firstLogin ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
+    let firstLoginDate = cleanDate(new Date((playerData?.firstLogin ?? 0) + tzOffset));
+    let lastLoginTime = new Date((playerData?.lastLogin ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
+    let lastLoginDate = cleanDate(new Date((playerData?.lastLogin ?? 0) + tzOffset));
+    let lastLogoutTime =  new Date((playerData?.lastLogout ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true });
+    let lastLogoutDate = cleanDate(new Date((playerData?.lastLogout ?? 0) + tzOffset))
     
     let lastPlaytime = cleanTime((playerData?.lastLogout ?? 0) - (playerData?.lastLogin ?? 0));
 
@@ -112,10 +116,15 @@ async function hypixelProcessData(playerData, statusData) {
       apiData.online.mode = null;
       apiData.online.map = null;
     }
-  
-    apiData.lastLoginStamp = playerData?.lastLogin ? lastLoginTimestamp : 'Unavailable';
+
+    apiData.firstLoginTime = playerData?.firstLogin ? firstLoginTime : 'Unavailable';
+    apiData.firstLoginDate = playerData?.firstLogin ? firstLoginDate : 'Unavailable';
+    apiData.firstLoginMS = playerData?.firstLogin ? playerData?.firstLogin : null;
+    apiData.lastLoginTime = playerData?.lastLogin ? lastLoginTime : 'Unavailable';
+    apiData.lastLoginDate = playerData?.lastLogin ? lastLoginDate : 'Unavailable';
     apiData.lastLoginMS = playerData?.lastLogin ? playerData?.lastLogin : null;
-    apiData.lastLogoutStamp = playerData?.lastLogout ? lastLogoutTimestamp : 'Unavailable';
+    apiData.lastLogoutTime = playerData?.lastLogout ? lastLogoutTime : 'Unavailable';
+    apiData.lastLogoutDate = playerData?.lastLogout ? lastLogoutDate : 'Unavailable';
     apiData.lastLogoutMS = playerData?.lastLogout ? playerData?.lastLogout : null;
   
     apiData.bedwars = {}
