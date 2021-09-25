@@ -1,17 +1,21 @@
 /* Text size */
 .text {
     font-size: 15px;
+    padding: 10px;
 }
 
 /* Notes Fieldset */
 .notes {
     margin-bottom: 10px;
-    margin-left: -20px;
+
 }
 
 li {
     margin-top: 5px;
+    margin-left: 20px;
 }
+
+hr { width: 95% }
 
 /* Main Page Switcher */
 #player {

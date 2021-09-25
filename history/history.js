@@ -56,9 +56,8 @@ function errorEventCreate() {
   window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
 }
 
-function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
+function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? event?.reason ?? event) { //Default type is "caughtError"
   try {
-    let err = event?.error ?? event?.reason ?? event;
     let errorOutput = document.getElementById('errorOutput');
     console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {

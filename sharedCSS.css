@@ -10,18 +10,11 @@ body {
     color: white;
 }
 
-/* Fieldset For Border Color */
-fieldset {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #ffffff;
-}
-
 /* Options/Main Page Switcher */
 .pageButtons {
     width: 40px;
     height: 40px;
-    display: block;
+    display: flex;
     border: none;
     margin: 10px auto;
     background-color: #404040;
@@ -32,45 +25,57 @@ fieldset {
 .navigation {
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 45px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
+    position: fixed;
     background-color: #404040; /* Black */
     overflow: hidden; /* Disable horizontal scroll */
 }
 
-/* Main fieldset per page, removes the sidebar width */
+/* Contains the actual content and the navigation menu */
 .container {
-    margin-left: 45px;
-    width: 380px;
+    display: flex;
+    flex-direction: row-reverse;
+    left: 0;
+    height: 100%;
 }
 
-/* Expands the fieldsets to their max size and allows for overflow */
-.fieldsetContent {
-    height: 560px;
+/* Contains the content in a flexbox*/
+.flexContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 380px;
+    height: 600px;
+    height: max-content;
     overflow-y: auto; /* This may come back to bite me. It stops a child margin from expanding the parent */
 }
 
-/* Text input lbocks */
+/* Text Input */
 .inlineInput {
     outline: none;
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
     box-sizing: border-box;
     margin: 5px auto 0px;
     border: solid;
     border-width: 1px;
     padding: 5px 5px;
-    width: 100%;
+    width: 95%;
     background-color: #2b2b2b;
     color: #ffffff;
 }
 
 /* Button Design */ /* Check Player Button */
 .actionButton {
-    display: inline;
+    display: flex;
+    flex-wrap: wrap;
     box-sizing: border-box;
-    margin: 5px auto 0px;
+    text-align: center;
+    justify-content: center;
+    margin: 5px 2.5px 0px;
     border: solid;
     border-width: 1px;
     padding: 5px 5px;

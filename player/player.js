@@ -19,7 +19,6 @@ async function clearButton() {
 
 function invalidPlayer() {
   try {
-    console.log('y')
     let submitButton = document.getElementById('submitButton');
     let uuid = /[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}/g;
     let username = /( ?)[a-zA-Z0-9_]{1,16}( ?)/g;
@@ -43,9 +42,8 @@ function errorEventCreate() {
   window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
 }
 
-function errorHandler(event, errorType = 'caughtError') { //Default type is "caughtError"
+function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? event?.reason ?? event) { //Default type is "caughtError"
   try {
-    let err = event?.error ?? event?.reason ?? event;
     let errorOutput = document.getElementById('outputElement');
     console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {

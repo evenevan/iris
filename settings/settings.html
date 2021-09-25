@@ -1,81 +1,102 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<link href="settings.css" rel="stylesheet">
-  <link href="../sharedCSS.css" rel="stylesheet">
-  <link rel="preload" href="../images/shield128.png" as="image">
-</head>
-<body>
-  <div class="container">
-		<fieldset>
-			<legend style="font-size: 17px;"><b>Settings</b></legend>
-			<div class="fieldsetContent">
-        <span style="font-size: 15px;"><b>Local Storage - </b></span><div class="toolTip"><u>Info</u><span class="toolTipText">Local Storage is used for your search history and will not sync to </span></div><br>
-          <span id="localStorageBytes"></span><br>
+  <head>
+    <link href="settings.css" rel="stylesheet">
+    <link href="../sharedCSS.css" rel="stylesheet">
+    <link rel="preload" href="../images/shield128.png" as="image">
+  </head>
+  <body>
+    <div class="container">
+      <div class="flexContainer">
+        <div style="padding-left: 10px;">
+          <span style="font-size: 15px;"><b>Local Storage - </b></span>
+        <div class="toolTip"><u>Info</u><span class="toolTipText">Local Storage is used for your search history and will not sync to </span></div>
+        <br>
+        <span id="localStorageBytes"></span>
+        <br>
+        <br>
+        <span style="font-size: 15px;"><b>Sync Storage - </b></span>
+        <div class="toolTip"><u>Info</u><span class="toolTipText">Sync Storage is used for your settings and will sync if a different computer is used</span></div>
+        <br>
+        <span id="syncStorageBytes"></span>
+        <br>
+        <br>
+          <span style="font-size: 15px;"><b>Styling</b></span>
           <br>
-        <span style="font-size: 15px;"><b>Sync Storage - </b></span><div class="toolTip"><u>Info</u><span class="toolTipText">Sync Storage is used for your settings and will sync if a different computer is used</span></div><br>
-          <span id="syncStorageBytes"></span><br>
-          <br>
-				<form id="saveOptions">
-          <span style="font-size: 15px;"><b>Styling</b></span><br>
-            <label class="switch">
-              <input type="checkbox" id="typewriterOutput">
-              <span class="slider"></span>
-            </label>
-              <label for="typewriterOutput" class="checkboxText"> Show the output with a typewriter-ish animation</label><br>
-            <label class="switch">
-              <input type="checkbox" id="persistentLastPlayer">
-              <span class="slider"></span>
-            </label>
-              <label for="persistentLastPlayer" class="checkboxText"> Show the last user searched if the window closes</label><br>
-            <br>
-          <span style="font-size: 15px;"><b>Details</b></span><br>
           <label class="switch">
-            <input type="checkbox" id="paragraphOutput">
-            <span class="slider"></span>
+          <input type="checkbox" id="typewriterOutput">
+          <span class="slider"></span>
           </label>
-            <label for="paragraphOutput" class="checkboxText"> Use sentences rather than bullet-pointing data</label><br>
-            <div id="authorNameOutputContainer">
-              <label class="switch">
-                <input type="checkbox" id="authorNameOutput">
-                <span class="slider"></span>
-              </label>
-                <label for="authorNameOutput" class="checkboxText"> Use the third-person, e.g. "jeb_" instead of "You"</label><br>
-            </div>
+          <label for="typewriterOutput" class="checkboxText"> Show the output with a typewriter-ish animation</label>
+          <br>
+          <label class="switch">
+          <input type="checkbox" id="persistentLastPlayer">
+          <span class="slider"></span>
+          </label>
+          <label for="persistentLastPlayer" class="checkboxText"> Show the last user searched if the window closes</label>
+          <br>
+          <br>
+          <span style="font-size: 15px;"><b>Details</b></span>
+          <br>
+          <label class="switch">
+          <input type="checkbox" id="paragraphOutput">
+          <span class="slider"></span>
+          </label>
+          <label for="paragraphOutput" class="checkboxText"> Use sentences rather than bullet-pointing data</label>
+          <br>
+          <div id="authorNameOutputContainer">
             <label class="switch">
-              <input type="checkbox" id="gameStats">
-              <span class="slider"></span>
+            <input type="checkbox" id="authorNameOutput">
+            <span class="slider"></span>
             </label>
-              <label for="gameStats" class="checkboxText"> Show game stats for a player's recent gametype</label><br>
-            <label class="switch">
-              <input type="checkbox" id="useHypixelAPI">
-              <span class="slider"></span>
-            </label>
-              <label for="useHypixelAPI" class="checkboxText"> Use the Hypixel API instead of the Slothpixel API</label><br>
+            <label for="authorNameOutput" class="checkboxText"> Use the third-person, e.g. "jeb_" instead of "You"</label>
             <br>
-            <span style="font-size: 15px;"><b>Hypixel API Key - </b></span><div class="toolTip"><u>Info</u><span class="toolTipText">An API key is required to use the Hypixel API. Use /api new on Hypixel to get one</span></div><br>
-            <input id="apiKey" type="text" class="inlineInput" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}" size="36" maxlength="36"><br>
+          </div>
+          <label class="switch">
+          <input type="checkbox" id="gameStats">
+          <span class="slider"></span>
+          </label>
+          <label for="gameStats" class="checkboxText"> Show game stats for a player's recent gametype</label>
+          <br>
+          <label class="switch">
+          <input type="checkbox" id="useHypixelAPI">
+          <span class="slider"></span>
+          </label>
+          <label for="useHypixelAPI" class="checkboxText"> Use the Hypixel API instead of the Slothpixel API</label>
+          <br>
+          <br>
+          <span style="font-size: 15px;"><b>Hypixel API Key - </b></span>
+          <div class="toolTip"><u>Info</u><span class="toolTipText">An API key is required to use the Hypixel API. Use /api new on Hypixel to get one</span></div>
+          <br>
+        </div>
+        <div style="padding: 0">
+          <input id="apiKey" type="text" class="inlineInput" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}" size="36" maxlength="36">
+        </div>
+        <span id="apiKeyError" style="padding-left: 10px;"></span>
+        <span id="errorOutput" style="padding-left: 10px;"></span>
+        <br>
+        <br>
+        <br><!--Absolutely awful. But it works..-->
+        <br>
+        <br>
+        <br>
+      </div>
+      <div class="navigation">
+        <button class="pageButtons" id="icon" type="button" value="" disabled></button>
+        <form action="../player/player.html">
+          <input class="pageButtons" id="player" type="submit" title="Player Search" value="&#128269;&#xFE0E;"/>
         </form>
-        <span id="apiKeyError"></span>
-        <span id="errorOutput"></span>
-			</div>
-		</fieldset>
-	</div>
-  <div class="navigation">
-    <button class="pageButtons" id="icon" type="button" value="" disabled></button>
-    <form action="../player/player.html">
-      <input class="pageButtons" id="player" type="submit" title="Player Search" value="&#128269;&#xFE0E;"/>
-    </form>
-    <form action="../settings/settings.html">
-      <input class="pageButtons" id="options" type="submit" title="Options" value="&#128295;&#xFE0E;" disabled/>
-    </form>
-    <form action="../history/history.html">
-			<input class="pageButtons" id="history" type="submit" title="Search History" value="&#8987;&#xFE0E;"/>
-		</form>
-    <form action="../information/information.html">
-      <input class="pageButtons" id="information" type="submit" title="Information" value="&#128712;"/>
-    </form>
-  </div>
-  <script src="./settings.js" type="module"></script>
-</body>
+        <form action="../settings/settings.html">
+          <input class="pageButtons" id="options" type="submit" title="Options" value="&#128295;&#xFE0E;" disabled/>
+        </form>
+        <form action="../history/history.html">
+          <input class="pageButtons" id="history" type="submit" title="Search History" value="&#8987;&#xFE0E;"/>
+        </form>
+        <form action="../information/information.html">
+          <input class="pageButtons" id="information" type="submit" title="Information" value="&#128712;"/>
+        </form>
+      </div>
+    </div>
+    <script src="./settings.js" type="module"></script>
+  </body>
 </html>

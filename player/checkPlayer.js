@@ -8,17 +8,14 @@ import { detailMessage } from './messageComponents/detailMessage.js';
 import { explanationMessage } from './messageComponents/explanationMessage.js';
 
 let outputElement = document.getElementById('outputElement');
-let userOptions;
 let player;
 
-storage.getSyncStorage('userOptions').then(function(chromeStorage) {
-  userOptions = chromeStorage.userOptions;
-  document.getElementById('submitPlayer').addEventListener('submit', x => processPlayer(x).catch(errorHandler));
-  persistentPlayer(userOptions).catch(errorHandler);
-}).catch(errorHandler); //Should only handle errors from getting userOptions
+document.getElementById('submitPlayer').addEventListener('submit', x => processPlayer(x).catch(errorHandler));
+persistentPlayer().catch(errorHandler);
 
-async function persistentPlayer(userOptions) {
+async function persistentPlayer() {
   try {
+    let { userOptions } = await storage.getSyncStorage('userOptions');
     if (userOptions.persistentLastPlayer === false) return;
     let { playerHistory } = await storage.getLocalStorage('playerHistory');
     if (playerHistory.lastSearches.length === 0 || playerHistory.lastSearchCleared === true) return;
@@ -34,6 +31,7 @@ async function processPlayer(event) {
   try {
     event.preventDefault();
     player = document.getElementById('playerValue').value.replace(/^\s/, '');
+    let { userOptions } = await storage.getSyncStorage('userOptions');
     if (userOptions.useHypixelAPI === true && !userOptions.apiKey) {let x =  new Error(); x.name = 'KeyError'; throw x}
     outputElement.innerHTML = 'Loading..';
     document.getElementById('playerValue').value = '';
@@ -88,9 +86,9 @@ async function updatePlayerHistory(apiData) {
   
     let { playerHistory } = await storage.getLocalStorage('playerHistory');
     playerHistory.lastSearches.unshift(thisPlayerHistory);
-    playerHistory.lastSearches.splice(50);
+    playerHistory.lastSearches.splice(100);
     playerHistory.lastSearchCleared = false;
-    console.log(playerHistory)
+    if (playerHistory?.lastSearches[6]?.apiData) delete playerHistory.lastSearches[6].apiData;
     return await storage.setLocalStorage({ playerHistory: playerHistory });
   } catch (err) {
     throw err;
@@ -102,14 +100,14 @@ function errorEventCreate() {
   window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
 }
 
-function errorHandler(event, errorType = "caughtError") { //Default type is "caughtError"
+async function errorHandler(event, errorType = "caughtError", err =  event?.error ?? event?.reason ?? event) { //Default type is "caughtError"
   try {
-    let err = event?.error ?? event?.reason ?? event;
+    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
+    let { userOptions } = await storage.getSyncStorage('userOptions').catch(() => {});
     let errorOutput = document.getElementById('outputElement');
     let apiType = userOptions?.useHypixelAPI === true ? 'Hypixel API' : 'Slothpixel API'; //The UUID API could fail, but switching to the Slothpixel API would "fix" it
     let oppositeAPIType = userOptions?.useHypixelAPI === false ? 'Hypixel API' : 'Slothpixel API';
     let usernameOrUUID = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/i.test(player) ? 'UUID' : 'username';
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {
       case 'AbortError':
         errorOutput.innerHTML = `The ${apiType} failed to respond twice. It may be down. Try switching to the ${oppositeAPIType} if this persists.`;

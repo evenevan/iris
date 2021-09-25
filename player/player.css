@@ -1,10 +1,10 @@
 /* Spacing to keep the buttons on one line */
 #submitButton {
-    width: 260.5px;
+    width: 266px;
 }
 
 #clearButton {
-    width: 86.8px;
+    width: 89px;
 }
 
 .inlineInput:not(:placeholder-shown):invalid + #submitButton {
@@ -16,10 +16,21 @@
     cursor: not-allowed;
 }
 
+/* Wouldn't work without this */
+#submitPlayer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 /* Scroll Overflow Element */
 .scrollOverflow {
-    margin: 15px auto 0px;
-    height: 470px;
+    display: flex;
+    margin: 5px 0px 0px;
+    height: 530px;
+    width: 360px;
+    padding-left: 10px;
+    padding-right: 10px;
     overflow: auto;
 }
 

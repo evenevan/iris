@@ -7,37 +7,33 @@
 </head>
 <body>
   <div class="container">
-		<fieldset>
-			<legend style="font-size: 17px;" ><b>Information</b></legend>
-      <div class="fieldsetContent text">
-        <p class="text">A simple tool to check a player's last session.</p>
-        <hr>
-        <ul class="notes text">
-          <li>Stats will only show for Bed Wars, Duels, Blitz Survival Games, The Pit, Sky Wars, Speed UHC, UHC Champions, The Walls, and Mega Walls. More may be added later</li>
-          <li>Some accuracy will be lost after a while with the "Keep the last user searched between refreshes" option as it doesn't actually make a request for new data</li>
-          <li>Only successful searches will be saved in your player search history tab. Any error like invalid usernames, fetch errors, etc will not be saved</li>
-        </ul>
-        <hr>
-        <p class="text">This project is available to modify under the MIT license at <a href="https://github.com/Attituding" title="">https://github.com/Attituding</a>.</p>
-      </div>
-      <div class="text" style="position: absolute;bottom: 0;width: 351.5px"><p style="text-align: center;">&#169; 2021 Attituding. Some rights reserved.</p></div>
-      <!--Hardcoded width                                            ^-->
-		</fieldset>
-	</div>
-  <div class="navigation">
-    <button class="pageButtons" id="icon" type="button" value="" disabled></button>
-    <form action="../player/player.html">
-      <input class="pageButtons" id="player" type="submit" title="Player Search" value="&#128269;&#xFE0E;"/>
-    </form>
-    <form action="../settings/settings.html">
-      <input class="pageButtons" id="options" type="submit" title="Options" value="&#128295;&#xFE0E;"/>
-    </form>
-    <form action="../history/history.html">
-			<input class="pageButtons" id="history" type="submit" title="Search History" value="&#8987;&#xFE0E;"/>
-		</form>
-    <form action="../information/information.html">
-      <input class="pageButtons" id="information" type="submit" title="Information Search" value="&#128712;" disabled/>
-    </form>
+    <div class="flexContainer">
+      <p class="text">A simple tool to check a player's last session.</p>
+      <hr>
+      <ul class="notes text">
+        <li>Stats will only show for Bed Wars, Duels, Blitz Survival Games, The Pit, Sky Wars, Speed UHC, UHC Champions, The Walls, and Mega Walls. More may be added later</li>
+        <li>Some accuracy will be lost after a while with the "Keep the last user searched between refreshes" option as it doesn't actually make a request for new data</li>
+        <li>Only successful searches will be saved in your player search history tab. Any error like invalid usernames, fetch errors, etc will not be saved</li>
+      </ul>
+      <hr>
+      <p class="text">This project is available to modify under the MIT license at <a href="https://github.com/Attituding" title="">https://github.com/Attituding</a>.</p>
+    </div>
+    <div class="text" style="position: absolute;bottom: 0;width: 380px"><p style="text-align: center;">&#169; 2021 Attituding. Some rights reserved.</p></div>
+    <div class="navigation">
+      <button class="pageButtons" id="icon" type="button" value="" disabled></button>
+      <form action="../player/player.html">
+        <input class="pageButtons" id="player" type="submit" title="Player Search" value="&#128269;&#xFE0E;"/>
+      </form>
+      <form action="../settings/settings.html">
+        <input class="pageButtons" id="options" type="submit" title="Options" value="&#128295;&#xFE0E;"/>
+      </form>
+      <form action="../history/history.html">
+        <input class="pageButtons" id="history" type="submit" title="Search History" value="&#8987;&#xFE0E;"/>
+      </form>
+      <form action="../information/information.html">
+        <input class="pageButtons" id="information" type="submit" title="Information Search" value="&#128712;" disabled/>
+      </form>
+    </div>
   </div>
 </body>
 </html>
