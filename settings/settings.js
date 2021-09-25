@@ -47,8 +47,8 @@ import * as storage from '../storage.js';
   let localStorageBytes = await storage.localStorageBytes(null).catch(errorHandler); //null returns the total storage
   let syncStorageBytes = await storage.syncStorageBytes(null).catch(errorHandler);
 
-  document.getElementById('localStorageBytes').innerHTML = `${(localStorageBytes / 1000).toFixed(2)}KB`
-  document.getElementById('syncStorageBytes').innerHTML = `${(syncStorageBytes / 1000).toFixed(2)}KB`
+  document.getElementById('localStorageBytes').innerHTML = `${(localStorageBytes / 1024).toFixed(2)}KB - ${(localStorageBytes / 1048576).toFixed(5)}MB`
+  document.getElementById('syncStorageBytes').innerHTML = `${(syncStorageBytes / 1024).toFixed(2)}KB - ${(syncStorageBytes / 1048576).toFixed(5)}MB`
 })().catch(errorHandler);
 
 function errorEventCreate() {
@@ -78,7 +78,7 @@ function errorHandler(event, errorType = 'caughtError') { //Default type is "cau
   }
 }
 
-//uuid for error tracing in the future
+//uuid for error tracing in the future - maybe.
 //absolutely incredible
 function b(a){return a?Math.random().toString(16)[2]:(""+1e7+-1e3+-4e3+-8e3+-1e11).replace(/1|0/g,b)}
 //https://gist.github.com/jed/982883
