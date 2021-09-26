@@ -3,14 +3,14 @@
   <head>
     <link href="settings.css" rel="stylesheet">
     <link href="../sharedCSS.css" rel="stylesheet">
-    <link rel="preload" href="../images/shield128.png" as="image">
+    <link rel="preload" href="../images/iris128.png" as="image">
   </head>
   <body>
     <div class="container">
       <div class="flexContainer">
         <div style="padding-left: 10px;padding-top: 5px;">
         <span style="font-size: 15px;"><b>Storage - </b></span>
-        <div class="toolTip"><u>Info</u><span class="toolTipText"></span></div>
+        <div class="toolTip"><u>Info</u><span class="toolTipText">Your settings will attempt to sync with your Google account while your player search history will not</span></div>
         <br>
         <span id="playerHistoryBytes"></span>
         <br>
@@ -62,11 +62,11 @@
           <br>
           <br>
           <span style="font-size: 15px;"><b>Hypixel API Key - </b></span>
-          <div class="toolTip"><u>Info</u><span class="toolTipText">An API key is required to use the Hypixel API. Use /api new on Hypixel to get one</span></div>
+          <div class="toolTip"><u>Info</u><span class="toolTipText">An API key is required to use the Hypixel API. Use <b>/api new</b> on Hypixel to get one</span></div>
           <br>
         </div>
         <div style="padding: 0">
-          <input id="apiKey" type="text" class="inlineInput" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}" size="36" maxlength="36">
+          <input id="apiKey" type="text" class="inlineInput" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="([#]{8}|[0-9a-fA-F]{8})-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}" size="36" maxlength="36">
         </div>
         <span id="apiKeyError" style="padding-left: 10px;"></span>
         <span id="errorOutput" style="padding-left: 10px;"></span>

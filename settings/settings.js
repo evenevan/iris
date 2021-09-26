@@ -12,7 +12,7 @@ import * as storage from '../storage.js';
   document.getElementById('authorNameOutput').checked = userOptions.authorNameOutput ?? false;
   document.getElementById('gameStats').checked = userOptions.gameStats ?? true;
   document.getElementById('useHypixelAPI').checked = userOptions.useHypixelAPI ?? false;
-  document.getElementById('apiKey').value = userOptions.apiKey ?? '';
+  document.getElementById('apiKey').value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/g, '########') ?? '';
 
   document.querySelectorAll("input[type=checkbox]").forEach(function(checkbox) {
     checkbox.addEventListener('change', async function() {
@@ -22,7 +22,7 @@ import * as storage from '../storage.js';
         document.getElementById('authorNameOutputContainer').style.display = 'none';
         userOptions[this.id] = this.checked;
         this.disabled = true;
-        setTimeout(() => {this.disabled = false}, 500)
+        setTimeout(() => {this.disabled = false}, 500);
         await storage.setSyncStorage({'userOptions': userOptions}).catch(errorHandler);
       } catch (err) {
         throw err;
@@ -39,8 +39,29 @@ import * as storage from '../storage.js';
         userOptions.apiKey = apiKeyInput.value;
         await storage.setSyncStorage({'userOptions': userOptions}).catch(errorHandler);
       } else {
-        document.getElementById('apiKeyError').innerHTML = '&#9888; Invalid API key! Hypixel API keys follow the UUID v4 format. Get one with <b>/api</b> on Hypixel &#9888;';
+        userOptions.apiKey = apiKeyInput.value;
+        document.getElementById('apiKeyError').innerHTML = '&#9888; Invalid API key! Hypixel API keys will follow the UUID v4 format. Get an API key with <b>/api new</b> on Hypixel &#9888;';
       }
+    } catch (err) {
+      throw err;
+    }
+  });
+
+  apiKeyInput.addEventListener('focus', function() {
+    try {
+      apiKeyInput.value = userOptions.apiKey ?? '';
+      apiKeyInput.pattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"
+    } catch (err) {
+      throw err;
+    }
+  });
+
+  apiKeyInput.addEventListener('blur', function() {
+    try {
+      let regex = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/g
+      if (regex.test(apiKeyInput.value)) apiKeyInput.pattern = "([#]{8}|[0-9a-fA-F]{8})-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
+      else apiKeyInput.pattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"; //Logic to filter out putting # as the first 8 values
+      apiKeyInput.value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/gi, '########');
     } catch (err) {
       throw err;
     }

@@ -23,8 +23,8 @@ Start of slider - Yoinked from https://www.w3schools.com/howto/tryit.asp?filenam
   right: 0;
   bottom: 0;
   background-color: #FF5555;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
 }
 
 .slider::before {
@@ -35,8 +35,8 @@ Start of slider - Yoinked from https://www.w3schools.com/howto/tryit.asp?filenam
   left: 1px;
   bottom: 1px;
   background-color: white;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
 }
 
 input:checked + .slider {

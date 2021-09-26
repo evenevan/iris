@@ -1,7 +1,7 @@
 {
   "name": "Iris",
-  "description": "Check any player's account!",
-  "version": "0.9",
+  "description": "A tool made to check any Hypixel player's last session easily and quickly!",
+  "version": "1.0.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
@@ -10,16 +10,16 @@
   "action": {
     "default_popup": "./player/player.html",
     "default_icon": {
-      "16": "/images/shield16.png",
-      "32": "/images/shield32.png",
-      "48": "/images/shield48.png",
-      "128": "/images/shield128.png"
+      "16": "/images/iris16.png",
+      "32": "/images/iris32.png",
+      "48": "/images/iris48.png",
+      "128": "/images/iris128.png"
     }
   },
   "icons": {
-    "16": "/images/shield16.png",
-    "32": "/images/shield32.png",
-    "48": "/images/shield48.png",
-    "128": "/images/shield128.png"
+    "16": "/images/iris16.png",
+    "32": "/images/iris32.png",
+    "48": "/images/iris48.png",
+    "128": "/images/iris128.png"
   }
 }

@@ -35,6 +35,7 @@ async function processPlayer(event) {
     if (userOptions.useHypixelAPI === true && !userOptions.apiKey) {let x =  new Error(); x.name = 'KeyError'; throw x}
     outputElement.innerHTML = 'Loading..';
     document.getElementById('playerValue').value = '';
+    document.getElementById('submitButton').disabled = true;
     let apiData = await callAPIs(player, userOptions);
     let text = playerDataString(apiData, userOptions);
     await updatePlayerHistory(apiData); //Might add a <promise>.catch to allow it to continue if this fails

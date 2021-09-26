@@ -3,14 +3,14 @@
 <head>
 	<link href="player.css" rel="stylesheet">
 	<link href="../sharedCSS.css" rel="stylesheet">
-	<link rel="preload" href="../images/shield128.png" as="image">
+	<link rel="preload" href="../images/iris128.png" as="image">
 </head>
 <body>
 	<div class="container">
 		<div class="flexContainer">
 			<form id="submitPlayer">
 				<input id="playerValue" class="inlineInput" type="text" placeholder="Username/UUID" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,16}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" required>
-				<input class="actionButton" id="submitButton" type="submit" value="Check Player">
+				<input class="actionButton" id="submitButton" type="submit" value="Check Player" disabled>
 				<button class="actionButton" id="clearButton" type="button">Clear</button>
 			</form>
 			<div class="scrollOverflow">
