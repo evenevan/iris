@@ -1,10 +1,10 @@
 /* Spacing to keep the buttons on one line */
 #submitButton {
-    width: 266px;
+    width: 267px;
 }
 
 #clearButton {
-    width: 89px;
+    width: 90px;
 }
 
 .inlineInput:not(:placeholder-shown):invalid + #submitButton {

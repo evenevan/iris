@@ -8,6 +8,7 @@ document.getElementById('playerValue').addEventListener('input', invalidPlayer);
 async function clearButton() {
   try {
     let { playerHistory } = await storage.getLocalStorage('playerHistory').catch(errorHandler);
+    console.log(playerHistory)
     document.getElementById('playerValue').value = '';
     document.getElementById('submitButton').disabled = true;
     document.getElementById('outputElement').innerHTML = '';
