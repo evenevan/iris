@@ -21,13 +21,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 5px;
 }
 
 /* Scroll Overflow Element */
 .scrollOverflow {
     display: flex;
     margin: 5px 0px 0px;
-    height: 530px;
+    height: 525px;
     width: 360px;
     padding-left: 10px;
     padding-right: 10px;
