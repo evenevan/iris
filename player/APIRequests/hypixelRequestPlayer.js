@@ -38,7 +38,7 @@ export async function hypixelRequestPlayer(uuid, apiKey, timesAborted = 0) {
         if (player[0].player === null) {let newError = new Error(""); newError.name = "NotFound"; throw newError;}
         return hypixelProcessData(player[0].player, player[1]);
       })
-      .catch(async (err) => {
+      .catch(err => {
         if (err.name === "AbortError" && timesAborted < 1) return hypixelRequestPlayer(uuid, apiKey, timesAborted++); //Simple way to try again without an infinite loop
         throw err;
       });

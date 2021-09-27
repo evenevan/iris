@@ -22,7 +22,7 @@ export function detailMessage(apiData, userOptions) {
       playerDataString += `<strong>Last Playtime:</strong> ${apiData.offline.playtime}<br>`;
       playerDataString += `<strong>Last Gametype:</strong> ${apiData.offline.lastGame}<br>`;
     } else {
-      playerDataString += `<strong>Playtime:</strong> ${cleanTime(timeAgo(lastLoginMS))}<br>`;
+      playerDataString += `<strong>Playtime:</strong> ${cleanTime(timeAgo(apiData.lastLoginMS))}<br>`;
       playerDataString += `<strong>Game Type:</strong> ${apiData.online.gameType}<br>`;
       playerDataString += `<strong>Game Mode:</strong> ${apiData.online.mode}<br>`;
       playerDataString += `<strong>Game Map:</strong> ${apiData.online.map}<br>`;
@@ -35,7 +35,7 @@ export function detailMessage(apiData, userOptions) {
   
     let playerPossesive = apiData.possesive;
   
-    if (userOptions.gameStats === true && (apiData.online.gameType ?? apiData.offline.lastGame)) switch (apiData.online.gameType ?? apiData.offline.lastGame) {
+    if (userOptions?.gameStats === true && (apiData.online.gameType ?? apiData.offline.lastGame)) switch (apiData.online.gameType ?? apiData.offline.lastGame) {
       case 'Bed Wars':
       case 'Bedwars':  
       case 'BEDWARS':

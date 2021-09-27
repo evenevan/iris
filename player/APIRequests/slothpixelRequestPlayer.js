@@ -6,7 +6,7 @@ const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from 
     return promise.finally(() => clearTimeout(timeout));
 };
 
-export async function slothpixelRequestPlayer(player, timesAborted) {
+export async function slothpixelRequestPlayer(player, timesAborted = 0) {
     let controller = new AbortController();
     return Promise.all([
         fetchTimeout(`https://api.slothpixel.me/api/players/${player}`, 2000, {
@@ -39,7 +39,7 @@ export async function slothpixelRequestPlayer(player, timesAborted) {
       .then((player) => {
         return slothpixelProcessData(player[0], player[1]);
       })
-      .catch(async (err) => {
+      .catch(err => {
         if (err.name === "AbortError" && timesAborted < 1) return slothpixelRequestPlayer(player, timesAborted++); //Simple way to try again without an infinite loop
         throw err;
       });

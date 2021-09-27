@@ -10,13 +10,13 @@ import * as storage from '../storage.js';
 
     let playerHistoryArray = [];
       
-    for (let i = 0; i < playerHistory?.lastSearches.length ?? 0; i++) {
+    for (let i = 0; i < playerHistory?.lastSearches?.length ?? 0; i++) {
       let tempString = '';
       let searchEpoch = (playerHistory?.lastSearches[i]?.epoch) * 1 ?? 0
       let searchTime = new Date(searchEpoch).toLocaleTimeString('en-IN', { hour12: true });
       let searchDate = cleanDate(new Date(searchEpoch));
       tempString += `<b>#${i + 1} - ${searchEpoch ? `${searchTime}, ${searchDate} - ${cleanTime(timeAgo(searchEpoch))} ago` : 'Unknown Ago'}</b><br>`;
-      tempString += `&nbsp;&nbsp;<b>Username:</b> ${playerHistory?.lastSearches[i]?.apiData?.username}<br>`;
+      tempString += `&nbsp;&nbsp;<b>Username:</b> ${playerHistory?.lastSearches[i]?.username}<br>`;
       tempString += `&nbsp;&nbsp;<b>UUID:</b> ${playerHistory?.lastSearches[i]?.uuid}<br>`;
       playerHistoryArray.push(tempString);
     }

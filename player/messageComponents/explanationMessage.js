@@ -34,7 +34,7 @@ export function explanationMessage(apiData, userOptions) {
 
     playerDataString += `Your account last used ${apiData.version !== 'Unavailable' ? `Minecraft version <strong>${apiData.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${apiData.language !== 'Unavailable' ? `the language <strong>${apiData.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
   
-    if (userOptions.gameStats === true && (apiData.online.gameType ?? apiData.offline.lastGame)) switch (apiData.online.gameType ?? apiData.offline.lastGame) {
+    if (userOptions?.gameStats === true && (apiData.online.gameType ?? apiData.offline.lastGame)) switch (apiData.online.gameType ?? apiData.offline.lastGame) {
       case 'Bed Wars':
       case 'Bedwars':  
       case 'BEDWARS':
@@ -79,7 +79,7 @@ export function explanationMessage(apiData, userOptions) {
         break;
     }
 
-    if (userOptions.authorNameOutput === true) {
+    if (userOptions?.authorNameOutput === true) {
       playerDataString = playerDataString.replace(/Your/gm, playerPossesive);
       playerDataString = playerDataString.replace(/your/gm, playerPossesive);
       playerDataString = playerDataString.replace(/You/gm, apiData.username);

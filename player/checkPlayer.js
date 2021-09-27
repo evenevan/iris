@@ -18,8 +18,8 @@ async function persistentPlayer() {
     let { userOptions } = await storage.getSyncStorage('userOptions');
     if (userOptions.persistentLastPlayer === false) return;
     let { playerHistory } = await storage.getLocalStorage('playerHistory');
-    if (playerHistory.lastSearches.length === 0 || playerHistory.lastSearchCleared === true) return;
-    let text = playerDataString(playerHistory.lastSearches[0].apiData, userOptions);
+    if (playerHistory?.lastSearches.length === 0 || playerHistory?.lastSearchCleared === true) return;
+    let text = playerDataString(playerHistory?.lastSearches[0]?.apiData, userOptions);
     userOptions.typewriterOutput = false;
     return await outputField(text, userOptions, outputElement);
   } catch (err) {
@@ -52,7 +52,7 @@ async function callAPIs(player, userOptions) {
     else if (uuidRegex.test(player)) return await hypixelRequestPlayer(player, userOptions.apiKey);
     else {
       let playerUUID = await requestUUID(player);
-      return await hypixelRequestPlayer(playerUUID, userOptions.apiKey);
+      return await hypixelRequestPlayer(playerUUID, userOptions?.apiKey);
     }
   } catch (err) {
     throw err;
@@ -66,7 +66,7 @@ function playerDataString(apiData, userOptions) {
 
 async function outputField(text, userOptions, outputElement) {
   try {
-    if (userOptions.typewriterOutput === false) return outputElement.innerHTML = text;
+    if (userOptions?.typewriterOutput === false) return outputElement.innerHTML = text;
 
     for (let i = 0; i < text.length; i += 2) {
       outputElement.innerHTML = text.slice(0, i + 1);
@@ -81,16 +81,17 @@ async function outputField(text, userOptions, outputElement) {
 async function updatePlayerHistory(apiData) {
   try {
     let thisPlayerHistory = new Object();
-    thisPlayerHistory.uuid = apiData.uuid && apiData.uuid !== "Unavailable" ? apiData.uuid : null; //Should never be null, but hey
+    thisPlayerHistory.uuid = apiData.uuid;
+    thisPlayerHistory.username = apiData.username;
     thisPlayerHistory.epoch = `${Date.now()}`;
     thisPlayerHistory.apiData = apiData;
   
     let { playerHistory } = await storage.getLocalStorage('playerHistory');
-    playerHistory.lastSearches.unshift(thisPlayerHistory);
-    playerHistory.lastSearches.splice(100);
+    playerHistory?.lastSearches.unshift(thisPlayerHistory);
+    playerHistory?.lastSearches.splice(100);
     playerHistory.lastSearchCleared = false;
-    if (playerHistory?.lastSearches[6]?.apiData) delete playerHistory.lastSearches[6].apiData;
-    return await storage.setLocalStorage({ playerHistory: playerHistory });
+    if (playerHistory?.lastSearches[6]?.apiData) delete playerHistory?.lastSearches[6]?.apiData;
+    return await storage.setLocalStorage({ 'playerHistory': playerHistory });
   } catch (err) {
     throw err;
   }
@@ -117,7 +118,6 @@ async function errorHandler(event, errorType = "caughtError", err =  event?.erro
         errorOutput.innerHTML = `The ${usernameOrUUID} "${player}" isn't a valid player and couldn't be found. <a href="https://namemc.com/search?q=${player}" title="Opens a new tab to NameMC with your search query" target="_blank">NameMC</a>`;
       break;
       case 'HTTPError':
-        console.log(err.status === 500, userOptions?.useHypixelAPI === false)
         if (err.status === 500 && userOptions?.useHypixelAPI === false) errorOutput.innerHTML = `Slothpixel returned an error; this happens regularly. Try switching to the Hypixel API if this continues.`;
         else if (err.status === 403 && userOptions?.useHypixelAPI === true) errorOutput.innerHTML = `Invalid API key! Please either switch to the Slothpixel API or get a new API key with <b>/api</b> on Hypixel.`;
         else errorOutput.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this persists.`;

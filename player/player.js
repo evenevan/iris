@@ -8,7 +8,6 @@ document.getElementById('playerValue').addEventListener('input', invalidPlayer);
 async function clearButton() {
   try {
     let { playerHistory } = await storage.getLocalStorage('playerHistory').catch(errorHandler);
-    console.log(playerHistory)
     document.getElementById('playerValue').value = '';
     document.getElementById('submitButton').disabled = true;
     document.getElementById('outputElement').innerHTML = '';
@@ -24,7 +23,6 @@ function invalidPlayer() {
     let submitButton = document.getElementById('submitButton');
     let uuid = /[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}/g;
     let username = /( ?)[a-zA-Z0-9_]{1,16}( ?)/g;
-    console.log(this.value)
     if (username.test(this.value) || uuid.test(this.value)) {
       submitButton.value = 'Check Player';
       submitButton.disabled = false;
