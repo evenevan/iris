@@ -90,7 +90,7 @@ async function updatePlayerHistory(apiData) {
     playerHistory?.lastSearches.unshift(thisPlayerHistory);
     playerHistory?.lastSearches.splice(100);
     playerHistory.lastSearchCleared = false;
-    if (playerHistory?.lastSearches[6]?.apiData) delete playerHistory?.lastSearches[6]?.apiData;
+    if (playerHistory?.lastSearches[1]?.apiData) delete playerHistory?.lastSearches[1]?.apiData;
     return await storage.setLocalStorage({ 'playerHistory': playerHistory });
   } catch (err) {
     throw err;
