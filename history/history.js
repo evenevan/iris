@@ -21,7 +21,9 @@ import * as storage from '../storage.js';
       playerHistoryArray.push(tempString);
     }
     
-    outputElement.innerHTML = playerHistoryArray.join("<br>");
+    if (playerHistoryArray.length > 0) {
+      outputElement.innerHTML = playerHistoryArray.join("<br>");
+    } else outputElement.innerHTML = 'No recent searches!'
   } catch(err) {
     errorHandler(err);
   }

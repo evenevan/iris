@@ -59,9 +59,10 @@ import * as storage from '../storage.js';
   apiKeyInput.addEventListener('blur', function() {
     try {
       let regex = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/g
-      if (regex.test(apiKeyInput.value)) apiKeyInput.pattern = "([#]{8}|[0-9a-fA-F]{8})-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
-      else apiKeyInput.pattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"; //Logic to filter out putting # as the first 8 values
-      apiKeyInput.value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/gi, '########');
+      if (regex.test(apiKeyInput.value)) {
+        apiKeyInput.pattern = "([#]{8}|[0-9a-fA-F]{8})-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
+        apiKeyInput.value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/gi, '########');
+      } else apiKeyInput.pattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"; //Logic to filter out putting # as the first 8 values
     } catch (err) {
       throw err;
     }
