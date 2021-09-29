@@ -1,48 +1,14 @@
-const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from https://stackoverflow.com/a/57888548 under CC BY-SA 4.0
-    const controller = new AbortController();
-    const promise = fetch(url, { signal: controller.signal, ...options });
-    if (signal) signal.addEventListener("abort", () => controller.abort());
-    const timeout = setTimeout(() => controller.abort(), ms);
-    return promise.finally(() => clearTimeout(timeout));
-};
+import { createHTTPRequest } from '../../utility.js';
 
-export async function slothpixelRequestPlayer(player, timesAborted = 0) {
-    let controller = new AbortController();
-    return Promise.all([
-        fetchTimeout(`https://api.slothpixel.me/api/players/${player}`, 2000, {
-            signal: controller.signal
-          }).then(async function(response) {
-            if (response.status === 404) {let newError = new Error("HTTP status " + response.status); newError.name = "NotFound"; throw newError;}
-            if (!response.ok) {
-              let responseJson = await response.json();
-              let newError = new Error(`HTTP status ${response.status}; ${responseJson.error}`);
-              newError.name = "HTTPError";
-              newError.status = response.status;
-              throw newError;
-            }
-            return response.json();
-          }),
-        fetchTimeout(`https://api.slothpixel.me/api/players/${player}/status`, 2000, {
-            signal: controller.signal
-          }).then(async function(response) {
-            if (response.status === 404) {let newError = new Error("HTTP status " + response.status); newError.name = "NotFound"; throw newError;}
-            if (!response.ok) {
-              let responseJson = await response.json();
-              let newError = new Error(`HTTP status ${response.status}; ${responseJson.error}`);
-              newError.name = "HTTPError";
-              newError.status = response.status;
-              throw newError;
-            }
-            return response.json();
-          })
-      ])
-      .then((player) => {
-        return slothpixelProcessData(player[0], player[1]);
-      })
-      .catch(err => {
-        if (err.name === "AbortError" && timesAborted < 1) return slothpixelRequestPlayer(player, timesAborted++); //Simple way to try again without an infinite loop
-        throw err;
-      });
+export async function slothpixelRequestPlayer(player) {
+  return Promise.all([
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}`, 5000),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/status`, 5000),
+  ]).then((player) => {
+    return slothpixelProcessData(player[0], player[1]);
+  }).catch(err => {
+    throw err;
+  });
 }
 
 function slothpixelProcessData(playerData, statusData) {

@@ -7,15 +7,6 @@
     width: 90px;
 }
 
-.inlineInput:not(:placeholder-shown):invalid + #submitButton {
-    border-color: #FF5555;
-    cursor: not-allowed;
-}
-
-.inlineInput:placeholder-shown:invalid + #submitButton {
-    cursor: not-allowed;
-}
-
 /* Wouldn't work without this */
 #submitPlayer {
     display: flex;

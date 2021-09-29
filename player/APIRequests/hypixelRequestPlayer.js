@@ -1,47 +1,15 @@
-const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from https://stackoverflow.com/a/57888548 under CC BY-SA 4.0
-    const controller = new AbortController();
-    const promise = fetch(url, { signal: controller.signal, ...options });
-    if (signal) signal.addEventListener("abort", () => controller.abort());
-    const timeout = setTimeout(() => controller.abort(), ms);
-    return promise.finally(() => clearTimeout(timeout));
-};
+import { createHTTPRequest } from '../../utility.js';
 
-export async function hypixelRequestPlayer(uuid, apiKey, timesAborted = 0) {
-    let controller = new AbortController();
-    return Promise.all([
-        fetchTimeout(`https://api.hypixel.net/player?uuid=${uuid}&key=${apiKey}`, 2000, {
-            signal: controller.signal
-          }).then(async function(response) {
-            if (!response.ok) {
-              let responseJson = await response.json();
-              let newError = new Error(`HTTP status ${response.status}; ${responseJson.cause}`);
-              newError.name = "HTTPError";
-              newError.status = response.status;
-              throw newError;
-            }
-            return response.json();
-          }),
-        fetchTimeout(`https://api.hypixel.net/status?uuid=${uuid}&key=${apiKey}`, 2000, {
-            signal: controller.signal
-          }).then(async function(response) {
-            if (!response.ok) {
-              let responseJson = await response.json();
-              let newError = new Error(`HTTP status ${response.status}; ${responseJson.cause}`);
-              newError.name = "HTTPError";
-              newError.status = response.status;
-              throw newError;
-            }
-            return response.json();
-          })
-      ])
-      .then((player) => {
-        if (player[0].player === null) {let newError = new Error(""); newError.name = "NotFound"; throw newError;}
-        return hypixelProcessData(player[0].player, player[1]);
-      })
-      .catch(err => {
-        if (err.name === "AbortError" && timesAborted < 1) return hypixelRequestPlayer(uuid, apiKey, timesAborted++); //Simple way to try again without an infinite loop
-        throw err;
-      });
+export async function hypixelRequestPlayer(uuid, apiKey) {
+  return Promise.all([
+    createHTTPRequest(`https://api.hypixel.net/player?uuid=${uuid}&key=${apiKey}`),
+    createHTTPRequest(`https://api.hypixel.net/status?uuid=${uuid}&key=${apiKey}`),
+  ]).then((player) => {
+    if (player[0].player === null) {let newError = new Error(""); newError.name = "NotFound"; throw newError;}
+    return hypixelProcessData(player[0].player, player[1]);
+  }).catch(err => {
+    throw err;
+  });
 };
 
 async function hypixelProcessData(playerData, statusData) {

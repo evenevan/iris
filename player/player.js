@@ -1,18 +1,20 @@
 errorEventCreate();
 
-import * as storage from '../storage.js';
+import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes, getSyncStorage, setSyncStorage, syncStorageBytes } from '../utility.js';
+
+document.getElementById('submitButton').style.cursor = 'not-allowed'; //There isn't really any other decent spot to put this
 
 document.getElementById('clearButton').addEventListener('click', () => clearButton().catch(errorHandler));
 document.getElementById('playerValue').addEventListener('input', invalidPlayer);
 
 async function clearButton() {
   try {
-    let { playerHistory } = await storage.getLocalStorage('playerHistory').catch(errorHandler);
+    let { playerHistory } = await getLocalStorage('playerHistory').catch(errorHandler);
     document.getElementById('playerValue').value = '';
     document.getElementById('submitButton').disabled = true;
     document.getElementById('outputElement').innerHTML = '';
     playerHistory.lastSearchCleared = true;
-    await storage.setLocalStorage({ playerHistory: playerHistory }).catch(errorHandler);
+    await setLocalStorage({ playerHistory: playerHistory }).catch(errorHandler);
   } catch (err) {
     throw err;
   }
@@ -24,14 +26,20 @@ function invalidPlayer() {
     let uuid = /[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}/g;
     let username = /( ?)[a-zA-Z0-9_]{1,16}( ?)/g;
     if (username.test(this.value) || uuid.test(this.value)) {
-      submitButton.value = 'Check Player';
       submitButton.disabled = false;
-    } else if (this.value === '' || this.value === null) {
-      submitButton.value = 'Check Player';
+      submitButton.style.borderColor = '#FFFFFF'
+      submitButton.style.cursor = 'pointer'
+      this.style.borderColor = '#FFFFFF'
+    } else if (this.value === '') {
       submitButton.disabled = true;
+      submitButton.style.borderColor = '#FFFFFF'
+      submitButton.style.cursor = 'not-allowed'
+      this.style.borderColor = '#FFFFFF'
     } else {
-      submitButton.value = 'Invalid Player';
       submitButton.disabled = true;
+      submitButton.style.borderColor = '#FF5555'
+      submitButton.style.cursor = 'not-allowed'
+      this.style.borderColor = '#FF5555'
     }
   } catch (err) {
     errorHandler(err);

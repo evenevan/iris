@@ -1,10 +1,10 @@
 errorEventCreate();
 
-import * as storage from '../storage.js';
+import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes, getSyncStorage, setSyncStorage, syncStorageBytes } from '../utility.js';
 
 (async () => {
   try {
-    let { playerHistory } = await storage.getLocalStorage('playerHistory');
+    let { playerHistory } = await getLocalStorage('playerHistory');
 
     let outputElement = document.getElementById('outputElement');
 

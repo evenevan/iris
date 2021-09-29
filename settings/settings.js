@@ -1,9 +1,14 @@
 errorEventCreate();
 
-import * as storage from '../storage.js';
+import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes, getSyncStorage, setSyncStorage, syncStorageBytes } from '../utility.js';
 
 (async () => {
-  let { userOptions } = await storage.getSyncStorage('userOptions').catch(errorHandler);
+  let { userOptions } = await getSyncStorage('userOptions').catch(errorHandler);
+
+  let apiKeyInput = document.getElementById('apiKey');
+  let apiKeyOutput = document.getElementById('apiKeyOutput');
+  let testKey = document.getElementById('testKey');
+  let uuidV4 = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
     
   if ((userOptions.paragraphOutput ?? false) === false) document.getElementById('authorNameOutputContainer').style.display = 'none';
   document.getElementById('typewriterOutput').checked = userOptions.typewriterOutput ?? true;
@@ -14,6 +19,12 @@ import * as storage from '../storage.js';
   document.getElementById('useHypixelAPI').checked = userOptions.useHypixelAPI ?? false;
   document.getElementById('apiKey').value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/g, '########') ?? '';
 
+  if (userOptions.apiKey === '') { //If there is no API key, disabled the "Test Key" button
+    testKey.style.cursor = 'not-allowed'; testKey.disabled = true;
+  } else {
+    testKey.style.cursor = 'pointer'; testKey.disabled = false;;
+  }
+
   document.querySelectorAll("input[type=checkbox]").forEach(function(checkbox) {
     checkbox.addEventListener('change', async function() {
       try {
@@ -23,24 +34,31 @@ import * as storage from '../storage.js';
         userOptions[this.id] = this.checked;
         this.disabled = true;
         setTimeout(() => {this.disabled = false}, 500);
-        await storage.setSyncStorage({'userOptions': userOptions}).catch(errorHandler);
+        await setSyncStorage({'userOptions': userOptions}).catch(errorHandler);
       } catch (err) {
         throw err;
       }
     })
   });
 
-  let apiKeyInput = document.getElementById('apiKey');
   apiKeyInput.addEventListener('input', async function() {
     try {
-      let regex = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/g
-      if (regex.test(apiKeyInput.value) || apiKeyInput.value === '') {
-        document.getElementById('apiKeyError').innerHTML = '';
-        userOptions.apiKey = apiKeyInput.value;
-        await storage.setSyncStorage({'userOptions': userOptions}).catch(errorHandler);
+      userOptions.apiKey = this.value;
+      if (uuidV4.test(this.value) || this.value === '') {
+        apiKeyOutput.innerHTML = '';
+        this.style.borderColor = '#FFFFFF';
+        testKey.style.borderColor = '#FFFFFF';
+        if (this.value === '') {
+          testKey.style.cursor = 'not-allowed'; testKey.disabled = true;
+        } else {
+          testKey.style.cursor = 'pointer'; testKey.disabled = false;;
+        }
+        await setSyncStorage({'userOptions': userOptions}).catch(errorHandler);
       } else {
-        userOptions.apiKey = apiKeyInput.value;
-        document.getElementById('apiKeyError').innerHTML = '&#9888; Invalid API key! Hypixel API keys will follow the UUID v4 format. Get an API key with <b>/api new</b> on Hypixel &#9888;';
+        testKey.style.cursor = 'not-allowed'; testKey.disabled = true; testKey.style.borderColor = '#FF5555';
+        this.style.borderColor = '#FF5555';
+        apiKeyOutput.style.color = '#FF5555';
+        apiKeyOutput.innerHTML = '&#9888; Invalid API key! Hypixel API keys will follow the UUID v4 format. Get an API key with <b>/api new</b> on Hypixel &#9888;';
       }
     } catch (err) {
       throw err;
@@ -49,8 +67,7 @@ import * as storage from '../storage.js';
 
   apiKeyInput.addEventListener('focus', function() {
     try {
-      apiKeyInput.value = userOptions.apiKey ?? '';
-      apiKeyInput.pattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"
+      this.value = userOptions.apiKey ?? '';
     } catch (err) {
       throw err;
     }
@@ -58,18 +75,28 @@ import * as storage from '../storage.js';
 
   apiKeyInput.addEventListener('blur', function() {
     try {
-      let regex = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/g
-      if (regex.test(apiKeyInput.value)) {
-        apiKeyInput.pattern = "([#]{8}|[0-9a-fA-F]{8})-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
-        apiKeyInput.value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/gi, '########');
-      } else apiKeyInput.pattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"; //Logic to filter out putting # as the first 8 values
+      if (uuidV4.test(this.value)) this.value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/gi, '########');
     } catch (err) {
       throw err;
     }
   });
 
-  let playerHistoryBytes = await storage.localStorageBytes('playerHistory').catch(errorHandler); //null returns the total storage
-  let userOptionsBytes = await storage.syncStorageBytes('userOptions').catch(errorHandler);
+  testKey.addEventListener('click', async function() {
+    try {
+      this.disabled = true;;
+      setTimeout(() => {this.disabled = false;}, 500); //Prevent API Spam :)
+      let response = await createHTTPRequest(`https://api.hypixel.net/key?key=${userOptions.apiKey}`);
+      apiKeyOutput.style.color = '#FFFFFF';
+      return apiKeyOutput.innerHTML = `&#10003; Valid API Key! Total uses: ${response?.record?.totalQueries} &#10003;`;
+    } catch (err) {
+      if (err?.status !== 403) return errorHandler(err);
+      apiKeyOutput.style.color = '#FF5555';
+      return apiKeyOutput.innerHTML = '&#9888; Invalid API key! Get a new API key with <b>/api new</b> on Hypixel &#9888;';
+    }
+  });
+
+  let playerHistoryBytes = await localStorageBytes('playerHistory').catch(errorHandler); //null returns the total storage
+  let userOptionsBytes = await syncStorageBytes('userOptions').catch(errorHandler);
 
   document.getElementById('playerHistoryBytes').innerHTML = `Search History: ${(playerHistoryBytes / 1024).toFixed(2)} Kilobytes`
   document.getElementById('userOptionsBytes').innerHTML = `Settings: ${(userOptionsBytes / 1024).toFixed(2)} Kilobytes`
@@ -87,6 +114,9 @@ function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? e
     switch (err?.name) {
       case 'ChromeError':
         errorOutput.innerHTML = `An error occured. ${err?.message}`;
+      break;
+      case 'HTTPError':
+        errorOutput.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Please try again later and contact Attituding#6517 if this error continues appearing.`;
       break;
       case null:
       case undefined:

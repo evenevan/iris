@@ -92,9 +92,12 @@ End of Custom Tool Tips
     display: inline;
 }
 
+#testKey {
+  width:  361px;
+}
+
 /* Shows "Invalid API Key..." */
-#apiKeyError {
-    color: #FF5555;
+#apiKeyOutput {
     position: relative;
     top: 5px;
     bottom: 5px;

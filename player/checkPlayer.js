@@ -1,6 +1,6 @@
 errorEventCreate();
 
-import * as storage from '../storage.js';
+import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes, getSyncStorage, setSyncStorage, syncStorageBytes } from '../utility.js';
 import { hypixelRequestPlayer } from './APIRequests/hypixelRequestPlayer.js';
 import { slothpixelRequestPlayer } from './APIRequests/slothpixelRequestPlayer.js';
 import { requestUUID } from './APIRequests/requestUUID.js';
@@ -15,9 +15,9 @@ persistentPlayer().catch(errorHandler);
 
 async function persistentPlayer() {
   try {
-    let { userOptions } = await storage.getSyncStorage('userOptions');
+    let { userOptions } = await getSyncStorage('userOptions');
     if (userOptions.persistentLastPlayer === false) return;
-    let { playerHistory } = await storage.getLocalStorage('playerHistory');
+    let { playerHistory } = await getLocalStorage('playerHistory');
     if (playerHistory?.lastSearches.length === 0 || playerHistory?.lastSearchCleared === true) return;
     let text = playerDataString(playerHistory?.lastSearches[0]?.apiData, userOptions);
     userOptions.typewriterOutput = false;
@@ -31,11 +31,13 @@ async function processPlayer(event) {
   try {
     event.preventDefault();
     player = document.getElementById('playerValue').value.replace(/^\s/, '');
-    let { userOptions } = await storage.getSyncStorage('userOptions');
+    let { userOptions } = await getSyncStorage('userOptions');
     if (userOptions.useHypixelAPI === true && !userOptions.apiKey) {let x =  new Error(); x.name = 'KeyError'; throw x}
     outputElement.innerHTML = 'Loading..';
     document.getElementById('playerValue').value = '';
-    document.getElementById('submitButton').disabled = true;
+    let submitButton = document.getElementById('submitButton');
+    submitButton.disabled = true;
+    submitButton.style.cursor = 'not-allowed';
     let apiData = await callAPIs(player, userOptions);
     let text = playerDataString(apiData, userOptions);
     await updatePlayerHistory(apiData); //Might add a <promise>.catch to allow it to continue if this fails
@@ -86,12 +88,12 @@ async function updatePlayerHistory(apiData) {
     thisPlayerHistory.epoch = `${Date.now()}`;
     thisPlayerHistory.apiData = apiData;
   
-    let { playerHistory } = await storage.getLocalStorage('playerHistory');
+    let { playerHistory } = await getLocalStorage('playerHistory');
     playerHistory?.lastSearches.unshift(thisPlayerHistory);
     playerHistory?.lastSearches.splice(100);
     playerHistory.lastSearchCleared = false;
     if (playerHistory?.lastSearches[1]?.apiData) delete playerHistory?.lastSearches[1]?.apiData;
-    return await storage.setLocalStorage({ 'playerHistory': playerHistory });
+    return await setLocalStorage({ 'playerHistory': playerHistory });
   } catch (err) {
     throw err;
   }
@@ -105,7 +107,7 @@ function errorEventCreate() {
 async function errorHandler(event, errorType = "caughtError", err =  event?.error ?? event?.reason ?? event) { //Default type is "caughtError"
   try {
     console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
-    let { userOptions } = await storage.getSyncStorage('userOptions').catch(() => {});
+    let { userOptions } = await getSyncStorage('userOptions').catch(() => {});
     let errorOutput = document.getElementById('outputElement');
     let apiType = userOptions?.useHypixelAPI === true ? 'Hypixel API' : 'Slothpixel API'; //The UUID API could fail, but switching to the Slothpixel API would "fix" it
     let oppositeAPIType = userOptions?.useHypixelAPI === false ? 'Hypixel API' : 'Slothpixel API';
