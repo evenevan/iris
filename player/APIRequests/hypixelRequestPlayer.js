@@ -8,6 +8,7 @@ export async function hypixelRequestPlayer(uuid, apiKey) {
     if (player[0].player === null) {let newError = new Error(""); newError.name = "NotFound"; throw newError;}
     return hypixelProcessData(player[0].player, player[1]);
   }).catch(err => {
+    if (err.json) err.message = err.message + `. Cause: ${err.json?.cause}`;
     throw err;
   });
 };
