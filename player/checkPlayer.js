@@ -32,9 +32,9 @@ async function processPlayer(event) {
     event.preventDefault();
     player = document.getElementById('playerValue').value.replace(/^\s/, '');
     let { userOptions } = await getSyncStorage('userOptions');
-    if (userOptions.useHypixelAPI === true && !userOptions.apiKey) {let x =  new Error(); x.name = 'KeyError'; throw x}
-    outputElement.innerHTML = 'Loading..';
     document.getElementById('playerValue').value = '';
+    outputElement.textContent = 'Loading..';
+    if (userOptions.useHypixelAPI === true && !userOptions.apiKey) {let x =  new Error(); x.name = 'KeyError'; throw x}
     let submitButton = document.getElementById('submitButton');
     submitButton.disabled = true;
     submitButton.style.cursor = 'not-allowed';
@@ -112,30 +112,42 @@ async function errorHandler(event, errorType = "caughtError", err =  event?.erro
     let apiType = userOptions?.useHypixelAPI === true ? 'Hypixel API' : 'Slothpixel API'; //The UUID API could fail, but switching to the Slothpixel API would "fix" it
     let oppositeAPIType = userOptions?.useHypixelAPI === false ? 'Hypixel API' : 'Slothpixel API';
     let usernameOrUUID = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/i.test(player) ? 'UUID' : 'username';
+    errorOutput.textContent = '';
     switch (err?.name) {
       case 'AbortError':
-        errorOutput.innerHTML = `The ${apiType} failed to respond twice. It may be down. Try switching to the ${oppositeAPIType} if this persists.`;
+        errorOutput.textContent = `The ${apiType} failed to respond twice. It may be down. Try switching to the ${oppositeAPIType} if this persists.`;
       break;
       case 'NotFound':
-        errorOutput.innerHTML = `The ${usernameOrUUID} "${player}" isn't a valid player and couldn't be found. <a href="https://namemc.com/search?q=${player}" title="Opens a new tab to NameMC with your search query" target="_blank">NameMC</a>`;
+        let temp0 = document.createElement('a');
+        temp0.setAttribute('href', `https://namemc.com/search?q=${player}`);
+        temp0.setAttribute('title', 'Opens a new tab to NameMC with your search query');
+        temp0.setAttribute('target', '_blank');
+        temp0.textContent = 'NameMC';
+        errorOutput.append(`The ${usernameOrUUID} "${player}" isn't a valid player and couldn't be found. `, temp0);
       break;
       case 'HTTPError':
-        if (err.status === 500 && userOptions?.useHypixelAPI === false) errorOutput.innerHTML = `Slothpixel returned an error; this happens regularly. Try switching to the Hypixel API if this continues.`;
-        else if (err.status === 403 && userOptions?.useHypixelAPI === true) errorOutput.innerHTML = `Invalid API key! Please either switch to the Slothpixel API or get a new API key with <b>/api</b> on Hypixel.`;
-        else errorOutput.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this persists.`;
+        if (err.status === 500 && userOptions?.useHypixelAPI === false) errorOutput.textContent = `Slothpixel returned an error; this happens regularly. Try switching to the Hypixel API if this continues.`;
+        else if (err.status === 403 && userOptions?.useHypixelAPI === true) {
+          let temp1 = document.createElement('b');
+          temp1.textContent = '/api'
+          errorOutput.append("Invalid API key! Please either switch to the Slothpixel API or get a new API key with ", temp1, ' on Hypixel.');
+        }
+        else errorOutput.textContent = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this persists.`;
       break;
       case 'KeyError':
-        errorOutput.innerHTML = `You don't have an API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use /api new on Hypixel and enter the key!`;
+        let temp2 = document.createElement('b');
+        temp2.textContent = '/api'
+        errorOutput.append("You don't have an API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use ", temp2, ' new on Hypixel and enter the key!');
       break;
       case 'ChromeError':
-        errorOutput.innerHTML = `An error occured. ${err?.message}`;
+        errorOutput.textContent = `An error occured. ${err?.message}`;
       break;
       case null:
       case undefined:
-        errorOutput.innerHTML = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.textContent = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
       break;
       default:
-        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.textContent = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
       break;
     }
   } catch (err) {

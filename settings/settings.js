@@ -45,7 +45,7 @@ import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes,
     try {
       userOptions.apiKey = this.value;
       if (uuidV4.test(this.value) || this.value === '') {
-        apiKeyOutput.innerHTML = '';
+        apiKeyOutput.textContent = '';
         this.style.borderColor = '#FFFFFF';
         testKey.style.borderColor = '#FFFFFF';
         if (this.value === '') {
@@ -58,7 +58,7 @@ import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes,
         testKey.style.cursor = 'not-allowed'; testKey.disabled = true; testKey.style.borderColor = '#FF5555';
         this.style.borderColor = '#FF5555';
         apiKeyOutput.style.color = '#FF5555';
-        apiKeyOutput.innerHTML = '&#9888; Invalid API key! Hypixel API keys will follow the UUID v4 format. Get an API key with <b>/api new</b> on Hypixel &#9888;';
+        apiKeyOutput.textContent = '\u{26A0} Invalid API key! Hypixel API keys will follow the UUID v4 format. Get an API key with <b>/api new</b> on Hypixel \u{26A0}';
       }
     } catch (err) {
       throw err;
@@ -87,19 +87,19 @@ import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes,
       setTimeout(() => {this.disabled = false;}, 500); //Prevent API Spam :)
       let response = await createHTTPRequest(`https://api.hypixel.net/key?key=${userOptions.apiKey}`);
       apiKeyOutput.style.color = '#FFFFFF';
-      return apiKeyOutput.innerHTML = `&#10003; Valid API Key! Total uses: ${response?.record?.totalQueries} &#10003;`;
+      return apiKeyOutput.textContent = `\u{2713} Valid API Key! Total uses: ${response?.record?.totalQueries} \u{2713}`;
     } catch (err) {
       if (err?.status !== 403) return errorHandler(err);
       apiKeyOutput.style.color = '#FF5555';
-      return apiKeyOutput.innerHTML = '&#9888; Invalid API key! Get a new API key with <b>/api new</b> on Hypixel &#9888;';
+      return apiKeyOutput.textContent = '\u{26A0} Invalid API key! Get a new API key with <b>/api new</b> on Hypixel \u{26A0}';
     }
   });
 
   let playerHistoryBytes = await localStorageBytes('playerHistory').catch(errorHandler); //null returns the total storage
   let userOptionsBytes = await syncStorageBytes('userOptions').catch(errorHandler);
 
-  document.getElementById('playerHistoryBytes').innerHTML = `Search History: ${(playerHistoryBytes / 1024).toFixed(2)} Kilobytes`
-  document.getElementById('userOptionsBytes').innerHTML = `Settings: ${(userOptionsBytes / 1024).toFixed(2)} Kilobytes`
+  document.getElementById('playerHistoryBytes').textContent = `Search History: ${(playerHistoryBytes / 1024).toFixed(2)} Kilobytes`
+  document.getElementById('userOptionsBytes').textContent = `Settings: ${(userOptionsBytes / 1024).toFixed(2)} Kilobytes`
 })().catch(errorHandler);
 
 function errorEventCreate() {
@@ -113,17 +113,17 @@ function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? e
     console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {
       case 'ChromeError':
-        errorOutput.innerHTML = `An error occured. ${err?.message}`;
+        errorOutput.textContent = `An error occured. ${err?.message}`;
       break;
       case 'HTTPError':
-        errorOutput.innerHTML = `An unexpected HTTP code was returned. ${err.message}. Please try again later and contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.textContent = `An unexpected HTTP code was returned. ${err.message}. Please try again later and contact Attituding#6517 if this error continues appearing.`;
       break;
       case null:
       case undefined:
-        errorOutput.innerHTML = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.textContent = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
       break;
       default:
-        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.textContent = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
       break;
     }
   } catch (err) {

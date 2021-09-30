@@ -12,7 +12,7 @@ async function clearButton() {
     let { playerHistory } = await getLocalStorage('playerHistory').catch(errorHandler);
     document.getElementById('playerValue').value = '';
     document.getElementById('submitButton').disabled = true;
-    document.getElementById('outputElement').innerHTML = '';
+    document.getElementById('outputElement').textContent = '';
     playerHistory.lastSearchCleared = true;
     await setLocalStorage({ playerHistory: playerHistory }).catch(errorHandler);
   } catch (err) {
@@ -57,14 +57,14 @@ function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? e
     console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {
       case 'ChromeError':
-        errorOutput.innerHTML = `An error occured. ${err?.message}`;
+        errorOutput.textContent = `An error occured. ${err?.message}`;
       break;
       case null:
       case undefined:
-        errorOutput.innerHTML = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.textContent = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
       break;
       default:
-        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.innertextContentHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
       break;
     }
   } catch (err) {

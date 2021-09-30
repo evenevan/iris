@@ -87,6 +87,10 @@ body {
     color: #ffffff;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /* Submit Button Clicked */ /* Check Player Button */
 .actionButton:active {
     background-color: #ffffff;

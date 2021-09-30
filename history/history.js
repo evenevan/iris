@@ -23,7 +23,7 @@ import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes,
     
     if (playerHistoryArray.length > 0) {
       outputElement.innerHTML = playerHistoryArray.join("<br>");
-    } else outputElement.innerHTML = 'No recent searches!'
+    } else outputElement.textContent = 'No recent searches!'
   } catch(err) {
     errorHandler(err);
   }
@@ -64,14 +64,14 @@ function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? e
     console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
     switch (err?.name) {
       case 'ChromeError':
-        errorOutput.innerHTML = `An error occured. ${err?.message}`;
+        errorOutput.textContent = `An error occured. ${err?.message}`;
       break;
       case null:
       case undefined:
-        errorOutput.innerHTML = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.textContent = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
       break;
       default:
-        errorOutput.innerHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
+        errorOutput.textContent = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
       break;
     }
   } catch (err) {
