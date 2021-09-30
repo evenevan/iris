@@ -68,10 +68,15 @@ function playerDataString(apiData, userOptions) {
 
 async function outputField(text, userOptions, outputElement) {
   try {
-    if (userOptions?.typewriterOutput === false) return outputElement.innerHTML = text;
+    if (userOptions?.typewriterOutput === false) {
+      let frag = document.createRange().createContextualFragment(text);
+      return outputElement.appendChild(frag)
+    }
 
     for (let i = 0; i < text.length; i += 2) {
-      outputElement.innerHTML = text.slice(0, i + 1);
+      let frag = document.createRange().createContextualFragment(text.slice(0, i + 1).replace(/<\/$|<$/, ''));
+      outputElement.textContent = '';
+      outputElement.appendChild(frag)
       await new Promise(t => setTimeout(t, 0));
     }
   } catch (err) {

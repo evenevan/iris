@@ -22,7 +22,8 @@ import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes,
     }
     
     if (playerHistoryArray.length > 0) {
-      outputElement.innerHTML = playerHistoryArray.join("<br>");
+      let frag = document.createRange().createContextualFragment(playerHistoryArray.join("<br>"));
+      outputElement.appendChild(frag)
     } else outputElement.textContent = 'No recent searches!'
   } catch(err) {
     errorHandler(err);
