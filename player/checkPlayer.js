@@ -74,7 +74,6 @@ async function outputField(text, userOptions, outputElement) {
       outputElement.innerHTML = text.slice(0, i + 1);
       await new Promise(t => setTimeout(t, 0));
     }
-    return outputElement.innerHTML = text;
   } catch (err) {
     throw err;
   }
