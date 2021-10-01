@@ -8,4 +8,4 @@ export async function requestUUID(username) {
     if (err.status === 500) {let newError = new Error("HTTP status " + err.status); newError.name = "NotFound"; throw newError;}
     throw err;
   });
-};
+}

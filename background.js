@@ -1,3 +1,4 @@
+/*global chrome*/
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install") { //On first install
 

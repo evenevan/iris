@@ -11,10 +11,9 @@ export async function hypixelRequestPlayer(uuid, apiKey) {
     if (err.json) err.message = err.message + `. Cause: ${err.json?.cause}`;
     throw err;
   });
-};
+}
 
-async function hypixelProcessData(playerData, statusData) {
-  try {
+function hypixelProcessData(playerData, statusData) {
     let tzOffset =  new Date().getTimezoneOffset() / 60;
     let tzOffsetString = `UTC${createOffset(new Date())}`;
 
@@ -26,36 +25,6 @@ async function hypixelProcessData(playerData, statusData) {
     let lastLogoutDate = cleanDate(new Date((playerData?.lastLogout ?? 0) + tzOffset))
     
     let lastPlaytime = cleanTime((playerData?.lastLogout ?? 0) - (playerData?.lastLogin ?? 0));
-
-    function cleanTime(ms) {
-      if (ms < 0) return null;
-      let seconds = Math.round(ms / 1000);
-      let days = Math.floor(seconds / (24 * 60 * 60));
-      seconds -= days * 24 * 60 * 60
-      let hours = Math.floor(seconds / (60 * 60));
-      seconds -= hours * 60 * 60
-      let minutes = Math.floor(seconds / 60);
-      seconds -= minutes * 60;
-      return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;
-    }
-      
-    function cleanDate(epoch) {
-        let date = epoch.getDate();
-        let month = new Intl.DateTimeFormat('en-US', {month: 'short'}).format(epoch);
-        let year = epoch.getFullYear();
-        return month + " " + date + ", " + year;
-    }
-    
-    function pad(value) { //Yoinked from https://stackoverflow.com/a/13016136 under CC BY-SA 3.0 matching ISO 8601
-        return value < 10 ? '0' + value : value;
-    }
-    function createOffset(date) { //Yoinked from https://stackoverflow.com/a/13016136 under CC BY-SA 3.0 matching ISO 8601
-        let sign = (date.getTimezoneOffset() > 0) ? "-" : "+";
-        let offset = Math.abs(date.getTimezoneOffset());
-        let hours = pad(Math.floor(offset / 60));
-        let minutes = pad(offset % 60);
-        return sign + hours + ":" + minutes;
-    }
   
     let apiData = new Object();
     apiData.username = playerData?.displayname ?? '';
@@ -150,7 +119,7 @@ async function hypixelProcessData(playerData, statusData) {
     apiData.speedUHC.deaths = playerData?.stats?.SpeedUHC?.deaths ?? 0;
   
     apiData.uhc = {}
-    apiData.uhc.level = 'I CANT ANYMROE AAAAAAA WHERE IT IS';//playerData?.stats?.UHC?.level;
+    apiData.uhc.level = 'I CANT ANYMROE AAAAAAA WHERE IT IS'; //playerData?.stats?.UHC?.level;
     apiData.uhc.coins = playerData?.stats?.UHC?.coins ?? 0;
     apiData.uhc.KD = ratio(playerData?.stats?.UHC?.kills, playerData?.stats?.UHC?.deaths);
     apiData.uhc.WL = ratio(playerData?.stats?.UHC?.wins, playerData?.stats?.UHC?.deaths);
@@ -173,15 +142,41 @@ async function hypixelProcessData(playerData, statusData) {
     apiData.megaWalls.wins = playerData?.stats?.Walls3?.wins ?? 0;
     apiData.megaWalls.kills = playerData?.stats?.Walls3?.total_kills ?? 0;
     apiData.megaWalls.deaths = playerData?.stats?.Walls3?.total_deaths ?? 0;
-    
-    function ratio(first, second) {
-      if (!first || !first || first === 0 || second === 0) return 'Unavailable';
-      return (first / second).toFixed(2);
-    }
   
     return apiData;
-  } catch (err) {
-    console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), err.stack)
-    return err;
-  }
+}
+
+function cleanTime(ms) {
+  if (ms < 0) return null;
+  let seconds = Math.round(ms / 1000);
+  let days = Math.floor(seconds / (24 * 60 * 60));
+  seconds -= days * 24 * 60 * 60
+  let hours = Math.floor(seconds / (60 * 60));
+  seconds -= hours * 60 * 60
+  let minutes = Math.floor(seconds / 60);
+  seconds -= minutes * 60;
+  return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;
+}
+  
+function cleanDate(epoch) {
+    let date = epoch.getDate();
+    let month = new Intl.DateTimeFormat('en-US', {month: 'short'}).format(epoch);
+    let year = epoch.getFullYear();
+    return month + " " + date + ", " + year;
+}
+
+function pad(value) { //Yoinked from https://stackoverflow.com/a/13016136 under CC BY-SA 3.0 matching ISO 8601
+    return value < 10 ? '0' + value : value;
+}
+function createOffset(date) { //Yoinked from https://stackoverflow.com/a/13016136 under CC BY-SA 3.0 matching ISO 8601
+    let sign = (date.getTimezoneOffset() > 0) ? "-" : "+";
+    let offset = Math.abs(date.getTimezoneOffset());
+    let hours = pad(Math.floor(offset / 60));
+    let minutes = pad(offset % 60);
+    return sign + hours + ":" + minutes;
+}
+
+function ratio(first, second) {
+  if (!first || !first || first === 0 || second === 0) return 'Unavailable';
+  return (first / second).toFixed(2);
 }

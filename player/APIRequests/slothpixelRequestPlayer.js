@@ -14,7 +14,6 @@ export async function slothpixelRequestPlayer(player) {
 }
 
 function slothpixelProcessData(playerData, statusData) {
-  try {
     let tzOffset =  new Date().getTimezoneOffset() / 60;
     let tzOffsetString = `UTC${createOffset(new Date())}`;
 
@@ -175,7 +174,4 @@ function slothpixelProcessData(playerData, statusData) {
     apiData.megaWalls.deaths = playerData?.stats?.MegaWalls?.deaths ?? 0;
 
     return apiData;
-  } catch (err) {
-    throw err;
-  }
 }

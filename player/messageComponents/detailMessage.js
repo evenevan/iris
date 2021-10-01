@@ -1,5 +1,4 @@
 export function detailMessage(apiData, userOptions) {
-  try {
     let playerDataString = '';
   
     playerDataString += `<strong>Username:</strong> ${apiData.username}<br>`;
@@ -98,8 +97,4 @@ export function detailMessage(apiData, userOptions) {
       seconds -= minutes * 60;
       return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;
     }
-
-  } catch (err) {
-    throw err;
-  }
 }

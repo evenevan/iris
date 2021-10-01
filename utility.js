@@ -23,10 +23,12 @@ let controller = new AbortController();
     }
     return response.json();
   }).catch(err => {
-    if (err.name === "AbortError" && timesAborted < 1) return createRequest(uuid, apiKey, timesAborted++); //Simple way to try again without an infinite loop
+    if (err.name === "AbortError" && timesAborted < 1) return createHTTPRequest(url, timeout, timesAborted++); //Simple way to try again without an infinite loop
     throw err;
   });
-};
+}
+
+/*global chrome*/
 
 export function getLocalStorage(key){ //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
   return new Promise((resolve, reject) =>

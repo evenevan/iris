@@ -1,6 +1,6 @@
 errorEventCreate();
 
-import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes, getSyncStorage, setSyncStorage, syncStorageBytes } from '../utility.js';
+import { getLocalStorage } from '../utility.js';
 
 (async () => {
   try {
@@ -21,10 +21,8 @@ import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes,
       playerHistoryArray.push(tempString);
     }
     
-    if (playerHistoryArray.length > 0) {
-      let frag = document.createRange().createContextualFragment(playerHistoryArray.join("<br>"));
-      outputElement.appendChild(frag)
-    } else outputElement.textContent = 'No recent searches!'
+    if (playerHistoryArray.length > 0) outputElement.insertAdjacentHTML('afterbegin', playerHistoryArray.join("<br>"));
+    else outputElement.textContent = 'No recent searches!'
   } catch(err) {
     errorHandler(err);
   }

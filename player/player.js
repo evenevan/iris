@@ -1,6 +1,6 @@
 errorEventCreate();
 
-import { createHTTPRequest, getLocalStorage, setLocalStorage, localStorageBytes, getSyncStorage, setSyncStorage, syncStorageBytes } from '../utility.js';
+import { getLocalStorage, setLocalStorage } from '../utility.js';
 
 document.getElementById('submitButton').style.cursor = 'not-allowed'; //There isn't really any other decent spot to put this
 
@@ -8,16 +8,12 @@ document.getElementById('clearButton').addEventListener('click', () => clearButt
 document.getElementById('playerValue').addEventListener('input', invalidPlayer);
 
 async function clearButton() {
-  try {
-    let { playerHistory } = await getLocalStorage('playerHistory').catch(errorHandler);
-    document.getElementById('playerValue').value = '';
-    document.getElementById('submitButton').disabled = true;
-    document.getElementById('outputElement').textContent = '';
-    playerHistory.lastSearchCleared = true;
-    await setLocalStorage({ playerHistory: playerHistory }).catch(errorHandler);
-  } catch (err) {
-    throw err;
-  }
+  let { playerHistory } = await getLocalStorage('playerHistory').catch(errorHandler);
+  document.getElementById('playerValue').value = '';
+  document.getElementById('submitButton').disabled = true;
+  document.getElementById('outputElement').textContent = '';
+  playerHistory.lastSearchCleared = true;
+  await setLocalStorage({ playerHistory: playerHistory }).catch(errorHandler);
 }
 
 function invalidPlayer() {
