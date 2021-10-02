@@ -47,7 +47,7 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
       break;
       }
       case 'HTTPError': {
-        console.warn(`${time} | Error Source: ${errorType} | Unexpected HTTP code:`, err.status ?? '', err.stack);
+        console.warn(`${time} | Error Source: ${errorType} | Unexpected HTTP code of ${err.status ?? 'Unknown'}: ${err.message ?? ''}\n`, err.stack);
         if (err.status === 500 && err.api === 'Slothpixel') {
           output.textContent = 'Slothpixel returned an error; this happens regularly. Try switching to the Hypixel API if this continues.';
         } else if (err.status === 403 && err.api === 'Hypixel') {
@@ -58,25 +58,25 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
       break;
       }
       case 'KeyError': {
-        console.warn(`${time} | Error Source: ${errorType} | Invalid API Key:`, err.status ?? '', err.stack);
+        console.warn(`${time} | Error Source: ${errorType} | Invalid API Key: ${err.message ?? ''}\n`, err.stack);
         let temp = document.createElement('b');
         temp.textContent = '/api'
         output.append('You don\'t have an API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use ', temp, ' new on Hypixel and enter the key!');
       break;
       }
       case 'AbortError':
-        console.warn(`${time} | Error Source: ${errorType} | Abort Error:`, err.status ?? '', err.stack);
+        console.warn(`${time} | Error Source: ${errorType} | Abort Error: ${err.message ?? ''}\n`, err.stack);
         output.textContent = ''
       break;
       case 'StorageError':
-        console.error(`${time} | Error Source: ${errorType} | Storage API Error:`, err.stack);
+        console.error(`${time} | Error Source: ${errorType} | Storage API Error: ${err.message ?? ''}\n`, err.stack);
       break;
       case null:
       case undefined:
-        console.error(`${time} | Error Source: ${errorType} | Unknown Error:`, err.stack);
+        console.error(`${time} | Error Source: ${errorType} | Unknown Error: ${err.message ?? ''}\n`, err.stack);
       break;
       default:
-        console.error(`${time} | Error Source: ${errorType} | Unexpected Error Type:`, err.stack);
+        console.error(`${time} | Error Source: ${errorType} | ${err.name ?? 'Unknown Error Type'}: ${err.message ?? ''}\n`, err.stack);
       break;
     }
   } catch (err) {

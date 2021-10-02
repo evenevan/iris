@@ -17,7 +17,7 @@ async function persistentPlayer() {
   let { userOptions } = await getSyncStorage('userOptions');
   if (userOptions.persistentLastPlayer === false) return;
   let { playerHistory } = await getLocalStorage('playerHistory');
-  if (playerHistory?.lastSearches.length === 0 || playerHistory?.lastSearchCleared === true) return;
+  if (!playerHistory || playerHistory?.lastSearches.length === 0 || playerHistory?.lastSearchCleared === true) return;
   let text = playerDataString(playerHistory?.lastSearches[0]?.apiData, userOptions);
   userOptions.typewriterOutput = false;
   return await outputField(text, userOptions, outputElement);
