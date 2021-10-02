@@ -31,8 +31,8 @@ errorEventCreate();
       document.getElementById('authorNameOutputContainer').style.display = 'block' : 
       document.getElementById('authorNameOutputContainer').style.display = 'none';
       userOptions[this.id] = this.checked;
-      //this.disabled = true;
-      //setTimeout(() => {this.disabled = false}, 500);
+      this.disabled = true;
+      setTimeout(() => {this.disabled = false}, 500);
       await setSyncStorage({'userOptions': userOptions}).catch(x => errorHandler(x, document.getElementById('errorOutput')));
     })
   });
