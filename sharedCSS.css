@@ -8,6 +8,7 @@ body {
     height: 600px;
     background-color: #2b2b2b;
     color: white;
+    font: 15px "Segoe UI", sans-serif;
 }
 
 /* Options/Main Page Switcher */

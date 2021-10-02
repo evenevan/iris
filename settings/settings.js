@@ -1,9 +1,9 @@
+import { createHTTPRequest, errorHandler, localStorageBytes, getSyncStorage, setSyncStorage, syncStorageBytes } from '../utility.js';
+
 errorEventCreate();
 
-import { createHTTPRequest, localStorageBytes, getSyncStorage, setSyncStorage, syncStorageBytes } from '../utility.js';
-
 (async () => {
-  let { userOptions } = await getSyncStorage('userOptions').catch(errorHandler);
+  let { userOptions } = await getSyncStorage('userOptions').catch(x => errorHandler(x, document.getElementById('errorOutput')));
 
   let apiKeyInput = document.getElementById('apiKey');
   let apiKeyOutput = document.getElementById('apiKeyOutput');
@@ -31,9 +31,9 @@ import { createHTTPRequest, localStorageBytes, getSyncStorage, setSyncStorage, s
       document.getElementById('authorNameOutputContainer').style.display = 'block' : 
       document.getElementById('authorNameOutputContainer').style.display = 'none';
       userOptions[this.id] = this.checked;
-      this.disabled = true;
-      setTimeout(() => {this.disabled = false}, 500);
-      await setSyncStorage({'userOptions': userOptions}).catch(errorHandler);
+      //this.disabled = true;
+      //setTimeout(() => {this.disabled = false}, 500);
+      await setSyncStorage({'userOptions': userOptions}).catch(x => errorHandler(x, document.getElementById('errorOutput')));
     })
   });
 
@@ -48,7 +48,7 @@ import { createHTTPRequest, localStorageBytes, getSyncStorage, setSyncStorage, s
       } else {
         testKey.style.cursor = 'pointer'; testKey.disabled = false;
       }
-      await setSyncStorage({'userOptions': userOptions}).catch(errorHandler);
+      await setSyncStorage({'userOptions': userOptions}).catch(x => errorHandler(x, document.getElementById('errorOutput')));
     } else {
       testKey.style.cursor = 'not-allowed'; testKey.disabled = true; testKey.style.borderColor = '#FF5555';
       this.style.borderColor = '#FF5555';
@@ -74,46 +74,22 @@ import { createHTTPRequest, localStorageBytes, getSyncStorage, setSyncStorage, s
       apiKeyOutput.style.color = '#FFFFFF';
       return apiKeyOutput.textContent = `\u{2713} Valid API Key! Total uses: ${response?.record?.totalQueries} \u{2713}`;
     } catch (err) {
-      if (err?.status !== 403) return errorHandler(err);
+      if (err?.status !== 403) return errorHandler(err, document.getElementById('errorOutput'));
       apiKeyOutput.style.color = '#FF5555';
       return apiKeyOutput.textContent = '\u{26A0} Invalid API key! Get a new API key with <b>/api new</b> on Hypixel \u{26A0}';
     }
   });
 
-  let playerHistoryBytes = await localStorageBytes('playerHistory').catch(errorHandler); //null returns the total storage
-  let userOptionsBytes = await syncStorageBytes('userOptions').catch(errorHandler);
+  let playerHistoryBytes = await localStorageBytes('playerHistory').catch(x => errorHandler(x, document.getElementById('errorOutput'))); //<- Throws in Firefox
+  let userOptionsBytes = await syncStorageBytes('userOptions').catch(x => errorHandler(x, document.getElementById('errorOutput')));
 
   document.getElementById('playerHistoryBytes').textContent = `Search History: ${(playerHistoryBytes / 1024).toFixed(2)} Kilobytes`
   document.getElementById('userOptionsBytes').textContent = `Settings: ${(userOptionsBytes / 1024).toFixed(2)} Kilobytes`
 })().catch(errorHandler);
 
 function errorEventCreate() {
-  window.addEventListener('error', x => errorHandler(x, x.constructor.name));
-  window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
-}
-
-function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? event?.reason ?? event) { //Default type is "caughtError"
-  try {
-    let errorOutput = document.getElementById('errorOutput');
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
-    switch (err?.name) {
-      case 'ChromeError':
-        errorOutput.textContent = `An error occured. ${err?.message}`;
-      break;
-      case 'HTTPError':
-        errorOutput.textContent = `An unexpected HTTP code was returned. ${err.message}. Please try again later and contact Attituding#6517 if this error continues appearing.`;
-      break;
-      case null:
-      case undefined:
-        errorOutput.textContent = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
-      break;
-      default:
-        errorOutput.textContent = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
-      break;
-    }
-  } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err?.stack ?? event);
-  }
+  window.addEventListener('error', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));
+  window.addEventListener('unhandledrejection', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));
 }
 
 //uuid for error tracing in the future - maybe.

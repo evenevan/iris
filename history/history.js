@@ -1,6 +1,6 @@
-errorEventCreate();
+import { errorHandler, getLocalStorage } from '../utility.js';
 
-import { getLocalStorage } from '../utility.js';
+errorEventCreate();
 
 (async () => {
   try {
@@ -24,7 +24,7 @@ import { getLocalStorage } from '../utility.js';
     if (playerHistoryArray.length > 0) outputElement.insertAdjacentHTML('afterbegin', playerHistoryArray.join("<br>"));
     else outputElement.textContent = 'No recent searches!'
   } catch(err) {
-    errorHandler(err);
+    errorHandler(err, document.getElementById('errorOutput'));
   }
 })();
 
@@ -53,27 +53,6 @@ function cleanTime(ms) { //Takes MS
 }
 
 function errorEventCreate() {
-  window.addEventListener('error', x => errorHandler(x, x.constructor.name));
-  window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
-}
-
-function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? event?.reason ?? event) { //Default type is "caughtError"
-  try {
-    let errorOutput = document.getElementById('errorOutput');
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
-    switch (err?.name) {
-      case 'ChromeError':
-        errorOutput.textContent = `An error occured. ${err?.message}`;
-      break;
-      case null:
-      case undefined:
-        errorOutput.textContent = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
-      break;
-      default:
-        errorOutput.textContent = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
-      break;
-    }
-  } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err?.stack ?? event);
-  }
+  window.addEventListener('error', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));
+  window.addEventListener('unhandledrejection', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));
 }

@@ -2,12 +2,17 @@
   "name": "Iris",
   "description": "A tool made to check any Hypixel player's last session easily and quickly!",
   "version": "1.0.4",
-  "manifest_version": 3,
+  "manifest_version": 2,
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "random@random.net"
+    }
   },
   "permissions": ["storage"],
-  "action": {
+  "browser_action": {
     "default_popup": "./player/player.html",
     "default_icon": {
       "16": "/images/iris16.png",

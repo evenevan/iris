@@ -19,7 +19,7 @@
 .scrollOverflow {
     display: flex;
     margin: 5px 0px 0px;
-    height: 525px;
+    height: 520px;
     width: 360px;
     padding-left: 10px;
     padding-right: 10px;
@@ -29,18 +29,18 @@
 /* Main Page Switcher */
 #player {
     font-size: 30px;
-    cursor: pointer;
+    cursor: default;
     color: #ffffff;
 }
 
 /* Options Page Switcher */
-#options {
+#settings {
     font-size: 25px;
     cursor: pointer;
     color: #c3c3c3;
 }
 
-#options:hover {
+#settings:hover {
     color: #ffffff;
 }
 

@@ -29,13 +29,13 @@ hr { width: 95% }
 }
 
 /* Options Page Switcher */
-#options {
+#settings {
     font-size: 25px;
     cursor: pointer;
     color: #c3c3c3;
 }
 
-#options:hover {
+#settings:hover {
     color: #ffffff;
 }
 
@@ -53,5 +53,6 @@ hr { width: 95% }
 /* Information Page Switcher */
 #information {
     font-size: 30px;
+    cursor: default;
     color: #ffffff;
 }

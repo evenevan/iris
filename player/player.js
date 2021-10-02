@@ -1,19 +1,19 @@
-errorEventCreate();
+import { errorHandler, getLocalStorage, setLocalStorage } from '../utility.js';
 
-import { getLocalStorage, setLocalStorage } from '../utility.js';
+errorEventCreate();
 
 document.getElementById('submitButton').style.cursor = 'not-allowed'; //There isn't really any other decent spot to put this
 
-document.getElementById('clearButton').addEventListener('click', () => clearButton().catch(errorHandler));
+document.getElementById('clearButton').addEventListener('click', () => clearButton().catch(x => errorHandler(x, document.getElementById('outputElement'))));
 document.getElementById('playerValue').addEventListener('input', invalidPlayer);
 
 async function clearButton() {
-  let { playerHistory } = await getLocalStorage('playerHistory').catch(errorHandler);
+  let { playerHistory } = await getLocalStorage('playerHistory').catch(x => errorHandler(x, document.getElementById('outputElement')));
   document.getElementById('playerValue').value = '';
   document.getElementById('submitButton').disabled = true;
   document.getElementById('outputElement').textContent = '';
   playerHistory.lastSearchCleared = true;
-  await setLocalStorage({ playerHistory: playerHistory }).catch(errorHandler);
+  await setLocalStorage({ playerHistory: playerHistory }).catch(x => errorHandler(x, document.getElementById('outputElement')));
 }
 
 function invalidPlayer() {
@@ -38,32 +38,11 @@ function invalidPlayer() {
       this.style.borderColor = '#FF5555'
     }
   } catch (err) {
-    errorHandler(err);
+    errorHandler(err, document.getElementById('outputElement'));
   }
 }
 
 function errorEventCreate() {
-  window.addEventListener('error', x => errorHandler(x, x.constructor.name));
-  window.addEventListener('unhandledrejection', x => errorHandler(x, x.constructor.name));
-}
-
-function errorHandler(event, errorType = 'caughtError', err =  event?.error ?? event?.reason ?? event) { //Default type is "caughtError"
-  try {
-    let errorOutput = document.getElementById('outputElement');
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error Source: ${errorType} |`, err?.stack ?? event);
-    switch (err?.name) {
-      case 'ChromeError':
-        errorOutput.textContent = `An error occured. ${err?.message}`;
-      break;
-      case null:
-      case undefined:
-        errorOutput.textContent = `An error occured. No further information is available here; please check the dev console and contact Attituding#6517 if this error continues appearing.`;
-      break;
-      default:
-        errorOutput.innertextContentHTML = `An error occured. ${err?.name}: ${err?.message}. Please contact Attituding#6517 if this error continues appearing.`;
-      break;
-    }
-  } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err?.stack ?? event);
-  }
+  window.addEventListener('error', x => errorHandler(x, document.getElementById('outputElement'), x.constructor.name));
+  window.addEventListener('unhandledrejection', x => errorHandler(x, document.getElementById('outputElement'), x.constructor.name));
 }

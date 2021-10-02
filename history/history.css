@@ -15,19 +15,20 @@
 }
 
 /* Options Page Switcher */
-#options {
+#settings {
     font-size: 25px;
     cursor: pointer;
     color: #c3c3c3;
 }
 
-#options:hover {
+#settings:hover {
     color: #ffffff;
 }
 
 /* Search History Switcher */
 #history {
     font-size: 40px;
+    cursor: default;
     color: #ffffff;
 }
 

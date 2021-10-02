@@ -9,6 +9,7 @@ export async function slothpixelRequestPlayer(player) {
   }).catch(err => {
     if (err.status === 404) {let newError = new Error("HTTP status " + err.status); newError.name = "NotFound"; throw newError;}
     if (err.json) err.message = err.message + `. Cause: ${err.json?.error}`;
+    err.api = 'Slothpixel';
     throw err;
   });
 }

@@ -71,7 +71,7 @@ Start of Custom Tool Tips - Yoinked from https://www.w3schools.com/css/css_toolt
   border-color: #ffffff;
   border-width: 1px;
  
-  /* Position the tooltip text - see examples below! */
+/* Position the tooltip text - see examples below! */
   position: absolute;
   left: 0px;
   top: 22.5px;
@@ -127,8 +127,9 @@ input[type=checkbox] {
 }
 
 /* Options Page Switcher */
-#options {
+#settings {
     font-size: 25px;
+    cursor: default;
     color: #ffffff;
 }
 

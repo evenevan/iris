@@ -6,6 +6,7 @@ export async function requestUUID(username) {
     return player.data.player.id;
   }).catch(err => {
     if (err.status === 500) {let newError = new Error("HTTP status " + err.status); newError.name = "NotFound"; throw newError;}
+    err.api = 'UUID';
     throw err;
   });
 }

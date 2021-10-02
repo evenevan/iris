@@ -8,7 +8,9 @@ export async function hypixelRequestPlayer(uuid, apiKey) {
     if (player[0].player === null) {let newError = new Error(""); newError.name = "NotFound"; throw newError;}
     return hypixelProcessData(player[0].player, player[1]);
   }).catch(err => {
+    //No need to check if the player exists here because Hypixel returns a 200 even if no player with that UUID exists
     if (err.json) err.message = err.message + `. Cause: ${err.json?.cause}`;
+    err.api = 'Hypixel';
     throw err;
   });
 }
