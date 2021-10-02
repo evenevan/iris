@@ -13,7 +13,7 @@ let controller = new AbortController();
   }).then(async function(response) {
     if (!response.ok) {
       let responseJson = await response.json().catch((err) => {
-        console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | JSON Parsing Error: `, err.stack);
+        console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | JSON Parsing Error: ${err.message ?? ''}\n`, err.stack);
       })
       let newError = new Error(`HTTP status ${response.status}`);
       newError.name = "HTTPError";
@@ -21,7 +21,7 @@ let controller = new AbortController();
       newError.json = responseJson || null;
       throw newError;
     }
-    return response.json();
+    return await response.json();
   }).catch(err => {
     if (err.name === "AbortError" && timesAborted < 1) return createHTTPRequest(url, timeout, timesAborted++); //Simple way to try again without an infinite loop
     throw err;
@@ -35,7 +35,7 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
     if (output) output.textContent = '';
     switch (err.name) {
       case 'NotFound': {
-        console.warn(`${time} | Error Source: ${errorType} | Player Not Found:`, err.stack);
+        console.warn(`${time} | Error Source: ${errorType} | Player Not Found: ${err.message ?? ''}\n`, err.stack);
         if (output) {
           let temp = document.createElement('a');
           temp.setAttribute('href', `https://namemc.com/search?q=${err.player}`);
@@ -54,7 +54,7 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
           let temp = document.createElement('b');
           temp.textContent = '/api'
           output.append('Invalid API key! Please either switch to the Slothpixel API or get a new API key with ', temp, ' on Hypixel.');
-        } else output.textContent = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${oppositeAPIType} if this persists.`;
+        } else output.textContent = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${err.api ?? 'other'} API if this persists.`;
       break;
       }
       case 'KeyError': {

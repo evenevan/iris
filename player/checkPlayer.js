@@ -35,7 +35,7 @@ async function processPlayer(event) {
   submitButton.style.cursor = 'not-allowed';
   let apiData = await callAPIs(player, userOptions);
   let text = playerDataString(apiData, userOptions);
-  await updatePlayerHistory(apiData); //Might add a <promise>.catch to allow it to continue if this fails
+  await updatePlayerHistory(apiData).catch(x => errorHandler(x, document.getElementById('outputElement')))
   return await outputField(text, userOptions, outputElement);
 }
 
@@ -62,10 +62,10 @@ function playerDataString(apiData, userOptions) {
 async function outputField(text, userOptions, outputElement) {
   if (userOptions?.typewriterOutput === false) return outputElement.insertAdjacentHTML('afterbegin', text);
     
-  for (let i = 0; i < text.length; i += 2) {
+  for (let i = 0; i < text.length; i += 10) {
     outputElement.textContent = '';
-    outputElement.insertAdjacentHTML('afterbegin', text.slice(0, i + 1).replace(/<\/$|<$/, ''));
-    await new Promise(t => setTimeout(t, 0));
+    outputElement.insertAdjacentHTML('afterbegin', text.slice(0, i + 5).replace(/<\/$|<$/, ''));
+    await new Promise(t => setTimeout(t, text.length / 50)); //Seems to be a good balance as Firefox does this alot slower for some reason
   }
 }
 

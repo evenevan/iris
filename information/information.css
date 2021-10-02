@@ -41,7 +41,7 @@ hr { width: 95% }
 
 /* Search History Switcher */
 #history {
-    font-size: 40px;
+  font-size: 26px;
     cursor: pointer;
     color: #c3c3c3;
 }
@@ -55,4 +55,9 @@ hr { width: 95% }
     font-size: 30px;
     cursor: default;
     color: #ffffff;
+}
+
+html {
+  visibility: visible;
+  opacity: 1;
 }
