@@ -1,86 +1,82 @@
 export function explanationMessage(apiData, userOptions) {
   let playerDataString = '';
-  let playerPossesive = apiData?.possesive;
 
-  playerDataString += `<strong>Username:</strong> ${apiData?.username}<br>`;
-  playerDataString += `<strong>UUID:</strong> ${apiData?.uuid}<br>`
+  console.log(apiData)
 
-  if (apiData?.utcOffset !== 'Unavailable') playerDataString += `<strong>UTC Offset Used:</strong> ${apiData?.utcOffset}<br>`;
+  playerDataString += `<strong>Username:</strong> ${apiData?.username}`;
+  playerDataString += `<br><strong>UUID:</strong> ${apiData?.uuid}`
+  playerDataString += `<br><strong>Status:</strong> ${apiData?.status ?? 'Unavailable'}`;
+  if (apiData?.legacyAPI === true) playerDataString += `<br><strong>Limited/Legacy API:</strong> Missing data`;
+  if (apiData?.utcOffset) playerDataString += `<br><strong>UTC Offset Used:</strong> ${apiData?.utcOffset}`;
 
-  if (apiData?.legacyAPI === true) playerDataString += `<strong>Legacy API:</strong> Missing data<br>`;
+  if (apiData?.isOnline === true) {
+    playerDataString += `<br><br>Your current session began at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS))}</strong> ago). Your first-ever login was on ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}. Your account's current playtime is <strong>${apiData?.online?.playtime}</strong>.`;
 
-  playerDataString += `<strong>Status:</strong> ${apiData?.status}`;
+    playerDataString += `<br><br>Your account is currently playing ${apiData?.online?.gameType ? `<strong>${apiData?.online?.gameType}</strong>` : 'an <strong>unknown</strong> gametype'} in ${apiData?.online?.mode ? `the mode <strong>${apiData?.online?.mode}</strong>` : 'an <strong>unknown</strong> mode'} on ${apiData?.online?.map ? `the map <strong>${apiData?.online?.map}</strong>` : 'an <strong>unknown</strong> map'}.`;
 
-  playerDataString += '<br><br>';
-
-  if (apiData?.isOnline === false) {
-    playerDataString += `Your last session started at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS))}</strong> ago) and ended <strong>${apiData?.offline?.playtime}</strong> later after logging out?. Your first-ever login was at ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}?.`
-
-    playerDataString += '<br><br>'
-  
-    playerDataString += `During this session, ${apiData?.offline?.lastGame !== 'Unavailable' ? `you played or joined the lobby <strong>${apiData?.offline?.lastGame}</strong>?.` : `${apiData?.username} played an <strong>unknown</strong> game?.`}`;
+    playerDataString += `<br><br>Your account is using ${apiData?.version ? `Minecraft version <strong>${apiData?.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${apiData?.language ? `the language <strong>${apiData?.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
   } else {
-    playerDataString += `Your current session began at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS))}</strong> ago)?. Your first-ever login was on ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}?.`;
+    playerDataString += `<br><br>Your last session started at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}</strong> ago) and ended <strong>${apiData?.offline?.playtime ?? 'Unavailable'}</strong> later after logging out. Your first-ever login was at ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}.`
 
-    playerDataString += ` Your account's current playtime is <strong>${apiData?.online?.playtime}</strong>?.`;
+    if (apiData?.recentGames[0]) {
+      playerDataString += `<br><br>Your last recorded game played was <strong>${apiData?.recentGames[0].mode || apiData?.recentGames[0].gameType}</strong> at <strong>${apiData?.recentGames[0].startTime}</strong> on <strong>${apiData?.recentGames[0].startDate}</strong>.`;
+      if (apiData?.recentGames[0].map) playerDataString += ` You played this game on the map <strong>${apiData?.recentGames[0].map}</strong>.`
+      if (apiData?.recentGames[0].gameLength) playerDataString += ` This game lasted for <strong>${cleanTime(apiData?.recentGames[0].gameLength) ?? 'an unknown amount of time'}</strong>.`
+    } else if (apiData?.offline?.lastGame) {
+      playerDataString += `<br><br>You played or joined the lobby <strong>${apiData?.offline?.lastGame}</strong> during your last session.`;
+    }
 
-    playerDataString += '<br><br>';
-
-    playerDataString += `Your account is currently playing ${apiData?.online?.gameType !== 'Unavailable' ? `<strong>${apiData?.online?.gameType}</strong>` : 'an <strong>unknown</strong> gametype'} in ${apiData?.online?.mode !== 'Unavailable' ? `the mode <strong>${apiData?.online?.mode}</strong>` : 'an <strong>unknown</strong> mode'} on ${apiData?.online?.map !== 'Unavailable' ? `the map <strong>${apiData?.online?.map}</strong>` : 'an <strong>unknown</strong> map'}?.`;
+    playerDataString += `<br><br>Your account last used ${apiData?.version ? `Minecraft version <strong>${apiData?.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${apiData?.language ? `the language <strong>${apiData?.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
   }
 
-  playerDataString += '<br><br>';
-
-  playerDataString += `Your account last used ${apiData?.version !== 'Unavailable' ? `Minecraft version <strong>${apiData?.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${apiData?.language !== 'Unavailable' ? `the language <strong>${apiData?.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel?.`
-
-  if (userOptions?.gameStats === true && (apiData?.online?.gameType ?? apiData?.offline?.lastGame)) switch (apiData?.online?.gameType ?? apiData?.offline?.lastGame) {
+  if (userOptions?.gameStats === true && ((apiData?.isOnline === true && apiData?.online?.gameType) || (apiData?.isOnline === false && apiData?.recentGames[0]?.gameType) || (apiData?.isOnline === false && apiData?.offline?.lastGame))) switch (apiData?.online?.gameType ?? apiData?.recentGames[0]?.gameType ?? apiData?.offline?.lastGame) {
     case 'Bed Wars':
     case 'Bedwars':  
     case 'BEDWARS':
-          playerDataString += `<br><br><strong>${playerPossesive} Stats for Bed Wars:</strong><br>Level: ${apiData?.bedwars?.level}<br>Coins: ${apiData?.bedwars?.coins}<br>Total Games Joined: ${apiData?.bedwars?.gamesPlayed}<br>Winstreak: ${apiData?.bedwars?.winStreak}<br>Final K/D: ${apiData?.bedwars?.finalKD}<br>K/D: ${apiData?.bedwars?.KD}`;
-      break;
+      playerDataString += `<br><br><strong>${apiData?.possesive} Stats for Bed Wars:</strong><br>&nbsp;<b>Level:</b> ${apiData?.bedwars?.level}<br>&nbsp;<b>Coins:</b> ${apiData?.bedwars?.coins}<br>&nbsp;<b>Total Games Joined:</b> ${apiData?.bedwars?.gamesPlayed}<br>&nbsp;<b>Winstreak:</b> ${apiData?.bedwars?.winStreak}<br>&nbsp;<b>Final K/D:</b> ${apiData?.bedwars?.finalKD}<br>&nbsp;<b>K/D:</b> ${apiData?.bedwars?.KD}`;
+    break;
     case 'Duels':
     case 'DUELS':
-        playerDataString += `<br><br><strong>${playerPossesive} Stats for Duels:</strong><br>Coins: ${apiData?.duels?.coins}<br>Cosmetic Count: ${apiData?.duels?.cosmetics}<br>K/D Ratio: ${apiData?.duels?.KD}<br>W/L Ratio: ${apiData?.duels?.WL}<br>Wins: ${apiData?.duels?.wins}<br>Kills: ${apiData?.duels?.kills}<br>Deaths: ${apiData?.duels?.deaths}`;
-      break;
+      playerDataString += `<br><br><strong>${apiData?.possesive} Stats for Duels:</strong><br>&nbsp;<b>Coins:</b> ${apiData?.duels?.coins}<br>&nbsp;<b>Cosmetic Count:</b> ${apiData?.duels?.cosmetics}<br>&nbsp;<b>K/D Ratio:</b> ${apiData?.duels?.KD}<br>&nbsp;<b>W/L Ratio:</b> ${apiData?.duels?.WL}<br>&nbsp;<b>Wins:</b> ${apiData?.duels?.wins}<br>&nbsp;<b>Kills:</b> ${apiData?.duels?.kills}<br>&nbsp;<b>Deaths:</b> ${apiData?.duels?.deaths}`;
+    break;
     case 'Blitz Survival Games':
     case 'Blitz':
     case 'HungerGames':
     case 'SURVIVAL_GAMES':
-        playerDataString += `<br><br><strong>${playerPossesive} Stats for Blitz Survival:</strong><br>Coins: ${apiData?.blitz?.coins}<br>K/D Ratio: ${apiData?.blitz?.KD}<br>W/L Ratio: ${apiData?.blitz?.WL}<br>Wins: ${apiData?.blitz?.wins}<br>Kills: ${apiData?.blitz?.kills}<br>Deaths: ${apiData?.blitz?.deaths}`;
-      break;
+      playerDataString += `<br><br><strong>${apiData?.possesive} Stats for Blitz Survival:</strong><br>&nbsp;<b>Coins:</b> ${apiData?.blitz?.coins}<br>&nbsp;<b>K/D Ratio:</b> ${apiData?.blitz?.KD}<br>&nbsp;<b>W/L Ratio:</b> ${apiData?.blitz?.WL}<br>&nbsp;<b>Wins:</b> ${apiData?.blitz?.wins}<br>&nbsp;<b>Kills:</b> ${apiData?.blitz?.kills}<br>&nbsp;<b>Deaths:</b> ${apiData?.blitz?.deaths}`;
+    break;
     case 'Pit':
     case 'PIT':
-        playerDataString += `<br><br><strong>${playerPossesive} Stats for the Pit:</strong><br>Total Gold Earned: ${apiData?.pit?.gold}<br>Prestige: ${apiData?.pit?.prestige}<br>Total Playtime: ${apiData?.pit?.playtime} minutes<br>Best Streak: ${apiData?.pit?.bestStreak}<br>Chat Messages: ${apiData?.pit?.chatMessages}<br>K/D Ratio: ${apiData?.pit?.KD}<br>Kills: ${apiData?.pit?.kills}<br>Deaths: ${apiData?.pit?.deaths}`;
+      playerDataString += `<br><br><strong>${apiData?.possesive} Stats for the Pit:</strong><br>&nbsp;<b>Total Gold Earned:</b> ${apiData?.pit?.gold}<br>&nbsp;<b>Prestige:</b> ${apiData?.pit?.prestige}<br>&nbsp;<b>Total Playtime:</b> ${apiData?.pit?.playtime} minutes<br>&nbsp;<b>Best Streak:</b> ${apiData?.pit?.bestStreak}<br>&nbsp;<b>Chat Messages:</b> ${apiData?.pit?.chatMessages}<br>&nbsp;<b>K/D Ratio:</b> ${apiData?.pit?.KD}<br>&nbsp;<b>Kills:</b> ${apiData?.pit?.kills}<br>&nbsp;<b>Deaths:</b> ${apiData?.pit?.deaths}`;
       break;
     case 'SkyWars':
     case 'SKYWARS':
-        playerDataString += `<br><br><strong>${playerPossesive} Stats for SkyWars:</strong><br>Level: ${apiData?.skywars?.level}<br>Coins: ${apiData?.skywars?.coins}<br>K/D Ratio: ${apiData?.skywars?.KD}<br>W/L Ratio: ${apiData?.skywars?.WL}<br>Wins: ${apiData?.skywars?.wins}<br>Kills: ${apiData?.skywars?.kills}<br>Deaths: ${apiData?.skywars?.deaths}`;
-      break;
+      playerDataString += `<br><br><strong>${apiData?.possesive} Stats for SkyWars:</strong><br>&nbsp;<b>Level:</b> ${apiData?.skywars?.level}<br>&nbsp;<b>Coins:</b> ${apiData?.skywars?.coins}<br>&nbsp;<b>K/D Ratio:</b> ${apiData?.skywars?.KD}<br>&nbsp;<b>W/L Ratio:</b> ${apiData?.skywars?.WL}<br>&nbsp;<b>Wins:</b> ${apiData?.skywars?.wins}<br>&nbsp;<b>Kills:</b> ${apiData?.skywars?.kills}<br>&nbsp;<b>Deaths:</b> ${apiData?.skywars?.deaths}`;
+    break;
     case 'Speed UHC':
     case 'SpeedUHC':
     case 'SPEED_UHC':
-        playerDataString += `<br><br><strong>${playerPossesive} Stats for Speed UHC:</strong><br>Coins: ${apiData?.speedUHC?.coins}<br>K/D Ratio: ${apiData?.speedUHC?.KD}<br>W/L Ratio: ${apiData?.speedUHC?.WL}<br>Wins: ${apiData?.speedUHC?.wins}<br>Kills: ${apiData?.speedUHC?.kills}<br>Deaths: ${apiData?.speedUHC?.deaths}`;
+      playerDataString += `<br><br><strong>${apiData?.possesive} Stats for Speed UHC:</strong><br>&nbsp;<b>Coins:</b> ${apiData?.speedUHC?.coins}<br>&nbsp;<b>K/D Ratio:</b> ${apiData?.speedUHC?.KD}<br>&nbsp;<b>W/L Ratio:</b> ${apiData?.speedUHC?.WL}<br>&nbsp;<b>Wins:</b> ${apiData?.speedUHC?.wins}<br>&nbsp;<b>Kills:</b> ${apiData?.speedUHC?.kills}<br>&nbsp;<b>Deaths:</b> ${apiData?.speedUHC?.deaths}`;
        break;
     case 'UHC Champions':
     case 'UHC':
-        playerDataString += `<br><br><strong>${playerPossesive} Stats for UHC Champions:</strong><br>Level: ${apiData?.uhc?.level}<br>Coins: ${apiData?.uhc?.coins}<br>K/D Ratio: ${apiData?.uhc?.KD}<br>W/L Ratio: ${apiData?.uhc?.WL}<br>Wins: ${apiData?.uhc?.wins}<br>Kills: ${apiData?.uhc?.kills}<br>Deaths: ${apiData?.uhc?.deaths}`;
+      playerDataString += `<br><strong>${apiData?.possesive} Stats for UHC Champions:</strong><br>&nbsp;<b>Level:</b> ${apiData?.uhc?.level}<br>&nbsp;<b>Coins:</b> ${apiData?.uhc?.coins}<br>&nbsp;<b>K/D Ratio:</b> ${apiData?.uhc?.KD}<br>&nbsp;<b>W/L Ratio:</b> ${apiData?.uhc?.WL}<br>&nbsp;<b>Wins:</b> ${apiData?.uhc?.wins}<br>&nbsp;<b>Kills:</b> ${apiData?.uhc?.kills}<br>&nbsp;<b>Deaths:</b> ${apiData?.uhc?.deaths}<br>`;
       break;
     case 'Walls':
     case 'WALLS':
-        playerDataString += `<br><br><strong>${playerPossesive} Stats for the Walls:</strong><br>Coins: ${apiData?.walls?.coins}<br>K/D Ratio: ${apiData?.walls?.KD}<br>W/L Ratio: ${apiData?.walls?.WL}<br>Wins: ${apiData?.walls?.wins}<br>Kills: ${apiData?.walls?.kills}<br>Deaths: ${apiData?.walls?.deaths}`;
+      playerDataString += `<br><br><strong>${apiData?.possesive} Stats for the Walls:</strong><br>&nbsp;<b>Coins:</b> ${apiData?.walls?.coins}<br>&nbsp;<b>K/D Ratio:</b> ${apiData?.walls?.KD}<br>&nbsp;<b>W/L Ratio:</b> ${apiData?.walls?.WL}<br>&nbsp;<b>Wins:</b> ${apiData?.walls?.wins}<br>&nbsp;<b>Kills:</b> ${apiData?.walls?.kills}<br>&nbsp;<b>Deaths:</b> ${apiData?.walls?.deaths}`;
       break;
     case 'Mega Walls':
     case 'MegaWalls':
     case 'Walls3':
     case 'WALLS3':
-        playerDataString += `<br><br><strong>${playerPossesive} Stats for Mega Walls:</strong><br>Coins: ${apiData?.megaWalls?.coins}<br>K/D Ratio: ${apiData?.megaWalls?.KD}<br>W/L Ratio: ${apiData?.megaWalls?.WL}<br>Wins: ${apiData?.megaWalls?.wins}<br>Kills: ${apiData?.megaWalls?.kills}<br>Deaths: ${apiData?.megaWalls?.deaths}`;
-      break;
+      playerDataString += `<br><br><strong>${apiData?.possesive} Stats for Mega Walls:</strong><br>&nbsp;<b>Coins:</b> ${apiData?.megaWalls?.coins}<br>&nbsp;<b>K/D Ratio:</b> ${apiData?.megaWalls?.KD}<br>&nbsp;<b>W/L Ratio:</b> ${apiData?.megaWalls?.WL}<br>&nbsp;<b>Wins:</b> ${apiData?.megaWalls?.wins}<br>&nbsp;<b>Kills:</b> ${apiData?.megaWalls?.kills}<br>&nbsp;<b>Deaths:</b> ${apiData?.megaWalls?.deaths}`;
+    break;
   }
 
   if (userOptions?.authorNameOutput === true) {
-    playerDataString = playerDataString.replace(/Your/gm, playerPossesive);
-    playerDataString = playerDataString.replace(/your/gm, playerPossesive);
+    playerDataString = playerDataString.replace(/Your/gm, apiData?.possesive);
+    playerDataString = playerDataString.replace(/your/gm, apiData?.possesive);
     playerDataString = playerDataString.replace(/You/gm, apiData?.username);
     playerDataString = playerDataString.replace(/you/gm, apiData?.username);
   }
@@ -88,17 +84,17 @@ export function explanationMessage(apiData, userOptions) {
   return playerDataString;
 
   function cleanTimeStamp(time, date) {
-    if (time === 'Unavailable' || date === 'Unavailable') return '<strong>Unavailable</strong>';
+    if (!time || time === 'Unavailable' || !date || date === 'Unavailable') return '<strong>Unavailable</strong>';
     return `<strong>${time}</strong> on <strong>${date}</strong>`; //Not ideal for readability. Then again, neither is the rest of my code.
   }
 
   function timeAgo(ms) {
-    if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';
+    if (ms < 0 || ms === null || isNaN(ms)) return null;
     return Date.now() - ms;
   }
 
   function cleanTime(ms) { //Takes MS
-    if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';
+    if (ms < 0 || ms === null || isNaN(ms)) return null;
     let seconds = Math.round(ms / 1000);
     let days = Math.floor(seconds / (24 * 60 * 60));
     seconds -= days * 24 * 60 * 60

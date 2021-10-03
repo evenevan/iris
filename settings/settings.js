@@ -2,14 +2,25 @@ import { createHTTPRequest, errorHandler, localStorageBytes, getSyncStorage, set
 
 errorEventCreate();
 
-(async () => {
-  let { userOptions } = await getSyncStorage('userOptions').catch(x => errorHandler(x, document.getElementById('errorOutput')));
+const apiKeyInput = document.getElementById('apiKey');
+const apiKeyOutput = document.getElementById('apiKeyOutput');
+const testKey = document.getElementById('testKey');
+const uuidV4 = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+let userOptions;
 
-  let apiKeyInput = document.getElementById('apiKey');
-  let apiKeyOutput = document.getElementById('apiKeyOutput');
-  let testKey = document.getElementById('testKey');
-  let uuidV4 = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/;
-    
+(async () => {
+  try {
+    ({ userOptions } = await getSyncStorage('userOptions'));
+    await loadSettings();
+    saveCheckbox();
+    saveAPIKey();
+    testAPIKey()
+  } catch (err) {
+    return errorHandler(err, document.getElementById('errorOutput'));
+  }
+})();
+
+async function loadSettings() {
   if ((userOptions.paragraphOutput ?? false) === false) document.getElementById('authorNameOutputContainer').style.display = 'none';
   document.getElementById('typewriterOutput').checked = userOptions.typewriterOutput ?? true;
   document.getElementById('persistentLastPlayer').checked = userOptions.persistentLastPlayer ?? true;
@@ -25,6 +36,11 @@ errorEventCreate();
     testKey.style.cursor = 'pointer'; testKey.disabled = false;
   }
 
+  document.getElementById('playerHistoryBytes').textContent = `Search History: ${(await localStorageBytes('playerHistory') / 1024).toFixed(2)} Kilobytes`
+  document.getElementById('userOptionsBytes').textContent = `Settings: ${(await syncStorageBytes('userOptions') / 1024).toFixed(2)} Kilobytes`
+}
+
+function saveCheckbox() {
   document.querySelectorAll("input[type=checkbox]").forEach(function(checkbox) {
     checkbox.addEventListener('change', async function() {
       if (this.id === 'paragraphOutput') this.checked === true ? 
@@ -33,10 +49,12 @@ errorEventCreate();
       userOptions[this.id] = this.checked;
       this.disabled = true;
       setTimeout(() => {this.disabled = false}, 500);
-      await setSyncStorage({'userOptions': userOptions}).catch(x => errorHandler(x, document.getElementById('errorOutput')));
+      await setSyncStorage({'userOptions': userOptions});
     })
   });
+}
 
+function saveAPIKey() {
   apiKeyInput.addEventListener('input', async function() {
     userOptions.apiKey = this.value;
     if (uuidV4.test(this.value) || this.value === '') {
@@ -48,7 +66,7 @@ errorEventCreate();
       } else {
         testKey.style.cursor = 'pointer'; testKey.disabled = false;
       }
-      await setSyncStorage({'userOptions': userOptions}).catch(x => errorHandler(x, document.getElementById('errorOutput')));
+      await setSyncStorage({'userOptions': userOptions});
     } else {
       testKey.style.cursor = 'not-allowed'; testKey.disabled = true; testKey.style.borderColor = '#FF5555';
       this.style.borderColor = '#FF5555';
@@ -58,34 +76,29 @@ errorEventCreate();
   });
 
   apiKeyInput.addEventListener('focus', function() {
-      this.value = userOptions.apiKey ?? '';
+    this.value = userOptions.apiKey ?? '';
   });
 
   apiKeyInput.addEventListener('blur', function() {
-
-      if (uuidV4.test(this.value)) this.value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/gi, '########');
+    if (uuidV4.test(this.value)) this.value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/gi, '########');
   });
+}
 
+function testAPIKey() {
   testKey.addEventListener('click', async function() {
     try {
       this.disabled = true;
       setTimeout(() => {this.disabled = false;}, 500); //Prevent API Spam :)
-      let response = await createHTTPRequest(`https://api.hypixel.net/key?key=${userOptions.apiKey}`);
+      const response = await createHTTPRequest(`https://api.hypixel.net/key?key=${userOptions.apiKey}`);
       apiKeyOutput.style.color = '#FFFFFF';
       return apiKeyOutput.textContent = `\u{2713} Valid API Key! Total uses: ${response?.record?.totalQueries} \u{2713}`;
     } catch (err) {
-      if (err?.status !== 403) return errorHandler(err, document.getElementById('errorOutput'));
+      if (err?.status !== 403) throw err;
       apiKeyOutput.style.color = '#FF5555';
       return apiKeyOutput.textContent = '\u{26A0} Invalid API key! Get a new API key with <b>/api new</b> on Hypixel \u{26A0}';
     }
   });
-
-  let playerHistoryBytes = await localStorageBytes('playerHistory').catch(x => errorHandler(x, document.getElementById('errorOutput'))); //<- Throws in Firefox
-  let userOptionsBytes = await syncStorageBytes('userOptions').catch(x => errorHandler(x, document.getElementById('errorOutput')));
-
-  document.getElementById('playerHistoryBytes').textContent = `Search History: ${(playerHistoryBytes / 1024).toFixed(2)} Kilobytes`
-  document.getElementById('userOptionsBytes').textContent = `Settings: ${(userOptionsBytes / 1024).toFixed(2)} Kilobytes`
-})().catch(errorHandler);
+}
 
 function errorEventCreate() {
   window.addEventListener('error', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));

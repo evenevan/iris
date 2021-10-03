@@ -4,9 +4,8 @@ errorEventCreate();
 
 (async () => {
   try {
-    let { playerHistory } = await getLocalStorage('playerHistory');
-
-    let outputElement = document.getElementById('outputElement');
+    const outputElement = document.getElementById('outputElement');
+    const { playerHistory } = await getLocalStorage('playerHistory');
 
     let playerHistoryArray = [];
       
@@ -15,16 +14,17 @@ errorEventCreate();
       let searchEpoch = (playerHistory?.lastSearches[i]?.epoch) * 1 ?? 0
       let searchTime = new Date(searchEpoch).toLocaleTimeString('en-IN', { hour12: true });
       let searchDate = cleanDate(new Date(searchEpoch));
-      tempString += `<b>#${i + 1} - ${searchEpoch ? `${searchTime}, ${searchDate} - ${cleanTime(timeAgo(searchEpoch))} ago` : 'Unknown Ago'}</b><br>`;
-      tempString += `&nbsp;&nbsp;<b>Username:</b> ${playerHistory?.lastSearches[i]?.username}<br>`;
-      tempString += `&nbsp;&nbsp;<b>UUID:</b> ${playerHistory?.lastSearches[i]?.uuid}<br>`;
+      tempString += `<b>#${i + 1} - ${searchEpoch ? `${searchTime}, ${searchDate} - ${cleanTime(timeAgo(searchEpoch))} ago` : 'Unavailable Ago'}</b><br>`;
+      tempString += `&nbsp;&nbsp;<b>Input:</b> ${playerHistory?.lastSearches[i]?.input ?? 'Unavailable'}<br>`;
+      tempString += `&nbsp;&nbsp;<b>Username:</b> ${playerHistory?.lastSearches[i]?.username ?? 'Unavailable'}<br>`;
+      tempString += `&nbsp;&nbsp;<b>UUID:</b> ${playerHistory?.lastSearches[i]?.uuid ?? 'Unavailable'}<br>`;
       playerHistoryArray.push(tempString);
     }
     
-    if (playerHistoryArray.length > 0) outputElement.insertAdjacentHTML('afterbegin', playerHistoryArray.join("<br>"));
-    else outputElement.textContent = 'No recent searches!'
+    if (playerHistoryArray.length > 0) return outputElement.insertAdjacentHTML('afterbegin', playerHistoryArray.join("<br>"));
+    else return outputElement.textContent = 'No recent searches!'
   } catch(err) {
-    errorHandler(err, document.getElementById('errorOutput'));
+    return errorHandler(err, document.getElementById('errorOutput'));
   }
 })();
 
