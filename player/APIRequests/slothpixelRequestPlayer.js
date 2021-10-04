@@ -31,40 +31,40 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   let apiData = new Object();
   apiData.username = playerData?.username ?? '';
   apiData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.username ?? ''}'` : `${playerData?.username ?? ''}'s`;
-  apiData.uuid = playerData?.uuid ?? null; //Replaced123
-  apiData.language = playerData?.language ?? null; //Replaced123
-  apiData.version = playerData?.mc_version ?? null; //Replaced123
+  apiData.uuid = playerData?.uuid ?? null;
+  apiData.language = playerData?.language ?? null;
+  apiData.version = playerData?.mc_version ?? null;
   apiData.legacyAPI = playerData?.last_login < 1494864734000 ? true : false;
-  apiData.status = statusData.online && playerData?.last_login > playerData?.last_logout ? 'Online' : !statusData.online && playerData?.last_login < playerData?.last_logout ? 'Offline' : !statusData.online && playerData?.last_login < 1494864734000 ? 'Offline' : null; //Replaced123
+  apiData.status = statusData.online && playerData?.last_login > playerData?.last_logout ? 'Online' : !statusData.online && playerData?.last_login < playerData?.last_logout ? 'Offline' : !statusData.online && playerData?.last_login < 1494864734000 ? 'Offline' : null;
   apiData.isOnline = statusData?.online === true ? true : false; 
-  apiData.utcOffset = playerData?.last_login || playerData?.last_logout ? `${tzOffsetString}` : null; //Replaced123
+  apiData.utcOffset = playerData?.last_login || playerData?.last_logout ? `${tzOffsetString}` : null;
 
   if (statusData?.online === true) {
     apiData.offline = {}
     apiData.offline.playtime = null;
     apiData.offline.lastGame = null;
     apiData.online = {}
-    apiData.online.gameType = statusData?.game?.type ?? null; //Replaced123
-    apiData.online.mode = statusData?.game?.mode ?? null; //Replaced123
-    apiData.online.map = statusData?.game?.map ?? null; //Replaced123
+    apiData.online.gameType = statusData?.game?.type ?? null;
+    apiData.online.mode = statusData?.game?.mode ?? null;
+    apiData.online.map = statusData?.game?.map ?? null;
   } else {
     apiData.offline = {}
-    apiData.offline.playtime = playerData?.last_login && playerData?.last_login < playerData?.last_logout ? lastPlaytime : null; //Replaced123
-    apiData.offline.lastGame = playerData?.last_game ?? null; //Replaced123
+    apiData.offline.playtime = playerData?.last_login && playerData?.last_login < playerData?.last_logout ? lastPlaytime : null;
+    apiData.offline.lastGame = playerData?.last_game ?? null;
     apiData.online = {}
     apiData.online.gameType = null;
     apiData.online.mode = null;
     apiData.online.map = null;
   }
 
-  apiData.firstLoginTime = playerData?.first_login ? firstLoginTime : null; //Replaced123
-  apiData.firstLoginDate = playerData?.first_login ? firstLoginDate : null; //Replaced123
+  apiData.firstLoginTime = playerData?.first_login ? firstLoginTime : null;
+  apiData.firstLoginDate = playerData?.first_login ? firstLoginDate : null;
   apiData.firstLoginMS = playerData?.first_login ? playerData?.first_login : null;
-  apiData.lastLoginTime = playerData?.last_login ? lastLoginTime : null; //Replaced123
-  apiData.lastLoginDate = playerData?.last_login ? lastLoginDate : null; //Replaced123
+  apiData.lastLoginTime = playerData?.last_login ? lastLoginTime : null;
+  apiData.lastLoginDate = playerData?.last_login ? lastLoginDate : null;
   apiData.lastLoginMS = playerData?.last_login ? playerData?.last_login : null;
-  apiData.lastLogoutTime = playerData?.last_logout ? lastLogoutTime : null; //Replaced123
-  apiData.lastLogoutDate = playerData?.last_logout ? lastLogoutDate : null; //Replaced123
+  apiData.lastLogoutTime = playerData?.last_logout ? lastLogoutTime : null;
+  apiData.lastLogoutDate = playerData?.last_logout ? lastLogoutDate : null;
   apiData.lastLogoutMS = playerData?.last_logout ? playerData?.last_logout : null;
 
   apiData.recentGames = [];
@@ -87,22 +87,22 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   apiData.bedwars.wins = playerData?.stats?.Bedwars?.wins_bedwars ?? 0;
   apiData.bedwars.gamesPlayed = playerData?.stats?.BedWars?.games_played ?? 0;
   apiData.bedwars.winStreak = playerData?.stats?.BedWars?.winstreak ?? 0;
-  apiData.bedwars.finalKD = playerData?.stats?.BedWars?.final_k_d ?? null; //Replaced123
-  apiData.bedwars.KD = playerData?.stats?.BedWars.k_d ?? null; //Replaced123
+  apiData.bedwars.finalKD = playerData?.stats?.BedWars?.final_k_d ?? 0;
+  apiData.bedwars.KD = playerData?.stats?.BedWars.k_d ?? 0;
 
   apiData.duels = {}
   apiData.duels.coins = playerData?.stats?.Duels?.general?.coins ?? 0;
   apiData.duels.cosmetics = playerData?.stats?.Duels.general?.packages?.length ?? 0;
-  apiData.duels.KD = playerData?.stats?.Duels?.general?.kd_ratio ?? null; //Replaced123
-  apiData.duels.WL = playerData?.stats?.Duels?.general?.win_loss_ratio ?? null; //Replaced123
+  apiData.duels.KD = playerData?.stats?.Duels?.general?.kd_ratio ?? 0;
+  apiData.duels.WL = playerData?.stats?.Duels?.general?.win_loss_ratio ?? 0;
   apiData.duels.wins = playerData?.stats?.Duels?.general?.wins ?? 0;
   apiData.duels.kills = playerData?.stats?.Duels?.general?.kills ?? 0;
   apiData.duels.deaths = playerData?.stats?.Duels?.general?.deaths ?? 0
 
   apiData.blitz = {}
   apiData.blitz.coins = playerData?.stats?.Blitz?.coins ?? 0;
-  apiData.blitz.KD = playerData?.stats?.Blitz?.k_d ?? null; //Replaced123
-  apiData.blitz.WL = playerData?.stats?.Blitz?.win_loss ?? null; //Replaced123
+  apiData.blitz.KD = playerData?.stats?.Blitz?.k_d ?? 0;
+  apiData.blitz.WL = playerData?.stats?.Blitz?.win_loss ?? 0;
   apiData.blitz.wins = playerData?.stats?.Blitz?.wins ?? 0;
   apiData.blitz.kills = playerData?.stats?.Blitz?.kills ?? 0;
   apiData.blitz.deaths = playerData?.stats?.Blitz?.deaths ?? 0;
@@ -113,23 +113,23 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   apiData.pit.playtime = playerData?.stats?.Pit?.playtime_minutes;
   apiData.pit.bestStreak = playerData?.stats?.Pit?.max_streak;
   apiData.pit.chatMessages = playerData?.stats?.Pit?.chat_messages;
-  apiData.pit.KD = playerData?.stats?.Pit?.kd_ratio ?? null; //Replaced123
+  apiData.pit.KD = playerData?.stats?.Pit?.kd_ratio ?? 0;
   apiData.pit.kills = playerData?.stats?.Pit?.kills ?? 0;
   apiData.pit.deaths = playerData?.stats?.Pit?.deaths ?? 0;
 
   apiData.skywars = {}
   apiData.skywars.level = playerData?.stats?.SkyWars?.level;
   apiData.skywars.coins = playerData?.stats?.SkyWars?.coins ?? 0;
-  apiData.skywars.KD = playerData?.stats?.SkyWars?.kill_death_ratio ?? null; //Replaced123
-  apiData.skywars.WL = playerData?.stats?.SkyWars?.win_loss_ratio ?? null; //Replaced123
+  apiData.skywars.KD = playerData?.stats?.SkyWars?.kill_death_ratio ?? 0;
+  apiData.skywars.WL = playerData?.stats?.SkyWars?.win_loss_ratio ?? 0;
   apiData.skywars.wins = playerData?.stats?.SkyWars?.wins ?? 0;
   apiData.skywars.kills = playerData?.stats?.SkyWars?.kills ?? 0;
   apiData.skywars.deaths = playerData?.stats?.SkyWars?.deaths ?? 0;
 
   apiData.speedUHC = {}
   apiData.speedUHC.coins = playerData?.stats?.SpeedUHC?.coins ?? 0;
-  apiData.speedUHC.KD = playerData?.stats?.SpeedUHC?.kd ?? null; //Replaced123
-  apiData.speedUHC.WL = playerData?.stats?.SpeedUHC?.win_loss ?? null; //Replaced123
+  apiData.speedUHC.KD = playerData?.stats?.SpeedUHC?.kd ?? 0;
+  apiData.speedUHC.WL = playerData?.stats?.SpeedUHC?.win_loss ?? 0;
   apiData.speedUHC.wins = playerData?.stats?.SpeedUHC?.wins ?? 0;
   apiData.speedUHC.kills = playerData?.stats?.SpeedUHC?.kills ?? 0;
   apiData.speedUHC.deaths = playerData?.stats?.SpeedUHC?.deaths ?? 0;
@@ -137,22 +137,22 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   apiData.uhc = {}
   apiData.uhc.level = playerData?.stats?.UHC?.level ?? 0;
   apiData.uhc.coins = playerData?.stats?.UHC?.coins ?? 0;
-  apiData.uhc.KD = playerData?.stats?.UHC?.kd ?? null; //Replaced123
-  apiData.uhc.WL = playerData?.stats?.UHC?.win_loss ?? null; //Replaced123
+  apiData.uhc.KD = playerData?.stats?.UHC?.kd ?? 0;
+  apiData.uhc.WL = playerData?.stats?.UHC?.win_loss ?? 0;
   apiData.uhc.wins = playerData?.stats?.UHC?.wins ?? 0;
   apiData.uhc.kills = playerData?.stats?.UHC?.kills ?? 0;
   apiData.uhc.deaths = playerData?.stats?.UHC?.deaths ?? 0;
   apiData.walls = {}
   apiData.walls.coins = playerData?.stats?.Walls?.coins ?? 0;
-  apiData.walls.KD = playerData?.stats?.UHC?.kd ?? null; //Replaced123
-  apiData.walls.WL = playerData?.stats?.UHC?.win_loss ?? null; //Replaced123
+  apiData.walls.KD = playerData?.stats?.UHC?.kd ?? 0;
+  apiData.walls.WL = playerData?.stats?.UHC?.win_loss ?? 0;
   apiData.walls.wins = playerData?.stats?.Walls?.wins ?? 0;
   apiData.walls.kills = playerData?.stats?.Walls?.kills ?? 0;
   apiData.walls.deaths = playerData?.stats?.Walls?.deaths ?? 0;
   apiData.megaWalls = {}
   apiData.megaWalls.coins = playerData?.stats?.MegaWalls?.coins ?? 0;
-  apiData.megaWalls.KD = playerData?.stats?.UHC?.kill_death_ratio ?? null; //Replaced123
-  apiData.megaWalls.WL = playerData?.stats?.UHC?.win_loss_ratio ?? null; //Replaced123
+  apiData.megaWalls.KD = playerData?.stats?.UHC?.kill_death_ratio ?? 0;
+  apiData.megaWalls.WL = playerData?.stats?.UHC?.win_loss_ratio ?? 0;
   apiData.megaWalls.wins = playerData?.stats?.MegaWalls?.wins ?? 0;
   apiData.megaWalls.kills = playerData?.stats?.MegaWalls?.kills ?? 0;
   apiData.megaWalls.deaths = playerData?.stats?.MegaWalls?.deaths ?? 0;

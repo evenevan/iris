@@ -31,40 +31,40 @@ function hypixelProcessData(playerData, statusData, recentGamesData) {
   let apiData = new Object();
   apiData.username = playerData?.displayname ?? '';
   apiData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.displayname ?? ''}'` : `${playerData?.displayname ?? ''}'s`;
-  apiData.uuid = playerData?.uuid ?? null; //Replaced123
-  apiData.language = playerData?.userLanguage ?? null; //Replaced123
-  apiData.version = playerData?.mcVersionRp ?? null; //Replaced123
+  apiData.uuid = playerData?.uuid ?? null;
+  apiData.language = playerData?.userLanguage ?? null;
+  apiData.version = playerData?.mcVersionRp ?? null;
   apiData.legacyAPI = playerData?.lastLogin < 149486473400 ? true : false;
-  apiData.status = statusData?.session?.online && playerData?.lastLogin > playerData?.lastLogout ? 'Online' : !statusData?.session?.online && playerData?.lastLogin < playerData?.lastLogout ? 'Offline' : !statusData?.session?.online && playerData?.lastLogin < 1494864734000 ? 'Offline' : null; //Replaced123
+  apiData.status = statusData?.session?.online && playerData?.lastLogin > playerData?.lastLogout ? 'Online' : !statusData?.session?.online && playerData?.lastLogin < playerData?.lastLogout ? 'Offline' : !statusData?.session?.online && playerData?.lastLogin < 1494864734000 ? 'Offline' : null;
   apiData.isOnline = statusData?.session?.online === true ? true : false;
-  apiData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `${tzOffsetString}` : null; //Replaced123
+  apiData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `${tzOffsetString}` : null;
 
   if (statusData?.session?.online === true) {
     apiData.offline = {}
     apiData.offline.playtime = null;
     apiData.offline.lastGame = null;
     apiData.online = {}
-    apiData.online.gameType = statusData?.session?.gameType ?? null; //Replaced123
-    apiData.online.mode = statusData?.session?.mode ?? null; //Replaced123
-    apiData.online.map = statusData?.session?.map ?? null; //Replaced123
+    apiData.online.gameType = statusData?.session?.gameType ?? null;
+    apiData.online.mode = statusData?.session?.mode ?? null;
+    apiData.online.map = statusData?.session?.map ?? null;
   } else {
     apiData.offline = {}
-    apiData.offline.playtime = playerData?.lastLogin && playerData?.lastLogin < playerData?.lastLogout ? lastPlaytime : null; //Replaced123
-    apiData.offline.lastGame = playerData?.mostRecentGameType ?? null; //Replaced123
+    apiData.offline.playtime = playerData?.lastLogin && playerData?.lastLogin < playerData?.lastLogout ? lastPlaytime : null;
+    apiData.offline.lastGame = playerData?.mostRecentGameType ?? null;
     apiData.online = {}
     apiData.online.gameType = null;
     apiData.online.mode = null;
     apiData.online.map = null;
   }
 
-  apiData.firstLoginTime = playerData?.firstLogin ? firstLoginTime : null; //Replaced123
-  apiData.firstLoginDate = playerData?.firstLogin ? firstLoginDate : null; //Replaced123
+  apiData.firstLoginTime = playerData?.firstLogin ? firstLoginTime : null;
+  apiData.firstLoginDate = playerData?.firstLogin ? firstLoginDate : null;
   apiData.firstLoginMS = playerData?.firstLogin ? playerData?.firstLogin : null;
-  apiData.lastLoginTime = playerData?.lastLogin ? lastLoginTime : null; //Replaced123
-  apiData.lastLoginDate = playerData?.lastLogin ? lastLoginDate : null; //Replaced123
+  apiData.lastLoginTime = playerData?.lastLogin ? lastLoginTime : null;
+  apiData.lastLoginDate = playerData?.lastLogin ? lastLoginDate : null;
   apiData.lastLoginMS = playerData?.lastLogin ? playerData?.lastLogin : null;
-  apiData.lastLogoutTime = playerData?.lastLogout ? lastLogoutTime : null; //Replaced123
-  apiData.lastLogoutDate = playerData?.lastLogout ? lastLogoutDate : null; //Replaced123
+  apiData.lastLogoutTime = playerData?.lastLogout ? lastLogoutTime : null;
+  apiData.lastLogoutDate = playerData?.lastLogout ? lastLogoutDate : null;
   apiData.lastLogoutMS = playerData?.lastLogout ? playerData?.lastLogout : null;
 
   apiData.recentGames = [];
@@ -193,6 +193,6 @@ function createOffset(date) { //Yoinked from https://stackoverflow.com/a/1301613
 }
 
 function ratio(first, second) {
-  if (!first || !first || first === 0 || second === 0) return null; //Replaced123
+  if (!first || !first || first === 0 || second === 0) return 0;
   return (first / second).toFixed(2);
 }

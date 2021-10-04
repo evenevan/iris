@@ -14,19 +14,19 @@ export function explanationMessage(apiData, userOptions) {
 
     playerDataString += `<br><br>Your account is currently playing ${apiData?.online?.gameType ? `<strong>${apiData?.online?.gameType}</strong>` : 'an <strong>unknown</strong> gametype'} in ${apiData?.online?.mode ? `the mode <strong>${apiData?.online?.mode}</strong>` : 'an <strong>unknown</strong> mode'} on ${apiData?.online?.map ? `the map <strong>${apiData?.online?.map}</strong>` : 'an <strong>unknown</strong> map'}.`;
 
-    playerDataString += `<br><br>Your account is using ${apiData?.version ? `Minecraft version <strong>${apiData?.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${apiData?.language ? `the language <strong>${apiData?.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
+    playerDataString += `<br><br>Your account is using ${apiData?.version ? `Minecraft version <strong>${apiData?.version}</strong>` : 'an <strong>unidentifiable</strong> version of Minecraft'} and is using ${apiData?.language ? `the language <strong>${apiData?.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
   } else {
     playerDataString += `<br><br>Your last session started at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}</strong> ago) and ended <strong>${apiData?.offline?.playtime ?? 'Unavailable'}</strong> later after logging out. Your first-ever login was at ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}.`
 
     if (apiData?.recentGames[0]) {
-      playerDataString += `<br><br>Your last recorded game played was <strong>${apiData?.recentGames[0].mode || apiData?.recentGames[0].gameType}</strong> at <strong>${apiData?.recentGames[0].startTime}</strong> on <strong>${apiData?.recentGames[0].startDate}</strong>.`;
-      if (apiData?.recentGames[0].map) playerDataString += ` You played this game on the map <strong>${apiData?.recentGames[0].map}</strong>.`
-      if (apiData?.recentGames[0].gameLength) playerDataString += ` This game lasted for <strong>${cleanTime(apiData?.recentGames[0].gameLength) ?? 'an unknown amount of time'}</strong>.`
+      playerDataString += `<br><br>Your last recorded game played was <strong>${apiData?.recentGames[0]?.gameType}</strong> of mode <strong>${apiData?.recentGames[0]?.mode}</strong> at <strong>${apiData?.recentGames[0]?.startTime}</strong> on <strong>${apiData?.recentGames[0]?.startDate}</strong>.`;
+      if (apiData?.recentGames[0]?.map) playerDataString += ` You played this game on the map <strong>${apiData?.recentGames[0]?.map}</strong>.`
+      if (apiData?.recentGames[0]?.gameLength) playerDataString += ` This game lasted for <strong>${apiData?.recentGames[0]?.gameLength ?? 'an unknown amount of time'}</strong> (not to be confused as your playtime of this game).`
     } else if (apiData?.offline?.lastGame) {
       playerDataString += `<br><br>You played or joined the lobby <strong>${apiData?.offline?.lastGame}</strong> during your last session.`;
     }
 
-    playerDataString += `<br><br>Your account last used ${apiData?.version ? `Minecraft version <strong>${apiData?.version}</strong>` : 'an <strong>unknown</strong> version of Minecraft (which is not necessarily a sign of a disallowed client)'} and is using ${apiData?.language ? `the language <strong>${apiData?.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
+    playerDataString += `<br><br>Your account last used ${apiData?.version ? `Minecraft version <strong>${apiData?.version}</strong>` : 'an <strong>unidentifiable</strong> version of Minecraft'} and is using ${apiData?.language ? `the language <strong>${apiData?.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
   }
 
   if (userOptions?.gameStats === true && ((apiData?.isOnline === true && apiData?.online?.gameType) || (apiData?.isOnline === false && apiData?.recentGames[0]?.gameType) || (apiData?.isOnline === false && apiData?.offline?.lastGame))) switch (apiData?.online?.gameType ?? apiData?.recentGames[0]?.gameType ?? apiData?.offline?.lastGame) {
