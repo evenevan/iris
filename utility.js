@@ -36,18 +36,18 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
     switch (err.name) {
       case 'NotFound': {
         console.warn(`${time} | Error Source: ${errorType} | Player Not Found: ${err.message ?? ''}\n`, err.stack);
-        if (output) {
-          const temp = document.createElement('a');
-          temp.setAttribute('href', `https://namemc.com/search?q=${err.player}`);
-          temp.setAttribute('title', 'Opens a new tab to NameMC with your search query');
-          temp.setAttribute('target', '_blank');
-          temp.textContent = 'NameMC';
-          output.append(`The ${uuidv4.test(err.player) ? 'UUID' : 'player'} "${err.player}" doesn't seem to be a valid player and wasn't found. `, temp);
-        }
+        if (!output) break;
+        const temp = document.createElement('a');
+        temp.setAttribute('href', `https://namemc.com/search?q=${err.input}`);
+        temp.setAttribute('title', 'Opens a new tab to NameMC with your search query');
+        temp.setAttribute('target', '_blank');
+        temp.textContent = 'NameMC';
+        output.append(`The ${uuidv4.test(err.input) ? 'UUID' : 'player'} "${err.input}" doesn't seem to be a valid player and wasn't found. `, temp);
       break;
       }
       case 'HTTPError': {
         console.warn(`${time} | Error Source: ${errorType} | Unexpected HTTP code of ${err.status ?? 'Unknown'}: ${err.message ?? ''}\n`, err.stack);
+        if (!output) break;
         if (err.status === 500 && err.api === 'Slothpixel') {
           output.textContent = 'Slothpixel returned an error; this happens regularly. Try switching to the Hypixel API if this continues.';
         } else if (err.status === 403 && err.api === 'Hypixel') {
@@ -59,25 +59,31 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
       }
       case 'KeyError': {
         console.warn(`${time} | Error Source: ${errorType} | Invalid API Key: ${err.message ?? ''}\n`, err.stack);
+        if (!output) break;
         const temp = document.createElement('b');
         temp.textContent = '/api'
         output.append('You don\'t have an API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use ', temp, ' new on Hypixel and enter the key!');
       break;
       }
-      case 'AbortError':
+      case 'AbortError': {
         console.warn(`${time} | Error Source: ${errorType} | Abort Error: ${err.message ?? ''}\n`, err.stack);
-        output.textContent = ''
+        if (!output) break;
+        output.textContent = `An API failed to respond. Try switching to the ${err.api ?? 'other'} API if this persists.`;
       break;
-      case 'StorageError':
+      }
+      case 'StorageError': {
         console.error(`${time} | Error Source: ${errorType} | Storage API Error: ${err.message ?? ''}\n`, err.stack);
       break;
+      }
       case null:
-      case undefined:
+      case undefined: {
         console.error(`${time} | Error Source: ${errorType} | Unknown Error: ${err.message ?? ''}\n`, err.stack);
       break;
-      default:
+      }
+      default: {
         console.error(`${time} | Error Source: ${errorType} | ${err.name ?? 'Unknown Error Type'}: ${err.message ?? ''}\n`, err.stack);
       break;
+      }
     }
   } catch (err) {
     console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err.stack);

@@ -1,20 +1,22 @@
 /*global chrome*/
+
+let userOptions = {
+  typewriterOutput: true,
+  persistentLastPlayer: true,
+  paragraphOutput: false,
+  authorNameOutput: false,
+  gameStats: true,
+  useHypixelAPI: false,
+  apiKey: ''
+}
+
+let playerHistory = {
+  lastSearchCleared: false,
+  lastSearches: []
+}
+
 chrome.runtime.onInstalled.addListener(function(details) {
   if (details.reason == "install") { //On first install
-    let userOptions = {
-      typewriterOutput: true,
-      persistentLastPlayer: true,
-      paragraphOutput: false,
-      authorNameOutput: false,
-      gameStats: true,
-      useHypixelAPI: false,
-      apiKey: ''
-    }
-  
-    let playerHistory = {
-      lastSearchCleared: false,
-      lastSearches: []
-    }
   
     setSyncStorage({ 'userOptions': userOptions })
       .then(() => {
@@ -33,27 +35,13 @@ chrome.runtime.onInstalled.addListener(function(details) {
       })
   
   } else if (details.reason == "update") {
-    let userOptions = {
-      typewriterOutput: true,
-      persistentLastPlayer: true,
-      paragraphOutput: false,
-      authorNameOutput: false,
-      gameStats: true,
-      useHypixelAPI: false,
-      apiKey: ''
-    }
-  
-    let playerHistory = {
-      lastSearchCleared: false,
-      lastSearches: []
-    }
 
     getSyncStorage('userOptions')
       .then((x) => {
-        if (x) return;
+        if (x.userOptions) return;
         else setSyncStorage({ 'userOptions': userOptions })
           .then(() => {
-            console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Set userOptions on update`);
+            console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | userOptions was undefined; Set userOptions on update!`);
           })
           .catch((err) => {
             console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name ?? 'Storage API'}: ${err.message ?? ''}\n`, err.stack ?? err);
@@ -62,10 +50,10 @@ chrome.runtime.onInstalled.addListener(function(details) {
 
     getLocalStorage('playerHistory')
       .then((x) => {
-        if (x) return;
+        if (x.playerHistory) return;
         else setLocalStorage({ 'playerHistory': playerHistory })
           .then(() => {
-            console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Set userOptions on update`);
+            console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | playerHistory was undefined; Set playerHistory on update!`);
           })
           .catch((err) => {
             console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name ?? 'Storage API'}: ${err.message ?? ''}\n`, err.stack ?? err);

@@ -33,7 +33,7 @@ async function processPlayer(event) {
   let apiData; //Data returned from Slothpixel/Hypixel
 
   outputElement.textContent = 'Loading..';
-  playerValue.textContent = '';
+  playerValue.value = '';
   submitButton.disabled = true;
   submitButton.style.cursor = 'not-allowed';
   

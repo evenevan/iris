@@ -93,6 +93,7 @@ function testAPIKey() {
       apiKeyOutput.style.color = '#FFFFFF';
       return apiKeyOutput.textContent = `\u{2713} Valid API Key! Total uses: ${response?.record?.totalQueries} \u{2713}`;
     } catch (err) {
+      err.api = 'Hypixel';
       if (err?.status !== 403) throw err;
       apiKeyOutput.style.color = '#FF5555';
       return apiKeyOutput.textContent = '\u{26A0} Invalid API key! Get a new API key with <b>/api new</b> on Hypixel \u{26A0}';
