@@ -10,21 +10,24 @@ export function detailMessage(apiData, userOptions) {
 
   playerDataString += `<br><br><strong>Version:</strong> ${apiData?.version ?? 'Unavailable'}`;
   playerDataString += `<br><strong>Language:</strong> ${apiData?.language ?? 'Unavailable'}`;
+
   playerDataString += `<br><strong>First Login:</strong> ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate, apiData?.firstLoginMS) ?? 'Unavailable'}`;
   playerDataString += `<br><strong>Last Login:</strong> ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate, apiData?.lastLoginMS) ?? 'Unavailable'}`;
   playerDataString += `<br><strong>Last Logout:</strong> ${cleanTimeStamp(apiData?.lastLogoutTime, apiData?.lastLogoutDate, apiData?.lastLogoutMS) ?? 'Unavailable'}`;
 
   if (apiData?.isOnline === true) {
     playerDataString += `<br><strong>Playtime:</strong> ${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}`;
+    if (apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0) playerDataString += `<br><strong>Games Played:</strong> ~${apiData?.recentGamesPlayed}`;
     playerDataString += `<br><strong>Game Type:</strong> ${apiData?.online?.gameType ?? 'Unavailable'}`;
     playerDataString += `<br><strong>Game Mode:</strong> ${apiData?.online?.mode ?? 'Unavailable'}`;
     playerDataString += `<br><strong>Game Map:</strong> ${apiData?.online?.map ?? 'Unavailable'}`;
   } else {
     playerDataString += `<br><strong>Last Playtime:</strong> ${apiData?.offline?.playtime ?? 'Unavailable'}`;
-    if (apiData?.recentGames[0]) {
+    if (apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0) playerDataString += `<br><strong>Games Played:</strong> ~${apiData?.recentGamesPlayed}`;
+    if (apiData?.recentGames[0] && apiData?.recentGames[0]?.startMS > apiData?.lastLoginMS && apiData?.recentGames[0]?.startMS < apiData?.lastLogoutMS) {
       playerDataString += `<br><br><strong>Last Played Game:</strong>`;
       playerDataString += `<br>&nbsp;<strong>Game Start:</strong> ${cleanTimeStamp(apiData?.recentGames[0]?.startTime, apiData?.recentGames[0]?.startDate) ?? 'Unavailable'}`;
-      playerDataString += `<br>&nbsp;<strong>Game Length:</strong> ${apiData?.recentGames[0]?.gameLength ?? 'Unavailable'}`;
+      playerDataString += `<br>&nbsp;<strong>Game Length:</strong> ${cleanTime(apiData?.recentGames[0]?.gameLength) ?? 'Unavailable'}`;
       if (apiData?.recentGames[0]?.gameType) playerDataString += `<br>&nbsp;<strong>Game:</strong> ${apiData?.recentGames[0]?.gameType ?? 'Unavailable'}`;
       if (apiData?.recentGames[0]?.mode) playerDataString += `<br>&nbsp;<strong>Mode:</strong> ${apiData?.recentGames[0]?.mode ?? 'Unavailable'}`;
       if (apiData?.recentGames[0]?.map) playerDataString += `<br>&nbsp;<strong>Map:</strong> ${apiData?.recentGames[0]?.map ?? 'Unavailable'}`;
@@ -94,9 +97,9 @@ export function detailMessage(apiData, userOptions) {
     if (ms < 0 || ms === null || isNaN(ms)) return null;
     let seconds = Math.round(ms / 1000);
     let days = Math.floor(seconds / (24 * 60 * 60));
-    seconds -= days * 24 * 60 * 60
+    seconds -= days * 24 * 60 * 60;
     let hours = Math.floor(seconds / (60 * 60));
-    seconds -= hours * 60 * 60
+    seconds -= hours * 60 * 60;
     let minutes = Math.floor(seconds / 60);
     seconds -= minutes * 60;
     return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;

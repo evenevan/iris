@@ -5,9 +5,9 @@ export async function hypixelRequestPlayer(uuid, apiKey) {
     createHTTPRequest(`https://api.hypixel.net/player?uuid=${uuid}&key=${apiKey}`),
     createHTTPRequest(`https://api.hypixel.net/status?uuid=${uuid}&key=${apiKey}`),
     createHTTPRequest(`https://api.hypixel.net/recentGames?uuid=${uuid}&key=${apiKey}`),
-  ]).then((player) => {
-    if (player[0].player === null) {let newError = new Error(""); newError.name = "NotFound"; throw newError;}
-    return hypixelProcessData(player[0].player, player[1], player[2].games);
+  ]).then((data) => {
+    if (data[0].data === null) {let newError = new Error(""); newError.name = "NotFound"; throw newError;}
+    return hypixelProcessData(data[0].player, data[1], data[2].games);
   }).catch(err => {
     //No need to check if the player exists here because Hypixel returns a 200 even if no player with that UUID exists
     if (err.json) err.message = err.message + `. Cause: ${err.json?.cause}`;
@@ -69,13 +69,15 @@ function hypixelProcessData(playerData, statusData, recentGamesData) {
 
   apiData.recentGames = [];
 
-  for (let i = 0; i < 1 && recentGamesData[i]; i++) {
+  for (let i = 0; i < 5 && recentGamesData[i]; i++) {
     apiData.recentGames[i] = {}
     apiData.recentGames[i].startTime = recentGamesData[i]?.date ? new Date(recentGamesData[i]?.date + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
     apiData.recentGames[i].startDate = recentGamesData[i]?.date ? cleanDate(new Date(recentGamesData[i]?.date + tzOffset)) : null;
+    apiData.recentGames[i].startMS = recentGamesData[i]?.date ?? null;
     apiData.recentGames[i].endTime = recentGamesData[i]?.ended ? new Date(recentGamesData[i]?.ended + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
     apiData.recentGames[i].endDate = recentGamesData[i]?.ended ? cleanDate(new Date(recentGamesData[i]?.ended + tzOffset)) : null;
-    apiData.recentGames[i].gameLength = recentGamesData[i]?.date && recentGamesData[i]?.ended ? cleanTime(recentGamesData[i]?.ended - recentGamesData[i]?.date) : null;
+    apiData.recentGames[i].endMS = recentGamesData[i]?.ended ?? null;
+    apiData.recentGames[i].gameLength = recentGamesData[i]?.date && recentGamesData[i]?.ended ? recentGamesData[i]?.ended - recentGamesData[i]?.date : null;
     apiData.recentGames[i].gameType = recentGamesData[i]?.gameType ?? null;
     apiData.recentGames[i].mode = recentGamesData[i]?.mode ?? null;
     apiData.recentGames[i].map = recentGamesData[i]?.map ?? null;
@@ -166,9 +168,9 @@ function cleanTime(ms) {
   if (ms < 0) return null;
   let seconds = Math.round(ms / 1000);
   let days = Math.floor(seconds / (24 * 60 * 60));
-  seconds -= days * 24 * 60 * 60
+  seconds -= days * 24 * 60 * 60;
   let hours = Math.floor(seconds / (60 * 60));
-  seconds -= hours * 60 * 60
+  seconds -= hours * 60 * 60;
   let minutes = Math.floor(seconds / 60);
   seconds -= minutes * 60;
   return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;

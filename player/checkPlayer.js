@@ -42,12 +42,11 @@ async function processPlayer(event) {
     if (userOptions.useHypixelAPI === true && !userOptions.apiKey) {let x =  new Error(); x.name = 'KeyError'; throw x}
     apiData = await callAPIs(input, userOptions);
     const text = playerDataString(apiData, userOptions);
-    return await outputField(text, userOptions, outputElement);
+    await updatePlayerHistory(input, apiData).catch(x => errorHandler(x, outputElement));
+    await outputField(text, userOptions, outputElement);
   } catch (err) {
     err.input = input; //Assigns input so that the error logger can read it
     return errorHandler(err, outputElement);
-  } finally {
-    await updatePlayerHistory(input, apiData).catch(x => errorHandler(x, outputElement)); //Cleaner with .catch
   }
 }
 
@@ -90,7 +89,7 @@ async function updatePlayerHistory(input, apiData) {
     playerHistory?.lastSearches?.unshift(thisPlayerHistory);
     playerHistory?.lastSearches?.splice(100);
     playerHistory.lastSearchCleared = false;
-    if (playerHistory?.lastSearches[1]?.apiData) delete playerHistory?.lastSearches[1]?.apiData;
+    delete playerHistory?.lastSearches[1]?.apiData;
     return await setLocalStorage({ 'playerHistory': playerHistory });
 }
 

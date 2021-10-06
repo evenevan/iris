@@ -5,8 +5,8 @@ export async function slothpixelRequestPlayer(player) {
     createHTTPRequest(`https://api.slothpixel.me/api/players/${player}`, 5000),
     createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/status`, 5000),
     createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/recentGames`, 5000),
-  ]).then((player) => {
-    return slothpixelProcessData(player[0], player[1], player[2]);
+  ]).then((data) => {
+    return slothpixelProcessData(data[0], data[1], data[2]);
   }).catch(err => {
     if (err.status === 404) {let newError = new Error("HTTP status " + err.status); newError.name = "NotFound"; throw newError;}
     if (err.json) err.message = err.message + `. Cause: ${err.json?.error}`;
@@ -68,18 +68,26 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   apiData.lastLogoutMS = playerData?.last_logout ? playerData?.last_logout : null;
 
   apiData.recentGames = [];
+  apiData.recentGamesPlayed = 0;
 
-  for (let i = 0; i < 1 && recentGamesData[i]; i++) {
+  for (let i = 0; i < recentGamesData?.length && recentGamesData[i]; i++) {
     apiData.recentGames[i] = {};
     apiData.recentGames[i].startTime = recentGamesData[i]?.date ? new Date(recentGamesData[i]?.date + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
     apiData.recentGames[i].startDate = recentGamesData[i]?.date ? cleanDate(new Date(recentGamesData[i]?.date + tzOffset)) : null;
+    apiData.recentGames[i].startMS = recentGamesData[i]?.date ?? null;
     apiData.recentGames[i].endTime = recentGamesData[i]?.ended ? new Date(recentGamesData[i]?.ended + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
     apiData.recentGames[i].endDate = recentGamesData[i]?.ended ? cleanDate(new Date(recentGamesData[i]?.ended + tzOffset)) : null;
-    apiData.recentGames[i].gameLength = recentGamesData[i]?.date && recentGamesData[i]?.ended ? cleanTime(recentGamesData[i]?.ended - recentGamesData[i]?.date) : null;
+    apiData.recentGames[i].endMS = recentGamesData[i]?.ended ?? null;
+    apiData.recentGames[i].gameLength = recentGamesData[i]?.date && recentGamesData[i]?.ended ? recentGamesData[i]?.ended - recentGamesData[i]?.date : null;
     apiData.recentGames[i].gameType = recentGamesData[i]?.gameType ?? null;
     apiData.recentGames[i].mode = recentGamesData[i]?.mode ?? null;
     apiData.recentGames[i].map = recentGamesData[i]?.map ?? null;
+    if (recentGamesData[i]?.date > playerData?.last_login && recentGamesData[i]?.date < playerData?.last_logout) {
+      99 >= i ? apiData.recentGamesPlayed++ : !isNaN(apiData.recentGamesPlayed) ? apiData.recentGamesPlayed = `${apiData.recentGamesPlayed++}+` : '';
+    }
   }
+  console.log(apiData.recentGamesPlayed)
+  console.log(apiData.recentGames)
 
   apiData.bedwars = {}
   apiData.bedwars.level = playerData?.stats?.BedWars?.level ?? 0;
@@ -164,9 +172,9 @@ function cleanTime(ms) { //Takes MS
   if (ms < 0) return null;
   let seconds = Math.round(ms / 1000);
   let days = Math.floor(seconds / (24 * 60 * 60));
-  seconds -= days * 24 * 60 * 60
+  seconds -= days * 24 * 60 * 60;
   let hours = Math.floor(seconds / (60 * 60));
-  seconds -= hours * 60 * 60
+  seconds -= hours * 60 * 60;
   let minutes = Math.floor(seconds / 60);
   seconds -= minutes * 60;
   return `${days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s` }`;

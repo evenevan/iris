@@ -6,7 +6,7 @@ const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from 
     return promise.finally(() => clearTimeout(timeout));
 };
 
-export async function createHTTPRequest(url, timeout = 2500, timesAborted = 0) { //Is this good code? I have no idea. Certainly makes the rest cleaner.
+export function createHTTPRequest(url, timeout = 2500, timesAborted = 0) { //Is this good code? I have no idea. Certainly makes the rest cleaner.
   const controller = new AbortController();
   return fetchTimeout(url, timeout, {
       signal: controller.signal
@@ -32,7 +32,6 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
   try {
     const time = new Date().toLocaleTimeString('en-IN', { hour12: true });
     const uuidv4 = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/;
-    if (output) output.textContent = '';
     switch (err.name) {
       case 'NotFound': {
         console.warn(`${time} | Error Source: ${errorType} | Player Not Found: ${err.message ?? ''}\n`, err.stack);
@@ -42,6 +41,7 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
         temp.setAttribute('title', 'Opens a new tab to NameMC with your search query');
         temp.setAttribute('target', '_blank');
         temp.textContent = 'NameMC';
+        output.textContent = '';
         output.append(`The ${uuidv4.test(err.input) ? 'UUID' : 'player'} "${err.input}" doesn't seem to be a valid player and wasn't found. `, temp);
       break;
       }
@@ -52,23 +52,25 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
           output.textContent = 'Slothpixel returned an error; this happens regularly. Try switching to the Hypixel API if this continues.';
         } else if (err.status === 403 && err.api === 'Hypixel') {
           const temp = document.createElement('b');
-          temp.textContent = '/api'
+          temp.textContent = '/api';
+          output.textContent = '';
           output.append('Invalid API key! Please either switch to the Slothpixel API or get a new API key with ', temp, ' on Hypixel.');
-        } else output.textContent = `An unexpected HTTP code was returned. ${err.message}. Try switching to the ${err.api ?? 'other'} API if this persists.`;
+        } else output.textContent = `An unexpected HTTP code was returned. ${err.message}. Try switching to the Slothpixel API if this persists.`;
       break;
       }
       case 'KeyError': {
         console.warn(`${time} | Error Source: ${errorType} | Invalid API Key: ${err.message ?? ''}\n`, err.stack);
         if (!output) break;
         const temp = document.createElement('b');
-        temp.textContent = '/api'
+        temp.textContent = '/api';
+        output.textContent = '';
         output.append('You don\'t have an API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use ', temp, ' new on Hypixel and enter the key!');
       break;
       }
       case 'AbortError': {
         console.warn(`${time} | Error Source: ${errorType} | Abort Error: ${err.message ?? ''}\n`, err.stack);
         if (!output) break;
-        output.textContent = `An API failed to respond. Try switching to the ${err.api ?? 'other'} API if this persists.`;
+        output.textContent = `An API failed to respond. Try switching to the ${err.api === 'Hypixel' ? 'Slothpixel' : 'Hypixel'} API if this persists.`;
       break;
       }
       case 'StorageError': {
