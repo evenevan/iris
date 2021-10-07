@@ -3,9 +3,10 @@
 let userOptions = {
   typewriterOutput: true,
   persistentLastPlayer: true,
+  firstLogin: true,
+  gameStats: true,
   paragraphOutput: false,
   authorNameOutput: false,
-  gameStats: true,
   useHypixelAPI: false,
   apiKey: ''
 }
@@ -15,46 +16,45 @@ let playerHistory = {
   lastSearches: []
 }
 
-chrome.runtime.onInstalled.addListener(function(details) {
+chrome.runtime.onInstalled.addListener(async function(details) {
   if (details.reason == "install") { //On first install
-  
-    setSyncStorage({ 'userOptions': userOptions })
-      .then(() => {
-        console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Set userOptions on install`);
-      })
-      .catch((err) => {
-        console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name ?? 'Storage API'}: ${err.message ?? ''}\n`, err.stack ?? err);
-      });
-  
-    setLocalStorage({ 'playerHistory': playerHistory })
-      .then(() => {
-        console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Set playerHistory on install`);
-      })
-      .catch((err) => {
-        console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name ?? 'Storage API'}: ${err.message ?? ''}\n`, err.stack ?? err);
-      })
+
+    let setStorage = await Promise.allSettled([
+      setSyncStorage({ 'userOptions': userOptions }),
+      setLocalStorage({ 'playerHistory': playerHistory })
+    ])
+
+    if (setStorage.filter(x => x.status === 'rejected').length > 0) return console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Storage API`, setStorage)
+    else return console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Set storage on install`);
   
   } else if (details.reason == "update") {
-
-    getSyncStorage('userOptions')
-      .then((x) => {
-        if (x.userOptions) return;
-        else setSyncStorage({ 'userOptions': userOptions })
-          .then(() => {
-            console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | userOptions was undefined; Set userOptions on update!`);
-          })
-          .catch((err) => {
-            console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name ?? 'Storage API'}: ${err.message ?? ''}\n`, err.stack ?? err);
-          });
-      })
+    
+    getSyncStorage('userOptions') //Repairs any missing or undefined values
+      .then(x => {
+        let userOptionsMissingValue = false;
+        let userUserOptions = x.userOptions ?? {};
+        Object.entries(userOptions).forEach(entry => {
+          let [defaultKey, defaultValue] = entry;
+          if (userUserOptions[defaultKey] === undefined || userUserOptions[defaultKey] === null) {
+            userUserOptions[defaultKey] = defaultValue;
+            userOptionsMissingValue = true;
+          }
+        });
+        if (userOptionsMissingValue === true) {
+          console.warn(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | userOptions | Missing Keys`, x.userOptions);
+          setSyncStorage({ 'userOptions': userUserOptions })
+            .then(console.warn(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | userOptions | Repaired Missing Keys`, userUserOptions))
+            .catch((err) => {
+              console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name ?? 'Storage API'}: ${err.message ?? ''}\n`, err.stack ?? err);
+            });
+        }
+      });
 
     getLocalStorage('playerHistory')
       .then((x) => {
         if (x.playerHistory) return;
         else setLocalStorage({ 'playerHistory': playerHistory })
-          .then(() => {
-            console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | playerHistory was undefined; Set playerHistory on update!`);
-          })
+          .then(() => {console.warn(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | playerHistory | Repaired undefined`)})
           .catch((err) => {
             console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name ?? 'Storage API'}: ${err.message ?? ''}\n`, err.stack ?? err);
           });

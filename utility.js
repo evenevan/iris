@@ -77,6 +77,13 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
         console.error(`${time} | Error Source: ${errorType} | Storage API Error: ${err.message ?? ''}\n`, err.stack);
       break;
       }
+      case 'RangeError':
+      case 'ReferenceError':
+      case 'TypeError': {
+        console.error(`${time} | Error Source: ${errorType} | ${err.name}: ${err.message ?? ''}\n`, err.stack);
+        output.textContent = `${err.name}: ${err.message} - Please contact Attituding#6517!`;
+      break;  
+      }
       case null:
       case undefined: {
         console.error(`${time} | Error Source: ${errorType} | Unknown Error: ${err.message ?? ''}\n`, err.stack);

@@ -24,13 +24,14 @@ async function loadSettings() {
   if ((userOptions.paragraphOutput ?? false) === false) document.getElementById('authorNameOutputContainer').style.display = 'none';
   document.getElementById('typewriterOutput').checked = userOptions.typewriterOutput ?? true;
   document.getElementById('persistentLastPlayer').checked = userOptions.persistentLastPlayer ?? true;
+  document.getElementById('firstLogin').checked = userOptions.firstLogin ?? true;
+  document.getElementById('gameStats').checked = userOptions.gameStats ?? true;
   document.getElementById('paragraphOutput').checked = userOptions.paragraphOutput ?? false;
   document.getElementById('authorNameOutput').checked = userOptions.authorNameOutput ?? false;
-  document.getElementById('gameStats').checked = userOptions.gameStats ?? true;
   document.getElementById('useHypixelAPI').checked = userOptions.useHypixelAPI ?? false;
   document.getElementById('apiKey').value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/g, '########') ?? '';
 
-  if (userOptions.apiKey === '') { //If there is no API key, disabled the "Test Key" button
+  if (userOptions.apiKey === '') { //If there is no API key, disable the "Test Key" button
     testKey.style.cursor = 'not-allowed'; testKey.disabled = true;
   } else {
     testKey.style.cursor = 'pointer'; testKey.disabled = false;

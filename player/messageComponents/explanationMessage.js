@@ -8,7 +8,7 @@ export function explanationMessage(apiData, userOptions) {
   if (apiData?.utcOffset) playerDataString += `<br><strong>UTC Offset Used:</strong> ${apiData?.utcOffset}`;
 
   if (apiData?.isOnline === true) {
-    playerDataString += `<br><br>Your current session began at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}</strong> ago). Your first-ever login was on ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}. Your account's current playtime is <strong>${cleanTime(timeAgo(apiData?.lastLoginMS))}</strong>.`;
+    playerDataString += `<br><br>Your current session began at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}</strong> ago).${userOptions?.firstLogin === true ? ` Your first-ever login was on ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}` : ''} Your account's current playtime is <strong>${cleanTime(timeAgo(apiData?.lastLoginMS))}</strong>.`;
 
     playerDataString += `<br><br>Your account is currently playing ${apiData?.online?.gameType ? `<strong>${apiData?.online?.gameType}</strong>` : 'an <strong>unknown</strong> gametype'} in ${apiData?.online?.mode ? `the mode <strong>${apiData?.online?.mode}</strong>` : 'an <strong>unknown</strong> mode'} on ${apiData?.online?.map ? `the map <strong>${apiData?.online?.map}</strong>` : 'an <strong>unknown</strong> map'}.`;
 
@@ -16,10 +16,10 @@ export function explanationMessage(apiData, userOptions) {
 
     playerDataString += `<br><br>Your account is using ${apiData?.version ? `Minecraft version <strong>${apiData?.version}</strong>` : 'an <strong>unidentifiable</strong> version of Minecraft'} and is using ${apiData?.language ? `the language <strong>${apiData?.language}</strong>` : 'an <strong>unknown</strong> language'} on Hypixel.`
   } else {
-    playerDataString += `<br><br>Your last session started at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}</strong> ago) and ended <strong>${apiData?.offline?.playtime ?? 'Unavailable'}</strong> later after logging out. Your first-ever login was at ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}.`
+    playerDataString += `<br><br>Your last session started at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}</strong> ago) and ended <strong>${apiData?.offline?.playtime ?? 'Unavailable'}</strong> later after logging out.${userOptions?.firstLogin === true ? ` Your first-ever login was at ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}.` : ''}`
 
     if (apiData?.recentGames[0] && apiData?.recentGames[0]?.startMS > apiData?.lastLoginMS && apiData?.recentGames[0]?.startMS < apiData?.lastLogoutMS) {
-      playerDataString += `<br><br>During this session, you ${apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0 ? `played ${apiData?.recentGamesPlayed} or more games. You last played` : `last played`} <strong>${apiData?.recentGames[0]?.gameType}</strong> ${apiData?.recentGames[0]?.mode ? `of mode <strong>${apiData?.recentGames[0]?.mode}</strong>` : ''} at <strong>${apiData?.recentGames[0]?.startTime}</strong> on <strong>${apiData?.recentGames[0]?.startDate}</strong>.`;
+      playerDataString += `<br><br>During this session, you ${apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0 ? `played ${apiData?.recentGamesPlayed} ${apiData.recentGamesPlayed > 1 ? 'games' : 'game'}. You last played` : `last played`} <strong>${apiData?.recentGames[0]?.gameType}</strong> ${apiData?.recentGames[0]?.mode ? `of mode <strong>${apiData?.recentGames[0]?.mode}</strong>` : ''} at <strong>${apiData?.recentGames[0]?.startTime}</strong> on <strong>${apiData?.recentGames[0]?.startDate}</strong>.`;
       if (apiData?.recentGames[0]?.map) playerDataString += ` You played this game on the map <strong>${apiData?.recentGames[0]?.map}</strong>.`
       if (apiData?.recentGames[0]?.gameLength) playerDataString += ` This game lasted for <strong>${cleanTime(apiData?.recentGames[0]?.gameLength) ?? 'an unknown amount of time'}</strong>.`
     } else if (apiData?.offline?.lastGame) {

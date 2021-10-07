@@ -11,19 +11,19 @@ export function detailMessage(apiData, userOptions) {
   playerDataString += `<br><br><strong>Version:</strong> ${apiData?.version ?? 'Unavailable'}`;
   playerDataString += `<br><strong>Language:</strong> ${apiData?.language ?? 'Unavailable'}`;
 
-  playerDataString += `<br><strong>First Login:</strong> ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate, apiData?.firstLoginMS) ?? 'Unavailable'}`;
+  if (userOptions?.firstLogin === true) playerDataString += `<br><strong>First Login:</strong> ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate, apiData?.firstLoginMS) ?? 'Unavailable'}`;
   playerDataString += `<br><strong>Last Login:</strong> ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate, apiData?.lastLoginMS) ?? 'Unavailable'}`;
   playerDataString += `<br><strong>Last Logout:</strong> ${cleanTimeStamp(apiData?.lastLogoutTime, apiData?.lastLogoutDate, apiData?.lastLogoutMS) ?? 'Unavailable'}`;
 
   if (apiData?.isOnline === true) {
     playerDataString += `<br><strong>Playtime:</strong> ${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}`;
-    if (apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0) playerDataString += `<br><strong>Games Played:</strong> ~${apiData?.recentGamesPlayed}`;
+    if (apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0) playerDataString += `<br><strong>Games Played:</strong> ${(Date.now() - apiData?.lastLoginMS) > 86400000 * 2.5 ? '~' : '' /* Only adds the tilde if the last login as more than 2.5  days ago */}${apiData?.recentGamesPlayed}`;
     playerDataString += `<br><strong>Game Type:</strong> ${apiData?.online?.gameType ?? 'Unavailable'}`;
     playerDataString += `<br><strong>Game Mode:</strong> ${apiData?.online?.mode ?? 'Unavailable'}`;
     playerDataString += `<br><strong>Game Map:</strong> ${apiData?.online?.map ?? 'Unavailable'}`;
   } else {
     playerDataString += `<br><strong>Last Playtime:</strong> ${apiData?.offline?.playtime ?? 'Unavailable'}`;
-    if (apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0) playerDataString += `<br><strong>Games Played:</strong> ~${apiData?.recentGamesPlayed}`;
+    if (apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0) playerDataString += `<br><strong>Games Played:</strong> ${(Date.now() - apiData?.lastLoginMS) > 86400000 * 2.5 ? '~' : '' /* Only adds the tilde if the last login as more than 2.5  days ago */}${apiData?.recentGamesPlayed}`;
     if (apiData?.recentGames[0] && apiData?.recentGames[0]?.startMS > apiData?.lastLoginMS && apiData?.recentGames[0]?.startMS < apiData?.lastLogoutMS) {
       playerDataString += `<br><br><strong>Last Played Game:</strong>`;
       playerDataString += `<br>&nbsp;<strong>Game Start:</strong> ${cleanTimeStamp(apiData?.recentGames[0]?.startTime, apiData?.recentGames[0]?.startDate) ?? 'Unavailable'}`;
