@@ -5,7 +5,7 @@ errorEventCreate();
 (async () => {
   try {
     const outputElement = document.getElementById('outputElement');
-    const { playerHistory } = await getLocalStorage('playerHistory');
+    const playerHistory = await getLocalStorage('playerHistory');
 
     let playerHistoryArray = [];
       

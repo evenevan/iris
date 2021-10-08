@@ -12,7 +12,7 @@ export function createHTTPRequest(url, timeout = 2500, timesAborted = 0) { //Is 
       signal: controller.signal
   }).then(async function(response) {
     if (!response.ok) {
-      const responseJson = await response.json().catch((err) => {
+      const responseJson = await response.json().catch(err => {
         console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | JSON Parsing Error: ${err.message ?? ''}\n`, err.stack);
       })
       const newError = new Error(`HTTP status ${response.status}`);
@@ -34,7 +34,7 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
     const uuidv4 = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/;
     switch (err.name) {
       case 'NotFound': {
-        console.warn(`${time} | Error Source: ${errorType} | Player Not Found: ${err.message ?? ''}\n`, err.stack);
+        console.warn(`${time} | Error Source: ${errorType} | Player Not Found:\n`, err.stack);
         if (!output) break;
         const temp = document.createElement('a');
         temp.setAttribute('href', `https://namemc.com/search?q=${err.input}`);
@@ -46,16 +46,22 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
       break;
       }
       case 'HTTPError': {
-        console.warn(`${time} | Error Source: ${errorType} | Unexpected HTTP code of ${err.status ?? 'Unknown'}: ${err.message ?? ''}\n`, err.stack);
+        console.warn(`${time} | Error Source: ${errorType} | Unexpected HTTP code of ${err.status}: ${err.json?.err ?? err.json?.cause ?? ''}\n`, err.stack);
         if (!output) break;
         if (err.status === 500 && err.api === 'Slothpixel') {
-          output.textContent = 'Slothpixel returned an error; this happens regularly. Try switching to the Hypixel API if this continues.';
+          const temp = document.createElement('a');
+          temp.setAttribute('href', `https://namemc.com/search?q=${err.input}`);
+          temp.setAttribute('title', 'Opens a new tab to NameMC with your search query');
+          temp.setAttribute('target', '_blank');
+          temp.textContent = 'NameMC';
+          output.textContent = '';
+          output.append(`Slothpixel returned an error, however this happens regularly. The ${uuidv4.test(err.input) ? 'UUID' : 'player'} "${err.input}" may be invalid. `, temp);
         } else if (err.status === 403 && err.api === 'Hypixel') {
           const temp = document.createElement('b');
           temp.textContent = '/api';
           output.textContent = '';
           output.append('Invalid API key! Please either switch to the Slothpixel API or get a new API key with ', temp, ' on Hypixel.');
-        } else output.textContent = `An unexpected HTTP code was returned. ${err.message}. Try switching to the Slothpixel API if this persists.`;
+        } else output.textContent = `An unexpected HTTP code of ${err.status} was returned. Try switching to the Slothpixel API if this persists.`;
       break;
       }
       case 'KeyError': {
@@ -68,7 +74,7 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
       break;
       }
       case 'AbortError': {
-        console.warn(`${time} | Error Source: ${errorType} | Abort Error: ${err.message ?? ''}\n`, err.stack);
+        console.warn(`${time} | Error Source: ${errorType} | Abort Error\n`, err.stack);
         if (!output) break;
         output.textContent = `An API failed to respond. Try switching to the ${err.api === 'Hypixel' ? 'Slothpixel' : 'Hypixel'} API if this persists.`;
       break;
@@ -83,11 +89,6 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
         console.error(`${time} | Error Source: ${errorType} | ${err.name}: ${err.message ?? ''}\n`, err.stack);
         output.textContent = `${err.name}: ${err.message} - Please contact Attituding#6517!`;
       break;  
-      }
-      case null:
-      case undefined: {
-        console.error(`${time} | Error Source: ${errorType} | Unknown Error: ${err.message ?? ''}\n`, err.stack);
-      break;
       }
       default: {
         console.error(`${time} | Error Source: ${errorType} | ${err.name ?? 'Unknown Error Type'}: ${err.message ?? ''}\n`, err.stack);
@@ -104,11 +105,11 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
 export function getLocalStorage(key){ //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
   return new Promise((resolve, reject) =>
     chrome.storage.local.get(key, function(result) {
-      if (!chrome.runtime.lastError) return resolve(result);
+      if (!chrome.runtime.lastError) return resolve(result[key]);
       const storageError = new Error(chrome.runtime.lastError.message); storageError.name = 'StorageError';
       reject(storageError);
     })
-  )
+  );
 }
   
 export function setLocalStorage(data) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
@@ -118,7 +119,7 @@ export function setLocalStorage(data) { //Yoinked from https://stackoverflow.com
       const storageError = new Error(chrome.runtime.lastError.message); storageError.name = 'StorageError';
       reject(storageError);
     })
-  )
+  );
 }
 export function localStorageBytes(key) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
   return new Promise((resolve, reject) => //This is different due to https://bugzilla.mozilla.org/show_bug.cgi?id=1385832
@@ -127,17 +128,17 @@ export function localStorageBytes(key) { //Yoinked from https://stackoverflow.co
       const storageError = new Error(chrome.runtime.lastError.message); storageError.name = 'StorageError';
       reject(storageError);
      })
-   )
+   );
  }
   
 export function getSyncStorage(key) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
   return new Promise((resolve, reject) =>
     chrome.storage.sync.get(key, function(result) {
-      if (!chrome.runtime.lastError) return resolve(result);
+      if (!chrome.runtime.lastError) return resolve(result[key]);
       const storageError = new Error(chrome.runtime.lastError.message); storageError.name = 'StorageError';
       reject(storageError);
     })
-  )
+  );
 }
   
 export function setSyncStorage(data) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
@@ -147,7 +148,7 @@ export function setSyncStorage(data) { //Yoinked from https://stackoverflow.com/
       const storageError = new Error(chrome.runtime.lastError.message); storageError.name = 'StorageError';
       reject(storageError);
     })
-  )
+  );
 }
 
 export function syncStorageBytes(key) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
@@ -157,5 +158,5 @@ export function syncStorageBytes(key) { //Yoinked from https://stackoverflow.com
       const storageError = new Error(chrome.runtime.lastError.message); storageError.name = 'StorageError';
       reject(storageError);
      })
-   )
+   );
  }

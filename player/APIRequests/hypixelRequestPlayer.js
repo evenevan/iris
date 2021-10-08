@@ -69,18 +69,21 @@ function hypixelProcessData(playerData, statusData, recentGamesData) {
 
   apiData.recentGames = [];
 
-  for (let i = 0; i < 5 && recentGamesData[i]; i++) {
+  for (let i = 0; i < 5 && recentGamesData?.[i]; i++) {
     apiData.recentGames[i] = {}
-    apiData.recentGames[i].startTime = recentGamesData[i]?.date ? new Date(recentGamesData[i]?.date + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
-    apiData.recentGames[i].startDate = recentGamesData[i]?.date ? cleanDate(new Date(recentGamesData[i]?.date + tzOffset)) : null;
-    apiData.recentGames[i].startMS = recentGamesData[i]?.date ?? null;
-    apiData.recentGames[i].endTime = recentGamesData[i]?.ended ? new Date(recentGamesData[i]?.ended + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
-    apiData.recentGames[i].endDate = recentGamesData[i]?.ended ? cleanDate(new Date(recentGamesData[i]?.ended + tzOffset)) : null;
-    apiData.recentGames[i].endMS = recentGamesData[i]?.ended ?? null;
-    apiData.recentGames[i].gameLength = recentGamesData[i]?.date && recentGamesData[i]?.ended ? recentGamesData[i]?.ended - recentGamesData[i]?.date : null;
-    apiData.recentGames[i].gameType = recentGamesData[i]?.gameType ?? null;
-    apiData.recentGames[i].mode = recentGamesData[i]?.mode ?? null;
-    apiData.recentGames[i].map = recentGamesData[i]?.map ?? null;
+    apiData.recentGames[i].startTime = recentGamesData?.[i]?.date ? new Date(recentGamesData[i]?.date + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
+    apiData.recentGames[i].startDate = recentGamesData?.[i]?.date ? cleanDate(new Date(recentGamesData?.[i]?.date + tzOffset)) : null;
+    apiData.recentGames[i].startMS = recentGamesData?.[i]?.date ?? null;
+    apiData.recentGames[i].endTime = recentGamesData?.[i]?.ended ? new Date(recentGamesData[i]?.ended + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
+    apiData.recentGames[i].endDate = recentGamesData?.[i]?.ended ? cleanDate(new Date(recentGamesData?.[i]?.ended + tzOffset)) : null;
+    apiData.recentGames[i].endMS = recentGamesData?.[i]?.ended ?? null;
+    apiData.recentGames[i].gameLength = recentGamesData?.[i]?.date && recentGamesData?.[i]?.ended ? recentGamesData?.[i]?.ended - recentGamesData?.[i]?.date : null;
+    apiData.recentGames[i].gameType = recentGamesData?.[i]?.gameType ?? null;
+    apiData.recentGames[i].mode = recentGamesData?.[i]?.mode ?? null;
+    apiData.recentGames[i].map = recentGamesData?.[i]?.map ?? null;
+    if (recentGamesData[i]?.date > playerData?.last_login && recentGamesData?.[i]?.date < playerData?.last_logout) {
+      99 >= i ? apiData.recentGamesPlayed++ : !isNaN(apiData.recentGamesPlayed) ? apiData.recentGamesPlayed = `${apiData.recentGamesPlayed++}+` : '';
+    }
   }
 
   apiData.bedwars = {}

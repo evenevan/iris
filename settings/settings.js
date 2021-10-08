@@ -10,7 +10,7 @@ let userOptions;
 
 (async () => {
   try {
-    ({ userOptions } = await getSyncStorage('userOptions'));
+    userOptions = await getSyncStorage('userOptions');
     await loadSettings();
     saveCheckbox();
     saveAPIKey();
@@ -25,6 +25,7 @@ async function loadSettings() {
   document.getElementById('typewriterOutput').checked = userOptions.typewriterOutput ?? true;
   document.getElementById('persistentLastPlayer').checked = userOptions.persistentLastPlayer ?? true;
   document.getElementById('firstLogin').checked = userOptions.firstLogin ?? true;
+  document.getElementById('lastLogout').checked = userOptions.lastLogout ?? true;
   document.getElementById('gameStats').checked = userOptions.gameStats ?? true;
   document.getElementById('paragraphOutput').checked = userOptions.paragraphOutput ?? false;
   document.getElementById('authorNameOutput').checked = userOptions.authorNameOutput ?? false;
@@ -37,8 +38,8 @@ async function loadSettings() {
     testKey.style.cursor = 'pointer'; testKey.disabled = false;
   }
 
-  document.getElementById('playerHistoryBytes').textContent = `Search History: ${(await localStorageBytes('playerHistory') / 1024).toFixed(2)} Kilobytes`
-  document.getElementById('userOptionsBytes').textContent = `Settings: ${(await syncStorageBytes('userOptions') / 1024).toFixed(2)} Kilobytes`
+  document.getElementById('playerHistoryBytes').textContent = `Search History: ${(await localStorageBytes('playerHistory') / 1024).toFixed(2)} Kilobytes`;
+  document.getElementById('userOptionsBytes').textContent = `Settings: ${(await syncStorageBytes('userOptions') / 1024).toFixed(2)} Kilobytes`;
 }
 
 function saveCheckbox() {
@@ -72,7 +73,10 @@ function saveAPIKey() {
       testKey.style.cursor = 'not-allowed'; testKey.disabled = true; testKey.style.borderColor = '#FF5555';
       this.style.borderColor = '#FF5555';
       apiKeyOutput.style.color = '#FF5555';
-      apiKeyOutput.textContent = '\u{26A0} Invalid API key! Hypixel API keys will follow the UUID v4 format. Get an API key with <b>/api new</b> on Hypixel \u{26A0}';
+      const temp = document.createElement('b');
+      temp.textContent = '/api new';
+      apiKeyOutput.textContent = '';
+      return apiKeyOutput.append('\u{26A0} Invalid API key! Hypixel API keys will follow the UUID v4 format. Get an API key with ', temp, ' on Hypixel \u{26A0}');
     }
   });
 
@@ -97,7 +101,10 @@ function testAPIKey() {
       err.api = 'Hypixel';
       if (err?.status !== 403) throw err;
       apiKeyOutput.style.color = '#FF5555';
-      return apiKeyOutput.textContent = '\u{26A0} Invalid API key! Get a new API key with <b>/api new</b> on Hypixel \u{26A0}';
+      const temp = document.createElement('b');
+      temp.textContent = '/api new';
+      apiKeyOutput.textContent = '';
+      return apiKeyOutput.append('\u{26A0} Invalid API key! Please either switch to the Slothpixel API or get a new API key with ', temp, ' on Hypixel \u{26A0}');
     }
   });
 }

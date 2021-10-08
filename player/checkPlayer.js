@@ -13,9 +13,9 @@ document.getElementById('submitPlayer').addEventListener('submit', processPlayer
 
 (async () => { //Loads the last searched player on page load. If the last input threw an error, nothing is displayed
   try {
-    const { userOptions } = await getSyncStorage('userOptions');
+    const userOptions = await getSyncStorage('userOptions');
     if (userOptions.persistentLastPlayer === false) return;
-    const { playerHistory } = await getLocalStorage('playerHistory');
+    const playerHistory = await getLocalStorage('playerHistory');
     if (!playerHistory?.lastSearches[0]?.apiData || playerHistory?.lastSearchCleared === true) return;
     const text = playerDataString(playerHistory?.lastSearches[0]?.apiData, userOptions);
     userOptions.typewriterOutput = false;
@@ -38,7 +38,7 @@ async function processPlayer(event) {
   submitButton.style.cursor = 'not-allowed';
   
   try {
-    const { userOptions } = await getSyncStorage('userOptions');
+    const userOptions = await getSyncStorage('userOptions');
     if (userOptions.useHypixelAPI === true && !userOptions.apiKey) {let x =  new Error(); x.name = 'KeyError'; throw x}
     apiData = await callAPIs(input, userOptions);
     const text = playerDataString(apiData, userOptions);
@@ -85,7 +85,7 @@ async function updatePlayerHistory(input, apiData) {
     thisPlayerHistory.apiData = apiData ?? null;
     thisPlayerHistory.epoch = `${Date.now()}`;
   
-    const { playerHistory } = await getLocalStorage('playerHistory');
+    const playerHistory = await getLocalStorage('playerHistory');
     playerHistory?.lastSearches?.unshift(thisPlayerHistory);
     playerHistory?.lastSearches?.splice(100);
     playerHistory.lastSearchCleared = false;

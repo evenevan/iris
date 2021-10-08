@@ -16,11 +16,11 @@ async function clearButton() {
   outputElement.textContent = '';
 
   try {
-    const { playerHistory } = await getLocalStorage('playerHistory');
+    const playerHistory = await getLocalStorage('playerHistory');
     playerHistory.lastSearchCleared = true;
     return await setLocalStorage({ playerHistory: playerHistory });
   } catch(err) {
-    return errorHandler(err, outputElement)
+    return errorHandler(err, outputElement);
   }
 }
 

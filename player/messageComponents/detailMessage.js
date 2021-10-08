@@ -13,7 +13,7 @@ export function detailMessage(apiData, userOptions) {
 
   if (userOptions?.firstLogin === true) playerDataString += `<br><strong>First Login:</strong> ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate, apiData?.firstLoginMS) ?? 'Unavailable'}`;
   playerDataString += `<br><strong>Last Login:</strong> ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate, apiData?.lastLoginMS) ?? 'Unavailable'}`;
-  playerDataString += `<br><strong>Last Logout:</strong> ${cleanTimeStamp(apiData?.lastLogoutTime, apiData?.lastLogoutDate, apiData?.lastLogoutMS) ?? 'Unavailable'}`;
+  if (userOptions?.lastLogout === true) playerDataString += `<br><strong>Last Logout:</strong> ${cleanTimeStamp(apiData?.lastLogoutTime, apiData?.lastLogoutDate, apiData?.lastLogoutMS) ?? 'Unavailable'}`;
 
   if (apiData?.isOnline === true) {
     playerDataString += `<br><strong>Playtime:</strong> ${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}`;
@@ -24,19 +24,19 @@ export function detailMessage(apiData, userOptions) {
   } else {
     playerDataString += `<br><strong>Last Playtime:</strong> ${apiData?.offline?.playtime ?? 'Unavailable'}`;
     if (apiData?.recentGamesPlayed && apiData?.recentGamesPlayed !== 0) playerDataString += `<br><strong>Games Played:</strong> ${(Date.now() - apiData?.lastLoginMS) > 86400000 * 2.5 ? '~' : '' /* Only adds the tilde if the last login as more than 2.5  days ago */}${apiData?.recentGamesPlayed}`;
-    if (apiData?.recentGames[0] && apiData?.recentGames[0]?.startMS > apiData?.lastLoginMS && apiData?.recentGames[0]?.startMS < apiData?.lastLogoutMS) {
+    if (apiData?.recentGames?.[0] && apiData?.recentGames?.[0]?.startMS > apiData?.lastLoginMS && apiData?.recentGames?.[0]?.startMS < apiData?.lastLogoutMS) {
       playerDataString += `<br><br><strong>Last Played Game:</strong>`;
-      playerDataString += `<br>&nbsp;<strong>Game Start:</strong> ${cleanTimeStamp(apiData?.recentGames[0]?.startTime, apiData?.recentGames[0]?.startDate) ?? 'Unavailable'}`;
-      playerDataString += `<br>&nbsp;<strong>Game Length:</strong> ${cleanTime(apiData?.recentGames[0]?.gameLength) ?? 'Unavailable'}`;
-      if (apiData?.recentGames[0]?.gameType) playerDataString += `<br>&nbsp;<strong>Game:</strong> ${apiData?.recentGames[0]?.gameType ?? 'Unavailable'}`;
-      if (apiData?.recentGames[0]?.mode) playerDataString += `<br>&nbsp;<strong>Mode:</strong> ${apiData?.recentGames[0]?.mode ?? 'Unavailable'}`;
-      if (apiData?.recentGames[0]?.map) playerDataString += `<br>&nbsp;<strong>Map:</strong> ${apiData?.recentGames[0]?.map ?? 'Unavailable'}`;
+      playerDataString += `<br>&nbsp;<strong>Game Start:</strong> ${cleanTimeStamp(apiData?.recentGames?.[0]?.startTime, apiData?.recentGames?.[0]?.startDate) ?? 'Unavailable'}`;
+      playerDataString += `<br>&nbsp;<strong>Game Length:</strong> ${cleanTime(apiData?.recentGames?.[0]?.gameLength) ?? 'Unavailable'}`;
+      if (apiData?.recentGames?.[0]?.gameType) playerDataString += `<br>&nbsp;<strong>Game:</strong> ${apiData?.recentGames?.[0]?.gameType ?? 'Unavailable'}`;
+      if (apiData?.recentGames?.[0]?.mode) playerDataString += `<br>&nbsp;<strong>Mode:</strong> ${apiData?.recentGames?.[0]?.mode ?? 'Unavailable'}`;
+      if (apiData?.recentGames?.[0]?.map) playerDataString += `<br>&nbsp;<strong>Map:</strong> ${apiData?.recentGames?.[0]?.map ?? 'Unavailable'}`;
     } else if (apiData?.offline?.lastGame) {
       playerDataString += `<br><strong>Last Game Type:</strong> ${apiData?.offline?.lastGame}`;
     }
   }
 
-  if (userOptions?.gameStats === true && ((apiData?.isOnline === true && apiData?.online?.gameType) || (apiData?.isOnline === false && apiData?.recentGames[0]?.gameType) || (apiData?.isOnline === false && apiData?.offline?.lastGame))) switch (apiData?.online?.gameType ?? apiData?.recentGames[0]?.gameType ?? apiData?.offline?.lastGame) {
+  if (userOptions?.gameStats === true && ((apiData?.isOnline === true && apiData?.online?.gameType) || (apiData?.isOnline === false && apiData?.recentGames?.[0]?.gameType) || (apiData?.isOnline === false && apiData?.offline?.lastGame))) switch (apiData?.online?.gameType ?? apiData?.recentGames?.[0]?.gameType ?? apiData?.offline?.lastGame) {
     case 'Bed Wars':
     case 'Bedwars':  
     case 'BEDWARS':
