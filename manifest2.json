@@ -4,7 +4,7 @@
   "version": "1.1.7",
   "manifest_version": 2,
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["/src/background.js"]
   },
   "browser_specific_settings": {
     "gecko": {
@@ -13,18 +13,18 @@
   },
   "permissions": ["storage"],
   "browser_action": {
-    "default_popup": "./player/player.html",
+    "default_popup": "./src/player/player.html",
     "default_icon": {
-      "16": "/images/iris16.png",
-      "32": "/images/iris32.png",
-      "48": "/images/iris48.png",
-      "128": "/images/iris128.png"
+      "16": "./images/iris16.png",
+      "32": "./images/iris32.png",
+      "48": "./images/iris48.png",
+      "128": "./images/iris128.png"
     }
   },
   "icons": {
-    "16": "/images/iris16.png",
-    "32": "/images/iris32.png",
-    "48": "/images/iris48.png",
-    "128": "/images/iris128.png"
+    "16": "./images/iris16.png",
+    "32": "./images/iris32.png",
+    "48": "./images/iris48.png",
+    "128": "./images/iris128.png"
   }
 }
