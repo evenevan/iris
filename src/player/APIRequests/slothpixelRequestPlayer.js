@@ -2,14 +2,14 @@ import { createHTTPRequest } from '../../utility.js';
 
 export async function slothpixelRequestPlayer(player) {
   return Promise.all([
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}`, 5000),
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/status`, 5000),
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/recentGames`, 5000),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}`, {method: 'GET', mode: 'cors'}, 5000),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/status`, {}, 5000),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/recentGames`, {}, 5000),
   ]).then((data) => {
     return slothpixelProcessData(data[0], data[1], data[2]);
   }).catch(err => {
-    if (err.status === 404) {let newError = new Error("HTTP status " + err.status); newError.name = "NotFound"; throw newError;}
-    if (err.json) err.message = err.message + `. Cause: ${err.json?.error}`;
+    if (err.status === 404) err.name = 'NotFoundError';
+    err.message = err.json?.error ?? `HTTP status of ${err.status}`;
     err.api = 'Slothpixel';
     throw err;
   });
@@ -86,8 +86,6 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
       99 >= i ? apiData.recentGamesPlayed++ : !isNaN(apiData.recentGamesPlayed) ? apiData.recentGamesPlayed = `${apiData.recentGamesPlayed++}+` : '';
     }
   }
-  console.log(apiData.recentGamesPlayed)
-  console.log(apiData.recentGames)
 
   apiData.bedwars = {}
   apiData.bedwars.level = playerData?.stats?.BedWars?.level ?? 0;

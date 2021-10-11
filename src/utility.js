@@ -1,40 +1,44 @@
-const fetchTimeout = (url, ms, { signal, ...options } = {}) => { //Yoinked from https://stackoverflow.com/a/57888548 under CC BY-SA 4.0
-    const controller = new AbortController();
-    const promise = fetch(url, { signal: controller.signal, ...options });
-    if (signal) signal.addEventListener("abort", () => controller.abort());
-    const timeout = setTimeout(() => controller.abort(), ms);
-    return promise.finally(() => clearTimeout(timeout));
+const fetchTimeout = async (url, ms, { signal, ...fetchOptions } = {}) => { //Yoinked from https://stackoverflow.com/a/57888548 under CC BY-SA 4.0
+  const controller = new AbortController();
+  const promise = fetch(url, { signal: controller.signal, ...fetchOptions });
+  if (signal) signal.addEventListener("abort", () => controller.abort());
+  const timeout = setTimeout(() => controller.abort(), ms);
+  return promise.finally(() => clearTimeout(timeout));
 };
 
-export function createHTTPRequest(url, timeout = 2500, timesAborted = 0) { //Is this good code? I have no idea. Certainly makes the rest cleaner.
+export function createHTTPRequest(url, {...fetchOptions}, timeout = 2500, timesAborted = 0) { //Handles HTTP requests and deals with errors
   const controller = new AbortController();
   return fetchTimeout(url, timeout, {
-      signal: controller.signal
+      signal: controller.signal,
+      ...fetchOptions
   }).then(async function(response) {
     if (!response.ok) {
       const responseJson = await response.json().catch(err => {
         console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | JSON Parsing Error: ${err.message ?? ''}\n`, err.stack);
       })
-      const newError = new Error(`HTTP status ${response.status}`);
-      newError.name = "HTTPError";
-      newError.status = response.status;
-      newError.json = responseJson || null;
-      throw newError;
+      const HTTPError = new Error(`HTTP status ${response.status}`);
+      HTTPError.name = "HTTPError";
+      HTTPError.method = fetchOptions?.method ?? 'GET';
+      HTTPError.status = response.status;
+      HTTPError.url = url;
+      HTTPError.json = responseJson || null;
+      throw HTTPError;
     }
     return await response.json();
   }).catch(err => {
-    if (err.name === "AbortError" && timesAborted < 1) return createHTTPRequest(url, timeout, timesAborted++); //Simple way to try again without an infinite loop
+    if (err.name === "AbortError" && timesAborted < 1) return createHTTPRequest(url, {...fetchOptions}, timeout, timesAborted + 1); //Simple way to try again without an infinite loop
     throw err;
   });
 }
 
-export function errorHandler(event, output, errorType = 'caughtError', err =  event?.error ?? event?.reason ?? event) {
+export function errorHandler(event, output, errorType = 'Caught') {
   try {
+    const err = event.error ?? event.reason ?? event;
     const time = new Date().toLocaleTimeString('en-IN', { hour12: true });
     const uuidv4 = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/;
     switch (err.name) {
-      case 'NotFound': {
-        console.warn(`${time} | Error Source: ${errorType} | Player Not Found:\n`, err.stack);
+      case 'NotFoundError': {
+        console.warn(`${time} | ${errorType} | ${err.stack}\nmethod: ${err.method}\ncode: ${err.status}\npath: ${err.url}`);
         if (!output) break;
         const temp = document.createElement('a');
         temp.setAttribute('href', `https://namemc.com/search?q=${err.input}`);
@@ -46,7 +50,7 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
       break;
       }
       case 'HTTPError': {
-        console.warn(`${time} | Error Source: ${errorType} | Unexpected HTTP code of ${err.status}: ${err.json?.err ?? err.json?.cause ?? ''}\n`, err.stack);
+        console.warn(`${time} | ${errorType} | ${err.stack}\nmethod: ${err.method}\ncode: ${err.status}\npath: ${err.url}`);
         if (!output) break;
         if (err.status === 500 && err.api === 'Slothpixel') {
           const temp = document.createElement('a');
@@ -64,8 +68,14 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
         } else output.textContent = `An unexpected HTTP code of ${err.status} was returned. Try switching to the Slothpixel API if this persists.`;
       break;
       }
+      case 'AbortError': {
+        console.warn(`${time} | ${errorType} | ${err.stack}\nmethod: ${err.method}\ncode: ${err.status}\npath: ${err.url}`);
+        if (!output) break;
+        output.textContent = `The ${err.api} API failed to respond. Try switching to the ${err.api === 'Hypixel' ? 'Slothpixel' : 'Hypixel'} API if this persists.`;
+      break;
+      }
       case 'KeyError': {
-        console.warn(`${time} | Error Source: ${errorType} | Invalid API Key: ${err.message ?? ''}\n`, err.stack);
+        console.warn(`${time} | ${errorType} | ${err.stack}`);
         if (!output) break;
         const temp = document.createElement('b');
         temp.textContent = '/api';
@@ -73,30 +83,24 @@ export function errorHandler(event, output, errorType = 'caughtError', err =  ev
         output.append('You don\'t have an API key to use the Hypixel API! Either switch to the Slothpixel API in the options or use ', temp, ' new on Hypixel and enter the key!');
       break;
       }
-      case 'AbortError': {
-        console.warn(`${time} | Error Source: ${errorType} | Abort Error\n`, err.stack);
-        if (!output) break;
-        output.textContent = `An API failed to respond. Try switching to the ${err.api === 'Hypixel' ? 'Slothpixel' : 'Hypixel'} API if this persists.`;
-      break;
-      }
       case 'StorageError': {
-        console.error(`${time} | Error Source: ${errorType} | Storage API Error: ${err.message ?? ''}\n`, err.stack);
+        console.error(`${time} | ${errorType} | ${err.stack}`);
       break;
       }
       case 'RangeError':
       case 'ReferenceError':
       case 'TypeError': {
-        console.error(`${time} | Error Source: ${errorType} | ${err.name}: ${err.message ?? ''}\n`, err.stack);
+        console.error(`${time} | ${errorType} | ${err.stack}`);
         output.textContent = `${err.name}: ${err.message} - Please contact Attituding#6517!`;
       break;  
       }
       default: {
-        console.error(`${time} | Error Source: ${errorType} | ${err.name ?? 'Unknown Error Type'}: ${err.message ?? ''}\n`, err.stack);
+        console.error(`${time} | ${errorType} | ${err.stack}`);
       break;
       }
     }
   } catch (err) {
-    console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Error-Handler Failure |`, err.stack);
+    console.error(new Date().toLocaleTimeString('en-IN', { hour12: true }), ' | ', errorType, ' |', err.stack);
   }
 }
 

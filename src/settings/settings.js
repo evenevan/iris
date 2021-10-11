@@ -94,7 +94,7 @@ function testAPIKey() {
     try {
       this.disabled = true;
       setTimeout(() => {this.disabled = false;}, 500); //Prevent API Spam :)
-      const response = await createHTTPRequest(`https://api.hypixel.net/key?key=${userOptions.apiKey}`);
+      const response = await createHTTPRequest(`https://api.hypixel.net/key?key=${userOptions.apiKey}`, {});
       apiKeyOutput.style.color = '#FFFFFF';
       return apiKeyOutput.textContent = `\u{2713} Valid API Key! Total uses: ${response?.record?.totalQueries} \u{2713}`;
     } catch (err) {
@@ -112,6 +112,7 @@ function testAPIKey() {
 function errorEventCreate() {
   window.addEventListener('error', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));
   window.addEventListener('unhandledrejection', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));
+  window.onerror = () => {return true}; //Hides the default error
 }
 
 //uuid for error tracing in the future - maybe.

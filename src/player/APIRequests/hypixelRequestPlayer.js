@@ -2,15 +2,15 @@ import { createHTTPRequest } from '../../utility.js';
 
 export async function hypixelRequestPlayer(uuid, apiKey) {
   return Promise.all([
-    createHTTPRequest(`https://api.hypixel.net/player?uuid=${uuid}&key=${apiKey}`),
-    createHTTPRequest(`https://api.hypixel.net/status?uuid=${uuid}&key=${apiKey}`),
-    createHTTPRequest(`https://api.hypixel.net/recentGames?uuid=${uuid}&key=${apiKey}`),
+    createHTTPRequest(`https://api.hypixel.net/player?uuid=${uuid}&key=${apiKey}`, {}),
+    createHTTPRequest(`https://api.hypixel.net/status?uuid=${uuid}&key=${apiKey}`, {}),
+    createHTTPRequest(`https://api.hypixel.net/recentGames?uuid=${uuid}&key=${apiKey}`, {}),
   ]).then((data) => {
-    if (data[0].data === null) {let newError = new Error(""); newError.name = "NotFound"; throw newError;}
+    if (data[0].data === null) {let newError = new Error(); newError.name = "NotFoundError"; throw newError;}
     return hypixelProcessData(data[0].player, data[1], data[2].games);
   }).catch(err => {
     //No need to check if the player exists here because Hypixel returns a 200 even if no player with that UUID exists
-    if (err.json) err.message = err.message + `. Cause: ${err.json?.cause}`;
+    err.message = err.json?.error ?? `HTTP status of ${err.status}`;
     err.api = 'Hypixel';
     throw err;
   });

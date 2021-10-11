@@ -55,4 +55,5 @@ function cleanTime(ms) { //Takes MS
 function errorEventCreate() {
   window.addEventListener('error', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));
   window.addEventListener('unhandledrejection', x => errorHandler(x, document.getElementById('errorOutput'), x.constructor.name));
+  window.onerror = () => {return true}; //Hides the default error
 }

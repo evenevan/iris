@@ -16,7 +16,6 @@ document.getElementById('submitPlayer').addEventListener('submit', processPlayer
     const userOptions = await getSyncStorage('userOptions');
     if (userOptions.persistentLastPlayer === false) return;
     const playerHistory = await getLocalStorage('playerHistory');
-    console.log(playerHistory)
     if (!playerHistory?.lastSearches[0]?.apiData || playerHistory?.lastSearchCleared === true) return;
     const text = playerDataString(playerHistory?.lastSearches[0]?.apiData, userOptions);
     userOptions.typewriterOutput = false;
@@ -95,6 +94,7 @@ async function updatePlayerHistory(input, apiData) {
 }
 
 function errorEventCreate() {
-  window.addEventListener('error', x => errorHandler(x, outputElement, x.constructor.name));
-  window.addEventListener('unhandledrejection', x => errorHandler(x, outputElement, x.constructor.name));
+  window.addEventListener('error', x => errorHandler(x, outputElement, 'Uncaught'));
+  window.addEventListener('unhandledrejection', x => errorHandler(x, outputElement, 'Unhandled Rejection'));
+  window.onerror = () => {return true}; //Hides the default error
 }
