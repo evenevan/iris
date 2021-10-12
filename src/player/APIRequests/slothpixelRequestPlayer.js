@@ -149,6 +149,7 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   apiData.uhc.wins = playerData?.stats?.UHC?.wins ?? 0;
   apiData.uhc.kills = playerData?.stats?.UHC?.kills ?? 0;
   apiData.uhc.deaths = playerData?.stats?.UHC?.deaths ?? 0;
+
   apiData.walls = {};
   apiData.walls.coins = playerData?.stats?.Walls?.coins ?? 0;
   apiData.walls.KD = playerData?.stats?.UHC?.kd ?? 0;
@@ -156,6 +157,7 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   apiData.walls.wins = playerData?.stats?.Walls?.wins ?? 0;
   apiData.walls.kills = playerData?.stats?.Walls?.kills ?? 0;
   apiData.walls.deaths = playerData?.stats?.Walls?.deaths ?? 0;
+  
   apiData.megaWalls = {};
   apiData.megaWalls.coins = playerData?.stats?.MegaWalls?.coins ?? 0;
   apiData.megaWalls.KD = playerData?.stats?.UHC?.kill_death_ratio ?? 0;

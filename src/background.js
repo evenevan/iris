@@ -1,110 +1,116 @@
+/*eslint-disable sort-keys */
 /*global chrome*/
 
-let userOptions = {
-  typewriterOutput: true,
-  persistentLastPlayer: true,
-  firstLogin: true,
-  lastLogout: true,
-  gameStats: true,
-  paragraphOutput: false,
-  authorNameOutput: false,
-  useHypixelAPI: false,
-  apiKey: ''
-}
+const playerHistory = {
+  "lastSearchCleared": false,
+  "lastSearches": []
+},
+userOptions = {
+  "typewriterOutput": true,
+  "persistentLastPlayer": true,
+  "firstLogin": true,
+  "lastLogout": true,
+  "gameStats": true,
+  "paragraphOutput": false,
+  "authorNameOutput": false,
+  "useHypixelAPI": false,
+  "apiKey": ""
+};
 
-let playerHistory = {
-  lastSearchCleared: false,
-  lastSearches: []
-}
-
-chrome.runtime.onInstalled.addListener(async function(details) {
-  if (details.reason == "install") { //On first install
-
-    let setStorage = await Promise.allSettled([
-      setSyncStorage({ 'userOptions': userOptions }),
-      setLocalStorage({ 'playerHistory': playerHistory })
-    ]);
-
-    if (setStorage.filter(x => x.status === 'rejected').length > 0) return console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | StorageError:`, setStorage);
-    else return console.log(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | Set storage on install`);
-  
-  } else if (details.reason == "update") {
-    
-    getSyncStorage('userOptions') //Repairs any missing or undefined values
-      .then(storageGET => {
-        let missingUserOptions = [];
-        Object.entries(userOptions).forEach(entry => {
-          let [defaultKey, defaultValue] = entry;
-          if (storageGET[defaultKey] === undefined || storageGET[defaultKey] === null) {
-            storageGET[defaultKey] = defaultValue;
-            missingUserOptions.push(defaultKey);
-          }
-        });
-        if (missingUserOptions.length > 0) {
-          console.warn(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | userOptions | Missing Keys`, missingUserOptions);
-          setSyncStorage({ 'userOptions': storageGET })
-            .then(console.warn(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | userOptions | Repaired Missing Keys`, storageGET));
-        }
-      })
-      .catch(err => {
-        console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name}: ${err.message ?? ''}\n`, err.stack ?? err);
-      })
-
-    getLocalStorage('playerHistory')
-      .then(storageGET => {
-        if (storageGET) return;
-        else setLocalStorage({ 'playerHistory': playerHistory })
-          .then(() => {console.warn(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | playerHistory | Repaired undefined`)});
-      })
-      .catch((err) => {
-        console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} | ${err.name}: ${err.message ?? ''}\n`, err.stack ?? err);
-      });
-
-  }
+chrome.runtime.onInstalled.addListener(details => {
+  if (details.reason === "install") onInstall();
+  else if (details.reason === "update") onUpdate();
 });
 
-function getLocalStorage(key){ //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
-  return new Promise((resolve, reject) =>
-    chrome.storage.local.get(key, function(result) {
+async function onInstall() {
+  const time = new Date().toLocaleTimeString("en-IN", { "hour12": true }),
+  setStorage = await Promise.allSettled([
+    setSyncStorage({ "userOptions": userOptions }),
+    setLocalStorage({ "playerHistory": playerHistory })
+  ]);
+
+  if (setStorage.filter(allSettled => allSettled.status === "rejected").length > 0) console.error(`${time} | StorageError:`, setStorage);
+}
+
+function onUpdate() {
+  const time = new Date().toLocaleTimeString("en-IN", { "hour12": true });
+
+  //Repairs any missing or undefined values
+  getSyncStorage("userOptions")
+    .then(storageGET => {
+      const missingUserOptions = [];
+
+      Object.entries(userOptions).forEach(entry => {
+        const [defaultKey, defaultValue] = entry;
+        //eslint-disable-next-line no-undefined
+        if (storageGET[defaultKey] === undefined || storageGET[defaultKey] === null) {
+          storageGET[defaultKey] = defaultValue;
+          missingUserOptions.push(defaultKey);
+          }
+      });
+
+      if (missingUserOptions.length > 0) {
+        console.warn(`${time} | userOptions | Missing Keys`, missingUserOptions);
+        setSyncStorage({ "userOptions": storageGET })
+          .then(console.warn(`${time} | userOptions | Repaired Missing Keys`, storageGET));
+      }
+    })
+    .catch(err => {
+      console.error(`${time} | ${err.stack}`);
+    });
+
+  getLocalStorage("playerHistory")
+    .then(storageGET => {
+      if (!storageGET) setLocalStorage({ "playerHistory": playerHistory })
+        .then(() => console.warn(`${time} | playerHistory | Repaired undefined`));
+    })
+    .catch(err => {
+      console.error(`${time} | ${err.stack}`);
+    });
+}
+
+//Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
+
+function getLocalStorage(key) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(key, result => {
       if (!chrome.runtime.lastError) return resolve(result[key]);
-      console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - getLocalStorage Error - Error Object:`, chrome.runtime.lastError);
-      let storageError = new Error(chrome.runtime.lastError.message); storageError.name = 'StorageError';
-      reject(storageError);
-    })
-  );
-}
-    
-function setLocalStorage(data) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
-  return new Promise((resolve, reject) =>
-    chrome.storage.local.set(data, function() {
-      if (!chrome.runtime.lastError) return resolve();
-      console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - setLocalStorage Error - Error Object:`, chrome.runtime.lastError);
-      let chromeError = new Error(chrome.runtime.lastError.message); chromeError.name = 'StorageError';
-      reject(chromeError);
-    })
-  );
+      const storageError = new Error(chrome.runtime.lastError.message);
+      storageError.name = "StorageError";
+      return reject(storageError);
+    });
+  });
 }
 
-function getSyncStorage(key) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
-  return new Promise((resolve, reject) =>
-    chrome.storage.sync.get(key, function(result) {
+function setLocalStorage(data) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.set(data, () => {
+      if (!chrome.runtime.lastError) return resolve();
+      const storageError = new Error(chrome.runtime.lastError.message);
+      storageError.name = "StorageError";
+      return reject(storageError);
+    });
+  });
+}
+
+function getSyncStorage(key) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get(key, result => {
       if (!chrome.runtime.lastError) return resolve(result[key]);
-      console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - getSyncStorage Error - Error Object:`, chrome.runtime.lastError);
-      let storageError = new Error(chrome.runtime.lastError.message); storageError.name = 'StorageError';
-      reject(storageError);
-    })
-  );
+      const storageError = new Error(chrome.runtime.lastError.message);
+      storageError.name = "StorageError";
+      return reject(storageError);
+    });
+  });
 }
-  
-function setSyncStorage(data) { //Yoinked from https://stackoverflow.com/questions/14531102/saving-and-retrieving-from-chrome-storage-sync, modified a bit
-  return new Promise((resolve, reject) =>
-    chrome.storage.sync.set(data, function() {
+
+function setSyncStorage(data) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.set(data, () => {
       if (!chrome.runtime.lastError) return resolve();
-      console.error(`${new Date().toLocaleTimeString('en-IN', { hour12: true })} - syncStorageBytes Error - Error Object:`, chrome.runtime.lastError);
-      let chromeError = new Error(chrome.runtime.lastError.message); chromeError.name = 'StorageError';
-      reject(chromeError);
-    })
-  );
+      const storageError = new Error(chrome.runtime.lastError.message);
+      storageError.name = "StorageError";
+      return reject(storageError);
+    });
+  });
 }
-
-

@@ -3,11 +3,46 @@
         "browser": true,
         "es2021": true
     },
-    "extends": "eslint:recommended",
+    "extends": "eslint:all",
     "parserOptions": {
         "ecmaVersion": 12,
         "sourceType": "module"
     },
     "rules": {
+        "max-len": "off",
+        "object-curly-spacing": ["error", "always"],
+        "indent": "off",
+        "padded-blocks": ["error", { "blocks": "never" }],
+        "spaced-comment": ["error", "never"],
+        "func-style": ["error", "declaration"],
+        "linebreak-style": ["off"],
+        "space-before-function-paren": ["error", {
+            "anonymous": "always",
+            "named": "never",
+            "asyncArrow": "always"
+        }],
+        "object-property-newline": "off",
+        "function-call-argument-newline": ["off"],
+        "no-inline-comments": "off",
+        "dot-location": ["error", "property"],
+        "arrow-parens": ["error", "as-needed"],
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "function-paren-newline": ["off"],
+        "curly": ["error", "multi"],
+        "no-ternary": "off",
+        "multiline-ternary": ["off"],
+        "require-unicode-regexp": "off",
+        "no-magic-numbers": "off",
+        "array-element-newline": ["error", {
+            "ArrayPattern": { "minItems": 3 }
+        }],
+        "one-var": ["error", { "let": "consecutive", "const": "consecutive" }],
+        "object-shorthand": ["error", "never"],
+        "sort-vars": "off",
+        "no-use-before-define": ["error", { "functions": false, "classes": true, "variables": true }],
+        "sort-imports": "off",
+        "no-nested-ternary": "off",
+        "sort-keys": "off",
+        "brace-style":["1tbs", { "allowSingleLine": true }]
     }
 }
