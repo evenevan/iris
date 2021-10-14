@@ -1,48 +1,49 @@
-import { createHTTPRequest } from "../../utility.js";
+import { createHTTPRequest } from '../../utility.js';
 
 export function hypixelRequestPlayer(uuid, apiKey) {
   return Promise.all([
     createHTTPRequest(`https://api.hypixel.net/player?uuid=${uuid}&key=${apiKey}`, {}),
     createHTTPRequest(`https://api.hypixel.net/status?uuid=${uuid}&key=${apiKey}`, {}),
-    createHTTPRequest(`https://api.hypixel.net/recentGames?uuid=${uuid}&key=${apiKey}`, {})
+    createHTTPRequest(`https://api.hypixel.net/recentGames?uuid=${uuid}&key=${apiKey}`, {}),
   ])
   .then(data => {
     if (data[0].player === null) {
       const NotFoundError = new Error();
-      NotFoundError.name = "NotFoundError";
+      NotFoundError.name = 'NotFoundError';
       throw NotFoundError;
     }
     return hypixelProcessData(data[0].player, data[1], data[2].games);
   })
   .catch(err => {
     //No need to check if the player exists here because Hypixel returns a 200 even if no player with that UUID exists
-    err.message = err.json?.error ?? `HTTP status of ${err.status}`;
-    err.api = "Hypixel";
+    err.message = err.json?.error ?? err.message;
+    err.api = 'Hypixel';
     throw err;
   });
 }
 
+//Need to clean this up
 //eslint-disable-next-line complexity, max-lines-per-function, max-statements, max-lines-per-function
 function hypixelProcessData(playerData, statusData, recentGamesData) {
   const tzOffset = new Date().getTimezoneOffset() / 60,
   tzOffsetString = `UTC${createOffset(new Date())}`,
-  firstLoginTime = new Date((playerData?.firstLogin ?? 0) + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }),
+  firstLoginTime = new Date((playerData?.firstLogin ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true }),
   firstLoginDate = cleanDate(new Date((playerData?.firstLogin ?? 0) + tzOffset)),
-  lastLoginTime = new Date((playerData?.lastLogin ?? 0) + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }),
+  lastLoginTime = new Date((playerData?.lastLogin ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true }),
   lastLoginDate = cleanDate(new Date((playerData?.lastLogin ?? 0) + tzOffset)),
-  lastLogoutTime = new Date((playerData?.lastLogout ?? 0) + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }),
+  lastLogoutTime = new Date((playerData?.lastLogout ?? 0) + tzOffset).toLocaleTimeString('en-IN', { hour12: true }),
   lastLogoutDate = cleanDate(new Date((playerData?.lastLogout ?? 0) + tzOffset)),
 
   lastPlaytime = cleanTime((playerData?.lastLogout ?? 0) - (playerData?.lastLogin ?? 0)),
 
   apiData = {};
-  apiData.username = playerData?.displayname ?? "";
-  apiData.possesive = playerData?.username?.endsWith("s") ? `${playerData?.displayname ?? ""}'` : `${playerData?.displayname ?? ""}'s`;
+  apiData.username = playerData?.displayname ?? '';
+  apiData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.displayname ?? ''}'` : `${playerData?.displayname ?? ''}'s`;
   apiData.uuid = playerData?.uuid ?? null;
   apiData.language = playerData?.userLanguage ?? null;
   apiData.version = playerData?.mcVersionRp ?? null;
   apiData.legacyAPI = playerData?.lastLogin < 149486473400;
-  apiData.status = statusData?.session?.online && playerData?.lastLogin > playerData?.lastLogout ? "Online" : !statusData?.session?.online && playerData?.lastLogin < playerData?.lastLogout ? "Offline" : !statusData?.session?.online && playerData?.lastLogin < 1494864734000 ? "Offline" : null;
+  apiData.status = statusData?.session?.online && playerData?.lastLogin > playerData?.lastLogout ? 'Online' : !statusData?.session?.online && playerData?.lastLogin < playerData?.lastLogout ? 'Offline' : !statusData?.session?.online && playerData?.lastLogin < 1494864734000 ? 'Offline' : null;
   apiData.isOnline = statusData?.session?.online === true;
   apiData.utcOffset = playerData?.lastLogin || playerData?.lastLogout ? `${tzOffsetString}` : null;
 
@@ -56,7 +57,9 @@ function hypixelProcessData(playerData, statusData, recentGamesData) {
     apiData.online.map = statusData?.session?.map ?? null;
   } else {
     apiData.offline = {};
-    apiData.offline.playtime = playerData?.lastLogin && playerData?.lastLogin < playerData?.lastLogout ? lastPlaytime : null;
+    apiData.offline.playtime = playerData?.lastLogin && playerData?.lastLogin < playerData?.lastLogout
+      ? lastPlaytime
+      : null;
     apiData.offline.lastGame = playerData?.mostRecentGameType ?? null;
     apiData.online = {};
     apiData.online.gameType = null;
@@ -77,30 +80,40 @@ function hypixelProcessData(playerData, statusData, recentGamesData) {
   apiData.recentGames = [];
   apiData.recentGamesPlayed = 0;
 
-  //eslint-disable-next-line id-length
   for (let i = 0; i < 5 && recentGamesData?.[i]; i += 1) {
     apiData.recentGames[i] = {};
-    apiData.recentGames[i].startTime = recentGamesData?.[i]?.date ? new Date(recentGamesData[i]?.date + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }) : null;
-    apiData.recentGames[i].startDate = recentGamesData?.[i]?.date ? cleanDate(new Date(recentGamesData?.[i]?.date + tzOffset)) : null;
+    apiData.recentGames[i].startTime = recentGamesData?.[i]?.date ? new Date(recentGamesData[i]?.date + tzOffset).toLocaleTimeString('en-IN', { hour12: true }) : null;
+    apiData.recentGames[i].startDate = recentGamesData?.[i]?.date
+      ? cleanDate(new Date(recentGamesData?.[i]?.date + tzOffset))
+      : null;
     apiData.recentGames[i].startMS = recentGamesData?.[i]?.date ?? null;
-    apiData.recentGames[i].endTime = recentGamesData?.[i]?.ended ? new Date(recentGamesData[i]?.ended + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }) : null;
-    apiData.recentGames[i].endDate = recentGamesData?.[i]?.ended ? cleanDate(new Date(recentGamesData?.[i]?.ended + tzOffset)) : null;
+    apiData.recentGames[i].endTime = recentGamesData?.[i]?.ended
+    ? new Date(recentGamesData[i]?.ended + tzOffset).toLocaleTimeString('en-IN', { hour12: true })
+    : null;
+    apiData.recentGames[i].endDate = recentGamesData?.[i]?.ended
+      ? cleanDate(new Date(recentGamesData?.[i]?.ended + tzOffset))
+      : null;
     apiData.recentGames[i].endMS = recentGamesData?.[i]?.ended ?? null;
-    apiData.recentGames[i].gameLength = recentGamesData?.[i]?.date && recentGamesData?.[i]?.ended ? recentGamesData?.[i]?.ended - recentGamesData?.[i]?.date : null;
+    apiData.recentGames[i].gameLength = recentGamesData?.[i]?.date && recentGamesData?.[i]?.ended
+      ? recentGamesData?.[i]?.ended - recentGamesData?.[i]?.date
+      : null;
     apiData.recentGames[i].gameType = recentGamesData?.[i]?.gameType ?? null;
     apiData.recentGames[i].mode = recentGamesData?.[i]?.mode ?? null;
     apiData.recentGames[i].map = recentGamesData?.[i]?.map ?? null;
-    if (recentGamesData[i]?.date < playerData?.last_login && recentGamesData?.[i]?.date > playerData?.last_logout) return;
+    if (recentGamesData[i]?.date < playerData?.last_login &&
+      recentGamesData?.[i]?.date > playerData?.last_logout) return;
     if (i <= 99) apiData.recentGamesPlayed += 1;
     else if (!isNaN(apiData.recentGamesPlayed)) apiData.recentGamesPlayed = `${apiData.recentGamesPlayed += 1}+`;
   }
 
+  //JSON map to clean this up with a loop
   apiData.bedwars = {};
   apiData.bedwars.level = playerData?.achievements?.bedwars_level ?? 0;
   apiData.bedwars.coins = playerData?.stats?.Bedwars?.coins ?? 0;
   apiData.bedwars.wins = playerData?.stats?.Bedwars?.wins_bedwars ?? 0;
   apiData.bedwars.gamesPlayed = playerData?.stats?.Bedwars?.games_played_bedwars ?? 0;
   apiData.bedwars.winStreak = playerData?.stats?.Bedwars?.winstreak ?? 0;
+  // eslint-disable-next-line max-len
   apiData.bedwars.finalKD = ratio(playerData?.stats?.Bedwars?.final_kills_bedwars, playerData?.stats?.Bedwars?.final_deaths_bedwars);
   apiData.bedwars.KD = ratio(playerData?.stats?.Bedwars?.kills_bedwars, playerData?.stats?.Bedwars?.deaths_bedwars);
 
@@ -149,7 +162,7 @@ function hypixelProcessData(playerData, statusData, recentGamesData) {
   apiData.speedUHC.deaths = playerData?.stats?.SpeedUHC?.deaths ?? 0;
 
   apiData.uhc = {};
-  apiData.uhc.level = "Value Unknown :(";
+  apiData.uhc.level = 'Value Unknown :(';
   apiData.uhc.coins = playerData?.stats?.UHC?.coins ?? 0;
   apiData.uhc.KD = ratio(playerData?.stats?.UHC?.kills, playerData?.stats?.UHC?.deaths);
   apiData.uhc.WL = ratio(playerData?.stats?.UHC?.wins, playerData?.stats?.UHC?.deaths);
@@ -195,7 +208,7 @@ function cleanTime(ms) {
 
 function cleanDate(epoch) {
     const date = epoch.getDate(),
-    month = new Intl.DateTimeFormat("en-US", { "month": "short" }).format(epoch),
+    month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(epoch),
     year = epoch.getFullYear();
     return `${month} ${date}, ${year}`;
 }
@@ -205,8 +218,8 @@ function createOffset(date) {
   function pad(value) {
     return value < 10 ? `0${value}` : value;
   }
-  
-  const sign = date.getTimezoneOffset() > 0 ? "-" : "+",
+
+  const sign = date.getTimezoneOffset() > 0 ? '-' : '+',
   offset = Math.abs(date.getTimezoneOffset()),
   hours = pad(Math.floor(offset / 60)),
   minutes = pad(offset % 60);

@@ -1,41 +1,42 @@
-import { createHTTPRequest } from "../../utility.js";
+import { createHTTPRequest } from '../../utility.js';
 export function slothpixelRequestPlayer(player) {
   return Promise.all([
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}`, { "timeout": 5000 }),
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/status`, { "timeout": 5000 }),
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/recentGames`, { "timeout": 5000 })
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}`, { timeout: 5000 }),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/status`, { timeout: 5000 }),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/recentGames`, { timeout: 5000 }),
   ])
   .then(data => slothpixelProcessData(data[0], data[1], data[2]))
   .catch(err => {
-    if (err.status === 404) err.name = "NotFoundError";
-    err.message = err.json?.error ?? `HTTP status of ${err.status}`;
-    err.api = "Slothpixel";
+    if (err.status === 404) err.name = 'NotFoundError';
+    err.message = err.json?.error ?? err.message;
+    err.api = 'Slothpixel';
     throw err;
   });
 }
 
+//Need to clean this up
 //eslint-disable-next-line complexity, max-lines-per-function, max-statements, max-lines-per-function
 function slothpixelProcessData(playerData, statusData, recentGamesData) {
   const tzOffset = new Date().getTimezoneOffset() / 60,
   tzOffsetString = `UTC${createOffset(new Date())}`,
 
-  firstLoginTime = new Date(playerData?.first_login ?? 0 + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }),
+  firstLoginTime = new Date(playerData?.first_login ?? 0 + tzOffset).toLocaleTimeString('en-IN', { hour12: true }),
   firstLoginDate = cleanDate(new Date(playerData?.first_login ?? 0 + tzOffset)),
-  lastLoginTime = new Date(playerData?.last_login ?? 0 + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }),
+  lastLoginTime = new Date(playerData?.last_login ?? 0 + tzOffset).toLocaleTimeString('en-IN', { hour12: true }),
   lastLoginDate = cleanDate(new Date(playerData?.last_login ?? 0 + tzOffset)),
-  lastLogoutTime = new Date(playerData?.last_logout ?? 0 + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }),
+  lastLogoutTime = new Date(playerData?.last_logout ?? 0 + tzOffset).toLocaleTimeString('en-IN', { hour12: true }),
   lastLogoutDate = cleanDate(new Date(playerData?.last_logout ?? 0 + tzOffset)),
 
   lastPlaytime = cleanTime(playerData?.last_logout - playerData?.last_login),
 
   apiData = {};
-  apiData.username = playerData?.username ?? "";
-  apiData.possesive = playerData?.username?.endsWith("s") ? `${playerData?.username ?? ""}'` : `${playerData?.username ?? ""}'s`;
+  apiData.username = playerData?.username ?? '';
+  apiData.possesive = playerData?.username?.endsWith('s') ? `${playerData?.username ?? ''}'` : `${playerData?.username ?? ''}'s`;
   apiData.uuid = playerData?.uuid ?? null;
   apiData.language = playerData?.language ?? null;
   apiData.version = playerData?.mc_version ?? null;
   apiData.legacyAPI = playerData?.last_login < 1494864734000;
-  apiData.status = statusData.online && playerData?.last_login > playerData?.last_logout ? "Online" : !statusData.online && playerData?.last_login < playerData?.last_logout ? "Offline" : !statusData.online && playerData?.last_login < 1494864734000 ? "Offline" : null;
+  apiData.status = statusData.online && playerData?.last_login > playerData?.last_logout ? 'Online' : !statusData.online && playerData?.last_login < playerData?.last_logout ? 'Offline' : !statusData.online && playerData?.last_login < 1494864734000 ? 'Offline' : null;
   apiData.isOnline = statusData?.online === true;
   apiData.utcOffset = playerData?.last_login || playerData?.last_logout ? `${tzOffsetString}` : null;
 
@@ -49,7 +50,9 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
     apiData.online.map = statusData?.game?.map ?? null;
   } else {
     apiData.offline = {};
-    apiData.offline.playtime = playerData?.last_login && playerData?.last_login < playerData?.last_logout ? lastPlaytime : null;
+    apiData.offline.playtime = playerData?.last_login && playerData?.last_login < playerData?.last_logout
+      ? lastPlaytime
+      : null;
     apiData.offline.lastGame = playerData?.last_game ?? null;
     apiData.online = {};
     apiData.online.gameType = null;
@@ -70,24 +73,35 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   apiData.recentGames = [];
   apiData.recentGamesPlayed = 0;
 
-  //eslint-disable-next-line id-length
   for (let i = 0; i < recentGamesData?.length && recentGamesData?.[i]; i += 1) {
     apiData.recentGames[i] = {};
-    apiData.recentGames[i].startTime = recentGamesData?.[i]?.date ? new Date(recentGamesData?.[i]?.date + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }) : null;
-    apiData.recentGames[i].startDate = recentGamesData?.[i]?.date ? cleanDate(new Date(recentGamesData?.[i]?.date + tzOffset)) : null;
+    apiData.recentGames[i].startTime = recentGamesData?.[i]?.date
+      ? new Date(recentGamesData?.[i]?.date + tzOffset).toLocaleTimeString('en-IN', { hour12: true })
+      : null;
+    apiData.recentGames[i].startDate = recentGamesData?.[i]?.date
+      ? cleanDate(new Date(recentGamesData?.[i]?.date + tzOffset))
+      : null;
     apiData.recentGames[i].startMS = recentGamesData?.[i]?.date ?? null;
-    apiData.recentGames[i].endTime = recentGamesData?.[i]?.ended ? new Date(recentGamesData?.[i]?.ended + tzOffset).toLocaleTimeString("en-IN", { "hour12": true }) : null;
-    apiData.recentGames[i].endDate = recentGamesData?.[i]?.ended ? cleanDate(new Date(recentGamesData?.[i]?.ended + tzOffset)) : null;
+    apiData.recentGames[i].endTime = recentGamesData?.[i]?.ended
+      ? new Date(recentGamesData?.[i]?.ended + tzOffset).toLocaleTimeString('en-IN', { hour12: true })
+      : null;
+    apiData.recentGames[i].endDate = recentGamesData?.[i]?.ended
+      ? cleanDate(new Date(recentGamesData?.[i]?.ended + tzOffset))
+      : null;
     apiData.recentGames[i].endMS = recentGamesData?.[i]?.ended ?? null;
-    apiData.recentGames[i].gameLength = recentGamesData?.[i]?.date && recentGamesData?.[i]?.ended ? recentGamesData?.[i]?.ended - recentGamesData?.[i]?.date : null;
+    apiData.recentGames[i].gameLength = recentGamesData?.[i]?.date && recentGamesData?.[i]?.ended
+      ? recentGamesData?.[i]?.ended - recentGamesData?.[i]?.date
+      : null;
     apiData.recentGames[i].gameType = recentGamesData?.[i]?.gameType ?? null;
     apiData.recentGames[i].mode = recentGamesData?.[i]?.mode ?? null;
     apiData.recentGames[i].map = recentGamesData?.[i]?.map ?? null;
-    if (recentGamesData[i]?.date < playerData?.last_login && recentGamesData?.[i]?.date > playerData?.last_logout) return;
+    if (recentGamesData[i]?.date < playerData?.last_login &&
+      recentGamesData?.[i]?.date > playerData?.last_logout) return;
     if (i <= 99) apiData.recentGamesPlayed += 1;
     else if (!isNaN(apiData.recentGamesPlayed)) apiData.recentGamesPlayed = `${apiData.recentGamesPlayed += 1}+`;
   }
 
+  //JSON map to clean this up with a loop
   apiData.bedwars = {};
   apiData.bedwars.level = playerData?.stats?.BedWars?.level ?? 0;
   apiData.bedwars.coins = playerData?.stats?.BedWars?.coins ?? 0;
@@ -157,7 +171,7 @@ function slothpixelProcessData(playerData, statusData, recentGamesData) {
   apiData.walls.wins = playerData?.stats?.Walls?.wins ?? 0;
   apiData.walls.kills = playerData?.stats?.Walls?.kills ?? 0;
   apiData.walls.deaths = playerData?.stats?.Walls?.deaths ?? 0;
-  
+
   apiData.megaWalls = {};
   apiData.megaWalls.coins = playerData?.stats?.MegaWalls?.coins ?? 0;
   apiData.megaWalls.KD = playerData?.stats?.UHC?.kill_death_ratio ?? 0;
@@ -188,7 +202,7 @@ function cleanTime(ms) {
 
 function cleanDate(epoch) {
   const date = epoch.getDate(),
-   month = new Intl.DateTimeFormat("en-US", { "month": "short" }).format(epoch),
+   month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(epoch),
    year = epoch.getFullYear();
   return `${month} ${date}, ${year}`;
 }
@@ -200,7 +214,7 @@ function pad(value) {
 
 //Yoinked from https://stackoverflow.com/a/13016136 under CC BY-SA 3.0 matching ISO 8601
 function createOffset(date) {
-  const sign = date.getTimezoneOffset() > 0 ? "-" : "+",
+  const sign = date.getTimezoneOffset() > 0 ? '-' : '+',
    offset = Math.abs(date.getTimezoneOffset()),
    hours = pad(Math.floor(offset / 60)),
    minutes = pad(offset % 60);

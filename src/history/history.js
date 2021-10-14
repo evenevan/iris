@@ -1,46 +1,45 @@
-import { errorHandler, getLocalStorage } from "../utility.js";
+import { errorHandler, errorEventCreate, getLocalStorage } from '../utility.js';
 
-errorEventCreate();
+errorEventCreate(window, document.getElementById('outputElement'));
 
-(async () => {
+(async function load() {
   try {
-    const outputElement = document.getElementById("outputElement"),
-    playerHistory = await getLocalStorage("playerHistory"),
+    const outputElement = document.getElementById('outputElement'),
+    playerHistory = await getLocalStorage('playerHistory'),
     preparedString = prepareString(playerHistory);
 
-    if (preparedString.length > 0) outputElement.insertAdjacentHTML("afterbegin", preparedString);
-    else outputElement.textContent = "No recent searches!";
+    if (preparedString.length > 0) outputElement.insertAdjacentHTML('afterbegin', preparedString);
+    else outputElement.textContent = 'No recent searches!';
   } catch (err) {
-    errorHandler(err, document.getElementById("outputElement"));
+    errorHandler(err, document.getElementById('outputElement'));
   }
 })();
 
 function prepareString(playerHistory) {
   const playerHistoryArray = [];
-  //eslint-disable-next-line id-length
   for (let i = 0; i < playerHistory?.lastSearches?.length ?? 0; i += 1) {
-    let tempString = "";
+    let tempString = '';
     const searchEpoch = Number(playerHistory?.lastSearches[i]?.epoch) ?? 0,
-    searchTime = new Date(searchEpoch).toLocaleTimeString("en-IN", { "hour12": true }),
+    searchTime = new Date(searchEpoch).toLocaleTimeString('en-IN', { hour12: true }),
     searchDate = cleanDate(new Date(searchEpoch));
-    tempString += `<b>#${i + 1} - ${searchEpoch ? `${searchTime}, ${searchDate} - ${cleanTime(timeAgo(searchEpoch))} ago` : "Unavailable Ago"}</b><br>`;
-    tempString += `&nbsp;&nbsp;<b>Input:</b> ${playerHistory?.lastSearches[i]?.input ?? "Unavailable"}<br>`;
-    tempString += `&nbsp;&nbsp;<b>Username:</b> ${playerHistory?.lastSearches[i]?.username ?? "Unavailable"}<br>`;
-    tempString += `&nbsp;&nbsp;<b>UUID:</b> ${playerHistory?.lastSearches[i]?.uuid ?? "Unavailable"}<br>`;
+    tempString += `<b>#${i + 1} - ${searchEpoch ? `${searchTime}, ${searchDate} - ${cleanTime(timeAgo(searchEpoch))} ago` : 'Unavailable Ago'}</b><br>`;
+    tempString += `&nbsp;&nbsp;<b>Input:</b> ${playerHistory?.lastSearches[i]?.input ?? 'Unavailable'}<br>`;
+    tempString += `&nbsp;&nbsp;<b>Username:</b> ${playerHistory?.lastSearches[i]?.username ?? 'Unavailable'}<br>`;
+    tempString += `&nbsp;&nbsp;<b>UUID:</b> ${playerHistory?.lastSearches[i]?.uuid ?? 'Unavailable'}<br>`;
     playerHistoryArray.push(tempString);
   }
-  return playerHistoryArray.join("<br>");
+  return playerHistoryArray.join('<br>');
 }
 
 function cleanDate(epoch) {
   const date = epoch.getDate(),
-   month = new Intl.DateTimeFormat("en-US", { "month": "short" }).format(epoch),
+   month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(epoch),
    year = epoch.getFullYear();
   return `${month} ${date}, ${year}`;
 }
 
 function timeAgo(ms) {
-  if (ms < 0 || ms === null || isNaN(ms)) return "Unavailable";
+  if (ms < 0 || ms === null || isNaN(ms)) return 'Unavailable';
   return Date.now() - ms;
 }
 
@@ -57,10 +56,4 @@ function cleanTime(ms) {
     ? `${days}d ${hours}h ${minutes}m ${seconds}s` : hours > 0
     ? `${hours}h ${minutes}m ${seconds}s` : minutes > 0
     ? `${minutes}m ${seconds}s` : `${seconds}s`;
-}
-
-function errorEventCreate() {
-  window.addEventListener("error", error => errorHandler(error, document.getElementById("outputElement"), error.constructor.name));
-  window.addEventListener("unhandledrejection", error => errorHandler(error, document.getElementById("outputElement"), error.constructor.name));
-  window.onerror = () => true;
 }
