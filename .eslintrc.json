@@ -9,6 +9,21 @@
         "sourceType": "module"
     },
     "rules": {
+        "no-param-reassign": "error",
+        "prefer-const": "error",
+        "no-var": "error",
+        "init-declarations": "off",
+        "max-lines": ["error", {
+          "max": 500, 
+          "skipBlankLines": true,
+          "skipComments": true
+        }],
+        "max-lines-per-function": "off",
+        "camelcase": ["error", {
+          "ignoreDestructuring": true,
+          "ignoreImports": true,
+          "allow": ["mc_version", "first_login", "last_logout", "last_login" , "last_game", "wins_bedwars", "games_played", "final_k_d", "k_d", "kd_ratio", "win_loss_ratio", "win_loss", "gold_earned", "playtime_minutes", "max_streak", "chat_messages", "kill_death_ratio", "bedwars_level", "cash_earned", "pit_prestiges", "skywars_you_re_a_star"]
+        }],
         "no-extra-parens": ["error", "all", {
           "conditionalAssign": false,
           "nestedBinaryExpressions": false

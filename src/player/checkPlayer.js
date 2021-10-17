@@ -39,6 +39,7 @@ function processPlayer(event) {
 
   // eslint-disable-next-line max-statements
   return (async function data() {
+    let apiData;
     try {
       const userOptions = await getSyncStorage('userOptions');
       if (userOptions.useHypixelAPI === true && !userOptions.apiKey) {
@@ -46,13 +47,14 @@ function processPlayer(event) {
         newError.name = 'KeyError';
         throw newError;
       }
-      const apiData = await callAPIs(input, userOptions);
+      apiData = await callAPIs(input, userOptions);
       const text = playerDataString(apiData, userOptions);
-      outputField(text, userOptions, outputElement);
-      return updatePlayerHistory(input, apiData);
+      return outputField(text, userOptions, outputElement);
     } catch (err) {
       err.input = input;
       return errorHandler(err, outputElement);
+    } finally {
+      updatePlayerHistory(input, apiData).catch(err => errorHandler(err, outputElement));
     }
   })();
 }
@@ -89,7 +91,7 @@ function outputField(text, userOptions) {
 
     outputElement.textContent = '';
     return outputElement.insertAdjacentHTML('afterbegin', text);
-  })();
+  })().catch(err => errorHandler(err, outputElement));
 }
 
 function updatePlayerHistory(input, apiData) {
@@ -98,7 +100,7 @@ function updatePlayerHistory(input, apiData) {
   thisPlayerHistory.uuid = apiData?.uuid ?? null;
   thisPlayerHistory.username = apiData?.username ?? null;
   thisPlayerHistory.apiData = apiData ?? null;
-  thisPlayerHistory.epoch = `${Date.now()}`;
+  thisPlayerHistory.epoch = Date.now();
 
   return (async function update() {
     const playerHistory = await getLocalStorage('playerHistory');

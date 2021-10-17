@@ -1,3 +1,4 @@
+import { createOffset } from '../../utility.js';
 /*eslint-disable no-nested-ternary */
 /*eslint-disable max-statements */
 /*eslint-disable complexity */
@@ -9,7 +10,7 @@ export function detailMessage(apiData, userOptions) {
   playerDataString += `<br><strong>UUID:</strong> ${apiData?.uuid}`;
   playerDataString += `<br><strong>Status:</strong> ${apiData?.status ?? 'Unavailable'}`;
   if (apiData?.legacyAPI === true) playerDataString += '<br><strong>Limited/Legacy API:</strong> Missing data';
-  if (apiData?.utcOffset) playerDataString += `<br><strong>UTC Offset Used:</strong> ${apiData?.utcOffset}`;
+  if (apiData?.lastLoginMS || apiData?.lastLogout) playerDataString += `<br><strong>UTC Offset Used:</strong> ${createOffset()}`;
 
 
   playerDataString += `<br><br><strong>Version:</strong> ${apiData?.version ?? 'Unavailable'}`;

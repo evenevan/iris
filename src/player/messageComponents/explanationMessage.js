@@ -1,3 +1,4 @@
+import { createOffset } from '../../utility.js';
 /*eslint-disable max-statements */
 /*eslint-disable complexity */
 /*eslint-disable max-lines-per-function */
@@ -8,7 +9,7 @@ export function explanationMessage(apiData, userOptions) {
   playerDataString += `<br><strong>UUID:</strong> ${apiData?.uuid}`;
   playerDataString += `<br><strong>Status:</strong> ${apiData?.status ?? 'Unavailable'}`;
   if (apiData?.legacyAPI === true) playerDataString += '<br><strong>Limited/Legacy API:</strong> Missing data';
-  if (apiData?.utcOffset) playerDataString += `<br><strong>UTC Offset Used:</strong> ${apiData?.utcOffset}`;
+  if (apiData?.lastLoginMS || apiData?.lastLogout) playerDataString += `<br><strong>UTC Offset Used:</strong> ${createOffset()}`;
 
   if (apiData?.isOnline === true) {
     playerDataString += `<br><br>Your current session began at ${cleanTimeStamp(apiData?.lastLoginTime, apiData?.lastLoginDate)} (<strong>${cleanTime(timeAgo(apiData?.lastLoginMS)) ?? 'Unavailable'}</strong> ago).${userOptions?.firstLogin === true ? ` Your first-ever login was on ${cleanTimeStamp(apiData?.firstLoginTime, apiData?.firstLoginDate)}` : ''} Your account's current playtime is <strong>${cleanTime(timeAgo(apiData?.lastLoginMS))}</strong>.`;
