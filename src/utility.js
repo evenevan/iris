@@ -123,6 +123,7 @@ export function errorEventCreate(window, output) {
 
 export function cleanDate(ms) {
   const newDate = new Date(ms);
+  if (!ms || ms < 0 || Object.prototype.toString.call(newDate) !== '[object Date]') return null;
   const day = newDate.getDate(),
   month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(newDate),
   year = newDate.getFullYear();
@@ -131,6 +132,7 @@ export function cleanDate(ms) {
 
 export function cleanTime(ms) {
   const newDate = new Date(ms);
+  if (!ms || ms < 0 || Object.prototype.toString.call(newDate) !== '[object Date]') return null;
   return newDate.toLocaleTimeString('en-IN', { hour12: true });
 }
 

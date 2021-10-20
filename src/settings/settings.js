@@ -24,26 +24,34 @@ let userOptions;
 })();
 
 function loadSettings() {
+  const defaultValues = {
+    authorNameOutput: false,
+    relativeTimestamps: true,
+    firstLogin: true,
+    gameStats: true,
+    lastLogout: false,
+    typewriterOutput: true,
+    paragraphOutput: false,
+    persistentLastPlayer: true,
+    useHypixelAPI: false,
+  };
+
+  document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
+    checkbox.checked = userOptions[checkbox.id] ?? defaultValues[checkbox.id];
+  });
+
   if ((userOptions.paragraphOutput ?? false) === false) document.getElementById('authorNameOutputContainer').style.display = 'none';
-  document.getElementById('typewriterOutput').checked = userOptions.typewriterOutput ?? true;
-  document.getElementById('persistentLastPlayer').checked = userOptions.persistentLastPlayer ?? true;
-  document.getElementById('firstLogin').checked = userOptions.firstLogin ?? true;
-  document.getElementById('lastLogout').checked = userOptions.lastLogout ?? true;
-  document.getElementById('gameStats').checked = userOptions.gameStats ?? true;
-  document.getElementById('paragraphOutput').checked = userOptions.paragraphOutput ?? false;
-  document.getElementById('authorNameOutput').checked = userOptions.authorNameOutput ?? false;
-  document.getElementById('useHypixelAPI').checked = userOptions.useHypixelAPI ?? false;
 
   (function apiKey() {
     document.getElementById('apiKey').value = userOptions.apiKey.replace(/^[0-9a-fA-F]{8}/g, '########') ?? '';
 
     //If there is no API key, disable the "Test Key" button
     if (userOptions.apiKey === '') {
-    testKey.style.cursor = 'not-allowed';
-    testKey.disabled = true;
+      testKey.style.cursor = 'not-allowed';
+      testKey.disabled = true;
     } else {
-    testKey.style.cursor = 'pointer';
-    testKey.disabled = false;
+      testKey.style.cursor = 'pointer';
+      testKey.disabled = false;
     }
   })();
 }

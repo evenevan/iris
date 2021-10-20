@@ -13,9 +13,9 @@
         <span style="font-size: 15px;"><b>Storage - </b></span>
         <div class="toolTip"><u>Info</u><span class="toolTipText">Storage is used to store your settings and search history. Your settings will be synced to your Google account if you have one</span></div>
         <br>
-        <span id="playerHistoryBytes">Search History: 0</span>
+        <span id="playerHistoryBytes">Search History: 0.00 bytes</span>
         <br>
-        <span id="userOptionsBytes">Settings: 0</span>
+        <span id="userOptionsBytes">Settings: 0.00 bytes</span>
         <br>
         <br>
           <span style="font-size: 15px;"><b>Appearance</b></span>
@@ -34,6 +34,12 @@
           <br>
           <br>
           <span style="font-size: 15px;"><b>Details</b></span>
+          <br>
+          <label class="switch">
+            <input type="checkbox" id="relativeTimestamps">
+            <span class="slider"></span>
+            </label>
+          <label for="relativeTimestamps" class="checkboxText"> Show relative timestamps for logins and logouts</label>
           <br>
           <label class="switch">
             <input type="checkbox" id="firstLogin">

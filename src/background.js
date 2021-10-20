@@ -1,4 +1,3 @@
-/*eslint-disable sort-keys */
 /*global chrome*/
 
 const playerHistory = {
@@ -6,15 +5,16 @@ const playerHistory = {
   lastSearches: [],
 },
 userOptions = {
-  typewriterOutput: true,
-  persistentLastPlayer: true,
-  firstLogin: true,
-  lastLogout: true,
-  gameStats: true,
-  paragraphOutput: false,
-  authorNameOutput: false,
-  useHypixelAPI: false,
   apiKey: '',
+  authorNameOutput: false,
+  relativeTimestamps: true,
+  firstLogin: true,
+  gameStats: true,
+  lastLogout: false,
+  typewriterOutput: true,
+  paragraphOutput: false,
+  persistentLastPlayer: true,
+  useHypixelAPI: false,
 };
 
 chrome.runtime.onInstalled.addListener(details => {

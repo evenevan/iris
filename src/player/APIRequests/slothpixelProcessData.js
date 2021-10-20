@@ -1,4 +1,4 @@
-import { cleanDate, cleanTime, cleanLength, maxDecimals } from '../../utility.js';
+import { cleanLength, maxDecimals } from '../../utility.js';
 
 //Turns the Hypixel API format into a custom format for consistency
 export function slothpixelProcessData({
@@ -39,22 +39,16 @@ export function slothpixelProcessData({
   return {
     username: username,
     uuid: uuid,
-    firstLoginDate: cleanDate(first_login),
-    firstLoginTime: cleanTime(first_login),
     firstLoginMS: first_login,
     language: language,
-    lastLoginDate: cleanDate(last_login),
-    lastLoginTime: cleanTime(last_login),
     lastLoginMS: last_login,
-    lastLogoutDate: cleanDate(last_logout),
-    lastLogoutTime: cleanTime(last_logout),
     lastLogoutMS: last_logout,
-    limitedAPI: last_login < 1494864734000,
+    limitedAPI: last_login < 1494864734000 || !last_login || !last_logout,
     isOnline: online,
     possesive: username.endsWith('s') ? `${username}'` : `${username}'s`,
     recentGames: recentGames,
     recentGamesPlayed: recentGamesPlayed,
-    status: online === true ? 'Online' : 'Online',
+    status: online === true ? 'Online' : 'Offline',
     version: mc_version,
     offline: online ? {
       playtime: null,
@@ -103,7 +97,6 @@ function recentGamesFormatter({
       recentGames.push(game);
       if (!last_login || !last_logout || (game.startMS > last_login && game.startMS < last_logout)) {
         if (i <= 99) recentGamesPlayed += 1;
-        else if (!isNaN(recentGamesPlayed)) recentGamesPlayed = `${recentGamesPlayed += 1}+`;
       }
     }
   }
@@ -122,13 +115,9 @@ function processAGame({
   map = null,
 }) {
   return {
-    startDate: date ? cleanDate(date) : null,
-    startTime: date ? cleanTime(date) : null,
     startMS: date,
-    endDate: ended ? cleanDate(ended) : null,
-    endTime: ended ? cleanTime(ended) : null,
     endMS: ended,
-    gameLength: ended - date || null,
+    gameLength: cleanLength(ended - date) || null,
     gameType: gameType,
     mode: mode,
     map: map,

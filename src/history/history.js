@@ -13,7 +13,7 @@ errorEventCreate(window, document.getElementById('outputElement'));
 })();
 
 function prepareArray({
-  lastSearches = {},
+  lastSearches = [],
 }) {
   const playerArray = [];
   for (let i = 0; i < lastSearches.length ?? 0; i += 1) {
@@ -21,12 +21,13 @@ function prepareArray({
     const searchEpoch = Number(lastSearches[i].epoch),
       searchTime = cleanTime(new Date(searchEpoch)),
       searchDate = cleanDate(new Date(searchEpoch));
-    tempString += `<b>#${i + 1} - ${searchTime}, ${searchDate} - ${cleanLength(timeAgo(searchEpoch))} ago</b><br>`;
-    tempString += `&nbsp;&nbsp;<b>Input:</b> ${lastSearches[i]?.input ?? 'Unavailable'}<br>`;
-    tempString += `&nbsp;&nbsp;<b>Username:</b> ${lastSearches[i]?.username ?? 'Unavailable'}<br>`;
-    tempString += `&nbsp;&nbsp;<b>UUID:</b> ${lastSearches[i]?.uuid ?? 'Unavailable'}<br>`;
+    tempString += `<b>#${i + 1} - ${searchTime}, ${searchDate} - ${cleanLength(timeAgo(searchEpoch))} ago</b><br>
+      &nbsp;&nbsp;<b>Input:</b> ${lastSearches[i]?.input ?? 'Unavailable'}<br>
+      &nbsp;&nbsp;<b>Username:</b> ${lastSearches[i]?.username ?? 'Unavailable'}<br>
+      &nbsp;&nbsp;<b>UUID:</b> ${lastSearches[i]?.uuid ?? 'Unavailable'}<br>`;
     playerArray.push(tempString);
   }
+  if (playerArray.length === 0) return ['No recent games!'];
   return playerArray.join('SPLIT<br>SPLIT').split('SPLIT');
 }
 
