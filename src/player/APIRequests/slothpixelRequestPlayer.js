@@ -3,9 +3,9 @@ import { slothpixelProcessData } from './slothpixelProcessData.js';
 
 export function slothpixelRequestPlayer(player) {
   return Promise.all([
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}`, { timeout: 5000 }),
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/status`, { timeout: 5000 }),
-    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/recentGames`, { timeout: 5000 }),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}`, { }),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/status`, { }),
+    createHTTPRequest(`https://api.slothpixel.me/api/players/${player}/recentGames`, { }),
   ])
   .then(data => slothpixelProcessData(data[0], data[1], data[2]))
   .catch(err => {

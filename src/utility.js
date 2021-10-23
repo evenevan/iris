@@ -1,14 +1,16 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable max-statements */
 //Taken from https://stackoverflow.com/a/57888548 under CC BY-SA 4.0
-function fetchTimeout(url, { ...fetchOptions }) {
+async function fetchTimeout(url, { ...fetchOptions }) {
   const controller = new AbortController();
   const promise = fetch(url, {
     signal: controller.signal,
     ...fetchOptions,
   });
-  const timeout = setTimeout(() => controller.abort(), 250);
-  return promise.finally(clearTimeout(timeout));
+  const timeout = setTimeout(() => controller.abort(), fetchOptions?.timeout ?? 1000);
+  await promise;
+  clearTimeout(timeout);
+  return promise;
 }
 
 //Handles HTTP requests and deals with errors
@@ -35,6 +37,7 @@ export function createHTTPRequest(url, { ...fetchOptions }, timesAborted = 0) {
     const newError = new Error(err.message);
       newError.name = err.name;
       newError.method = fetchOptions?.method ?? 'GET';
+      newError.headers = JSON.stringify(fetchOptions?.headers ?? {});
       newError.url = url ?? null;
       newError.status = err.status ?? null;
       newError.json = err.json ?? null;
@@ -49,7 +52,7 @@ export function errorHandler(event, output, errorType = 'Caught') {
           uuidv4 = /^[0-9a-f]{8}(-?)[0-9a-f]{4}(-?)[1-5][0-9a-f]{3}(-?)[89AB][0-9a-f]{3}(-?)[0-9a-f]{12}$/;
     switch (err.name) {
       case 'NotFoundError': {
-        console.warn(`${time} | ${errorType} | ${err.stack}\nmethod: ${err.method}\ncode: ${err.status}\npath: ${err.url}`);
+        console.warn(`${time} | ${errorType} | ${err.stack}\nheaders: ${err.headers}\nmethod: ${err.method}\ncode: ${err.status}\npath: ${err.url}`);
         if (!output) break;
         const temp = document.createElement('a');
         temp.setAttribute('href', `https://namemc.com/search?q=${err.input}`);
@@ -61,7 +64,7 @@ export function errorHandler(event, output, errorType = 'Caught') {
       break;
       }
       case 'HTTPError': {
-        console.warn(`${time} | ${errorType} | ${err.stack}\nmethod: ${err.method}\ncode: ${err.status}\npath: ${err.url}`);
+        console.warn(`${time} | ${errorType} | ${err.stack}\nheaders: ${err.headers}\nmethod: ${err.method}\ncode: ${err.status}\npath: ${err.url}`);
         if (!output) break;
         if (err.status === 500 && err.api === 'Slothpixel') {
           const temp = document.createElement('a');
@@ -82,7 +85,7 @@ export function errorHandler(event, output, errorType = 'Caught') {
       break;
       }
       case 'AbortError': {
-        console.warn(`${time} | ${errorType} | ${err.stack}\nmethod: ${err.method}\npath: ${err.url}`);
+        console.warn(`${time} | ${errorType} | ${err.stack}\nheaders: ${err.headers}\nmethod: ${err.method}\npath: ${err.url}`);
         if (!output) break;
         output.textContent = `The ${err.api} API failed to respond. Try switching to the ${err.api === 'Hypixel' ? 'Slothpixel' : 'Hypixel'} API if this persists.`;
       break;
