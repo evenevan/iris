@@ -45,7 +45,7 @@ export function slothpixelProcessData({
     lastLogoutMS: last_logout,
     limitedAPI: last_login < 1494864734000 || !last_login || !last_logout,
     isOnline: online,
-    possesive: username.endsWith('s') ? `${username}'` : `${username}'s`,
+    possessive: username.endsWith('s') ? `${username}'` : `${username}'s`,
     recentGames: recentGames,
     recentGamesPlayed: recentGamesPlayed,
     status: online === true ? 'Online' : 'Offline',
@@ -292,7 +292,7 @@ function megaWallsStats({
     coins: coins,
     KD: maxDecimals(kill_death_ratio),
     WL: maxDecimals(win_loss_ratio),
-    win: wins,
+    wins: wins,
     kills: kills,
     deaths: deaths,
   };

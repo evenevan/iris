@@ -80,21 +80,21 @@ export default {
     },
   },
   stats: {
-    bedwars: '<br><br><strong>%{possesive}% Stats for Bed Wars:</strong><br>&nbsp;<b>Level:</b> %{level}%<br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>Total Games Joined:</b> %{gamesPlayed}%<br>&nbsp;<b>Winstreak:</b> %{winStreak}%<br>&nbsp;<b>Final K/D:</b> %{finalKD}%<br>&nbsp;<b>K/D:</b> %{KD}%',
-    duels: '<br><br><strong>%{possesive}% Stats for Duels:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>Cosmetic Count:</b> %{cosmetics}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
-    blitz: '<br><br><strong>%{possesive}% Stats for Blitz Survival:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
-    pit: '<br><br><strong>%{possesive}% Stats for the Pit:</strong><br>&nbsp;<b>Total Gold Earned:</b> %{gold}%<br>&nbsp;<b>Prestige:</b> %{prestige}%<br>&nbsp;<b>Total Playtime:</b> %{playtime}% minutes<br>&nbsp;<b>Best Streak:</b> %{bestStreak}%<br>&nbsp;<b>Chat Messages:</b> %{chatMessages}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
-    skywars: '<br><br><strong>%{possesive}% Stats for SkyWars:</strong><br>&nbsp;<b>Level:</b> %{level}%<br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
-    speedUHC: '<br><br><strong>%{possesive}% Stats for Speed UHC:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
-    uhc: '<br><br><strong>%{possesive}% Stats for UHC Champions:</strong><br>&nbsp;<b>Level:</b> %{level}%<br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%<br>',
-    walls: '<br><br><strong>%{possesive}% Stats for the Walls:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
-    megaWalls: '<br><br><strong>%{possesive}% Stats for Mega Walls:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
+    bedwars: '<br><br><strong>%{possessive}% Stats for Bed Wars:</strong><br>&nbsp;<b>Level:</b> %{level}%<br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>Total Games Joined:</b> %{gamesPlayed}%<br>&nbsp;<b>Winstreak:</b> %{winStreak}%<br>&nbsp;<b>Final K/D:</b> %{finalKD}%<br>&nbsp;<b>K/D:</b> %{KD}%',
+    duels: '<br><br><strong>%{possessive}% Stats for Duels:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>Cosmetic Count:</b> %{cosmetics}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
+    blitz: '<br><br><strong>%{possessive}% Stats for Blitz Survival:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
+    pit: '<br><br><strong>%{possessive}% Stats for the Pit:</strong><br>&nbsp;<b>Total Gold Earned:</b> %{gold}%<br>&nbsp;<b>Prestige:</b> %{prestige}%<br>&nbsp;<b>Total Playtime:</b> %{playtime}% minutes<br>&nbsp;<b>Best Streak:</b> %{bestStreak}%<br>&nbsp;<b>Chat Messages:</b> %{chatMessages}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
+    skywars: '<br><br><strong>%{possessive}% Stats for SkyWars:</strong><br>&nbsp;<b>Level:</b> %{level}%<br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
+    speedUHC: '<br><br><strong>%{possessive}% Stats for Speed UHC:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
+    uhc: '<br><br><strong>%{possessive}% Stats for UHC Champions:</strong><br>&nbsp;<b>Level:</b> %{level}%<br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%<br>',
+    walls: '<br><br><strong>%{possessive}% Stats for the Walls:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
+    megaWalls: '<br><br><strong>%{possessive}% Stats for Mega Walls:</strong><br>&nbsp;<b>Coins:</b> %{coins}%<br>&nbsp;<b>K/D Ratio:</b> %{KD}%<br>&nbsp;<b>W/L Ratio:</b> %{WL}%<br>&nbsp;<b>Wins:</b> %{wins}%<br>&nbsp;<b>Kills:</b> %{kills}%<br>&nbsp;<b>Deaths:</b> %{deaths}%',
   },
 };
 
-export function statsDynamicReplace(string, object, possesive) {
+export function statsDynamicReplace(string, object, possessive) {
   let newString = string;
-  object.possesive = possesive;
+  object.possessive = possessive;
 
   for (const key in object) {
     if (Object.prototype.hasOwnProperty.call(object, key)) {

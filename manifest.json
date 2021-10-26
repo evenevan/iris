@@ -1,7 +1,7 @@
 {
   "name": "Iris",
   "description": "A tool made to check any Hypixel player's last session easily and quickly!",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "manifest_version": 2,
   "background": {
     "scripts": ["/src/background.js"]

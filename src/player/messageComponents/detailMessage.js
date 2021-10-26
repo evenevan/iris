@@ -13,7 +13,7 @@ export function detailMessage({
   lastLogoutMS,
   limitedAPI,
   isOnline,
-  possesive,
+  possessive,
   recentGames,
   recentGamesPlayed,
   status,
@@ -91,44 +91,44 @@ export function detailMessage({
         case 'Bed Wars':
         case 'Bedwars':
         case 'BEDWARS':
-          returnString += statsDynamicReplace(stats.bedwars, bedwars, possesive);
+          returnString += statsDynamicReplace(stats.bedwars, bedwars, possessive);
         break;
         case 'Duels':
         case 'DUELS':
-          returnString += statsDynamicReplace(stats.duels, duels, possesive);
+          returnString += statsDynamicReplace(stats.duels, duels, possessive);
         break;
         case 'Blitz Survival Games':
         case 'Blitz':
         case 'HungerGames':
         case 'SURVIVAL_GAMES':
-          returnString += statsDynamicReplace(stats.blitz, blitz, possesive);
+          returnString += statsDynamicReplace(stats.blitz, blitz, possessive);
         break;
         case 'Pit':
         case 'PIT':
-          returnString += statsDynamicReplace(stats.pit, pit, possesive);
+          returnString += statsDynamicReplace(stats.pit, pit, possessive);
         break;
         case 'SkyWars':
         case 'SKYWARS':
-          returnString += statsDynamicReplace(stats.skywars, skywars, possesive);
+          returnString += statsDynamicReplace(stats.skywars, skywars, possessive);
         break;
         case 'Speed UHC':
         case 'SpeedUHC':
         case 'SPEED_UHC':
-          returnString += statsDynamicReplace(stats.speedUHC, speedUHC, possesive);
+          returnString += statsDynamicReplace(stats.speedUHC, speedUHC, possessive);
           break;
         case 'UHC Champions':
         case 'UHC':
-          returnString += statsDynamicReplace(stats.uhc, uhc, possesive);
+          returnString += statsDynamicReplace(stats.uhc, uhc, possessive);
         break;
         case 'Walls':
         case 'WALLS':
-          returnString += statsDynamicReplace(stats.walls, walls, possesive);
+          returnString += statsDynamicReplace(stats.walls, walls, possessive);
         break;
         case 'Mega Walls':
         case 'MegaWalls':
         case 'Walls3':
         case 'WALLS3':
-          returnString += statsDynamicReplace(stats.megaWalls, megaWalls, possesive);
+          returnString += statsDynamicReplace(stats.megaWalls, megaWalls, possessive);
         break;
         //No default
       }

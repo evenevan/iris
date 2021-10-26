@@ -46,7 +46,7 @@ export function hypixelProcessData({
     lastLogoutMS: lastLogout,
     limitedAPI: lastLogin < 1494864734000 || !lastLogin || !lastLogout,
     isOnline: online,
-    possesive: displayname.endsWith('s') ? `${displayname}'` : `${displayname}'s`,
+    possessive: displayname.endsWith('s') ? `${displayname}'` : `${displayname}'s`,
     recentGames: recentGames,
     recentGamesPlayed: recentGamesPlayed,
     status: online === true ? 'Online' : 'Offline',
@@ -290,7 +290,7 @@ function megaWallsStats({
     coins: coins,
     KD: createRatio(kills, deaths),
     WL: createRatio(wins, deaths),
-    win: wins,
+    wins: wins,
     kills: kills,
     deaths: deaths,
   };
