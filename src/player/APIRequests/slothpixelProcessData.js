@@ -196,7 +196,7 @@ function pitStats({
     gold: gold_earned,
     prestige: prestige,
     playtime: playtime_minutes,
-    besStreak: max_streak,
+    bestStreak: max_streak,
     chatMessages: chat_messages,
     KD: maxDecimals(kd_ratio),
     kills: kills,

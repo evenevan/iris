@@ -7,7 +7,7 @@ async function fetchTimeout(url, { ...fetchOptions }) {
     signal: controller.signal,
     ...fetchOptions,
   });
-  const timeout = setTimeout(() => controller.abort(), fetchOptions?.timeout ?? 1000);
+  const timeout = setTimeout(() => controller.abort(), fetchOptions?.timeout ?? 2500);
   await promise;
   clearTimeout(timeout);
   return promise;
