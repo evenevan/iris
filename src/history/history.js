@@ -27,7 +27,7 @@ function prepareArray({
       &nbsp;&nbsp;<b>UUID:</b> ${lastSearches[i]?.uuid ?? 'Unavailable'}<br>`;
     playerArray.push(tempString);
   }
-  if (playerArray.length === 0) return ['No recent games!'];
+  if (playerArray.length === 0) return ['No recent searches!'];
   return playerArray.join('SPLIT<br>SPLIT').split('SPLIT');
 }
 
