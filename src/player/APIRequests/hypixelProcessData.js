@@ -120,7 +120,7 @@ function processAGame({
   return {
     startMS: date,
     endMS: ended,
-    gameLength: ended - date || null,
+    gameLength: cleanLength(ended - date) || null,
     gameType: gameType,
     mode: mode,
     map: map,
