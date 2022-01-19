@@ -76,7 +76,10 @@ function playerDataString(apiData, userOptions) {
 }
 
 function outputField(text, userOptions) {
-  if (userOptions?.typewriterOutput === false) return outputElement.insertAdjacentHTML('afterbegin', text);
+  if (userOptions?.typewriterOutput === false) {
+      outputElement.textContent = '';
+      return outputElement.insertAdjacentHTML('afterbegin', text);
+    }
 
   return (async function typewriter() {
     for (let i = 0; i < text.length; i += 10) {
