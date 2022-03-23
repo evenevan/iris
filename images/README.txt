@@ -1,1 +1,0 @@
-These images are all original. These were made with paint.net and paint3D and took way too long. Feel free to use them I suppose.
