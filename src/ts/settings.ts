@@ -64,10 +64,10 @@ import { Request } from "./Request.js";
 
     apiKeyInput.value = userSettings.apiKey || '';
 
-    testAPIKeyButton.disabled = apiKeyInput.value === '';
+    testAPIKeyButton.disabled = !apiKeyInput.value.match(uuidRegex);
 
     apiKeyInput.addEventListener('input', async () => {
-        testAPIKeyButton.disabled = apiKeyInput.value === '';
+        testAPIKeyButton.disabled = !apiKeyInput.value.match(uuidRegex);
         if (apiKeyInput.value.match(uuidRegex) || apiKeyInput.value === '') {
             await runtime.storage.sync.set({
                 ['apiKey']: apiKeyInput.value,

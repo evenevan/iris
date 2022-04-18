@@ -505,6 +505,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: 50%;
 }
 
+.-bottom-1 {
+  bottom: -0.25rem;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.-top-0 {
+  top: -0px;
+}
+
+.-left-0 {
+  left: -0px;
+}
+
 .z-40 {
   z-index: 40;
 }
@@ -613,6 +629,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 0.5rem;
 }
 
+.w-5\/6 {
+  width: 83.333333%;
+}
+
 .rotate-45 {
   --tw-rotate: 45deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -711,6 +731,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: inherit;
 }
 
+.bg-neutral-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
+}
+
+.bg-neutral-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(82 82 82 / var(--tw-bg-opacity));
+}
+
+.bg-neutral-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(115 115 115 / var(--tw-bg-opacity));
+}
+
 .fill-neutral-600 {
   fill: #525252;
 }
@@ -743,6 +778,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .pt-4 {
@@ -798,9 +843,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-weight: 800;
 }
 
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .opacity-0 {
@@ -831,6 +889,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+.duration-150 {
+  transition-duration: 150ms;
 }
 
 .ease-in-out {
@@ -975,6 +1037,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(212 212 212 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-neutral-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(163 163 163 / var(--tw-bg-opacity));
+}
+
 .placeholder-shown\:invalid\:focus\:outline-2:focus:invalid:-moz-placeholder-shown {
   outline-width: 2px;
 }
@@ -1084,6 +1151,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(212 212 212 / var(--tw-bg-opacity));
 }
 
+.peer:-moz-placeholder-shown ~ .peer-placeholder-shown\:hover\:bg-neutral-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(163 163 163 / var(--tw-bg-opacity));
+}
+
+.peer:-ms-input-placeholder ~ .peer-placeholder-shown\:hover\:bg-neutral-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(163 163 163 / var(--tw-bg-opacity));
+}
+
+.peer:placeholder-shown ~ .peer-placeholder-shown\:hover\:bg-neutral-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(163 163 163 / var(--tw-bg-opacity));
+}
+
 .peer:valid ~ .peer-valid\:outline-2 {
   outline-width: 2px;
 }
@@ -1131,6 +1213,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .peer:invalid ~ .peer-invalid\:hover\:bg-neutral-300:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(212 212 212 / var(--tw-bg-opacity));
+}
+
+.peer:invalid ~ .peer-invalid\:hover\:bg-neutral-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(163 163 163 / var(--tw-bg-opacity));
 }
 
 .peer:-moz-placeholder-shown:invalid ~ .peer-placeholder-shown\:peer-invalid\:outline-0 {
@@ -1200,6 +1287,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-delay: 500ms;
 }
 
+.peer:hover ~ .peer-hover\:delay-300 {
+  transition-delay: 300ms;
+}
+
 .peer:hover ~ .peer-hover\:duration-150 {
   transition-duration: 150ms;
 }
@@ -1230,8 +1321,17 @@ Ensure the default browser behavior of the `hidden` attribute.
     background-color: rgb(38 38 38 / var(--tw-bg-opacity));
   }
 
+  .dark\:bg-neutral-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(64 64 64 / var(--tw-bg-opacity));
+  }
+
   .dark\:fill-neutral-400 {
     fill: #a3a3a3;
+  }
+
+  .dark\:fill-neutral-500 {
+    fill: #737373;
   }
 
   .dark\:text-white {
@@ -1257,6 +1357,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   .hover\:dark\:bg-neutral-600:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(82 82 82 / var(--tw-bg-opacity));
+  }
+
+  .hover\:dark\:bg-neutral-500:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(115 115 115 / var(--tw-bg-opacity));
+  }
+
+  .hover\:dark\:bg-neutral-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(64 64 64 / var(--tw-bg-opacity));
   }
 
   .disabled\:hover\:dark\:bg-neutral-800:hover:disabled {
