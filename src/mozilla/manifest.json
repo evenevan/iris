@@ -8,10 +8,9 @@
     "browser_action": {
         "default_popup": "./main.html",
         "default_icon": {
-            "16": "./assets/Iris Icon Transparent 16.png",
-            "32": "./assets/Iris Icon Transparent 32.png",
-            "48": "./assets/Iris Icon Transparent 48.png",
-            "128": "./assets/Iris Icon Transparent 128.png"
+            "16": "./assets/Iris Icon.svg",
+            "48": "./assets/Iris Icon.svg",
+            "128": "./assets/Iris Icon.svg"
         }
     },
     "browser_specific_settings": {
@@ -22,10 +21,9 @@
     "default_locale": "en",
     "description": "__MSG_extensionDescription__",
     "icons": {
-        "16": "./assets/Iris Icon Transparent 16.png",
-        "32": "./assets/Iris Icon Transparent 32.png",
-        "48": "./assets/Iris Icon Transparent 48.png",
-        "128": "./assets/Iris Icon Transparent 128.png"
+        "16": "./assets/Iris Icon.svg",
+        "48": "./assets/Iris Icon.svg",
+        "128": "./assets/Iris Icon.svg"
     },
     "manifest_version": 2,
     "permissions": [
