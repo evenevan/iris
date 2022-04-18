@@ -4,23 +4,23 @@
     "version": "2.0.0",
     "manifest_version": 3,
     "background": {
-      "service_worker": "./src/background.js"
+      "service_worker": "./scripts/background.js"
     },
     "permissions": ["storage"],
     "action": {
-      "default_popup": "./src/player/player.html",
+      "default_popup": "./main.html",
       "default_icon": {
-          "16": "./images/Iris Icon Transparent 16.png",
-          "32": "./images/Iris Icon Transparent 32.png",
-          "48": "./images/Iris Icon Transparent 48.png",
-          "128": "./images/Iris Icon Transparent 128.png"
+          "16": "./assets/Iris Icon Transparent 16.png",
+          "32": "./assets/Iris Icon Transparent 32.png",
+          "48": "./assets/Iris Icon Transparent 48.png",
+          "128": "./assets/Iris Icon Transparent 128.png"
         }
     },
     "icons": {
-      "16": "./images/Iris Icon Transparent 16.png",
-      "32": "./images/Iris Icon Transparent 32.png",
-      "48": "./images/Iris Icon Transparent 48.png",
-      "128": "./images/Iris Icon Transparent 128.png"
+      "16": "./assets/Iris Icon Transparent 16.png",
+      "32": "./assets/Iris Icon Transparent 32.png",
+      "48": "./assets/Iris Icon Transparent 48.png",
+      "128": "./assets/Iris Icon Transparent 128.png"
     }
   }
   

@@ -1,10 +1,9 @@
 module.exports = {
-    content: ['./src/base/*.html'],
+    content: ['./src/**/*.html'],
     theme: {
         extend: {
             colors: {
-                'youtube-red': '#f40407',
-                'youtube-red-disabled': '#5a0102',
+                'accent': '#dcaf4e',
             },
         },
     },

@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Width */ /* Scrollbar */
+::-webkit-scrollbar {
+    width: 15px;
+}
+ 
+/* Handle */ /* Scrollbar */
+::-webkit-scrollbar-thumb {
+    border-left: 4px solid transparent;
+    background-clip: content-box;
+    @apply bg-neutral-100 dark:bg-neutral-800
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    border-left: 4px solid transparent;
+    background-clip: content-box;
+     @apply bg-neutral-300 dark:bg-neutral-600
+}

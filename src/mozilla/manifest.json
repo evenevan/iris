@@ -1,10 +1,10 @@
 {
     "name": "Iris",
     "description": "A tool made to check any Hypixel player's last session easily and quickly!",
-    "version": "1.3.0",
+    "version": "2.0.0",
     "manifest_version": 2,
     "background": {
-      "scripts": ["/src/background.js"]
+      "scripts": ["/scripts/background.js"]
     },
     "browser_specific_settings": {
       "gecko": {
@@ -13,18 +13,18 @@
     },
     "permissions": ["storage"],
     "browser_action": {
-      "default_popup": "./src/player/player.html",
+      "default_popup": "./main.html",
       "default_icon": {
-        "16": "./images/Iris Icon Transparent 16.png",
-        "32": "./images/Iris Icon Transparent 32.png",
-        "48": "./images/Iris Icon Transparent 48.png",
-        "128": "./images/Iris Icon Transparent 128.png"
+        "16": "./assets/Iris Icon Transparent 16.png",
+        "32": "./assets/Iris Icon Transparent 32.png",
+        "48": "./assets/Iris Icon Transparent 48.png",
+        "128": "./assets/Iris Icon Transparent 128.png"
       }
     },
     "icons": {
-      "16": "./images/Iris Icon Transparent 16.png",
-      "32": "./images/Iris Icon Transparent 32.png",
-      "48": "./images/Iris Icon Transparent 48.png",
-      "128": "./images/Iris Icon Transparent 128.png"
+      "16": "./assets/Iris Icon Transparent 16.png",
+      "32": "./assets/Iris Icon Transparent 32.png",
+      "48": "./assets/Iris Icon Transparent 48.png",
+      "128": "./assets/Iris Icon Transparent 128.png"
     }
   }
