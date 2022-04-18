@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <link href="./resources/tailwind.css" rel="stylesheet">
-        <script src="./scripts/main.js" type="module"></script>
+        <script src="./scripts/settings.js" type="module"></script>
     </head>
     <body class="flex flex-row bg-white dark:bg-neutral-900 w-[25rem] h-[35rem] font-sans text-black dark:text-white">
         <div class="sticky flex flex-col items-center justify-start left-0 w-14 h-full bg-neutral-300 dark:bg-neutral-800 gap-6 pt-4">
@@ -40,95 +40,113 @@
 			</form>
         </div>
         <div class="flex flex-col w-full h-full p-2 gap-2">
-            <span class="w-full font-semibold text-3xl">Settings</span>
-            <div class="relative flex items-center group">
-                <div class="flex items-center justify-start w-10 h-5 mr-2 rounded-full overflow-clip">
-                    <input id="new-pages-only" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer disabled:hover:cursor-not-allowed peer"/>
-                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400 peer-disabled:bg-neutral-600"></span>
-                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent peer-disabled:bg-accent-disabled ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
-                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 peer-disabled:bg-neutral-500 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
+            <span id="settingsSettingsTitle" class="w-full font-semibold text-3xl">Settings</span>
+            <div class="relative flex items-center">
+                <div class="flex items-center justify-start w-10 h-5 rounded-full overflow-clip peer">
+                    <input id="firstLogin" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer peer"/>
+                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400"></span>
+                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
+                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
                 </div>
-                <span class="font-semibold text-xl mb-1">Show First Login</span>
-                <div class="absolute w-fit max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 group-hover:scale-100 transition-all group-hover:delay-500 group-hover:translate-y-10 opacity-0 group-hover:opacity-100 ease-in-out text-xs">
+                <span id="settingsSettingsFirstLogin" class="font-semibold text-xl mb-1 pl-2 peer">Show First Login</span>
+                <div id="settingsSettingsFirstLoginTooltip" class="absolute w-full max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 peer-hover:scale-100 transition-all peer-hover:delay-500 peer-hover:translate-y-10 opacity-0 peer-hover:opacity-100 ease-in-out text-xs">
                     When enabled, one's first login will be shown in the output.
                 </div>
             </div>
-            <div class="relative flex items-center group">
-                <div class="flex items-center justify-start w-10 h-5 mr-2 rounded-full overflow-clip">
-                    <input id="new-pages-only" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer disabled:hover:cursor-not-allowed peer"/>
-                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400 peer-disabled:bg-neutral-600"></span>
-                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent peer-disabled:bg-accent-disabled ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
-                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 peer-disabled:bg-neutral-500 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
+            <div class="relative flex items-center">
+                <div class="flex items-center justify-start w-10 h-5 rounded-full overflow-clip peer">
+                    <input id="gameStats" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer peer"/>
+                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400"></span>
+                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
+                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
                 </div>
-                <span class="font-semibold text-xl mb-1">Show Game Stats</span>
-                <div class="absolute w-fit max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 group-hover:scale-100 transition-all group-hover:delay-500 group-hover:translate-y-10 opacity-0 group-hover:opacity-100 ease-in-out text-xs">
-                    When enabled, one's stats from their last game played will be shown in the output.
+                <span id="settingsSettingsGameStats" class="font-semibold text-xl mb-1 pl-2 peer">Show Game Stats</span>
+                <div id="settingsSettingsGameStatsTooltip" class="absolute w-full max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 peer-hover:scale-100 transition-all peer-hover:delay-500 peer-hover:translate-y-10 opacity-0 peer-hover:opacity-100 ease-in-out text-xs">
+                    When enabled, one's stats from their last game played will be shown in the output, if available.
                 </div>
             </div>
-            <div class="relative flex items-center group">
-                <div class="flex items-center justify-start w-10 h-5 mr-2 rounded-full overflow-clip">
-                    <input id="new-pages-only" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer disabled:hover:cursor-not-allowed peer"/>
-                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400 peer-disabled:bg-neutral-600"></span>
-                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent peer-disabled:bg-accent-disabled ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
-                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 peer-disabled:bg-neutral-500 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
+            <div class="relative flex items-center">
+                <div class="flex items-center justify-start w-10 h-5 rounded-full overflow-clip peer">
+                    <input id="lastLogout" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer peer"/>
+                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400"></span>
+                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
+                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
                 </div>
-                <span class="font-semibold text-xl mb-1">Show Last Logout</span>
-                <div class="absolute w-fit max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 group-hover:scale-100 transition-all group-hover:delay-500 group-hover:translate-y-10 opacity-0 group-hover:opacity-100 ease-in-out text-xs">
+                <span id="settingsSettingsLastLogout" class="font-semibold text-xl mb-1 pl-2 peer">Show Last Logout</span>
+                <div id="settingsSettingsLastLogoutTooltip" class="absolute w-full max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 peer-hover:scale-100 transition-all peer-hover:delay-500 peer-hover:translate-y-10 opacity-0 peer-hover:opacity-100 ease-in-out text-xs">
                     When enabled, one's last logout will be shown in the output.
                 </div>
             </div>
-            <div class="relative flex items-center group">
-                <div class="flex items-center justify-start w-10 h-5 mr-2 rounded-full overflow-clip">
-                    <input id="new-pages-only" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer disabled:hover:cursor-not-allowed peer"/>
-                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400 peer-disabled:bg-neutral-600"></span>
-                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent peer-disabled:bg-accent-disabled ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
-                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 peer-disabled:bg-neutral-500 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
+            <div class="relative flex items-center">
+                <div class="flex items-center justify-start w-10 h-5 rounded-full overflow-clip peer">
+                    <input id="relativeTimestamps" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer peer"/>
+                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400"></span>
+                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
+                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
                 </div>
-                <span class="font-semibold text-xl mb-1">Show Relative Timestamps</span>
-                <div class="absolute w-fit max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 group-hover:scale-100 transition-all group-hover:delay-500 group-hover:translate-y-10 opacity-0 group-hover:opacity-100 ease-in-out text-xs">
+                <span id="settingsSettingsRelativeTimestamps" class="font-semibold text-xl mb-1 pl-2 peer">Show Relative Timestamps</span>
+                <div id="settingsSettingsRelativeTimestampsTooltip" class="absolute w-full max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 peer-hover:scale-100 transition-all peer-hover:delay-500 peer-hover:translate-y-10 opacity-0 peer-hover:opacity-100 ease-in-out text-xs">
                     When enabled, relative timestamps such as, "a day ago," will be used in combination with the date and time.
                 </div>
             </div>
-            <div class="relative flex items-center group">
-                <div class="flex items-center justify-start w-10 h-5 mr-2 rounded-full overflow-clip">
-                    <input id="new-pages-only" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer disabled:hover:cursor-not-allowed peer"/>
-                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400 peer-disabled:bg-neutral-600"></span>
-                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent peer-disabled:bg-accent-disabled ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
-                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 peer-disabled:bg-neutral-500 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
+            <div class="relative flex items-center">
+                <div class="flex items-center justify-start w-10 h-5 rounded-full overflow-clip peer">
+                    <input id="sentences" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer peer"/>
+                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400"></span>
+                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
+                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
                 </div>
-                <span class="font-semibold text-xl mb-1">Use Sentences</span>
-                <div class="absolute w-fit max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 group-hover:scale-100 transition-all group-hover:delay-500 group-hover:translate-y-10 opacity-0 group-hover:opacity-100 ease-in-out text-xs">
+                <span id="settingsSettingsSentences" class="font-semibold text-xl mb-1 pl-2 peer">Use Sentences</span>
+                <div id="settingsSettingsSentencesTooltip" class="absolute w-full max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 peer-hover:scale-100 transition-all peer-hover:delay-500 peer-hover:translate-y-10 opacity-0 peer-hover:opacity-100 ease-in-out text-xs">
                     When enabled, one's last session will be described in sentences rather than bullet points.
                 </div>
             </div>
-            <div class="relative flex items-center group">
-                <div class="flex items-center justify-start w-10 h-5 mr-2 rounded-full overflow-clip">
-                    <input id="new-pages-only" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer disabled:hover:cursor-not-allowed peer"/>
-                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400 peer-disabled:bg-neutral-600"></span>
-                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent peer-disabled:bg-accent-disabled ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
-                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 peer-disabled:bg-neutral-500 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
+            <div class="relative flex items-center">
+                <div class="flex items-center justify-start w-10 h-5 rounded-full overflow-clip peer">
+                    <input id="thirdPerson" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer peer"/>
+                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400"></span>
+                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
+                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
                 </div>
-                <span class="font-semibold text-xl mb-1">Use Hypixel API</span>
-                <div class="absolute w-fit max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 group-hover:scale-100 transition-all group-hover:delay-500 group-hover:translate-y-10 opacity-0 group-hover:opacity-100 ease-in-out text-xs">
-                    When enabled, the HypixelAPI will be used instead of the Slothpixel API. This requires an Hypixel API key.
+                <span id="settingsSettingsThirdPerson" class="font-semibold text-xl mb-1 pl-2 peer">Use Third Person</span>
+                <div id="settingsSettingsThirdPersonTooltip" class="absolute w-full max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 peer-hover:scale-100 transition-all peer-hover:delay-500 peer-hover:translate-y-10 opacity-0 peer-hover:opacity-100 ease-in-out text-xs">
+                    When "Use Sentences" is also enabled, the player's name will be used instead of "you", "your", etc.
                 </div>
             </div>
-            <span class="w-full font-semibold text-3xl">Hypixel API</span>
-            <input id="" class="w-full h-8 bg-neutral-300 dark:bg-neutral-800 placeholder:text-neutral-700 dark:placeholder:text-neutral-400
+            <div class="relative flex items-center">
+                <div class="flex items-center justify-start w-10 h-5 rounded-full overflow-clip peer">
+                    <input id="hypixelAPI" type="checkbox" class="absolute w-10 h-5 z-40 appearance-none hover:cursor-pointer peer"/>
+                    <span class="w-10 h-3 z-10 rounded-full bg-neutral-400"></span>
+                    <span class="absolute w-5 h-3 z-20 rounded-full bg-accent ease-in-out peer-hover:duration-150 peer-checked:w-8"></span>
+                    <span class="absolute w-5 h-5 z-30 rounded-full bg-neutral-300 ease-in-out peer-hover:duration-150 peer-checked:translate-x-5"></span>
+                </div>
+                <span id="settingsSettingsHypixelAPI" class="font-semibold text-xl mb-1 pl-2 peer">Use Hypixel API</span>
+                <div id="settingsSettingsHypixelAPITooltip" class="absolute w-full max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 peer-hover:scale-100 transition-all peer-hover:delay-500 peer-hover:translate-y-10 opacity-0 peer-hover:opacity-100 ease-in-out text-xs">
+                    When enabled, the Hypixel API will be used instead of the Slothpixel API. This requires an Hypixel API key.
+                </div>
+            </div>
+            <span id="settingsHypixelAPITitle" class="w-full font-semibold text-3xl">Hypixel API</span>
+            <input id="apiKey" class="w-full h-8 bg-neutral-300 dark:bg-neutral-800 placeholder:text-neutral-700 dark:placeholder:text-neutral-400
+                outline outline-0 rounded-sm p-2 placeholder:font-semibold placeholder:text-sm peer" type="text" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$" size="36" maxlength="36">
+            <button id="testAPIKey" class="flex flex-row items-center justify-center w-full h-8 text-black dark:text-white text-xl font-extrabold rounded-sm p-2 peer-placeholder-shown:cursor-not-allowed  peer-invalid:cursor-not-allowed transition-colors duration-300 gap-2
+                bg-neutral-300
+                dark:bg-neutral-800
+                hover:bg-neutral-500
+                hover:dark:bg-neutral-600
+                peer-invalid:hover:bg-neutral-300
+                peer-invalid:hover:dark:bg-neutral-800
+                peer-placeholder-shown:hover:bg-neutral-300
+                peer-placeholder-shown:hover:dark:bg-neutral-800
                 outline outline-0
-                placeholder-shown:invalid:outline-0 placeholder-shown:invalid:outline-transparent
-                placeholder-shown:invalid:focus:outline-2 placeholder-shown:invalid:focus:outline-transparent
-                valid:outline-2 valid:outline-green-800
-                invalid:outline-2 invalid:outline-red-800
-                rounded-sm p-2 placeholder:font-semibold placeholder:text-sm peer" type="text" placeholder="Hypixel API Key" autocomplete="off" spellcheck="false" pattern="^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$" size="36" maxlength="36" required>
-            <button class="flex flex-row items-center justify-center w-full h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-300 hover:dark:bg-neutral-600 text-black dark:text-white text-xl font-extrabold rounded-sm p-2 peer-invalid:cursor-not-allowed transition-colors duration-300 gap-2
-                outline outline-0
-                peer-placeholder-shown:peer-invalid:outline-0 peer-placeholder-shown:peer-invalid:outline-transparent
+                peer-placeholder-shown:peer-valid:outline-0 peer-placeholder-shown:peer-valid:outline-transparent
                 peer-placeholder-shown:peer-invalid:focus:outline-2 peer-placeholder-shown:peer-invalid:focus:outline-transparent
                 peer-valid:outline-2 peer-valid:outline-green-800
                 peer-invalid:outline-2 peer-invalid:outline-red-800">
-                <span class="font-semibold text-sm">Test Key</span>
+                <span id="settingsHypixelAPITestKeyButton" class="font-semibold text-sm">Test Key</span>
             </button>
+            <div class="flex items-center justify-center w-full h-full">
+                <span id="testAPIKeyResult" class="text-center font-semibold text-lg"></span>
+            </div>
         </div>
     </body>
 </html>

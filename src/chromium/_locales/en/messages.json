@@ -1,0 +1,80 @@
+{
+    "extensionName": {
+        "message": "Iris"
+    },
+    "extensionDescription": {
+        "message": "A tool made to check any Hypixel player's last session easily and quickly!"
+    },
+    "mainInputPlaceholder": {
+        "message": "Username/UUID"
+    },
+    "mainInputSearch": {
+        "message": "Search"
+    },
+    "mainInputClear": {
+        "message": "Clear"
+    },
+    "settingsSettingsTitle" : {
+        "message": "Settings"
+    },
+    "settingsSettingsFirstLogin" : {
+        "message": "Show First Login"
+    },
+    "settingsSettingsFirstLoginTooltip" : {
+        "message": "When enabled, one's first login will be shown in the output."
+    },
+    "settingsSettingsGameStats" : {
+        "message": "Show Game Stats"
+    },
+    "settingsSettingsGameStatsTooltip" : {
+        "message": "When enabled, one's stats from their last game played will be shown in the output, if available."
+    },
+    "settingsSettingsLastLogout" : {
+        "message": "Show Last Logout"
+    },
+    "settingsSettingsLastLogoutTooltip" : {
+        "message": "When enabled, one's last logout will be shown in the output."
+    },
+    "settingsSettingsRelativeTimestamps" : {
+        "message":  "Show Relative Timestamps"
+    },
+    "settingsSettingsRelativeTimestampsTooltip" : {
+        "message":  "When enabled, relative timestamps such as, \"a day ago,\" will be used in combination with the date and time."
+    },
+    "settingsSettingsSentences" : {
+        "message":  "Use Sentences"
+    },
+    "settingsSettingsSentencesTooltip" : {
+        "message":  "When enabled, one's last session will be described in sentences rather than bullet points."
+    },
+    "settingsSettingsThirdPerson" : {
+        "message":  "Use Third Person"
+    },
+    "settingsSettingsThirdPersonTooltip" : {
+        "message":  "When \"Use Sentences\" is also enabled, the player's name will be used instead of \"you\", \"your\", etc."
+    },
+    "settingsSettingsHypixelAPI" : {
+        "message":  "Use Hypixel API"
+    },
+    "settingsSettingsHypixelAPITooltip" : {
+        "message":  "When enabled, the Hypixel API will be used instead of the Slothpixel API. This requires an Hypixel API key."
+    },
+    "settingsHypixelAPITitle": {
+        "message": "Hypixel API"
+    },
+    "settingsHypixelAPIInputPlaceholder": {
+        "message": "Hypixel API Key"
+    },
+    "settingsHypixelAPITestKeyButton": {
+        "message": "Test Key"
+    },
+    "settingsHypixelAPI200": {
+        "message": "Working API key! Your API key has {{ uses }} uses."
+    },
+    "settingsHypixelAPI403": {
+        "message": "Invalid API key! Get a new one with /api new on Hypixel."
+    },
+    "settingsHypixelAPIdefault": {
+        "message": "Something went wrong! Please try again later."
+    }
+}

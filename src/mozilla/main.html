@@ -44,24 +44,20 @@
                 <svg class="absolute h-4 w-4 left-2 top-2 fill-neutral-700 dark:fill-neutral-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <path class="stroke-current stroke-[0.15px]" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                 </svg>
-                <input id="" class="w-full h-8 pl-8 bg-neutral-300 dark:bg-neutral-800 placeholder:text-neutral-700 dark:placeholder:text-neutral-400
+                <input id="player" class="w-full h-8 pl-8 bg-neutral-300 dark:bg-neutral-800 placeholder:text-neutral-700 dark:placeholder:text-neutral-400
                     outline outline-0
                     placeholder-shown:invalid:outline-0 placeholder-shown:invalid:outline-transparent
                     placeholder-shown:invalid:focus:outline-2 placeholder-shown:invalid:focus:outline-transparent
                     valid:outline-2 valid:outline-green-800
                     invalid:outline-2 invalid:outline-red-800
-                    rounded-sm p-2 placeholder:font-semibold placeholder:text-sm" type="text" placeholder="Username/UUID" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,16}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" required>
+                    rounded-sm p-2 placeholder:font-semibold placeholder:text-sm" type="text" placeholder="placeholder" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,16}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" required>
             </div>
             <div class="flex gap-2">
-                <button class="flex flex-row items-center justify-center w-3/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-300 hover:dark:bg-neutral-600 text-black dark:text-white text-xl font-extrabold rounded-sm p-2 transition-colors duration-300 gap-2">
-                    <span class="font-semibold text-sm">Search</span>
+                <button class="flex flex-row items-center justify-center w-3/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-500 hover:dark:bg-neutral-600 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed text-xl font-extrabold rounded-sm p-2 transition-colors duration-300 gap-2" disabled>
+                    <span id="mainInputSearch" class="font-semibold text-sm">Search</span>
                 </button>
-                <button class="relative flex flex-row items-center justify-center w-1/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-300 hover:dark:bg-neutral-600 text-black dark:text-white rounded-sm p-2 transition-colors duration-300 group">
-                    <span class="font-semibold text-sm">Clear</span>
-                    <div class="absolute w-fit max-h-fit z-50 px-2 py-1 -top-1/4 rounded-md bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white scale-0 group-hover:scale-100 transition-all group-hover:delay-500 group-hover:translate-y-14 opacity-0 group-hover:opacity-100 ease-in-out text-xs">
-                        <div class="absolute w-2 h-2 -top-1 left-1/2 rotate-45 bg-inherit"></div>
-                        Available when this popup is opened on a YouTube Shorts page
-                    </div>
+                <button class="relative flex flex-row items-center justify-center w-1/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-500 hover:dark:bg-neutral-600 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed rounded-sm p-2 transition-colors duration-300 group">
+                    <span id="mainInputClear" class="font-semibold text-sm">Clear</span>
                 </button>
             </div>
             <div class="w-full h-full overflow-x-auto">

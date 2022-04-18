@@ -1,30 +1,35 @@
 {
-    "name": "Iris",
-    "description": "A tool made to check any Hypixel player's last session easily and quickly!",
-    "version": "2.0.0",
-    "manifest_version": 2,
+    "name": "__MSG_extensionName__",
     "background": {
-      "scripts": ["/scripts/background.js"]
+        "scripts": [
+            "/scripts/background.js"
+        ]
+    },
+    "browser_action": {
+        "default_popup": "./main.html",
+        "default_icon": {
+            "16": "./assets/Iris Icon Transparent 16.png",
+            "32": "./assets/Iris Icon Transparent 32.png",
+            "48": "./assets/Iris Icon Transparent 48.png",
+            "128": "./assets/Iris Icon Transparent 128.png"
+        }
     },
     "browser_specific_settings": {
-      "gecko": {
-        "id": "why@why.org"
-      }
+        "gecko": {
+            "id": "why@why.org"
+        }
     },
-    "permissions": ["storage"],
-    "browser_action": {
-      "default_popup": "./main.html",
-      "default_icon": {
+    "default_locale": "en",
+    "description": "__MSG_extensionDescription__",
+    "icons": {
         "16": "./assets/Iris Icon Transparent 16.png",
         "32": "./assets/Iris Icon Transparent 32.png",
         "48": "./assets/Iris Icon Transparent 48.png",
         "128": "./assets/Iris Icon Transparent 128.png"
-      }
     },
-    "icons": {
-      "16": "./assets/Iris Icon Transparent 16.png",
-      "32": "./assets/Iris Icon Transparent 32.png",
-      "48": "./assets/Iris Icon Transparent 48.png",
-      "128": "./assets/Iris Icon Transparent 128.png"
-    }
-  }
+    "manifest_version": 2,
+    "permissions": [
+        "storage"
+    ],
+    "version": "2.0.0"
+}
