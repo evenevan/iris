@@ -1,6 +1,6 @@
 export class Request {
     constructor(config) {
-        this.restRequestTimeout = config?.restRequestTimeout ?? 2500;
+        this.restRequestTimeout = config?.restRequestTimeout ?? 5000;
         this.try = 0;
         this.tryLimit = (config?.retryLimit ?? 2) + 1;
     }

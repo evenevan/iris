@@ -1,8 +1,8 @@
-import { i18n } from "./i18n.js";
-import { Request } from "./Request.js";
+import { i18n } from './utility/i18n.js';
+import { Request } from './utility/Request.js';
 (async () => {
     const runtime = chrome ?? browser;
-    i18n(runtime, [
+    i18n([
         'settingsSettingsTitle',
         'settingsSettingsFirstLogin',
         'settingsSettingsFirstLoginTooltip',
@@ -19,14 +19,14 @@ import { Request } from "./Request.js";
         'settingsSettingsHypixelAPI',
         'settingsSettingsHypixelAPITooltip',
         'settingsHypixelAPITitle',
-        'settingsHypixelAPITestKeyButton'
+        'settingsHypixelAPITestKeyButton',
     ]);
     const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
     const userSettings = await runtime.storage.sync.get(null);
     document.querySelectorAll('input[type=checkbox]')
         .forEach(checkbox => {
         checkbox.checked = userSettings[checkbox.id];
-        checkbox.addEventListener('change', async (change) => {
+        checkbox.addEventListener('change', async () => {
             console.log(checkbox.id);
             await runtime.storage.sync.set({
                 [checkbox.id]: checkbox.checked,
@@ -48,7 +48,7 @@ import { Request } from "./Request.js";
         testAPIKeyButton.disabled = !apiKeyInput.value.match(uuidRegex);
         if (apiKeyInput.value.match(uuidRegex) || apiKeyInput.value === '') {
             await runtime.storage.sync.set({
-                ['apiKey']: apiKeyInput.value,
+                apiKey: apiKeyInput.value,
             });
         }
     });
@@ -74,15 +74,11 @@ import { Request } from "./Request.js";
                 }
                 break;
             case 403:
-                {
-                    testAPIKeyResultSpan.textContent = runtime.i18n
-                        .getMessage('settingsHypixelAPI403');
-                }
-                break;
-            default: {
                 testAPIKeyResultSpan.textContent = runtime.i18n
-                    .getMessage('settingsHypixelAPIdefault');
-            }
+                    .getMessage('settingsHypixelAPI403');
+                break;
+            default: testAPIKeyResultSpan.textContent = runtime.i18n
+                .getMessage('settingsHypixelAPIdefault');
         }
     });
 })();

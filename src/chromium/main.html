@@ -50,17 +50,17 @@
                     placeholder-shown:invalid:focus:outline-2 placeholder-shown:invalid:focus:outline-transparent
                     valid:outline-2 valid:outline-green-800
                     invalid:outline-2 invalid:outline-red-800
-                    rounded-sm p-2 font-semibold placeholder:font-semibold placeholder:text-sm" type="text" placeholder="placeholder" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,16}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" required>
+                    rounded-sm p-2 font-semibold placeholder:font-semibold placeholder:text-sm" type="text" placeholder="placeholder" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,36}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" required>
             </div>
             <div class="flex gap-2">
-                <button class="flex flex-row items-center justify-center w-3/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-400 hover:dark:bg-neutral-700 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed text-xl font-extrabold rounded-sm p-2 transition-colors duration-150 gap-2" disabled>
+                <button id="search" class="flex flex-row items-center justify-center w-3/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-400 hover:dark:bg-neutral-700 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed text-xl font-extrabold rounded-sm p-2 transition-colors duration-150 gap-2" disabled>
                     <span id="mainInputSearch" class="font-semibold text-sm"></span>
                 </button>
-                <button class="relative flex flex-row items-center justify-center w-1/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-400 hover:dark:bg-neutral-700 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed rounded-sm p-2 transition-colors duration-150 group">
+                <button id="clear" class="relative flex flex-row items-center justify-center w-1/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-400 hover:dark:bg-neutral-700 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed rounded-sm p-2 transition-colors duration-150 group">
                     <span id="mainInputClear" class="font-semibold text-sm"></span>
                 </button>
             </div>
-            <div class="w-full h-full overflow-x-auto">
+            <div id="output" class="w-full h-full overflow-x-auto">
             </div>
         </div>
     </body>

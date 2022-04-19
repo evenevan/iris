@@ -1,3 +1,5 @@
+import { AbortError } from './AbortError.js';
+
 export class Request {
     readonly restRequestTimeout: number;
     private try: number;
@@ -7,7 +9,7 @@ export class Request {
         retryLimit?: number,
         restRequestTimeout?: number,
     }) {
-        this.restRequestTimeout = config?.restRequestTimeout ?? 2500;
+        this.restRequestTimeout = config?.restRequestTimeout ?? 5000;
 
         this.try = 0;
 
@@ -48,17 +50,23 @@ export class Request {
                 return this.request(url, fetchOptions);
             }
 
-            throw error;
+            throw new AbortError({
+                message: (error as Error)?.message,
+                url: url,
+            });
         } finally {
             clearTimeout(abortTimeout);
         }
     }
 
-    static tryParse<Type>(
+    static async tryParse<Type>(
         response: Response,
     ): Promise<Type | null> {
-        return response
-            .json()
-            .catch(() => null);
+        try {
+            const data = await response.json();
+            return data;
+        } catch {
+            return null;
+        }
     }
 }
