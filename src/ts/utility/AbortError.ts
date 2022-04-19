@@ -1,4 +1,4 @@
-import { HTTPError } from './HTTPError';
+import { HTTPError } from './HTTPError.js';
 
 export class AbortError extends HTTPError {
     constructor({
