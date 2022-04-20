@@ -16,12 +16,11 @@ export function processHypixel({ displayname = '', uuid = null, firstLogin = nul
         lastLogoutMS: lastLogout,
         limitedAPI: !lastLogin || !lastLogout || lastLogin < 1494864734000,
         isOnline: online,
-        possessive: displayname.endsWith('s')
+        possessive: displayname?.endsWith('s')
             ? `${displayname}'`
-            : `${displayname}'s`,
+            : `${displayname ?? ''}'s`,
         recentGames: recentGames,
         recentGamesPlayed: recentGamesPlayed,
-        status: online === true ? 'Online' : 'Offline',
         version: mcVersionRp,
         offline: online
             ? {
@@ -127,7 +126,7 @@ function pitStats({ cash_earned = 0, playtime_minutes = 0, max_streak = 0, chat_
         gold: cash_earned,
         prestige: pit_prestiges,
         playtime: playtime_minutes,
-        besStreak: max_streak,
+        bestStreak: max_streak,
         chatMessages: chat_messages,
         KD: createRatio(kills, deaths),
         kills: kills,

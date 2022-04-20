@@ -1,3 +1,4 @@
+import { NotFoundError } from '../utility/NotFoundError.js';
 import { Request } from '../utility/Request.js';
 
 export async function getUUID(username: string) {
@@ -25,5 +26,5 @@ export async function getUUID(username: string) {
         return object.data.player.id;
     }
 
-    throw new Error();
+    throw new NotFoundError();
 }

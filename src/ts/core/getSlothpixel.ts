@@ -33,11 +33,20 @@ export async function getSlothpixel(uuid: string) {
     );
 
     const data = await Promise.all(
-        responses.map(response => Request.tryParse<{
+        responses.map(response => Request.tryParse<unknown>(response)),
+    ) as [
+        {
             [key: string]: unknown
-        }>(response)),
-    );
+        },
+        {
+            [key: string]: unknown
+        },
+        unknown,
+    ];
 
-    //@ts-expect-error trust me bro
-    return processSlothpixel(data[0].player, data[1], data[2]);
+    return processSlothpixel(
+        data[0] as Parameters<typeof processSlothpixel>[0],
+        data[1] as Parameters<typeof processSlothpixel>[1],
+        data[2] as Parameters<typeof processSlothpixel>[2],
+    );
 }

@@ -3,7 +3,7 @@ import { cleanLength, maxDecimals, } from '../utility/utility.js';
 //Turns the Hypixel API format into a custom format for consistency
 export function processSlothpixel({ username = '', uuid = null, first_login = null, language = 'ENGLISH', last_login = null, last_logout = null, last_game = null, mc_version = null, stats: { BedWars = {}, Duels = {
     general: {},
-}, Blitz = {}, Pit = {}, SkyWars = {}, SpeedUHC = {}, UHC = {}, Walls = {}, MegaWalls = {}, } = {}, }, { online = false, game: { type = null, mode = null, map = null, } = {}, }, recentGamesData) {
+}, Blitz = {}, Pit = {}, SkyWars = {}, SpeedUHC = {}, UHC = {}, Walls = {}, MegaWalls = {}, } = {}, }, { online = null, game: { type = null, mode = null, map = null, } = {}, }, recentGamesData) {
     const { recentGames, recentGamesPlayed } = recentGamesFormatter({
         last_login: last_login,
         last_logout: last_logout,
@@ -18,10 +18,11 @@ export function processSlothpixel({ username = '', uuid = null, first_login = nu
         lastLogoutMS: last_logout,
         limitedAPI: !last_login || !last_logout || last_login < 1494864734000,
         isOnline: online,
-        possessive: username.endsWith('s') ? `${username}'` : `${username}'s`,
+        possessive: username?.endsWith('s')
+            ? `${username}'`
+            : `${username ?? ''}'s`,
         recentGames: recentGames,
         recentGamesPlayed: recentGamesPlayed,
-        status: online === true ? 'Online' : 'Offline',
         version: mc_version,
         offline: online
             ? {

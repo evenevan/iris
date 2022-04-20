@@ -16,24 +16,6 @@ export function cleanDate(ms: number | null) {
     return `${month} ${day}, ${year}`;
 }
 
-export function cleanTime(ms: number | null) {
-    const newDate = new Date(Number(ms));
-    if (
-        !ms ||
-        ms < 0 ||
-        Object.prototype.toString.call(newDate) !== '[object Date]'
-    ) {
-        return null;
-    }
-
-    return newDate.toLocaleTimeString('en-IN', { hour12: true });
-}
-
-export function timeAgo(ms: number | null) {
-    if (ms === null || ms < 0 || isNaN(ms)) return null;
-    return Date.now() - ms;
-}
-
 export function cleanLength(ms: number | null) {
     if (ms === null || ms < 0 || isNaN(ms)) return null;
     let seconds = Math.round(ms / 1000);
@@ -70,12 +52,36 @@ export function createRatio(first = 0, second = 0) {
     return maxDecimals(first / second);
 }
 
+export function cleanTime(ms: number | null) {
+    const newDate = new Date(Number(ms));
+    if (
+        !ms ||
+        ms < 0 ||
+        Object.prototype.toString.call(newDate) !== '[object Date]'
+    ) {
+        return null;
+    }
+
+    return newDate.toLocaleTimeString('en-IN', { hour12: true });
+}
+
 export function maxDecimals(value: number, decimals = 2) {
     const decimalValue = 10 ** decimals;
     return (
         Math.round((Number(value) + Number.EPSILON) * decimalValue) /
         decimalValue
     );
+}
+
+export function newLine(string: string) {
+    return `<br>${string}`;
+}
+
+export const runtime = (chrome ?? browser);
+
+export function timeAgo(ms: number | null) {
+    if (ms === null || ms < 0 || isNaN(ms)) return null;
+    return Date.now() - ms;
 }
 
 //Taken from https://github.com/slothpixel/core/blob/master/util/calculateUhcLevel.js under the MIT License

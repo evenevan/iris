@@ -26,9 +26,9 @@ export async function getHypixel(uuid, apiKey) {
         return response;
     }));
     const data = await Promise.all(responses.map(response => Request.tryParse(response)));
-    if (data[0]?.player === null) {
-        throw new NotFoundError();
+    if (data[0]?.player) {
+        const processed = processHypixel(data[0].player, data[1], data[2]);
+        return processed;
     }
-    //@ts-expect-error trust me bro
-    return processHypixel(data[0].player, data[1], data[2]);
+    throw new NotFoundError();
 }

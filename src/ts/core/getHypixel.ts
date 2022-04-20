@@ -40,10 +40,15 @@ export async function getHypixel(uuid: string, apiKey: string) {
         }>(response)),
     );
 
-    if (data[0]?.player === null) {
-        throw new NotFoundError();
+    if (data[0]?.player) {
+        const processed = processHypixel(
+            data[0].player as Parameters<typeof processHypixel>[0],
+            data[1] as Parameters<typeof processHypixel>[1],
+            data[2] as Parameters<typeof processHypixel>[2],
+        );
+
+        return processed;
     }
 
-    //@ts-expect-error trust me bro
-    return processHypixel(data[0].player, data[1], data[2]);
+    throw new NotFoundError();
 }

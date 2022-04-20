@@ -24,6 +24,5 @@ export async function getSlothpixel(uuid) {
         return response;
     }));
     const data = await Promise.all(responses.map(response => Request.tryParse(response)));
-    //@ts-expect-error trust me bro
-    return processSlothpixel(data[0].player, data[1], data[2]);
+    return processSlothpixel(data[0], data[1], data[2]);
 }

@@ -29,6 +29,29 @@ export function processHypixel(
             Walls3 = {},
         } = {},
         achievements = {},
+    }: {
+        displayname: string | null,
+        uuid: string | null,
+        firstLogin: number | null,
+        lastLogin: number | null,
+        lastLogout: number | null,
+        mcVersionRp: string | null,
+        mostRecentGameType: string | null,
+        userLanguage: string,
+        stats: {
+            BedWars: ReturnType<typeof bedwarsStats> | Record<string, never>,
+            Duels: ReturnType<typeof duelsStats> | Record<string, never>,
+            HungerGames: ReturnType<typeof blitzStats> | Record<string, never>,
+            Pit: ReturnType<typeof pitStats> | Record<string, never>,
+            SkyWars: ReturnType<typeof skywarsStats> | Record<string, never>,
+            SpeedUHC: ReturnType<typeof speedUHCStats> | Record<string, never>,
+            UHC: ReturnType<typeof uhcStats> | Record<string, never>,
+            Walls: ReturnType<typeof wallsStats> | Record<string, never>,
+            Walls3: ReturnType<typeof megaWallsStats> | Record<string, never>,
+        } | Record<string, never>,
+        achievements: {
+            [key: string]: unknown,
+        },
     },
     {
         session: {
@@ -37,6 +60,13 @@ export function processHypixel(
             mode = null,
             map = null,
         } = {},
+    }: {
+        session: {
+            online: boolean | null,
+            gameType: string | null,
+            mode: string | null,
+            map: string | null,
+        } | Record<string, never>,
     },
     recentGamesData: {
         games: {
@@ -63,12 +93,11 @@ export function processHypixel(
         lastLogoutMS: lastLogout,
         limitedAPI: !lastLogin || !lastLogout || lastLogin < 1494864734000,
         isOnline: online,
-        possessive: displayname.endsWith('s')
+        possessive: displayname?.endsWith('s')
             ? `${displayname}'`
-            : `${displayname}'s`,
+            : `${displayname ?? ''}'s`,
         recentGames: recentGames,
         recentGamesPlayed: recentGamesPlayed,
-        status: online === true ? 'Online' : 'Offline',
         version: mcVersionRp,
         offline: online
             ? {
@@ -252,7 +281,7 @@ function pitStats(
         gold: cash_earned,
         prestige: pit_prestiges,
         playtime: playtime_minutes,
-        besStreak: max_streak,
+        bestStreak: max_streak,
         chatMessages: chat_messages,
         KD: createRatio(kills, deaths),
         kills: kills,

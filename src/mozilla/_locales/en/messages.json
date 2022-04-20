@@ -5,6 +5,120 @@
     "extensionDescription": {
         "message": "A tool made to check any Hypixel player's last session easily and quickly!"
     },
+    "null": {
+        "message": "Unknown"
+    },
+    "yes": {
+        "message": "Yes"
+    },
+    "no": {
+        "message": "No"
+    },
+    "mainOutputDetailGeneralUsername": {
+        "message": "<strong>Username:</strong> $1"
+    },
+    "mainOutputDetailGeneralUUID": {
+        "message": "<strong>UUID:</strong> $1"
+    },
+    "mainOutputDetailGeneralStatus": {
+        "message": "<strong>Status:</strong> $1"
+    },
+    "mainOutputDetailGeneralStatusOnline": {
+        "message": "Online"
+    },
+    "mainOutputDetailGeneralStatusOffline": {
+        "message": "Offline"
+    },
+    "mainOutputDetailGeneralLimitedAPI": {
+        "message": "<strong>Limited API Data:</strong> $1"
+    },
+    "mainOutputDetailGeneralUTCOffset": {
+        "message": "<strong>UTC Offset Used:</strong> $1"
+    },
+    "mainOutputDetailGeneralVersion": {
+        "message": "<br><strong>Version:</strong> $1"
+    },
+    "mainOutputDetailGeneralLanguage": {
+        "message": "<strong>Language:</strong> $1"
+    },
+    "mainOutputDetailGeneralFirstLogin": {
+        "message": "<strong>First Login:</strong> $1"
+    },
+    "mainOutputDetailGeneralLastLogin": {
+        "message": "<strong>Last Login:</strong> $1"
+    },
+    "mainOutputDetailGeneralLastLogout": {
+        "message": "<strong>Last Logout:</strong> $1"
+    },
+    "mainOutputDetailOnlinePlaytime": {
+        "message": "<strong>Playtime:</strong> $1"
+    },
+    "mainOutputDetailOnlineGamesPlayed": {
+        "message": "<strong>Games Played:</strong> $1"
+    },
+    "mainOutputDetailOnlineGameType": {
+        "message": "<strong>Game Type:</strong> $1"
+    },
+    "mainOutputDetailOnlineMode": {
+        "message": "<strong>Game Mode:</strong> $1"
+    },
+    "mainOutputDetailOnlineMap": {
+        "message": "<strong>Game Map:</strong> $1"
+    },
+    "mainOutputDetailOfflinePlaytime": {
+        "message": "<strong>Last Playtime:</strong> $1"
+    },
+    "mainOutputDetailOfflineGamesPlayed": {
+        "message": "<strong>Games Played:</strong> $1"
+    },
+    "mainOutputDetailRecentGamesTitle": {
+        "message": "<strong>Last Played Game:</strong>"
+    },
+    "mainOutputDetailRecentGamesStart": {
+        "message": "&nbsp;<strong>Game Start:</strong> $1"
+    },
+    "mainOutputDetailRecentGamesPlaytime": {
+        "message": "&nbsp;<strong>Game Length:</strong> $1"
+    },
+    "mainOutputDetailRecentGamesGameType": {
+        "message": "&nbsp;<strong>Game Length:</strong> $1"
+    },
+    "mainOutputDetailRecentGamesMode": {
+        "message": "&nbsp;<strong>Game Length:</strong> $1"
+    },
+    "mainOutputDetailRecentGamesMap": {
+        "message": "&nbsp;<strong>Game Length:</strong> $1"
+    },
+    "mainOutputDetailRecentGamesLast": {
+        "message": "<strong>Last Game Type:</strong> $1"
+    },
+    "mainOutputStatsBedwars": {
+        "message": "<strong>$1 Stats for Bed Wars:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>Total Games Joined:</b> $4<br>&nbsp;<b>Winstreak:</b> $5<br>&nbsp;<b>Final K/D:</b> $6<br>&nbsp;<b>K/D:</b> $7"
+    },
+    "mainOutputStatsDuels": {
+        "message": "<strong>$1 Stats for Duels:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>Cosmetic Count:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $8<br>&nbsp;<b>Deaths:</b> $9"
+    },
+    "mainOutputStatsBlitz": {
+        "message": "<strong>$1 Stats for Blitz Survival:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
+    },
+    "mainOutputStatsPit": {
+        "message": "<strong>$1 Stats for the Pit:</strong><br>&nbsp;<b>Total Gold Earned:</b> $2<br>&nbsp;<b>Prestige:</b> $3<br>&nbsp;<b>Total Playtime:</b> $4 minutes<br>&nbsp;<b>Best Streak:</b> $5<br>&nbsp;<b>Chat Messages:</b> $6<br>&nbsp;<b>K/D Ratio:</b> $7<br>&nbsp;<b>Kills:</b> $8<br>&nbsp;<b>Deaths:</b> $9"
+    },
+    "mainOutputStatsSkywars": {
+        "message": "<strong>$1 Stats for SkyWars:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
+    },
+    "mainOutputStatsSpeedUHC": {
+        "message": "<strong>$1 Stats for Speed UHC:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
+    },
+    "mainOutputStatsUHC": {
+        "message": "<strong>$1 Stats for UHC Champions:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
+    },
+    "mainOutputStatsWalls": {
+        "message": "<strong>$1 Stats for the Walls:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
+    },
+    "mainOutputStatsMegaWalls": {
+        "message": "<strong>$1 Stats for Mega Walls:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
+    },
     "mainInputPlaceholder": {
         "message": "Username/UUID"
     },

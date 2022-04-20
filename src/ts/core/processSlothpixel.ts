@@ -29,14 +29,43 @@ export function processSlothpixel(
             Walls = {},
             MegaWalls = {},
         } = {},
+    }: {
+        username: string | null,
+        uuid: string | null,
+        first_login: number | null,
+        language: string,
+        last_login: number | null,
+        last_logout: number | null,
+        last_game: string | null,
+        mc_version: string | null,
+        stats: {
+            BedWars: ReturnType<typeof bedwarsStats> | Record<string, never>,
+            Duels: {
+                general: ReturnType<typeof duelsStats> | Record<string, never>,
+            } | Record<string, never>,
+            Blitz: ReturnType<typeof blitzStats> | Record<string, never>,
+            Pit: ReturnType<typeof pitStats> | Record<string, never>,
+            SkyWars: ReturnType<typeof skywarsStats> | Record<string, never>,
+            SpeedUHC: ReturnType<typeof speedUHCStats> | Record<string, never>,
+            UHC: ReturnType<typeof uhcStats> | Record<string, never>,
+            Walls: ReturnType<typeof wallsStats> | Record<string, never>,
+            MegaWalls: ReturnType<typeof megaWallsStats> | Record<string, never>,
+        } | Record<string, never>,
     },
     {
-        online = false,
+        online = null,
         game: {
             type = null,
             mode = null,
             map = null,
         } = {},
+    }: {
+        online: boolean | null,
+        game: {
+            type: string | null,
+            mode: string | null,
+            map: string | null,
+        } | Record<string, never>,
     },
     recentGamesData: {
         date: number | null,
@@ -61,10 +90,11 @@ export function processSlothpixel(
         lastLogoutMS: last_logout,
         limitedAPI: !last_login || !last_logout || last_login < 1494864734000,
         isOnline: online,
-        possessive: username.endsWith('s') ? `${username}'` : `${username}'s`,
+        possessive: username?.endsWith('s')
+            ? `${username}'`
+            : `${username ?? ''}'s`,
         recentGames: recentGames,
         recentGamesPlayed: recentGamesPlayed,
-        status: online === true ? 'Online' : 'Offline',
         version: mc_version,
         offline: online
             ? {
@@ -74,8 +104,8 @@ export function processSlothpixel(
             : {
                   playtime:
                   last_login && last_logout && last_login < last_logout
-                          ? cleanLength(last_logout - last_login)
-                          : null,
+                        ? cleanLength(last_logout - last_login)
+                        : null,
                   lastGame: last_game,
               },
         online: online
