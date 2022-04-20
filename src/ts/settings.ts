@@ -58,6 +58,10 @@ import { runtime } from './utility/utility.js';
         'testAPIKeyResult',
     ) as HTMLSpanElement;
 
+    const testAPIKeyLoading = document.getElementById(
+        'testAPIKeyLoading',
+    ) as HTMLDivElement;
+
     apiKeyInput.placeholder = runtime.i18n
         .getMessage('settingsHypixelAPIInputPlaceholder');
 
@@ -75,6 +79,9 @@ import { runtime } from './utility/utility.js';
     });
 
     testAPIKeyButton.addEventListener('click', async () => {
+        testAPIKeyResultSpan.textContent = '';
+        testAPIKeyLoading.classList.remove('hidden');
+
         let request: Response | null;
 
         try {

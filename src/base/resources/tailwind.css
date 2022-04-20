@@ -561,6 +561,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 0.75rem;
 }
 
+.h-fit {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .max-h-fit {
   max-height: -webkit-fit-content;
   max-height: -moz-fit-content;
@@ -571,16 +577,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 25rem;
 }
 
-.w-14 {
-  width: 3.5rem;
+.w-\[12\.5\%\] {
+  width: 12.5%;
 }
 
-.w-full {
-  width: 100%;
+.w-\[87\.5\%\] {
+  width: 87.5%;
 }
 
 .w-4 {
   width: 1rem;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .w-3\/4 {
@@ -597,80 +607,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-5 {
   width: 1.25rem;
-}
-
-.w-28 {
-  width: 7rem;
-}
-
-.w-\[\] {
-  width: ;
-}
-
-.w-\[21\.5rem\] {
-  width: 21.5rem;
-}
-
-.w-\[22\.5rem\] {
-  width: 22.5rem;
-}
-
-.w-\[22rem\] {
-  width: 22rem;
-}
-
-.w-\[23rem\] {
-  width: 23rem;
-}
-
-.w-fit {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.w-5\/6 {
-  width: 83.333333%;
-}
-
-.w-1\/6 {
-  width: 16.666667%;
-}
-
-.w-11\/12 {
-  width: 91.666667%;
-}
-
-.w-1\/12 {
-  width: 8.333333%;
-}
-
-.w-\[90\%\] {
-  width: 90%;
-}
-
-.w-\[10\%\] {
-  width: 10%;
-}
-
-.w-\[15\%\] {
-  width: 15%;
-}
-
-.w-\[85\%\] {
-  width: 85%;
-}
-
-.w-\[87\.5\%\] {
-  width: 87.5%;
-}
-
-.w-\[12\.5\%\] {
-  width: 12.5%;
-}
-
-.min-w-\[21\.5rem\] {
-  min-width: 21.5rem;
 }
 
 .max-w-full {
@@ -769,6 +705,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow-x: auto;
 }
 
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
 .whitespace-normal {
   white-space: normal;
 }
@@ -777,16 +717,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow-wrap: break-word;
 }
 
-.break-all {
-  word-break: break-all;
-}
-
 .rounded-sm {
   border-radius: 0.125rem;
 }
 
 .rounded-full {
   border-radius: 9999px;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .border-\[5px\] {
@@ -941,12 +881,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   opacity: 0;
 }
 
-.shadow {
-  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .outline {
   outline-style: solid;
 }
@@ -1084,6 +1018,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .placeholder\:text-neutral-700::placeholder {
   --tw-text-opacity: 1;
   color: rgb(64 64 64 / var(--tw-text-opacity));
+}
+
+.after\:bg-neutral-300::after {
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(212 212 212 / var(--tw-bg-opacity));
 }
 
 .valid\:outline-2:valid {

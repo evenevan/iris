@@ -40,6 +40,7 @@ import { runtime } from './utility/utility.js';
     const apiKeyInput = document.getElementById('apiKey');
     const testAPIKeyButton = document.getElementById('testAPIKey');
     const testAPIKeyResultSpan = document.getElementById('testAPIKeyResult');
+    const testAPIKeyLoading = document.getElementById('testAPIKeyLoading');
     apiKeyInput.placeholder = runtime.i18n
         .getMessage('settingsHypixelAPIInputPlaceholder');
     apiKeyInput.value = userSettings.apiKey || '';
@@ -53,6 +54,8 @@ import { runtime } from './utility/utility.js';
         }
     });
     testAPIKeyButton.addEventListener('click', async () => {
+        testAPIKeyResultSpan.textContent = '';
+        testAPIKeyLoading.classList.remove('hidden');
         let request;
         try {
             request = await new Request().request('https://api.hypixel.net/key', {
