@@ -14,6 +14,21 @@
     "no": {
         "message": "No"
     },
+    "mainOutputErrorNotFound": {
+        "message": "The query \"$1\" doesn't seem to be a valid player. <a class=\"break-words text-accent underline underline-offset-2\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
+    },
+    "mainOutputErrorSlothpixel": {
+        "message": "The query \"$1\" returned an error. It may be invalid. Switching to the Hypixel API may resolve this issue.<a class=\"break-words text-accent underline underline-offset-2\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
+    },
+    "mainOutputErrorHypixelInvalidKey": {
+        "message": "Invalid API key! Please either switch to the Slothpixel API or get a new API key with <span class=\"text-accent underline\"><b>/api</b></span> on Hypixel."
+    },
+    "mainOutputErrorHypixel": {
+        "message": "An unexpected HTTP code of $1 was returned. Try switching to the Slothpixel API if this persists."
+    },
+    "mainOutputErrorGeneric": {
+        "message": "Whoops! This is an unexpected error. Please report this error with the following: <b>$1</b>"
+    },
     "mainOutputDetailGeneralUsername": {
         "message": "<strong>Username:</strong> $1"
     },

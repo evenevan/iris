@@ -5,7 +5,7 @@
         <script rel="preload" src="./scripts/main.js" type="module"></script>
     </head>
     <body class="flex flex-row bg-neutral-100 dark:bg-neutral-900 w-[25rem] h-[35rem] font-sans text-black dark:text-white">
-        <div class="sticky flex flex-col items-center justify-start left-0 w-14 h-full bg-neutral-300 dark:bg-neutral-800 gap-6 pt-4">
+        <div class="sticky flex flex-col items-center justify-start left-0 w-[12.5%] h-full bg-neutral-300 dark:bg-neutral-800 gap-6 pt-4">
             <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#dcaf4e">
                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                 <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
@@ -39,7 +39,7 @@
                 </button>
 			</form>
         </div>
-        <form class="flex flex-col w-full h-full p-2 gap-2">
+        <form class="flex flex-col w-[87.5%] h-full p-2 gap-2">
             <div class="relative">
                 <svg class="absolute h-4 w-4 left-2 top-2 fill-neutral-700 dark:fill-neutral-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <path class="stroke-current stroke-[0.15px]" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -50,17 +50,21 @@
                     placeholder-shown:invalid:focus:outline-2 placeholder-shown:invalid:focus:outline-transparent
                     valid:outline-2 valid:outline-green-800
                     invalid:outline-2 invalid:outline-red-800
-                    rounded-sm p-2 font-semibold placeholder:font-semibold placeholder:text-sm" type="text" placeholder="placeholder" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,36}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" required>
+                    rounded-sm p-2 font-semibold placeholder:font-semibold placeholder:text-sm placeholder:select-none" type="text" placeholder="placeholder" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,36}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" required>
             </div>
             <div class="flex gap-2">
                 <button id="search" type="submit" class="flex flex-row items-center justify-center w-3/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-400 hover:dark:bg-neutral-700 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed text-xl font-extrabold rounded-sm p-2 transition-colors duration-150 gap-2" disabled>
-                    <span id="mainInputSearch" class="font-semibold text-sm"></span>
+                    <span id="mainInputSearch" class="select-none font-semibold text-sm"></span>
                 </button>
                 <button id="clear" type="button" class="relative flex flex-row items-center justify-center w-1/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-400 hover:dark:bg-neutral-700 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed rounded-sm p-2 transition-colors duration-150 group">
-                    <span id="mainInputClear" class="font-semibold text-sm"></span>
+                    <span id="mainInputClear" class="select-none font-semibold text-sm"></span>
                 </button>
             </div>
-            <div id="output" class="w-full h-full overflow-x-auto font-normal text-sm">
+            <div class="relative flex w-full h-full overflow-x-auto">
+                <div id="output" style="word-wrap: break-word;" class="max-w-full h-full font-normal whitespace-normal break-words text-sm scale-100 empty:scale-0 translate-y-0 empty:-translate-y-48 translate-x-0 empty:-translate-x-32 transition-all duration-500 peer"></div>
+                <div class="absolute hidden peer-empty:flex items-center justify-center w-full h-full -m-2">
+                    <div id="loading" class="hidden w-10 h-10 rounded-full border-[5px] animate-spin border-neutral-200 dark:border-neutral-800 border-t-black dark:border-t-white"></div>
+                </div>
             </div>
         </form>
     </body>
