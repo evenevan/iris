@@ -1,5 +1,4 @@
 {
-    "name": "__MSG_extensionName__",
     "background": {
         "scripts": [
             "/scripts/background.js"
@@ -26,6 +25,7 @@
         "128": "./assets/Iris Icon.svg"
     },
     "manifest_version": 2,
+    "name": "__MSG_extensionName__",
     "permissions": [
         "storage"
     ],
