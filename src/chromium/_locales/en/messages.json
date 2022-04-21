@@ -205,5 +205,17 @@
     },
     "settingsHypixelAPIdefault": {
         "message": "Something went wrong! Please try again later."
+    },
+    "historyOutputInput": {
+        "message": "Input"
+    },
+    "historyOutputUsername": {
+        "message": "Username"
+    },
+    "historyOutputUUID": {
+        "message": "UUID"
+    },
+    "historyNoHistoryText": {
+        "message": "Your search history will show up here"
     }
 }

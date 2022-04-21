@@ -1,7 +1,9 @@
 import { i18n, replaceNull, } from './utility/i18n.js';
 import { cleanDate, cleanTime, runtime, } from './utility/utility.js';
 (async () => {
-    i18n([]);
+    i18n([
+        'historyNoHistoryText',
+    ]);
     const { lastSearches, } = await runtime.storage.local.get([
         'lastSearchCleared',
         'lastSearches',
@@ -19,6 +21,9 @@ import { cleanDate, cleanTime, runtime, } from './utility/utility.js';
         return;
     }
     const playerArray = [];
+    const input = runtime.i18n.getMessage('historyOutputInput');
+    const username = runtime.i18n.getMessage('historyOutputUsername');
+    const uuid = runtime.i18n.getMessage('historyOutputUUID');
     for (let i = 0; i < lastSearches.length ?? 0; i += 1) {
         const searchEpoch = Number(lastSearches[i].epoch);
         const searchTime = cleanTime(searchEpoch);
@@ -31,9 +36,9 @@ import { cleanDate, cleanTime, runtime, } from './utility/utility.js';
                         <span class="font-semibold text-sm">${searchTime}, ${searchDate}</span>
                     </div>
                     <span class="break-words text-xs">
-                        <b>Input:</b> ${replaceNull(lastSearches[i]?.input)}<br>
-                        <b>Username:</b> ${replaceNull(lastSearches[i]?.username)}<br>
-                        <b>UUID:</b> ${replaceNull(lastSearches[i]?.uuid)}<br>
+                        <b>${input}:</b> ${replaceNull(lastSearches[i]?.input)}<br>
+                        <b>${username}:</b> ${replaceNull(lastSearches[i]?.username)}<br>
+                        <b>${uuid}:</b> ${replaceNull(lastSearches[i]?.uuid)}<br>
                     </span>
                 </div>
             </div>
