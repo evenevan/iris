@@ -22,7 +22,7 @@ export function pointMessage({ username = '', uuid, firstLoginMS, language, last
     }
     lines.push(getMessage('mainOutputDetailGeneralLastLogin', replaceNull(dateTime(lastLoginMS, settings.relativeTimestamps))));
     if (settings.lastLogout) {
-        getMessage('mainOutputDetailGeneralLastLogout', replaceNull(dateTime(lastLogoutMS, settings.relativeTimestamps)));
+        lines.push(getMessage('mainOutputDetailGeneralLastLogout', replaceNull(dateTime(lastLogoutMS, settings.relativeTimestamps))));
     }
     if (isOnline) {
         lines.push(getMessage('mainOutputDetailOnlinePlaytime', replaceNull(cleanLength(timeAgo(lastLoginMS)))));
@@ -42,7 +42,7 @@ export function pointMessage({ username = '', uuid, firstLoginMS, language, last
             lastLogoutMS &&
             recentGame.startMS > lastLoginMS &&
             recentGame.startMS < lastLogoutMS) {
-            lines.push(getMessage('mainOutputDetailRecentGamesTitle'), getMessage('mainOutputDetailRecentGamesStart', replaceNull(dateTime(recentGame.startMS, false))), getMessage('mainOutputDetailRecentGamesPlaytime', replaceNull(recentGame.gameLength)), getMessage('mainOutputDetailRecentGamesGameType', replaceNull(recentGame.gameType)), getMessage('mainOutputDetailRecentGamesMode', replaceNull(recentGame.mode)), getMessage('mainOutputDetailRecentGamesMap', replaceNull(recentGame.map)));
+            lines.push(newLine(getMessage('mainOutputDetailRecentGamesTitle')), getMessage('mainOutputDetailRecentGamesStart', replaceNull(dateTime(recentGame.startMS, false))), getMessage('mainOutputDetailRecentGamesPlaytime', replaceNull(recentGame.gameLength)), getMessage('mainOutputDetailRecentGamesGameType', replaceNull(recentGame.gameType)), getMessage('mainOutputDetailRecentGamesMode', replaceNull(recentGame.mode)), getMessage('mainOutputDetailRecentGamesMap', replaceNull(recentGame.map)));
         }
         else if (lastGame) {
             lines.push(getMessage('mainOutputDetailRecentGamesLast', lastGame));

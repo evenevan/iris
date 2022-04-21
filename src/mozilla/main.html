@@ -50,7 +50,7 @@
                     placeholder-shown:invalid:focus:outline-2 placeholder-shown:invalid:focus:outline-transparent
                     valid:outline-2 valid:outline-green-800
                     invalid:outline-2 invalid:outline-red-800
-                    rounded-sm p-2 font-semibold placeholder:font-semibold placeholder:text-sm placeholder:select-none" type="text" placeholder="placeholder" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,36}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" required>
+                    rounded-sm p-2 font-semibold placeholder:font-semibold placeholder:text-sm placeholder:select-none" type="text" placeholder="placeholder" autocomplete="off" spellcheck="false" pattern="(^( ?)[a-zA-Z0-9_]{1,36}( ?)$)|(^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$)" size="36" maxlength="36" autofocus required>
             </div>
             <div class="flex gap-2">
                 <button id="search" type="submit" class="flex flex-row items-center justify-center w-3/4 h-8 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-400 hover:dark:bg-neutral-700 disabled:hover:bg-neutral-300 disabled:hover:dark:bg-neutral-800 text-black dark:text-white cursor-pointer disabled:cursor-not-allowed text-xl font-extrabold rounded-sm p-2 transition-colors duration-150 gap-2" disabled>
@@ -61,7 +61,7 @@
                 </button>
             </div>
             <div class="relative flex w-full h-full overflow-x-auto">
-                <div id="output" style="word-wrap: break-word;" class="max-w-full h-full font-normal whitespace-normal break-words text-sm scale-100 empty:scale-0 translate-y-0 empty:-translate-y-48 translate-x-0 empty:-translate-x-32 transition-all duration-500 peer"></div>
+                <div id="output" style="word-wrap: break-word;" class="max-w-full h-full font-normal whitespace-normal break-words text-sm scale-100 empty:scale-0 translate-y-0 empty:-translate-y-56 translate-x-0 empty:-translate-x-32 transition-all duration-500 ease-in-out peer"></div>
                 <div class="absolute hidden peer-empty:flex items-center justify-center w-full h-full -m-2">
                     <div id="loading" class="hidden w-10 h-10 rounded-full border-[5px] animate-spin border-neutral-200 dark:border-neutral-800 border-t-black dark:border-t-white"></div>
                 </div>

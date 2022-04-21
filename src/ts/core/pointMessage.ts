@@ -80,7 +80,7 @@ export function pointMessage({
     lines.push(getMessage('mainOutputDetailGeneralLastLogin', replaceNull(dateTime(lastLoginMS, settings.relativeTimestamps))));
 
     if (settings.lastLogout) {
-        getMessage('mainOutputDetailGeneralLastLogout', replaceNull(dateTime(lastLogoutMS, settings.relativeTimestamps)));
+        lines.push(getMessage('mainOutputDetailGeneralLastLogout', replaceNull(dateTime(lastLogoutMS, settings.relativeTimestamps))));
     }
 
     if (isOnline) {
@@ -111,7 +111,7 @@ export function pointMessage({
             recentGame.startMS < lastLogoutMS
         ) {
             lines.push(
-                getMessage('mainOutputDetailRecentGamesTitle'),
+                newLine(getMessage('mainOutputDetailRecentGamesTitle')),
                 getMessage('mainOutputDetailRecentGamesStart', replaceNull(dateTime(recentGame.startMS, false))),
                 getMessage('mainOutputDetailRecentGamesPlaytime', replaceNull(recentGame.gameLength)),
                 getMessage('mainOutputDetailRecentGamesGameType', replaceNull(recentGame.gameType)),

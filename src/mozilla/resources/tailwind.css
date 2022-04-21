@@ -521,6 +521,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin: -0.5rem;
 }
 
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -539,6 +543,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-full {
   height: 100%;
+}
+
+.h-fit {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.h-\[6rem\] {
+  height: 6rem;
+}
+
+.h-2 {
+  height: 0.5rem;
 }
 
 .h-4 {
@@ -579,12 +597,36 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 87.5%;
 }
 
-.w-4 {
-  width: 1rem;
-}
-
 .w-full {
   width: 100%;
+}
+
+.w-1\/12 {
+  width: 8.333333%;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-1\/6 {
+  width: 16.666667%;
+}
+
+.w-1\/3 {
+  width: 33.333333%;
+}
+
+.w-5\/6 {
+  width: 83.333333%;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .w-3\/4 {
@@ -627,6 +669,23 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-scale-x: 0;
   --tw-scale-y: 0;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@-webkit-keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-pulse {
+  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @-webkit-keyframes spin {
@@ -681,6 +740,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .gap-6 {
@@ -743,6 +806,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(212 212 212 / var(--tw-bg-opacity));
 }
 
+.bg-neutral-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(82 82 82 / var(--tw-bg-opacity));
+}
+
 .bg-neutral-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(163 163 163 / var(--tw-bg-opacity));
@@ -777,6 +845,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.5rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -807,9 +879,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-xl {
@@ -825,6 +897,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .text-lg {
@@ -1050,13 +1127,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   outline-color: transparent;
 }
 
-.empty\:-translate-y-48:empty {
-  --tw-translate-y: -12rem;
+.empty\:-translate-y-56:empty {
+  --tw-translate-y: -14rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .empty\:-translate-x-32:empty {
   --tw-translate-x: -8rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.empty\:-translate-y-48:empty {
+  --tw-translate-y: -12rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1275,6 +1357,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   .dark\:bg-neutral-800 {
     --tw-bg-opacity: 1;
     background-color: rgb(38 38 38 / var(--tw-bg-opacity));
+  }
+
+  .dark\:bg-neutral-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(115 115 115 / var(--tw-bg-opacity));
   }
 
   .dark\:fill-neutral-500 {

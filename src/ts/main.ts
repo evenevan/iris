@@ -140,10 +140,14 @@ import { runtime } from './utility/utility.js';
                 .join(''))
                 .length;
 
+            for (let i = 1; i < 100; i += 1) {
                 newHistory.unshift(historyEntry);
+            }
 
             if (bytes > 5000000) {
-                newHistory.pop();
+                for (let i = 0; i < 5; i += 1) {
+                    newHistory.pop();
+                }
             }
 
             await runtime.storage.local.set({

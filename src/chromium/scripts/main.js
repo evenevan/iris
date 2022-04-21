@@ -87,9 +87,13 @@ import { runtime } from './utility/utility.js';
                 .map(([subKey, subvalue]) => subKey + JSON.stringify(subvalue))
                 .join(''))
                 .length;
-            newHistory.unshift(historyEntry);
+            for (let i = 1; i < 100; i += 1) {
+                newHistory.unshift(historyEntry);
+            }
             if (bytes > 5000000) {
-                newHistory.pop();
+                for (let i = 0; i < 5; i += 1) {
+                    newHistory.pop();
+                }
             }
             await runtime.storage.local.set({
                 lastSearchCleared: false,
