@@ -19,14 +19,14 @@ import { runtime } from './utility/utility.js';
     const output = document.getElementById('output');
     player.placeholder = runtime.i18n.getMessage('mainInputPlaceholder');
     const settings = await runtime.storage.sync.get(null);
-    const { lastSearchCleared, lastSearches, } = await runtime.storage.local.get([
+    const { lastSearch, lastSearchCleared, } = await runtime.storage.local.get([
+        'lastSearch',
         'lastSearchCleared',
-        'lastSearches',
     ]);
     if (lastSearchCleared === false &&
-        lastSearches[0] &&
-        lastSearches[0]?.apiData) {
-        output.innerHTML = pointMessage(lastSearches[0].apiData, settings);
+        lastSearch &&
+        lastSearch?.apiData) {
+        output.innerHTML = pointMessage(lastSearch.apiData, settings);
     }
     player.addEventListener('input', () => {
         search.disabled = player.validity.valid === false;
@@ -81,23 +81,24 @@ import { runtime } from './utility/utility.js';
                 apiData: apiData ?? null,
                 epoch: Date.now(),
             };
-            const { lastSearches: newHistory, } = await runtime.storage.local.get('lastSearches');
+            const { history: newHistory, } = await runtime.storage.local.get('history');
             const bytes = new TextEncoder()
-                .encode(Object.entries(newHistory)
+                .encode(Object.entries(newHistory ?? {})
                 .map(([subKey, subvalue]) => subKey + JSON.stringify(subvalue))
                 .join(''))
                 .length;
             for (let i = 1; i < 100; i += 1) {
                 newHistory.unshift(historyEntry);
             }
-            if (bytes > 5000000) {
+            if (bytes > 1000000) {
                 for (let i = 0; i < 5; i += 1) {
                     newHistory.pop();
                 }
             }
             await runtime.storage.local.set({
                 lastSearchCleared: false,
-                lastSearches: newHistory,
+                lastSearch: historyEntry,
+                history: newHistory,
             });
         }
     });

@@ -35,19 +35,19 @@ import { runtime } from './utility/utility.js';
     };
 
     const {
+        lastSearch,
         lastSearchCleared,
-        lastSearches,
     } = await runtime.storage.local.get([
+        'lastSearch',
         'lastSearchCleared',
-        'lastSearches',
     ]);
 
     if (
         lastSearchCleared === false &&
-        lastSearches[0] &&
-        lastSearches[0]?.apiData
+        lastSearch &&
+        lastSearch?.apiData
     ) {
-        output.innerHTML = pointMessage(lastSearches[0].apiData, settings);
+        output.innerHTML = pointMessage(lastSearch.apiData, settings);
     }
 
     player.addEventListener('input', () => {
@@ -131,11 +131,11 @@ import { runtime } from './utility/utility.js';
             };
 
             const {
-                lastSearches: newHistory,
-            } = await runtime.storage.local.get('lastSearches');
+                history: newHistory,
+            } = await runtime.storage.local.get('history');
 
             const bytes = new TextEncoder()
-                .encode(Object.entries(newHistory)
+                .encode(Object.entries(newHistory ?? {})
                 .map(([subKey, subvalue]) => subKey + JSON.stringify(subvalue))
                 .join(''))
                 .length;
@@ -144,7 +144,7 @@ import { runtime } from './utility/utility.js';
                 newHistory.unshift(historyEntry);
             }
 
-            if (bytes > 5000000) {
+            if (bytes > 1_000_000) {
                 for (let i = 0; i < 5; i += 1) {
                     newHistory.pop();
                 }
@@ -152,7 +152,8 @@ import { runtime } from './utility/utility.js';
 
             await runtime.storage.local.set({
                 lastSearchCleared: false,
-                lastSearches: newHistory,
+                lastSearch: historyEntry,
+                history: newHistory,
             });
         }
     });

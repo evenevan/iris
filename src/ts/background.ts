@@ -1,7 +1,8 @@
 (() => {
     const userHistory = {
         lastSearchCleared: false,
-        lastSearches: [],
+        lastSearch: null,
+        history: [],
     };
 
     const userSettings = {
@@ -26,22 +27,28 @@
             const local = await runtime.storage.local.get(null) ?? {};
             const sync = await runtime.storage.sync.get(null) ?? {};
 
+            const flatLocal = 'playerHistory' in local ? local.playerHistory : local;
+
             const newLocal = {
                 ...userHistory,
-                ...('playerHistory' in local ? local.playerHistory : local),
+                ...flatLocal,
+                lastSearch: flatLocal.lastSearches?.[0] ??
+                    null,
+                history: flatLocal.lastSearches ??
+                    userHistory.history,
             };
 
             const flatSync = 'userOptions' in sync ? sync.userOptions : sync;
 
             const newSync = {
                 ...userSettings,
+                ...flatSync,
                 thirdPerson: flatSync.authorNameOutput ?? //Legacy Key Handling
                     userSettings.thirdPerson,
                 sentences: flatSync.paragraphOutput ??
                     userSettings.sentences,
                 hypixelAPI: flatSync.useHypixelAPI ??
                     userSettings.hypixelAPI,
-                ...flatSync,
             };
 
             await runtime.storage.local.set(newLocal);
