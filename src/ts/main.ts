@@ -1,3 +1,7 @@
+import type {
+    Local,
+    Sync,
+} from './@types/main';
 import { getHypixel } from './core/getHypixel.js';
 import { getSlothpixel } from './core/getSlothpixel.js';
 import { getUUID } from './core/getUUID.js';
@@ -23,16 +27,7 @@ import { runtime } from './utility/utility.js';
 
     player.placeholder = runtime.i18n.getMessage('mainInputPlaceholder');
 
-    const settings = await runtime.storage.sync.get(null) as {
-        apiKey: string,
-        firstLogin: boolean,
-        gameStats: boolean,
-        hypixelAPI: boolean,
-        lastLogout: boolean,
-        relativeTimestamps: boolean,
-        sentences: boolean,
-        thirdPerson: boolean,
-    };
+    const settings = await runtime.storage.sync.get(null) as Sync;
 
     const {
         lastSearch,
@@ -40,7 +35,7 @@ import { runtime } from './utility/utility.js';
     } = await runtime.storage.local.get([
         'lastSearch',
         'lastSearchCleared',
-    ]);
+    ]) as Pick<Local, 'lastSearch' | 'lastSearchCleared'>;
 
     if (
         lastSearchCleared === false &&

@@ -1,3 +1,4 @@
+import type { Sync } from './@types/main';
 import { i18n } from './utility/i18n.js';
 import { Request } from './utility/Request.js';
 import { runtime } from './utility/utility.js';
@@ -24,7 +25,7 @@ import { runtime } from './utility/utility.js';
     ]);
 
     const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
-    const userSettings = await runtime.storage.sync.get(null);
+    const userSettings = await runtime.storage.sync.get(null) as Sync;
 
     document.querySelectorAll<HTMLInputElement>('input[type=checkbox]')
         .forEach(checkbox => {

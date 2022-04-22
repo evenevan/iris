@@ -19,6 +19,7 @@ import { runtime } from './utility/utility.js';
     const output = document.getElementById('output');
     player.placeholder = runtime.i18n.getMessage('mainInputPlaceholder');
     const settings = await runtime.storage.sync.get(null);
+    console.log(await runtime.storage.local.get(null));
     const { lastSearch, lastSearchCleared, } = await runtime.storage.local.get([
         'lastSearch',
         'lastSearchCleared',

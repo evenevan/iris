@@ -1,3 +1,4 @@
+import type { Local } from './@types/main';
 import {
     i18n,
     replaceNull,
@@ -14,11 +15,10 @@ import {
     ]);
 
     const {
-        lastSearches,
+        history,
     } = await runtime.storage.local.get([
-        'lastSearchCleared',
-        'lastSearches',
-    ]);
+        'history',
+    ]) as Pick<Local, 'history'>;
 
     const output = document.getElementById('output') as HTMLSpanElement;
     const loading = document.getElementById('loading') as HTMLDivElement;
@@ -28,7 +28,7 @@ import {
         setTimeout(resolve, number);
     });
 
-    if (lastSearches.length === 0) {
+    if (history.length === 0) {
         await timeout(500);
         loading.classList.add('hidden');
         noHistory.classList.remove('hidden');
@@ -41,8 +41,8 @@ import {
     const username = runtime.i18n.getMessage('historyOutputUsername');
     const uuid = runtime.i18n.getMessage('historyOutputUUID');
 
-    for (let i = 0; i < lastSearches.length ?? 0; i += 1) {
-        const searchEpoch = Number(lastSearches[i].epoch);
+    for (let i = 0; i < history.length ?? 0; i += 1) {
+        const searchEpoch = Number(history[i].epoch);
         const searchTime = cleanTime(searchEpoch);
         const searchDate = cleanDate(searchEpoch);
 
@@ -54,9 +54,9 @@ import {
                         <span class="font-semibold text-sm">${searchTime}, ${searchDate}</span>
                     </div>
                     <span class="break-words text-xs">
-                        <b>${input}:</b> ${replaceNull(lastSearches[i]?.input)}<br>
-                        <b>${username}:</b> ${replaceNull(lastSearches[i]?.username)}<br>
-                        <b>${uuid}:</b> ${replaceNull(lastSearches[i]?.uuid)}<br>
+                        <b>${input}:</b> ${replaceNull(history[i]?.input)}<br>
+                        <b>${username}:</b> ${replaceNull(history[i]?.username)}<br>
+                        <b>${uuid}:</b> ${replaceNull(history[i]?.uuid)}<br>
                     </span>
                 </div>
             </div>

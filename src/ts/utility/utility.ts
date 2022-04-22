@@ -77,7 +77,12 @@ export function newLine(string: string) {
     return `<br>${string}`;
 }
 
-export const runtime = (chrome ?? browser);
+export let runtime = chrome;
+
+try {
+    runtime = browser;
+// eslint-disable-next-line no-empty
+} catch {}
 
 export function timeAgo(ms: number | null) {
     if (ms === null || ms < 0 || isNaN(ms)) return null;
