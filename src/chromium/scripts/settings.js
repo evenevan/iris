@@ -27,7 +27,6 @@ import { runtime } from './utility/utility.js';
         .forEach(checkbox => {
         checkbox.checked = userSettings[checkbox.id];
         checkbox.addEventListener('change', async () => {
-            console.log(checkbox.id);
             await runtime.storage.sync.set({
                 [checkbox.id]: checkbox.checked,
             });

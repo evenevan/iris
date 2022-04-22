@@ -13,8 +13,8 @@ import { runtime, } from './utility/utility.js';
     const timeout = (number) => new Promise(resolve => {
         setTimeout(resolve, number);
     });
+    await timeout(500 / Math.max(history.length, 1));
     if (history.length === 0) {
-        await timeout(500);
         loading.classList.add('hidden');
         noHistory.classList.remove('hidden');
         return;
@@ -33,7 +33,8 @@ import { runtime, } from './utility/utility.js';
                         <span class="font-semibold text-sm">${new Date(searchEpoch).toLocaleString(undefined, {
             timeStyle: 'medium',
             dateStyle: 'medium',
-        })}</span>
+        })}
+                        </span>
                     </div>
                     <span class="break-words text-xs">
                         <b>${input}:</b> ${replaceNull(history[i]?.input)}<br>
