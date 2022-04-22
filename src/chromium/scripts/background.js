@@ -82,6 +82,6 @@ runtime.runtime.onInstalled.addListener(async (details) => {
         await runtime.storage.sync.clear();
         await runtime.storage.local.set(newLocal);
         await runtime.storage.sync.set(newSync);
-        console.log('Set settings', newLocal, newSync, await runtime.storage.local.get());
+        console.log('Set settings', newLocal, newSync);
     }
 });

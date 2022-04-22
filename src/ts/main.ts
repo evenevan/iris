@@ -129,20 +129,17 @@ import { runtime } from './utility/utility.js';
                 history: newHistory,
             } = await runtime.storage.local.get('history');
 
-            const bytes = new TextEncoder()
+            const bytes = () => new TextEncoder()
                 .encode(Object.entries(newHistory ?? {})
                 .map(([subKey, subvalue]) => subKey + JSON.stringify(subvalue))
                 .join(''))
                 .length;
 
-            for (let i = 1; i < 100; i += 1) {
-                newHistory.unshift(historyEntry);
-            }
+            newHistory.unshift(historyEntry);
 
-            if (bytes > 1_000_000) {
-                for (let i = 0; i < 5; i += 1) {
-                    newHistory.pop();
-                }
+            while (bytes() > 1_000_000) {
+                newHistory.pop();
+                console.log('pop', bytes());
             }
 
             await runtime.storage.local.set({

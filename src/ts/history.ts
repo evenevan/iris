@@ -4,8 +4,6 @@ import {
     replaceNull,
 } from './utility/i18n.js';
 import {
-    cleanDate,
-    cleanTime,
     runtime,
 } from './utility/utility.js';
 
@@ -43,15 +41,16 @@ import {
 
     for (let i = 0; i < history.length ?? 0; i += 1) {
         const searchEpoch = Number(history[i].epoch);
-        const searchTime = cleanTime(searchEpoch);
-        const searchDate = cleanDate(searchEpoch);
 
         playerArray.push(`
             <div id="output" class="flex flex-col font-normal gap-2 peer">
                 <div class="flex flex-col bg-neutral-300 dark:bg-neutral-800 rounded-sm gap-2 p-2">
                     <div class="flex w-full h-fit justify-between">
                         <span class="font-semibold text-sm">${i + 1}</span>
-                        <span class="font-semibold text-sm">${searchTime}, ${searchDate}</span>
+                        <span class="font-semibold text-sm">${new Date(searchEpoch).toLocaleString(undefined, {
+                            timeStyle: 'medium',
+                            dateStyle: 'medium',
+                        })}</span>
                     </div>
                     <span class="break-words text-xs">
                         <b>${input}:</b> ${replaceNull(history[i]?.input)}<br>

@@ -5,8 +5,9 @@ export function cleanDate(ms) {
         Object.prototype.toString.call(newDate) !== '[object Date]') {
         return null;
     }
-    const day = newDate.getDate(), month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(newDate), year = newDate.getFullYear();
-    return `${month} ${day}, ${year}`;
+    return new Date(Date.now()).toLocaleString(undefined, {
+        dateStyle: 'medium',
+    });
 }
 export function cleanLength(ms) {
     if (ms === null || ms < 0 || isNaN(ms))
@@ -46,7 +47,9 @@ export function cleanTime(ms) {
         Object.prototype.toString.call(newDate) !== '[object Date]') {
         return null;
     }
-    return newDate.toLocaleTimeString('en-IN', { hour12: true });
+    return new Date(Date.now()).toLocaleString(undefined, {
+        timeStyle: 'medium',
+    });
 }
 export function maxDecimals(value, decimals = 2) {
     const decimalValue = 10 ** decimals;

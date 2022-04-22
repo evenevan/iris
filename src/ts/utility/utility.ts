@@ -8,12 +8,9 @@ export function cleanDate(ms: number | null) {
         return null;
     }
 
-    const day = newDate.getDate(),
-        month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(
-            newDate,
-        ),
-        year = newDate.getFullYear();
-    return `${month} ${day}, ${year}`;
+    return new Date(Date.now()).toLocaleString(undefined, {
+        dateStyle: 'medium',
+    });
 }
 
 export function cleanLength(ms: number | null) {
@@ -62,7 +59,9 @@ export function cleanTime(ms: number | null) {
         return null;
     }
 
-    return newDate.toLocaleTimeString('en-IN', { hour12: true });
+    return new Date(Date.now()).toLocaleString(undefined, {
+        timeStyle: 'medium',
+    });
 }
 
 export function maxDecimals(value: number, decimals = 2) {
