@@ -5,7 +5,7 @@ import { pointMessage } from './core/pointMessage.js';
 import { HTTPError } from './utility/HTTPError.js';
 import { i18n } from './utility/i18n.js';
 import { NotFoundError } from './utility/NotFoundError.js';
-import { runtime } from './utility/utility.js';
+import { runtime, timeout, } from './utility/utility.js';
 (async () => {
     i18n([
         'mainInputSearch',
@@ -40,7 +40,8 @@ import { runtime } from './utility/utility.js';
         output.textContent = '';
         loading.classList.remove('hidden');
         if (settings.hypixelAPI === true && settings.apiKey === '') {
-            output.textContent = 'you dont have a key';
+            await timeout(250);
+            output.innerHTML = runtime.i18n.getMessage('mainOutputErrorHypixelNoKey');
             return;
         }
         try {
@@ -90,7 +91,6 @@ import { runtime } from './utility/utility.js';
             newHistory.unshift(historyEntry);
             while (bytes() > 1000000) {
                 newHistory.pop();
-                console.log('pop', bytes());
             }
             await runtime.storage.local.set({
                 lastSearchCleared: false,

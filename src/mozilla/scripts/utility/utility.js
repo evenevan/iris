@@ -70,6 +70,11 @@ export function timeAgo(ms) {
         return null;
     return Date.now() - ms;
 }
+export function timeout(number) {
+    return new Promise(resolve => {
+        setTimeout(resolve, number);
+    });
+}
 //Taken from https://github.com/slothpixel/core/blob/master/util/calculateUhcLevel.js under the MIT License
 export function uhcScoreToLevel(xp) {
     const scores = [

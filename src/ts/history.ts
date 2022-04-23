@@ -5,6 +5,7 @@ import {
 } from './utility/i18n.js';
 import {
     runtime,
+    timeout,
 } from './utility/utility.js';
 
 (async () => {
@@ -21,10 +22,6 @@ import {
     const output = document.getElementById('output') as HTMLSpanElement;
     const loading = document.getElementById('loading') as HTMLDivElement;
     const noHistory = document.getElementById('noHistory') as HTMLDivElement;
-
-    const timeout = (number: number) => new Promise(resolve => {
-        setTimeout(resolve, number);
-    });
 
     await timeout(500 / Math.max(history.length, 1));
 

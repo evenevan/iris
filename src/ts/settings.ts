@@ -5,7 +5,6 @@ import { runtime } from './utility/utility.js';
 
 (async () => {
     i18n([
-        'settingsSettingsTitle',
         'settingsSettingsFirstLogin',
         'settingsSettingsFirstLoginTooltip',
         'settingsSettingsGameStats',
@@ -112,7 +111,7 @@ import { runtime } from './utility/utility.js';
                     .replace('{{ uses }}', String(uses));
             }
             break;
-            case 403: testAPIKeyResultSpan.textContent = runtime.i18n
+            case 403: testAPIKeyResultSpan.innerHTML = runtime.i18n
                 .getMessage('settingsHypixelAPI403');
             break;
             default: testAPIKeyResultSpan.textContent = runtime.i18n

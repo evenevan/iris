@@ -1,5 +1,5 @@
 import { i18n, replaceNull, } from './utility/i18n.js';
-import { runtime, } from './utility/utility.js';
+import { runtime, timeout, } from './utility/utility.js';
 (async () => {
     i18n([
         'historyNoHistoryText',
@@ -10,9 +10,6 @@ import { runtime, } from './utility/utility.js';
     const output = document.getElementById('output');
     const loading = document.getElementById('loading');
     const noHistory = document.getElementById('noHistory');
-    const timeout = (number) => new Promise(resolve => {
-        setTimeout(resolve, number);
-    });
     await timeout(500 / Math.max(history.length, 1));
     if (history.length === 0) {
         loading.classList.add('hidden');
@@ -30,7 +27,8 @@ import { runtime, } from './utility/utility.js';
                 <div class="flex flex-col bg-neutral-300 dark:bg-neutral-800 rounded-sm gap-2 p-2">
                     <div class="flex w-full h-fit justify-between">
                         <span class="font-semibold text-sm">${i + 1}</span>
-                        <span class="font-semibold text-sm">${new Date(searchEpoch).toLocaleString(undefined, {
+                        <span class="font-semibold text-sm">
+                            ${new Date(searchEpoch).toLocaleString(undefined, {
             timeStyle: 'medium',
             dateStyle: 'medium',
         })}

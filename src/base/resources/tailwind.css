@@ -497,6 +497,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: -25%;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
 .z-40 {
   z-index: 40;
 }
@@ -521,12 +525,32 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin: -0.5rem;
 }
 
-.mb-2 {
-  margin-bottom: 0.5rem;
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
 
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-0\.5 {
+  margin-bottom: 0.125rem;
 }
 
 .flex {
@@ -577,6 +601,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-3 {
   height: 0.75rem;
+}
+
+.h-9 {
+  height: 2.25rem;
 }
 
 .max-h-fit {
@@ -754,6 +782,42 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 0.5rem;
 }
 
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.justify-self-auto {
+  justify-self: auto;
+}
+
+.justify-self-start {
+  justify-self: start;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+
+.justify-self-center {
+  justify-self: center;
+}
+
 .overflow-clip {
   overflow: clip;
 }
@@ -894,19 +958,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.25rem;
 }
 
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-normal {
