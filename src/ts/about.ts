@@ -5,7 +5,14 @@ import { runtime } from './utility/utility.js';
 
 (async () => {
     i18n([
+        'extensionName',
         'extensionDescription',
+        'main',
+        'settings',
+        'history',
+        'about',
+        'aboutChromeListing',
+        'aboutMozillaListing',
     ]);
 
     const copyright = document.getElementById(

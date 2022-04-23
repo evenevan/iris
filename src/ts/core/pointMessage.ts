@@ -1,10 +1,16 @@
+import {
+    cleanLength,
+    createOffset,
+    newLine,
+    runtime,
+    timeAgo,
+} from '../utility/utility.js';
 import { processHypixel } from './processHypixel.js';
 import { processSlothpixel } from './processSlothpixel.js';
 import { replaceNull } from '../utility/i18n.js';
-import { cleanDate, cleanLength, cleanTime, createOffset, newLine, runtime, timeAgo } from '../utility/utility.js';
 
 export function pointMessage({
-    username = '',
+    username,
     uuid,
     firstLoginMS,
     language,
@@ -86,7 +92,7 @@ export function pointMessage({
     if (isOnline) {
         lines.push(getMessage('mainOutputDetailOnlinePlaytime', replaceNull(cleanLength(timeAgo(lastLoginMS)))));
 
-        if (recentGamesPlayed >= 0) {
+        if (recentGamesPlayed > 0) {
             lines.push(getMessage('mainOutputDetailOnlineGamesPlayed', String(recentGamesPlayed)));
         }
 
@@ -281,5 +287,8 @@ export function pointMessage({
 function dateTime(ms: number | null, relative: boolean) {
     const date = new Date(Number(ms));
     if (!ms || ms < 0 || Object.prototype.toString.call(date) !== '[object Date]') return null;
-    return `${cleanTime(ms)}, ${cleanDate(ms)}${relative ? `<br>&nbsp;&#8627; ${cleanLength(timeAgo(ms))} ago` : ''}`;
+    return `${new Date(ms).toLocaleString(undefined, {
+        timeStyle: 'medium',
+        dateStyle: 'medium',
+    })}${relative ? `<br>&nbsp;&#8627; ${cleanLength(timeAgo(ms))} ago` : ''}`;
 }

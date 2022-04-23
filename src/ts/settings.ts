@@ -5,6 +5,10 @@ import { runtime } from './utility/utility.js';
 
 (async () => {
     i18n([
+        'main',
+        'settings',
+        'history',
+        'about',
         'settingsSettingsFirstLogin',
         'settingsSettingsFirstLoginTooltip',
         'settingsSettingsGameStats',

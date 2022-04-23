@@ -14,20 +14,23 @@
     "no": {
         "message": "No"
     },
+    "main": {
+        "message": "Main"
+    },
     "mainOutputErrorHypixelNoKey": {
-        "message": "You do not have a Hypixel API key to use! Please either switch to the Slothpixel API or get a Hypixel API key with <span class=\"text-accent underline\"><b>/api</b></span> on Hypixel."
+        "message": "You do not have a Hypixel API key to use! Please either switch to the Slothpixel API or get a Hypixel API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
     },
     "mainOutputErrorNotFound": {
-        "message": "The query \"$1\" doesn't seem to be a valid player. <a class=\"break-words text-accent underline underline-offset-2\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
+        "message": "The query \"$1\" doesn't seem to be a valid player. <a class=\"break-words text-accent\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
     },
     "mainOutputErrorSlothpixel": {
-        "message": "The query \"$1\" returned an error. It may be invalid. Switching to the Hypixel API may resolve this issue.<a class=\"break-words text-accent underline underline-offset-2\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
+        "message": "The query \"$1\" returned an error. It may be invalid. Switching to the Hypixel API may resolve this issue.<a class=\"break-words text-accent\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
     },
     "mainOutputErrorHypixelInvalidKey": {
-        "message": "Invalid API key! Please either switch to the Slothpixel API or get a new API key with <span class=\"text-accent underline\"><b>/api</b></span> on Hypixel."
+        "message": "Invalid API key! Please either switch to the Slothpixel API or get a new API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
     },
     "mainOutputErrorHypixel": {
-        "message": "An unexpected HTTP code of $1 was returned. Try switching to the Slothpixel API if this persists."
+        "message": "An unexpected HTTP code of $1 was returned. Try switching to the Slothpixel API if this persists or try again later."
     },
     "mainOutputErrorGeneric": {
         "message": "Whoops! This is an unexpected error. Please report this error with the following: <b>$1</b>"
@@ -146,6 +149,9 @@
     "mainInputClear": {
         "message": "Clear"
     },
+    "settings": {
+        "message": "Settings"
+    },
     "settingsSettingsTitle" : {
         "message": "Settings"
     },
@@ -204,10 +210,13 @@
         "message": "Working API key! Your API key has {{ uses }} uses."
     },
     "settingsHypixelAPI403": {
-        "message": "Invalid API key! Get a new API key with <span class=\"text-accent underline\"><b>/api</b></span> on Hypixel."
+        "message": "Invalid API key! Get a new API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
     },
     "settingsHypixelAPIdefault": {
         "message": "Something went wrong! Please try again later."
+    },
+    "history": {
+        "message": "History"
     },
     "historyOutputInput": {
         "message": "Input"
@@ -221,7 +230,16 @@
     "historyNoHistoryText": {
         "message": "Your search history will show up here"
     },
+    "about": {
+        "message": "About"
+    },
     "aboutCopyright": {
         "message": "© $1 <a class=\"text-accent\" href=\"https://attituding.live\" target=\"_blank\">Attituding</a>. All rights reserved."
+    },
+    "aboutChromeListing": {
+        "message": "Chrome Web Store"
+    },
+    "aboutMozillaListing": {
+        "message": "Mozilla Add-ons"
     }
 }

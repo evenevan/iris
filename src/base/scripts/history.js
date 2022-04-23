@@ -2,6 +2,10 @@ import { i18n, replaceNull, } from './utility/i18n.js';
 import { runtime, timeout, } from './utility/utility.js';
 (async () => {
     i18n([
+        'main',
+        'settings',
+        'history',
+        'about',
         'historyNoHistoryText',
     ]);
     const { history, } = await runtime.storage.local.get([

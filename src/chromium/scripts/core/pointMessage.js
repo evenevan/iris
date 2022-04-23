@@ -1,6 +1,6 @@
+import { cleanLength, createOffset, newLine, runtime, timeAgo, } from '../utility/utility.js';
 import { replaceNull } from '../utility/i18n.js';
-import { cleanDate, cleanLength, cleanTime, createOffset, newLine, runtime, timeAgo } from '../utility/utility.js';
-export function pointMessage({ username = '', uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { playtime, lastGame, }, online: { gameType, mode, map, }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
+export function pointMessage({ username, uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { playtime, lastGame, }, online: { gameType, mode, map, }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
     const [recentGame = {}] = recentGames;
     const getMessage = runtime.i18n.getMessage;
     const lines = [
@@ -26,7 +26,7 @@ export function pointMessage({ username = '', uuid, firstLoginMS, language, last
     }
     if (isOnline) {
         lines.push(getMessage('mainOutputDetailOnlinePlaytime', replaceNull(cleanLength(timeAgo(lastLoginMS)))));
-        if (recentGamesPlayed >= 0) {
+        if (recentGamesPlayed > 0) {
             lines.push(getMessage('mainOutputDetailOnlineGamesPlayed', String(recentGamesPlayed)));
         }
         lines.push(getMessage('mainOutputDetailOnlineGameType', replaceNull(gameType)), getMessage('mainOutputDetailOnlineMode', replaceNull(mode)), getMessage('mainOutputDetailOnlineMap', replaceNull(map)));
@@ -183,5 +183,8 @@ function dateTime(ms, relative) {
     const date = new Date(Number(ms));
     if (!ms || ms < 0 || Object.prototype.toString.call(date) !== '[object Date]')
         return null;
-    return `${cleanTime(ms)}, ${cleanDate(ms)}${relative ? `<br>&nbsp;&#8627; ${cleanLength(timeAgo(ms))} ago` : ''}`;
+    return `${new Date(ms).toLocaleString(undefined, {
+        timeStyle: 'medium',
+        dateStyle: 'medium',
+    })}${relative ? `<br>&nbsp;&#8627; ${cleanLength(timeAgo(ms))} ago` : ''}`;
 }

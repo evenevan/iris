@@ -8,6 +8,10 @@ import { NotFoundError } from './utility/NotFoundError.js';
 import { runtime, timeout, } from './utility/utility.js';
 (async () => {
     i18n([
+        'main',
+        'settings',
+        'history',
+        'about',
         'mainInputSearch',
         'mainInputClear',
     ]);

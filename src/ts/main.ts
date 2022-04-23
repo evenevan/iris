@@ -16,6 +16,10 @@ import {
 
 (async () => {
     i18n([
+        'main',
+        'settings',
+        'history',
+        'about',
         'mainInputSearch',
         'mainInputClear',
     ]);
