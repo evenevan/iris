@@ -1,3 +1,5 @@
+import gameTypes from '../assets/gameTypes.js';
+import modes from '../assets/modes.js';
 export function cleanDate(ms) {
     const newDate = new Date(Number(ms));
     if (!ms ||
@@ -8,6 +10,23 @@ export function cleanDate(ms) {
     return new Date(Date.now()).toLocaleString(undefined, {
         dateStyle: 'medium',
     });
+}
+export function cleanGameMode(mode) {
+    if (mode === null) {
+        return null;
+    }
+    if (mode === 'LOBBY') {
+        return 'Lobby';
+    }
+    const gameMode = modes.find(({ key }) => (Array.isArray(key) ? key.includes(mode) : key === mode));
+    return gameMode?.name ?? mode;
+}
+export function cleanGameType(type) {
+    if (type === null) {
+        return null;
+    }
+    const gameType = gameTypes[type];
+    return gameType ?? type;
 }
 export function cleanLength(ms) {
     if (ms === null || ms < 0 || isNaN(ms))

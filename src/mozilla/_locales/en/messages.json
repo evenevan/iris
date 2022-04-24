@@ -8,6 +8,9 @@
     "null": {
         "message": "Unknown"
     },
+    "relative": {
+        "message": "$1 ago"
+    },
     "yes": {
         "message": "Yes"
     },
@@ -113,11 +116,72 @@
     "mainOutputPointRecentGamesLast": {
         "message": "<strong>Last Game Type:</strong> $1"
     },
+
+    "mainOutputSentenceGeneralUsername": {
+        "message": "<strong>Username:</strong> $1"
+    },
+    "mainOutputSentenceGeneralUUID": {
+        "message": "<strong>UUID:</strong> $1"
+    },
+    "mainOutputSentenceGeneralStatus": {
+        "message": "<strong>Status:</strong> $1"
+    },
+    "mainOutputSentenceGeneralStatusOnline": {
+        "message": "Online"
+    },
+    "mainOutputSentenceGeneralStatusOffline": {
+        "message": "Offline"
+    },
+    "mainOutputSentenceGeneralLimitedAPI": {
+        "message": "<strong>Limited API Data:</strong> $1"
+    },
+    "mainOutputSentenceGeneralUTCOffset": {
+        "message": "<strong>UTC Offset Used:</strong> $1"
+    },
+
+    "mainOutputSentenceGeneralFirstLogin": {
+        "message": "You logged in to Hypixel for the first time at <strong>$1</strong> on <strong>$2</strong>."
+    },
+
+    "mainOutputSentenceOnlineSettings": {
+        "message": "Your account is using the language <strong>$1</strong> and is the version <strong>$2</strong> on Hypixel."
+    },
+    "mainOutputSentenceOnlineLastSession": {
+        "message": "Your current session began at <strong>$1</strong> on <strong>$2</strong>."
+    },
+    "mainOutputSentenceOnlineGamesCount": {
+        "message": "So far, you have played <strong>$1</strong> games."
+    },
+    "mainOutputSentenceOnlineGamesGame": {
+        "message": "You are currently playing <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>"
+    },
+    
+
+    "mainOutputSentenceOfflineSettings": {
+        "message": "Your account last used the language <strong>$1</strong> and the version <strong>$2</strong> on Hypixel."
+    },
+    "mainOutputSentenceOfflineLastSession": {
+        "message": "Your last session started at <strong>$1</strong> on <strong>$2</strong> and ended <strong>$3</strong> later."
+    },
+    "mainOutputSentenceOfflineGamesCount": {
+        "message": "During this session, you played <strong>$1</strong> games."
+    },
+    "mainOutputSentenceOfflineGamesGame": {
+        "message": "You last played <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>."
+    },
+    "mainOutputSentenceOfflineGamesGame2": {
+        "message": "This game was played on the map <strong>$1</strong> and lasted for <strong>$2</strong>."
+    },
+
+    "mainOutputSentenceOfflineLastGame": {
+        "message": "Before disconnecting, you played or joined the lobby <strong>$1</strong>."
+    },
+
     "mainOutputStatsBedwars": {
         "message": "<strong>$1 Stats for Bed Wars:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>Total Games Joined:</b> $4<br>&nbsp;<b>Winstreak:</b> $5<br>&nbsp;<b>Final K/D:</b> $6<br>&nbsp;<b>K/D:</b> $7"
     },
     "mainOutputStatsDuels": {
-        "message": "<strong>$1 Stats for Duels:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>Cosmetic Count:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $8<br>&nbsp;<b>Deaths:</b> $9"
+        "message": "<strong>$1 Stats for Duels:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>Cosmetic Count:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
     },
     "mainOutputStatsBlitz": {
         "message": "<strong>$1 Stats for Blitz Survival:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
@@ -140,6 +204,8 @@
     "mainOutputStatsMegaWalls": {
         "message": "<strong>$1 Stats for Mega Walls:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
     },
+
+
     "mainInputPlaceholder": {
         "message": "Username/UUID"
     },
@@ -234,7 +300,7 @@
         "message": "About"
     },
     "aboutCopyright": {
-        "message": "v$1 © $2 <a class=\"text-accent\" href=\"https://attituding.live\" target=\"_blank\">Attituding</a>. All rights reserved."
+        "message": "© $1 <a class=\"text-accent\" href=\"https://attituding.live\" target=\"_blank\">Attituding</a>. All rights reserved."
     },
     "aboutChromeListing": {
         "message": "Chrome Web Store"

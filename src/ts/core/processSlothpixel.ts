@@ -1,4 +1,6 @@
 import {
+    cleanGameMode,
+    cleanGameType,
     cleanLength,
     maxDecimals,
 } from '../utility/utility.js';
@@ -106,12 +108,12 @@ export function processSlothpixel(
                   last_login && last_logout && last_login < last_logout
                         ? cleanLength(last_logout - last_login)
                         : null,
-                  lastGame: last_game,
+                  lastGame: cleanGameType(last_game),
               },
         online: online
             ? {
-                  gameType: type,
-                  mode: mode,
+                  gameType: cleanGameType(type),
+                  mode: cleanGameMode(mode),
                   map: map,
               }
             : {
@@ -189,8 +191,8 @@ function processAGame({
         gameLength: ended && date
             ? cleanLength(ended - date)
             : null,
-        gameType: gameType,
-        mode: mode,
+        gameType: cleanGameType(gameType),
+        mode: cleanGameMode(mode),
         map: map,
     };
 }

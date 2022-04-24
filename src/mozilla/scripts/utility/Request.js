@@ -1,5 +1,8 @@
 import { AbortError } from './AbortError.js';
 export class Request {
+    restRequestTimeout;
+    try;
+    tryLimit;
     constructor(config) {
         this.restRequestTimeout = config?.restRequestTimeout ?? 5000;
         this.try = 0;

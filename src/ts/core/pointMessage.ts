@@ -9,69 +9,68 @@ import { processHypixel } from './processHypixel.js';
 import { processSlothpixel } from './processSlothpixel.js';
 import { replaceNull } from '../utility/i18n.js';
 
-export function pointMessage({
-    username,
-    uuid,
-    firstLoginMS,
-    language,
-    lastLoginMS,
-    lastLogoutMS,
-    limitedAPI,
-    isOnline,
-    possessive,
-    recentGames,
-    recentGamesPlayed,
-    version,
-    offline: {
-        playtime,
-        lastGame,
-    },
-    online: {
-        gameType,
-        mode,
-        map,
-    },
-    bedwars,
-    duels,
-    blitz,
-    pit,
-    skywars,
-    speedUHC,
-    uhc,
-    walls,
-    megaWalls,
-}: ReturnType<typeof processHypixel> & ReturnType<typeof processSlothpixel>,
+const getMessage = runtime.i18n.getMessage;
+
+export function pointMessage(
+    {
+        username,
+        uuid,
+        firstLoginMS,
+        language,
+        lastLoginMS,
+        lastLogoutMS,
+        limitedAPI,
+        isOnline,
+        possessive,
+        recentGames,
+        recentGamesPlayed,
+        version,
+        offline: { playtime, lastGame },
+        online: { gameType, mode, map },
+        bedwars,
+        duels,
+        blitz,
+        pit,
+        skywars,
+        speedUHC,
+        uhc,
+        walls,
+        megaWalls,
+    }: ReturnType<typeof processHypixel> & ReturnType<typeof processSlothpixel>,
     settings: {
-        apiKey: string,
-        firstLogin: boolean,
-        gameStats: boolean,
-        hypixelAPI: boolean,
-        lastLogout: boolean,
-        relativeTimestamps: boolean,
-        sentences: boolean,
-        thirdPerson: boolean,
+        apiKey: string;
+        firstLogin: boolean;
+        gameStats: boolean;
+        hypixelAPI: boolean;
+        lastLogout: boolean;
+        relativeTimestamps: boolean;
+        sentences: boolean;
+        thirdPerson: boolean;
     },
 ): string {
     const [recentGame = {}] = recentGames as
-        typeof recentGames | Record<string, never>[];
-
-    const getMessage = runtime.i18n.getMessage;
+        | typeof recentGames
+        | Record<string, never>[];
 
     const lines: string[] = [
         getMessage('mainOutputPointGeneralUsername', username ?? ''),
         getMessage('mainOutputPointGeneralUUID', replaceNull(uuid)),
-        getMessage('mainOutputPointGeneralStatus', isOnline
-            ? getMessage('mainOutputPointGeneralStatusOnline')
-            : getMessage('mainOutputPointGeneralStatusOffline'),
+        getMessage(
+            'mainOutputPointGeneralStatus',
+            isOnline
+                ? getMessage('mainOutputPointGeneralStatusOnline')
+                : getMessage('mainOutputPointGeneralStatusOffline'),
         ),
-        getMessage('mainOutputPointGeneralLimitedAPI', limitedAPI
-            ? getMessage('yes')
-            : getMessage('no'),
+        getMessage(
+            'mainOutputPointGeneralLimitedAPI',
+            limitedAPI ? getMessage('yes') : getMessage('no'),
         ),
     ];
 
     if (lastLoginMS || lastLogoutMS) {
-        lines.push(getMessage('mainOutputPointGeneralUTCOffset', createOffset()));
+        lines.push(
+            getMessage('mainOutputPointGeneralUTCOffset', createOffset()),
+        );
     }
 
     lines.push(
@@ -80,20 +79,49 @@ export function pointMessage({
     );
 
     if (settings.firstLogin) {
-        lines.push(getMessage('mainOutputPointGeneralFirstLogin', replaceNull(dateTime(firstLoginMS, settings.relativeTimestamps))));
+        lines.push(
+            getMessage(
+                'mainOutputPointGeneralFirstLogin',
+                replaceNull(
+                    dateTime(firstLoginMS, settings.relativeTimestamps),
+                ),
+            ),
+        );
     }
 
-    lines.push(getMessage('mainOutputPointGeneralLastLogin', replaceNull(dateTime(lastLoginMS, settings.relativeTimestamps))));
+    lines.push(
+        getMessage(
+            'mainOutputPointGeneralLastLogin',
+            replaceNull(dateTime(lastLoginMS, settings.relativeTimestamps)),
+        ),
+    );
 
     if (settings.lastLogout) {
-        lines.push(getMessage('mainOutputPointGeneralLastLogout', replaceNull(dateTime(lastLogoutMS, settings.relativeTimestamps))));
+        lines.push(
+            getMessage(
+                'mainOutputPointGeneralLastLogout',
+                replaceNull(
+                    dateTime(lastLogoutMS, settings.relativeTimestamps),
+                ),
+            ),
+        );
     }
 
     if (isOnline) {
-        lines.push(getMessage('mainOutputPointOnlinePlaytime', replaceNull(cleanLength(timeAgo(lastLoginMS)))));
+        lines.push(
+            getMessage(
+                'mainOutputPointOnlinePlaytime',
+                replaceNull(cleanLength(timeAgo(lastLoginMS))),
+            ),
+        );
 
         if (recentGamesPlayed > 0) {
-            lines.push(getMessage('mainOutputPointOnlineGamesPlayed', String(recentGamesPlayed)));
+            lines.push(
+                getMessage(
+                    'mainOutputPointOnlineGamesPlayed',
+                    String(recentGamesPlayed),
+                ),
+            );
         }
 
         lines.push(
@@ -102,10 +130,17 @@ export function pointMessage({
             getMessage('mainOutputPointOnlineMap', replaceNull(map)),
         );
     } else {
-        lines.push(getMessage('mainOutputPointOfflinePlaytime', replaceNull(playtime)));
+        lines.push(
+            getMessage('mainOutputPointOfflinePlaytime', replaceNull(playtime)),
+        );
 
         if (recentGamesPlayed > 0) {
-            lines.push(getMessage('mainOutputPointOfflineGamesPlayed', String(recentGamesPlayed)));
+            lines.push(
+                getMessage(
+                    'mainOutputPointOfflineGamesPlayed',
+                    String(recentGamesPlayed),
+                ),
+            );
         }
 
         if (
@@ -118,11 +153,26 @@ export function pointMessage({
         ) {
             lines.push(
                 newLine(getMessage('mainOutputPointRecentGamesTitle')),
-                getMessage('mainOutputPointRecentGamesStart', replaceNull(dateTime(recentGame.startMS, false))),
-                getMessage('mainOutputPointRecentGamesPlaytime', replaceNull(recentGame.gameLength)),
-                getMessage('mainOutputPointRecentGamesGameType', replaceNull(recentGame.gameType)),
-                getMessage('mainOutputPointRecentGamesMode', replaceNull(recentGame.mode)),
-                getMessage('mainOutputPointRecentGamesMap', replaceNull(recentGame.map)),
+                getMessage(
+                    'mainOutputPointRecentGamesStart',
+                    replaceNull(dateTime(recentGame.startMS, false)),
+                ),
+                getMessage(
+                    'mainOutputPointRecentGamesPlaytime',
+                    replaceNull(recentGame.gameLength),
+                ),
+                getMessage(
+                    'mainOutputPointRecentGamesGameType',
+                    replaceNull(recentGame.gameType),
+                ),
+                getMessage(
+                    'mainOutputPointRecentGamesMode',
+                    replaceNull(recentGame.mode),
+                ),
+                getMessage(
+                    'mainOutputPointRecentGamesMap',
+                    replaceNull(recentGame.map),
+                ),
             );
         } else if (lastGame) {
             lines.push(getMessage('mainOutputPointRecentGamesLast', lastGame));
@@ -131,41 +181,49 @@ export function pointMessage({
 
     if (
         settings.gameStats === true &&
-        (
-            (isOnline === true && gameType) ||
+        ((isOnline === true && gameType) ||
             (isOnline === false && recentGame.gameType) ||
-            (isOnline === false && lastGame)
-        )
+            (isOnline === false && lastGame))
     ) {
         switch (gameType ?? recentGame.gameType ?? lastGame) {
             case 'Bed Wars':
             case 'Bedwars':
             case 'BEDWARS':
                 lines.push(
-                    newLine(getMessage('mainOutputStatsBedwars', [
-                        possessive,
-                        bedwars.level,
-                        bedwars.coins,
-                        bedwars.gamesPlayed,
-                        bedwars.winStreak,
-                        bedwars.finalKD,
-                        bedwars.KD,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsBedwars',
+                            [
+                                possessive,
+                                bedwars.level,
+                                bedwars.coins,
+                                bedwars.gamesPlayed,
+                                bedwars.winStreak,
+                                bedwars.finalKD,
+                                bedwars.KD,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             case 'Duels':
             case 'DUELS':
                 lines.push(
-                    newLine(getMessage('mainOutputStatsDuels', [
-                        possessive,
-                        duels.coins,
-                        duels.cosmetics,
-                        duels.KD,
-                        duels.WL,
-                        duels.wins,
-                        duels.kills,
-                        duels.deaths,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsDuels',
+                            [
+                                possessive,
+                                duels.coins,
+                                duels.cosmetics,
+                                duels.KD,
+                                duels.WL,
+                                duels.wins,
+                                duels.kills,
+                                duels.deaths,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             case 'Blitz Survival Games':
@@ -173,108 +231,141 @@ export function pointMessage({
             case 'HungerGames':
             case 'SURVIVAL_GAMES':
                 lines.push(
-                    newLine(getMessage('mainOutputStatsBlitz', [
-                        possessive,
-                        blitz.coins,
-                        blitz.KD,
-                        blitz.WL,
-                        blitz.wins,
-                        blitz.kills,
-                        blitz.deaths,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsBlitz',
+                            [
+                                possessive,
+                                blitz.coins,
+                                blitz.KD,
+                                blitz.WL,
+                                blitz.wins,
+                                blitz.kills,
+                                blitz.deaths,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             case 'Pit':
             case 'PIT':
                 lines.push(
-                    newLine(getMessage('mainOutputStatsPit', [
-                        possessive,
-                        pit.gold,
-                        pit.prestige,
-                        pit.playtime,
-                        pit.bestStreak,
-                        pit.chatMessages,
-                        pit.KD,
-                        pit.kills,
-                        pit.deaths,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsPit',
+                            [
+                                possessive,
+                                pit.gold,
+                                pit.prestige,
+                                pit.playtime,
+                                pit.bestStreak,
+                                pit.chatMessages,
+                                pit.KD,
+                                pit.kills,
+                                pit.deaths,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             case 'SkyWars':
             case 'SKYWARS':
-                console.log('1');
                 lines.push(
-                    newLine(getMessage('mainOutputStatsSkywars', [
-                        possessive,
-                        skywars.level,
-                        skywars.coins,
-                        skywars.KD,
-                        skywars.WL,
-                        skywars.wins,
-                        skywars.kills,
-                        skywars.deaths,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsSkywars',
+                            [
+                                possessive,
+                                skywars.level,
+                                skywars.coins,
+                                skywars.KD,
+                                skywars.WL,
+                                skywars.wins,
+                                skywars.kills,
+                                skywars.deaths,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             case 'Speed UHC':
             case 'SpeedUHC':
             case 'SPEED_UHC':
                 lines.push(
-                    newLine(getMessage('mainOutputStatsSpeedUHC', [
-                        possessive,
-                        speedUHC.coins,
-                        speedUHC.KD,
-                        speedUHC.WL,
-                        speedUHC.wins,
-                        speedUHC.kills,
-                        speedUHC.deaths,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsSpeedUHC',
+                            [
+                                possessive,
+                                speedUHC.coins,
+                                speedUHC.KD,
+                                speedUHC.WL,
+                                speedUHC.wins,
+                                speedUHC.kills,
+                                speedUHC.deaths,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             case 'UHC Champions':
             case 'UHC':
                 lines.push(
-                    newLine(getMessage('mainOutputStatsUHC', [
-                        possessive,
-                        uhc.level,
-                        uhc.coins,
-                        uhc.KD,
-                        uhc.WL,
-                        uhc.wins,
-                        uhc.kills,
-                        uhc.deaths,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsUHC',
+                            [
+                                possessive,
+                                uhc.level,
+                                uhc.coins,
+                                uhc.KD,
+                                uhc.WL,
+                                uhc.wins,
+                                uhc.kills,
+                                uhc.deaths,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             case 'Walls':
             case 'WALLS':
                 lines.push(
-                    newLine(getMessage('mainOutputStatsWalls', [
-                        possessive,
-                        walls.coins,
-                        walls.KD,
-                        walls.WL,
-                        walls.wins,
-                        walls.kills,
-                        walls.deaths,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsWalls',
+                            [
+                                possessive,
+                                walls.coins,
+                                walls.KD,
+                                walls.WL,
+                                walls.wins,
+                                walls.kills,
+                                walls.deaths,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             case 'Mega Walls':
             case 'MegaWalls':
             case 'Walls3':
             case 'WALLS3':
-                console.log('2');
                 lines.push(
-                    newLine(getMessage('mainOutputStatsMegaWalls', [
-                        possessive,
-                        megaWalls.coins,
-                        megaWalls.KD,
-                        megaWalls.WL,
-                        megaWalls.wins,
-                        megaWalls.kills,
-                        megaWalls.deaths,
-                    ].map(item => String(item)))),
+                    newLine(
+                        getMessage(
+                            'mainOutputStatsMegaWalls',
+                            [
+                                possessive,
+                                megaWalls.coins,
+                                megaWalls.KD,
+                                megaWalls.WL,
+                                megaWalls.wins,
+                                megaWalls.kills,
+                                megaWalls.deaths,
+                            ].map(item => String(item)),
+                        ),
+                    ),
                 );
                 break;
             //No default
@@ -286,9 +377,16 @@ export function pointMessage({
 
 function dateTime(ms: number | null, relative: boolean) {
     const date = new Date(Number(ms));
-    if (!ms || ms < 0 || Object.prototype.toString.call(date) !== '[object Date]') return null;
+    if (
+        !ms ||
+        ms < 0 ||
+        Object.prototype.toString.call(date) !== '[object Date]'
+    ) {
+        return null;
+    }
+
     return `${new Date(ms).toLocaleString(undefined, {
         timeStyle: 'medium',
         dateStyle: 'medium',
-    })}${relative ? `<br>&nbsp;&#8627; ${cleanLength(timeAgo(ms))}` : ''}`;
+    })}${relative ? `<br>&nbsp;&#8627; ${getMessage('relative', String(cleanLength(timeAgo(ms))))}` : ''}`;
 }

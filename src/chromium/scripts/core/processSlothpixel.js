@@ -1,4 +1,4 @@
-import { cleanLength, maxDecimals, } from '../utility/utility.js';
+import { cleanGameMode, cleanGameType, cleanLength, maxDecimals, } from '../utility/utility.js';
 /* eslint-disable camelcase */
 //Turns the Hypixel API format into a custom format for consistency
 export function processSlothpixel({ username = '', uuid = null, first_login = null, language = 'ENGLISH', last_login = null, last_logout = null, last_game = null, mc_version = null, stats: { BedWars = {}, Duels = {
@@ -33,12 +33,12 @@ export function processSlothpixel({ username = '', uuid = null, first_login = nu
                 playtime: last_login && last_logout && last_login < last_logout
                     ? cleanLength(last_logout - last_login)
                     : null,
-                lastGame: last_game,
+                lastGame: cleanGameType(last_game),
             },
         online: online
             ? {
-                gameType: type,
-                mode: mode,
+                gameType: cleanGameType(type),
+                mode: cleanGameMode(mode),
                 map: map,
             }
             : {
@@ -86,8 +86,8 @@ function processAGame({ date = null, ended = null, gameType = null, mode = null,
         gameLength: ended && date
             ? cleanLength(ended - date)
             : null,
-        gameType: gameType,
-        mode: mode,
+        gameType: cleanGameType(gameType),
+        mode: cleanGameMode(mode),
         map: map,
     };
 }

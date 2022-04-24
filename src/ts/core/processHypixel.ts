@@ -1,4 +1,6 @@
 import {
+    cleanGameMode,
+    cleanGameType,
     cleanLength,
     createRatio,
     uhcScoreToLevel,
@@ -109,12 +111,12 @@ export function processHypixel(
                   lastLogin && lastLogout && lastLogin < lastLogout
                           ? cleanLength(lastLogout - lastLogin)
                           : null,
-                  lastGame: mostRecentGameType,
+                  lastGame: cleanGameType(mostRecentGameType),
               },
         online: online
             ? {
-                  gameType: gameType,
-                  mode: mode,
+                  gameType: cleanGameType(gameType),
+                  mode: cleanGameMode(mode),
                   map: map,
               }
             : {
@@ -198,8 +200,8 @@ function processAGame({
         gameLength: ended && date
             ? cleanLength(ended - date)
             : null,
-        gameType: gameType,
-        mode: mode,
+        gameType: cleanGameType(gameType),
+        mode: cleanGameMode(mode),
         map: map,
     };
 }

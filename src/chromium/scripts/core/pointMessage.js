@@ -1,17 +1,15 @@
 import { cleanLength, createOffset, newLine, runtime, timeAgo, } from '../utility/utility.js';
 import { replaceNull } from '../utility/i18n.js';
-export function pointMessage({ username, uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { playtime, lastGame, }, online: { gameType, mode, map, }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
+const getMessage = runtime.i18n.getMessage;
+export function pointMessage({ username, uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { playtime, lastGame }, online: { gameType, mode, map }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
     const [recentGame = {}] = recentGames;
-    const getMessage = runtime.i18n.getMessage;
     const lines = [
         getMessage('mainOutputPointGeneralUsername', username ?? ''),
         getMessage('mainOutputPointGeneralUUID', replaceNull(uuid)),
         getMessage('mainOutputPointGeneralStatus', isOnline
             ? getMessage('mainOutputPointGeneralStatusOnline')
             : getMessage('mainOutputPointGeneralStatusOffline')),
-        getMessage('mainOutputPointGeneralLimitedAPI', limitedAPI
-            ? getMessage('yes')
-            : getMessage('no')),
+        getMessage('mainOutputPointGeneralLimitedAPI', limitedAPI ? getMessage('yes') : getMessage('no')),
     ];
     if (lastLoginMS || lastLogoutMS) {
         lines.push(getMessage('mainOutputPointGeneralUTCOffset', createOffset()));
@@ -109,7 +107,6 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
                 break;
             case 'SkyWars':
             case 'SKYWARS':
-                console.log('1');
                 lines.push(newLine(getMessage('mainOutputStatsSkywars', [
                     possessive,
                     skywars.level,
@@ -163,7 +160,6 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
             case 'MegaWalls':
             case 'Walls3':
             case 'WALLS3':
-                console.log('2');
                 lines.push(newLine(getMessage('mainOutputStatsMegaWalls', [
                     possessive,
                     megaWalls.coins,
@@ -181,10 +177,13 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
 }
 function dateTime(ms, relative) {
     const date = new Date(Number(ms));
-    if (!ms || ms < 0 || Object.prototype.toString.call(date) !== '[object Date]')
+    if (!ms ||
+        ms < 0 ||
+        Object.prototype.toString.call(date) !== '[object Date]') {
         return null;
+    }
     return `${new Date(ms).toLocaleString(undefined, {
         timeStyle: 'medium',
         dateStyle: 'medium',
-    })}${relative ? `<br>&nbsp;&#8627; ${cleanLength(timeAgo(ms))}` : ''}`;
+    })}${relative ? `<br>&nbsp;&#8627; ${getMessage('relative', String(cleanLength(timeAgo(ms))))}` : ''}`;
 }

@@ -1,4 +1,4 @@
-import { cleanLength, createRatio, uhcScoreToLevel, } from '../utility/utility.js';
+import { cleanGameMode, cleanGameType, cleanLength, createRatio, uhcScoreToLevel, } from '../utility/utility.js';
 /* eslint-disable camelcase */
 //Turns the Hypixel API format into a custom format for consistency
 export function processHypixel({ displayname = '', uuid = null, firstLogin = null, lastLogin = null, lastLogout = null, mcVersionRp = null, mostRecentGameType = null, userLanguage = 'ENGLISH', stats: { BedWars = {}, Duels = {}, HungerGames = {}, Pit = {}, SkyWars = {}, SpeedUHC = {}, UHC = {}, Walls = {}, Walls3 = {}, } = {}, achievements = {}, }, { session: { online = false, gameType = null, mode = null, map = null, } = {}, }, recentGamesData) {
@@ -31,12 +31,12 @@ export function processHypixel({ displayname = '', uuid = null, firstLogin = nul
                 playtime: lastLogin && lastLogout && lastLogin < lastLogout
                     ? cleanLength(lastLogout - lastLogin)
                     : null,
-                lastGame: mostRecentGameType,
+                lastGame: cleanGameType(mostRecentGameType),
             },
         online: online
             ? {
-                gameType: gameType,
-                mode: mode,
+                gameType: cleanGameType(gameType),
+                mode: cleanGameMode(mode),
                 map: map,
             }
             : {
@@ -84,8 +84,8 @@ function processAGame({ date = null, ended = null, gameType = null, mode = null,
         gameLength: ended && date
             ? cleanLength(ended - date)
             : null,
-        gameType: gameType,
-        mode: mode,
+        gameType: cleanGameType(gameType),
+        mode: cleanGameMode(mode),
         map: map,
     };
 }
