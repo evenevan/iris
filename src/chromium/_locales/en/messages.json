@@ -35,82 +35,82 @@
     "mainOutputErrorGeneric": {
         "message": "Whoops! This is an unexpected error. Please report this error with the following: <b>$1</b>"
     },
-    "mainOutputDetailGeneralUsername": {
+    "mainOutputPointGeneralUsername": {
         "message": "<strong>Username:</strong> $1"
     },
-    "mainOutputDetailGeneralUUID": {
+    "mainOutputPointGeneralUUID": {
         "message": "<strong>UUID:</strong> $1"
     },
-    "mainOutputDetailGeneralStatus": {
+    "mainOutputPointGeneralStatus": {
         "message": "<strong>Status:</strong> $1"
     },
-    "mainOutputDetailGeneralStatusOnline": {
+    "mainOutputPointGeneralStatusOnline": {
         "message": "Online"
     },
-    "mainOutputDetailGeneralStatusOffline": {
+    "mainOutputPointGeneralStatusOffline": {
         "message": "Offline"
     },
-    "mainOutputDetailGeneralLimitedAPI": {
+    "mainOutputPointGeneralLimitedAPI": {
         "message": "<strong>Limited API Data:</strong> $1"
     },
-    "mainOutputDetailGeneralUTCOffset": {
+    "mainOutputPointGeneralUTCOffset": {
         "message": "<strong>UTC Offset Used:</strong> $1"
     },
-    "mainOutputDetailGeneralVersion": {
+    "mainOutputPointGeneralVersion": {
         "message": "<br><strong>Version:</strong> $1"
     },
-    "mainOutputDetailGeneralLanguage": {
+    "mainOutputPointGeneralLanguage": {
         "message": "<strong>Language:</strong> $1"
     },
-    "mainOutputDetailGeneralFirstLogin": {
+    "mainOutputPointGeneralFirstLogin": {
         "message": "<strong>First Login:</strong> $1"
     },
-    "mainOutputDetailGeneralLastLogin": {
+    "mainOutputPointGeneralLastLogin": {
         "message": "<strong>Last Login:</strong> $1"
     },
-    "mainOutputDetailGeneralLastLogout": {
+    "mainOutputPointGeneralLastLogout": {
         "message": "<strong>Last Logout:</strong> $1"
     },
-    "mainOutputDetailOnlinePlaytime": {
+    "mainOutputPointOnlinePlaytime": {
         "message": "<strong>Playtime:</strong> $1"
     },
-    "mainOutputDetailOnlineGamesPlayed": {
+    "mainOutputPointOnlineGamesPlayed": {
         "message": "<strong>Games Played:</strong> $1"
     },
-    "mainOutputDetailOnlineGameType": {
+    "mainOutputPointOnlineGameType": {
         "message": "<strong>Game Type:</strong> $1"
     },
-    "mainOutputDetailOnlineMode": {
+    "mainOutputPointOnlineMode": {
         "message": "<strong>Game Mode:</strong> $1"
     },
-    "mainOutputDetailOnlineMap": {
+    "mainOutputPointOnlineMap": {
         "message": "<strong>Game Map:</strong> $1"
     },
-    "mainOutputDetailOfflinePlaytime": {
+    "mainOutputPointOfflinePlaytime": {
         "message": "<strong>Last Playtime:</strong> $1"
     },
-    "mainOutputDetailOfflineGamesPlayed": {
+    "mainOutputPointOfflineGamesPlayed": {
         "message": "<strong>Games Played:</strong> $1"
     },
-    "mainOutputDetailRecentGamesTitle": {
+    "mainOutputPointRecentGamesTitle": {
         "message": "<strong>Last Played Game:</strong>"
     },
-    "mainOutputDetailRecentGamesStart": {
+    "mainOutputPointRecentGamesStart": {
         "message": "&nbsp;<strong>Game Start:</strong> $1"
     },
-    "mainOutputDetailRecentGamesPlaytime": {
+    "mainOutputPointRecentGamesPlaytime": {
         "message": "&nbsp;<strong>Game Length:</strong> $1"
     },
-    "mainOutputDetailRecentGamesGameType": {
+    "mainOutputPointRecentGamesGameType": {
         "message": "&nbsp;<strong>Game Length:</strong> $1"
     },
-    "mainOutputDetailRecentGamesMode": {
+    "mainOutputPointRecentGamesMode": {
         "message": "&nbsp;<strong>Game Length:</strong> $1"
     },
-    "mainOutputDetailRecentGamesMap": {
+    "mainOutputPointRecentGamesMap": {
         "message": "&nbsp;<strong>Game Length:</strong> $1"
     },
-    "mainOutputDetailRecentGamesLast": {
+    "mainOutputPointRecentGamesLast": {
         "message": "<strong>Last Game Type:</strong> $1"
     },
     "mainOutputStatsBedwars": {
