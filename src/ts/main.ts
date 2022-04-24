@@ -6,6 +6,7 @@ import { getHypixel } from './core/getHypixel.js';
 import { getSlothpixel } from './core/getSlothpixel.js';
 import { getUUID } from './core/getUUID.js';
 import { pointMessage } from './core/pointMessage.js';
+import { sentenceMessage } from './core/sentenceMessage.js';
 import { HTTPError } from './utility/HTTPError.js';
 import { i18n } from './utility/i18n.js';
 import { NotFoundError } from './utility/NotFoundError.js';
@@ -49,7 +50,9 @@ import {
         lastSearch &&
         lastSearch?.apiData
     ) {
-        output.innerHTML = pointMessage(lastSearch.apiData, settings);
+        output.innerHTML = settings.sentences === true
+            ? sentenceMessage(lastSearch.apiData, settings)
+            : pointMessage(lastSearch.apiData, settings);
     }
 
     player.addEventListener('input', () => {
@@ -88,7 +91,9 @@ import {
                 ? await getHypixel(uuid, settings.apiKey)
                 : await getSlothpixel(uuid);
 
-            const message = pointMessage(apiData, settings);
+            const message = settings.sentences === true
+                ? sentenceMessage(apiData, settings)
+                : pointMessage(apiData, settings);
 
             output.innerHTML = message;
         } catch (error) {
