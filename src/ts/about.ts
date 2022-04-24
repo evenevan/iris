@@ -21,6 +21,9 @@ import { runtime } from './utility/utility.js';
 
     copyright.innerHTML = runtime.i18n.getMessage(
         'aboutCopyright',
-        String(new Date().getFullYear()),
+        [
+            runtime.runtime.getManifest().version,
+            String(new Date().getFullYear()),
+        ],
     );
 })();

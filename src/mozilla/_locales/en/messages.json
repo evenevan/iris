@@ -234,7 +234,7 @@
         "message": "About"
     },
     "aboutCopyright": {
-        "message": "© $1 <a class=\"text-accent\" href=\"https://attituding.live\" target=\"_blank\">Attituding</a>. All rights reserved."
+        "message": "v$1 © $2 <a class=\"text-accent\" href=\"https://attituding.live\" target=\"_blank\">Attituding</a>. All rights reserved."
     },
     "aboutChromeListing": {
         "message": "Chrome Web Store"

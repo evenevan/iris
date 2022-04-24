@@ -12,5 +12,8 @@ import { runtime } from './utility/utility.js';
         'aboutMozillaListing',
     ]);
     const copyright = document.getElementById('aboutCopyright');
-    copyright.innerHTML = runtime.i18n.getMessage('aboutCopyright', String(new Date().getFullYear()));
+    copyright.innerHTML = runtime.i18n.getMessage('aboutCopyright', [
+        runtime.runtime.getManifest().version,
+        String(new Date().getFullYear()),
+    ]);
 })();

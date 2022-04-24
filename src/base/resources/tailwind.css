@@ -505,6 +505,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: -25%;
 }
 
+.z-\[100\] {
+  z-index: 100;
+}
+
 .z-\[60\] {
   z-index: 60;
 }
@@ -529,10 +533,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 50;
 }
 
-.z-\[100\] {
-  z-index: 100;
-}
-
 .-m-2 {
   margin: -0.5rem;
 }
@@ -541,16 +541,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: auto;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
 .mb-5 {
   margin-bottom: 1.25rem;
 }
 
-.mb-2 {
-  margin-bottom: 0.5rem;
+.mb-1 {
+  margin-bottom: 0.25rem;
 }
 
 .flex {
@@ -569,6 +569,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 100%;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-fit {
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -585,10 +589,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-4 {
   height: 1rem;
-}
-
-.h-8 {
-  height: 2rem;
 }
 
 .h-10 {
@@ -619,6 +619,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[12\.5\%\] {
   width: 12.5%;
+}
+
+.w-8 {
+  width: 2rem;
 }
 
 .w-max {
@@ -679,22 +683,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 1.25rem;
 }
 
-.w-fit {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.w-8 {
-  width: 2rem;
-}
-
 .max-w-full {
   max-width: 100%;
 }
 
-.-translate-x-10 {
-  --tw-translate-x: -2.5rem;
+.-translate-x-20 {
+  --tw-translate-x: -5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -710,31 +704,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .translate-x-0 {
   --tw-translate-x: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.-translate-x-96 {
-  --tw-translate-x: -24rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.-translate-x-48 {
-  --tw-translate-x: -12rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.-translate-x-32 {
-  --tw-translate-x: -8rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.-translate-x-16 {
-  --tw-translate-x: -4rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.-translate-x-20 {
-  --tw-translate-x: -5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -912,11 +881,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(220 175 78 / var(--tw-bg-opacity));
 }
 
-.bg-neutral-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(23 23 23 / var(--tw-bg-opacity));
-}
-
 .fill-neutral-600 {
   fill: #525252;
 }
@@ -1031,15 +995,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(220 175 78 / var(--tw-text-opacity));
 }
 
-.underline {
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
-}
-
-.underline-offset-2 {
-  text-underline-offset: 2px;
-}
-
 .opacity-0 {
   opacity: 0;
 }
@@ -1066,6 +1021,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-duration: 150ms;
 }
 
+.duration-100 {
+  transition-duration: 100ms;
+}
+
 .duration-300 {
   transition-duration: 300ms;
 }
@@ -1076,14 +1035,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .duration-500 {
   transition-duration: 500ms;
-}
-
-.duration-100 {
-  transition-duration: 100ms;
-}
-
-.duration-75 {
-  transition-duration: 75ms;
 }
 
 .ease-in-out {
@@ -1436,10 +1387,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .peer:hover ~ .peer-hover\:delay-300 {
   transition-delay: 300ms;
-}
-
-.peer:hover ~ .peer-hover\:delay-500 {
-  transition-delay: 500ms;
 }
 
 .peer:hover ~ .peer-hover\:duration-150 {
