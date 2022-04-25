@@ -53,7 +53,9 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
             getMessage('searchOutputSentenceOfflineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
                 replaceNull(cleanDateRelative(lastLoginMS, settings.relativeTimestamps)),
-                replaceNull(cleanLength(Number(lastLogoutMS) - Number(lastLoginMS))),
+                replaceNull(cleanLength(lastLogoutMS && lastLoginMS
+                    ? lastLogoutMS - lastLoginMS
+                    : null)),
             ]),
         ];
         if (recentGames.length > 0) {

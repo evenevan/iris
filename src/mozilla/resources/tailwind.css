@@ -826,6 +826,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow-y: auto;
 }
 
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
 .whitespace-normal {
   white-space: normal;
 }
