@@ -116,7 +116,6 @@
     "mainOutputPointRecentGamesLast": {
         "message": "<strong>Last Game Type:</strong> $1"
     },
-
     "mainOutputSentenceGeneralUsername": {
         "message": "<strong>Username:</strong> $1"
     },
@@ -138,25 +137,21 @@
     "mainOutputSentenceGeneralUTCOffset": {
         "message": "<strong>UTC Offset Used:</strong> $1"
     },
-
     "mainOutputSentenceGeneralFirstLogin": {
         "message": "You logged in to Hypixel for the first time at <strong>$1</strong> on <strong>$2</strong>."
     },
-
     "mainOutputSentenceOnlineSettings": {
-        "message": "Your account is using the language <strong>$1</strong> and is the version <strong>$2</strong> on Hypixel."
+        "message": "Your account is using the language <strong>$1</strong> and the version <strong>$2</strong> on Hypixel."
     },
     "mainOutputSentenceOnlineLastSession": {
         "message": "Your current session began at <strong>$1</strong> on <strong>$2</strong>."
     },
     "mainOutputSentenceOnlineGamesCount": {
-        "message": "So far, you have played <strong>$1</strong> games."
+        "message": "So far, you have played <strong>$1</strong> non-persistent (such as the Pit or SkyBlock) games."
     },
     "mainOutputSentenceOnlineGamesGame": {
-        "message": "You are currently playing <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>"
+        "message": "You are currently playing <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>."
     },
-    
-
     "mainOutputSentenceOfflineSettings": {
         "message": "Your account last used the language <strong>$1</strong> and the version <strong>$2</strong> on Hypixel."
     },
@@ -164,7 +159,7 @@
         "message": "Your last session started at <strong>$1</strong> on <strong>$2</strong> and ended <strong>$3</strong> later."
     },
     "mainOutputSentenceOfflineGamesCount": {
-        "message": "During this session, you played <strong>$1</strong> games."
+        "message": "During this session, you played <strong>$1</strong> non-persistent (such as the Pit or SkyBlock) games."
     },
     "mainOutputSentenceOfflineGamesGame": {
         "message": "You last played <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>."
@@ -172,11 +167,9 @@
     "mainOutputSentenceOfflineGamesGame2": {
         "message": "This game was played on the map <strong>$1</strong> and lasted for <strong>$2</strong>."
     },
-
     "mainOutputSentenceOfflineLastGame": {
         "message": "Before disconnecting, you played or joined the lobby <strong>$1</strong>."
     },
-
     "mainOutputStatsBedwars": {
         "message": "<strong>$1 Stats for Bed Wars:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>Total Games Joined:</b> $4<br>&nbsp;<b>Winstreak:</b> $5<br>&nbsp;<b>Final K/D:</b> $6<br>&nbsp;<b>K/D:</b> $7"
     },
@@ -204,8 +197,6 @@
     "mainOutputStatsMegaWalls": {
         "message": "<strong>$1 Stats for Mega Walls:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
     },
-
-
     "mainInputPlaceholder": {
         "message": "Username/UUID"
     },
@@ -237,7 +228,7 @@
         "message": "Show Last Logout"
     },
     "settingsSettingsLastLogoutTooltip" : {
-        "message": "When enabled, one's last logout will be shown in the output."
+        "message": "When enabled, one's last logout will be shown in the output. This does not work when the \"Use Sentences\" option is enabled."
     },
     "settingsSettingsRelativeTimestamps" : {
         "message":  "Show Relative Timestamps"

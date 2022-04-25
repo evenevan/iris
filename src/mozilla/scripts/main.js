@@ -98,7 +98,7 @@ import { runtime, timeout, } from './utility/utility.js';
                 .join(''))
                 .length;
             newHistory.unshift(historyEntry);
-            while (bytes() > 1_000_000) {
+            while (bytes() > 1000000) {
                 newHistory.pop();
             }
             await runtime.storage.local.set({

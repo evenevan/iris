@@ -98,21 +98,33 @@ export function sentenceMessage(
             ]),
         );
 
-        block3.push(
-            `${getMessage('mainOutputSentenceOnlineLastSession', [
+        const tempGameData: string[] = [
+            getMessage('mainOutputSentenceOnlineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
                 replaceNull(
                     cleanDateRelative(lastLoginMS, settings.relativeTimestamps),
                 ),
-            ])} ${getMessage(
-                'mainOutputSentenceOnlineGamesCount',
-                String(recentGamesPlayed),
-            )} ${getMessage('mainOutputSentenceOnlineGamesGame', [
+            ]),
+        ];
+
+        if (recentGames.length > 0) {
+            tempGameData.push(
+                getMessage(
+                    'mainOutputSentenceOnlineGamesCount',
+                    String(recentGamesPlayed),
+                ),
+            );
+        }
+
+        tempGameData.push(
+            getMessage('mainOutputSentenceOnlineGamesGame', [
                 replaceNull(gameType),
                 replaceNull(mode),
                 replaceNull(map),
-            ])}`,
+            ]),
         );
+
+        block3.push(tempGameData.join(' '));
     } else {
         block2.push(
             getMessage('mainOutputSentenceOfflineSettings', [
@@ -121,32 +133,39 @@ export function sentenceMessage(
             ]),
         );
 
-        let gameData = `${getMessage('mainOutputSentenceOfflineLastSession', [
-            replaceNull(cleanTime(lastLoginMS)),
-            replaceNull(
-                cleanDateRelative(lastLoginMS, settings.relativeTimestamps),
-            ),
-            replaceNull(
-                cleanLength(Number(lastLogoutMS) - Number(lastLoginMS)),
-            ),
-        ])}`;
+        const tempGameData: string[] = [
+            getMessage('mainOutputSentenceOfflineLastSession', [
+                replaceNull(cleanTime(lastLoginMS)),
+                replaceNull(
+                    cleanDateRelative(lastLoginMS, settings.relativeTimestamps),
+                ),
+                replaceNull(
+                    cleanLength(Number(lastLogoutMS) - Number(lastLoginMS)),
+                ),
+            ]),
+        ];
 
         if (recentGames.length > 0) {
-            gameData += ` ${getMessage(
-                'mainOutputSentenceOfflineGamesCount',
-                String(recentGamesPlayed),
-            )} ${getMessage('mainOutputSentenceOfflineGamesGame', [
-                replaceNull(recentGame.gameType),
-                replaceNull(recentGame.mode),
-                replaceNull(recentGame.map),
-            ])}`;
+            tempGameData.push(
+                getMessage(
+                    'mainOutputSentenceOfflineGamesCount',
+                    String(recentGamesPlayed),
+                ),
+                getMessage('mainOutputSentenceOfflineGamesGame', [
+                    replaceNull(recentGame.gameType),
+                    replaceNull(recentGame.mode),
+                    replaceNull(recentGame.map),
+                ]),
+            );
         } else if (lastGame) {
-            gameData += ` ${getMessage('mainOutputSentenceOfflineLastGame', [
-                replaceNull(lastGame),
-            ])}`;
+            tempGameData.push(
+                getMessage('mainOutputSentenceOfflineLastGame', [
+                    replaceNull(lastGame),
+                ]),
+            );
         }
 
-        block3.push(gameData);
+        block3.push(tempGameData.join(' '));
     }
 
     if (
