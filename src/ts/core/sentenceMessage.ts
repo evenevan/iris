@@ -140,7 +140,11 @@ export function sentenceMessage(
                     cleanDateRelative(lastLoginMS, settings.relativeTimestamps),
                 ),
                 replaceNull(
-                    cleanLength(Number(lastLogoutMS) - Number(lastLoginMS)),
+                    cleanLength(
+                        lastLogoutMS && lastLoginMS
+                            ? lastLogoutMS - lastLoginMS
+                            : null,
+                    ),
                 ),
             ]),
         ];
