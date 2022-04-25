@@ -4,40 +4,40 @@ const getMessage = runtime.i18n.getMessage;
 export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { lastGame }, online: { gameType, mode, map }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
     const [recentGame = {}] = recentGames;
     const block1 = [
-        getMessage('mainOutputSentenceGeneralUsername', username ?? ''),
-        getMessage('mainOutputSentenceGeneralUUID', replaceNull(uuid)),
-        getMessage('mainOutputSentenceGeneralStatus', isOnline
-            ? getMessage('mainOutputSentenceGeneralStatusOnline')
-            : getMessage('mainOutputSentenceGeneralStatusOffline')),
-        getMessage('mainOutputSentenceGeneralLimitedAPI', limitedAPI ? getMessage('yes') : getMessage('no')),
+        getMessage('searchOutputSentenceGeneralUsername', username ?? ''),
+        getMessage('searchOutputSentenceGeneralUUID', replaceNull(uuid)),
+        getMessage('searchOutputSentenceGeneralStatus', isOnline
+            ? getMessage('searchOutputSentenceGeneralStatusOnline')
+            : getMessage('searchOutputSentenceGeneralStatusOffline')),
+        getMessage('searchOutputSentenceGeneralLimitedAPI', limitedAPI ? getMessage('yes') : getMessage('no')),
     ];
     const block2 = [];
     const block3 = [];
     const block4 = [];
     if (lastLoginMS || lastLogoutMS) {
-        block1.push(getMessage('mainOutputSentenceGeneralUTCOffset', createOffset()));
+        block1.push(getMessage('searchOutputSentenceGeneralUTCOffset', createOffset()));
     }
     if (settings.firstLogin) {
-        block2.push(getMessage('mainOutputSentenceGeneralFirstLogin', [
+        block2.push(getMessage('searchOutputSentenceGeneralFirstLogin', [
             replaceNull(cleanTime(firstLoginMS)),
             replaceNull(cleanDateRelative(firstLoginMS, settings.firstLogin)),
         ]));
     }
     if (isOnline) {
-        block2.push(getMessage('mainOutputSentenceOnlineSettings', [
+        block2.push(getMessage('searchOutputSentenceOnlineSettings', [
             language,
             replaceNull(version),
         ]));
         const tempGameData = [
-            getMessage('mainOutputSentenceOnlineLastSession', [
+            getMessage('searchOutputSentenceOnlineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
                 replaceNull(cleanDateRelative(lastLoginMS, settings.relativeTimestamps)),
             ]),
         ];
         if (recentGames.length > 0) {
-            tempGameData.push(getMessage('mainOutputSentenceOnlineGamesCount', String(recentGamesPlayed)));
+            tempGameData.push(getMessage('searchOutputSentenceOnlineGamesCount', String(recentGamesPlayed)));
         }
-        tempGameData.push(getMessage('mainOutputSentenceOnlineGamesGame', [
+        tempGameData.push(getMessage('searchOutputSentenceOnlineGamesGame', [
             replaceNull(gameType),
             replaceNull(mode),
             replaceNull(map),
@@ -45,26 +45,26 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
         block3.push(tempGameData.join(' '));
     }
     else {
-        block2.push(getMessage('mainOutputSentenceOfflineSettings', [
+        block2.push(getMessage('searchOutputSentenceOfflineSettings', [
             language,
             replaceNull(version),
         ]));
         const tempGameData = [
-            getMessage('mainOutputSentenceOfflineLastSession', [
+            getMessage('searchOutputSentenceOfflineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
                 replaceNull(cleanDateRelative(lastLoginMS, settings.relativeTimestamps)),
                 replaceNull(cleanLength(Number(lastLogoutMS) - Number(lastLoginMS))),
             ]),
         ];
         if (recentGames.length > 0) {
-            tempGameData.push(getMessage('mainOutputSentenceOfflineGamesCount', String(recentGamesPlayed)), getMessage('mainOutputSentenceOfflineGamesGame', [
+            tempGameData.push(getMessage('searchOutputSentenceOfflineGamesCount', String(recentGamesPlayed)), getMessage('searchOutputSentenceOfflineGamesGame', [
                 replaceNull(recentGame.gameType),
                 replaceNull(recentGame.mode),
                 replaceNull(recentGame.map),
             ]));
         }
         else if (lastGame) {
-            tempGameData.push(getMessage('mainOutputSentenceOfflineLastGame', [
+            tempGameData.push(getMessage('searchOutputSentenceOfflineLastGame', [
                 replaceNull(lastGame),
             ]));
         }
@@ -78,7 +78,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
             case 'Bed Wars':
             case 'Bedwars':
             case 'BEDWARS':
-                block4.push(getMessage('mainOutputStatsBedwars', [
+                block4.push(getMessage('searchOutputStatsBedwars', [
                     possessive,
                     bedwars.level,
                     bedwars.coins,
@@ -90,7 +90,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                 break;
             case 'Duels':
             case 'DUELS':
-                block4.push(getMessage('mainOutputStatsDuels', [
+                block4.push(getMessage('searchOutputStatsDuels', [
                     possessive,
                     duels.coins,
                     duels.cosmetics,
@@ -105,7 +105,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
             case 'Blitz':
             case 'HungerGames':
             case 'SURVIVAL_GAMES':
-                block4.push(getMessage('mainOutputStatsBlitz', [
+                block4.push(getMessage('searchOutputStatsBlitz', [
                     possessive,
                     blitz.coins,
                     blitz.KD,
@@ -117,7 +117,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                 break;
             case 'Pit':
             case 'PIT':
-                block4.push(getMessage('mainOutputStatsPit', [
+                block4.push(getMessage('searchOutputStatsPit', [
                     possessive,
                     pit.gold,
                     pit.prestige,
@@ -131,7 +131,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                 break;
             case 'SkyWars':
             case 'SKYWARS':
-                block4.push(getMessage('mainOutputStatsSkywars', [
+                block4.push(getMessage('searchOutputStatsSkywars', [
                     possessive,
                     skywars.level,
                     skywars.coins,
@@ -145,7 +145,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
             case 'Speed UHC':
             case 'SpeedUHC':
             case 'SPEED_UHC':
-                block4.push(getMessage('mainOutputStatsSpeedUHC', [
+                block4.push(getMessage('searchOutputStatsSpeedUHC', [
                     possessive,
                     speedUHC.coins,
                     speedUHC.KD,
@@ -157,7 +157,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                 break;
             case 'UHC Champions':
             case 'UHC':
-                block4.push(getMessage('mainOutputStatsUHC', [
+                block4.push(getMessage('searchOutputStatsUHC', [
                     possessive,
                     uhc.level,
                     uhc.coins,
@@ -170,7 +170,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                 break;
             case 'Walls':
             case 'WALLS':
-                block4.push(getMessage('mainOutputStatsWalls', [
+                block4.push(getMessage('searchOutputStatsWalls', [
                     possessive,
                     walls.coins,
                     walls.KD,
@@ -184,7 +184,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
             case 'MegaWalls':
             case 'Walls3':
             case 'WALLS3':
-                block4.push(getMessage('mainOutputStatsMegaWalls', [
+                block4.push(getMessage('searchOutputStatsMegaWalls', [
                     possessive,
                     megaWalls.coins,
                     megaWalls.KD,

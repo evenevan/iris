@@ -10,7 +10,7 @@ import {
 
 (async () => {
     i18n([
-        'main',
+        'search',
         'settings',
         'history',
         'about',

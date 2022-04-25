@@ -5,7 +5,7 @@
     "manifest_version": 3,
     "default_locale": "en",
     "action": {
-        "default_popup": "./main.html",
+        "default_popup": "./search.html",
         "default_icon": {
             "16": "./assets/Iris Icon Transparent 16.png",
             "48": "./assets/Iris Icon Transparent 48.png",

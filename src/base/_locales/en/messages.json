@@ -17,193 +17,193 @@
     "no": {
         "message": "No"
     },
-    "main": {
-        "message": "Main"
-    },
-    "mainOutputErrorHypixelNoKey": {
-        "message": "You do not have a Hypixel API key to use! Please either switch to the Slothpixel API or get a Hypixel API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
-    },
-    "mainOutputErrorNotFound": {
-        "message": "The query \"$1\" doesn't seem to be a valid player. <a class=\"break-words text-accent\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
-    },
-    "mainOutputErrorSlothpixel": {
-        "message": "The query \"$1\" returned an error. It may be invalid. Switching to the Hypixel API may resolve this issue.<a class=\"break-words text-accent\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
-    },
-    "mainOutputErrorHypixelInvalidKey": {
-        "message": "Invalid API key! Please either switch to the Slothpixel API or get a new API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
-    },
-    "mainOutputErrorHypixel": {
-        "message": "An unexpected HTTP code of $1 was returned. Try switching to the Slothpixel API if this persists or try again later."
-    },
-    "mainOutputErrorGeneric": {
-        "message": "Whoops! This is an unexpected error. Please report this error with the following: <b>$1</b>"
-    },
-    "mainOutputPointGeneralUsername": {
-        "message": "<strong>Username:</strong> $1"
-    },
-    "mainOutputPointGeneralUUID": {
-        "message": "<strong>UUID:</strong> $1"
-    },
-    "mainOutputPointGeneralStatus": {
-        "message": "<strong>Status:</strong> $1"
-    },
-    "mainOutputPointGeneralStatusOnline": {
-        "message": "Online"
-    },
-    "mainOutputPointGeneralStatusOffline": {
-        "message": "Offline"
-    },
-    "mainOutputPointGeneralLimitedAPI": {
-        "message": "<strong>Limited API Data:</strong> $1"
-    },
-    "mainOutputPointGeneralUTCOffset": {
-        "message": "<strong>UTC Offset Used:</strong> $1"
-    },
-    "mainOutputPointGeneralVersion": {
-        "message": "<br><strong>Version:</strong> $1"
-    },
-    "mainOutputPointGeneralLanguage": {
-        "message": "<strong>Language:</strong> $1"
-    },
-    "mainOutputPointGeneralFirstLogin": {
-        "message": "<strong>First Login:</strong> $1"
-    },
-    "mainOutputPointGeneralLastLogin": {
-        "message": "<strong>Last Login:</strong> $1"
-    },
-    "mainOutputPointGeneralLastLogout": {
-        "message": "<strong>Last Logout:</strong> $1"
-    },
-    "mainOutputPointOnlinePlaytime": {
-        "message": "<strong>Playtime:</strong> $1"
-    },
-    "mainOutputPointOnlineGamesPlayed": {
-        "message": "<strong>Games Played:</strong> $1"
-    },
-    "mainOutputPointOnlineGameType": {
-        "message": "<strong>Game Type:</strong> $1"
-    },
-    "mainOutputPointOnlineMode": {
-        "message": "<strong>Game Mode:</strong> $1"
-    },
-    "mainOutputPointOnlineMap": {
-        "message": "<strong>Game Map:</strong> $1"
-    },
-    "mainOutputPointOfflinePlaytime": {
-        "message": "<strong>Last Playtime:</strong> $1"
-    },
-    "mainOutputPointOfflineGamesPlayed": {
-        "message": "<strong>Games Played:</strong> $1"
-    },
-    "mainOutputPointRecentGamesTitle": {
-        "message": "<strong>Last Played Game:</strong>"
-    },
-    "mainOutputPointRecentGamesStart": {
-        "message": "&nbsp;<strong>Game Start:</strong> $1"
-    },
-    "mainOutputPointRecentGamesPlaytime": {
-        "message": "&nbsp;<strong>Game Length:</strong> $1"
-    },
-    "mainOutputPointRecentGamesGameType": {
-        "message": "&nbsp;<strong>Game Length:</strong> $1"
-    },
-    "mainOutputPointRecentGamesMode": {
-        "message": "&nbsp;<strong>Game Length:</strong> $1"
-    },
-    "mainOutputPointRecentGamesMap": {
-        "message": "&nbsp;<strong>Game Length:</strong> $1"
-    },
-    "mainOutputPointRecentGamesLast": {
-        "message": "<strong>Last Game Type:</strong> $1"
-    },
-    "mainOutputSentenceGeneralUsername": {
-        "message": "<strong>Username:</strong> $1"
-    },
-    "mainOutputSentenceGeneralUUID": {
-        "message": "<strong>UUID:</strong> $1"
-    },
-    "mainOutputSentenceGeneralStatus": {
-        "message": "<strong>Status:</strong> $1"
-    },
-    "mainOutputSentenceGeneralStatusOnline": {
-        "message": "Online"
-    },
-    "mainOutputSentenceGeneralStatusOffline": {
-        "message": "Offline"
-    },
-    "mainOutputSentenceGeneralLimitedAPI": {
-        "message": "<strong>Limited API Data:</strong> $1"
-    },
-    "mainOutputSentenceGeneralUTCOffset": {
-        "message": "<strong>UTC Offset Used:</strong> $1"
-    },
-    "mainOutputSentenceGeneralFirstLogin": {
-        "message": "You logged in to Hypixel for the first time at <strong>$1</strong> on <strong>$2</strong>."
-    },
-    "mainOutputSentenceOnlineSettings": {
-        "message": "Your account is using the language <strong>$1</strong> and the version <strong>$2</strong> on Hypixel."
-    },
-    "mainOutputSentenceOnlineLastSession": {
-        "message": "Your current session began at <strong>$1</strong> on <strong>$2</strong>."
-    },
-    "mainOutputSentenceOnlineGamesCount": {
-        "message": "So far, you have played <strong>$1</strong> non-persistent (such as the Pit or SkyBlock) games."
-    },
-    "mainOutputSentenceOnlineGamesGame": {
-        "message": "You are currently playing <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>."
-    },
-    "mainOutputSentenceOfflineSettings": {
-        "message": "Your account last used the language <strong>$1</strong> and the version <strong>$2</strong> on Hypixel."
-    },
-    "mainOutputSentenceOfflineLastSession": {
-        "message": "Your last session started at <strong>$1</strong> on <strong>$2</strong> and ended <strong>$3</strong> later."
-    },
-    "mainOutputSentenceOfflineGamesCount": {
-        "message": "During this session, you played <strong>$1</strong> non-persistent (such as the Pit or SkyBlock) games."
-    },
-    "mainOutputSentenceOfflineGamesGame": {
-        "message": "You last played <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>."
-    },
-    "mainOutputSentenceOfflineGamesGame2": {
-        "message": "This game was played on the map <strong>$1</strong> and lasted for <strong>$2</strong>."
-    },
-    "mainOutputSentenceOfflineLastGame": {
-        "message": "Before disconnecting, you played or joined the lobby <strong>$1</strong>."
-    },
-    "mainOutputStatsBedwars": {
-        "message": "<strong>$1 Stats for Bed Wars:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>Total Games Joined:</b> $4<br>&nbsp;<b>Winstreak:</b> $5<br>&nbsp;<b>Final K/D:</b> $6<br>&nbsp;<b>K/D:</b> $7"
-    },
-    "mainOutputStatsDuels": {
-        "message": "<strong>$1 Stats for Duels:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>Cosmetic Count:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
-    },
-    "mainOutputStatsBlitz": {
-        "message": "<strong>$1 Stats for Blitz Survival:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
-    },
-    "mainOutputStatsPit": {
-        "message": "<strong>$1 Stats for the Pit:</strong><br>&nbsp;<b>Total Gold Earned:</b> $2<br>&nbsp;<b>Prestige:</b> $3<br>&nbsp;<b>Total Playtime:</b> $4 minutes<br>&nbsp;<b>Best Streak:</b> $5<br>&nbsp;<b>Chat Messages:</b> $6<br>&nbsp;<b>K/D Ratio:</b> $7<br>&nbsp;<b>Kills:</b> $8<br>&nbsp;<b>Deaths:</b> $9"
-    },
-    "mainOutputStatsSkywars": {
-        "message": "<strong>$1 Stats for SkyWars:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
-    },
-    "mainOutputStatsSpeedUHC": {
-        "message": "<strong>$1 Stats for Speed UHC:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
-    },
-    "mainOutputStatsUHC": {
-        "message": "<strong>$1 Stats for UHC Champions:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
-    },
-    "mainOutputStatsWalls": {
-        "message": "<strong>$1 Stats for the Walls:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
-    },
-    "mainOutputStatsMegaWalls": {
-        "message": "<strong>$1 Stats for Mega Walls:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
-    },
-    "mainInputPlaceholder": {
-        "message": "Username/UUID"
-    },
-    "mainInputSearch": {
+    "search": {
         "message": "Search"
     },
-    "mainInputClear": {
+    "searchOutputErrorHypixelNoKey": {
+        "message": "You do not have a Hypixel API key to use! Please either switch to the Slothpixel API or get a Hypixel API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
+    },
+    "searchOutputErrorNotFound": {
+        "message": "The query \"$1\" doesn't seem to be a valid player. <a class=\"break-words text-accent\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
+    },
+    "searchOutputErrorSlothpixel": {
+        "message": "The query \"$1\" returned an error. It may be invalid. Switching to the Hypixel API may resolve this issue.<a class=\"break-words text-accent\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
+    },
+    "searchOutputErrorHypixelInvalidKey": {
+        "message": "Invalid API key! Please either switch to the Slothpixel API or get a new API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
+    },
+    "searchOutputErrorHypixel": {
+        "message": "An unexpected HTTP code of $1 was returned. Try switching to the Slothpixel API if this persists or try again later."
+    },
+    "searchOutputErrorGeneric": {
+        "message": "Whoops! This is an unexpected error. Please report this error with the following: <b>$1</b>"
+    },
+    "searchOutputPointGeneralUsername": {
+        "message": "<strong>Username:</strong> $1"
+    },
+    "searchOutputPointGeneralUUID": {
+        "message": "<strong>UUID:</strong> $1"
+    },
+    "searchOutputPointGeneralStatus": {
+        "message": "<strong>Status:</strong> $1"
+    },
+    "searchOutputPointGeneralStatusOnline": {
+        "message": "Online"
+    },
+    "searchOutputPointGeneralStatusOffline": {
+        "message": "Offline"
+    },
+    "searchOutputPointGeneralLimitedAPI": {
+        "message": "<strong>Limited API Data:</strong> $1"
+    },
+    "searchOutputPointGeneralUTCOffset": {
+        "message": "<strong>UTC Offset Used:</strong> $1"
+    },
+    "searchOutputPointGeneralVersion": {
+        "message": "<br><strong>Version:</strong> $1"
+    },
+    "searchOutputPointGeneralLanguage": {
+        "message": "<strong>Language:</strong> $1"
+    },
+    "searchOutputPointGeneralFirstLogin": {
+        "message": "<strong>First Login:</strong> $1"
+    },
+    "searchOutputPointGeneralLastLogin": {
+        "message": "<strong>Last Login:</strong> $1"
+    },
+    "searchOutputPointGeneralLastLogout": {
+        "message": "<strong>Last Logout:</strong> $1"
+    },
+    "searchOutputPointOnlinePlaytime": {
+        "message": "<strong>Playtime:</strong> $1"
+    },
+    "searchOutputPointOnlineGamesPlayed": {
+        "message": "<strong>Games Played:</strong> $1"
+    },
+    "searchOutputPointOnlineGameType": {
+        "message": "<strong>Game Type:</strong> $1"
+    },
+    "searchOutputPointOnlineMode": {
+        "message": "<strong>Game Mode:</strong> $1"
+    },
+    "searchOutputPointOnlineMap": {
+        "message": "<strong>Game Map:</strong> $1"
+    },
+    "searchOutputPointOfflinePlaytime": {
+        "message": "<strong>Last Playtime:</strong> $1"
+    },
+    "searchOutputPointOfflineGamesPlayed": {
+        "message": "<strong>Games Played:</strong> $1"
+    },
+    "searchOutputPointRecentGamesTitle": {
+        "message": "<strong>Last Played Game:</strong>"
+    },
+    "searchOutputPointRecentGamesStart": {
+        "message": "&nbsp;<strong>Game Start:</strong> $1"
+    },
+    "searchOutputPointRecentGamesPlaytime": {
+        "message": "&nbsp;<strong>Game Length:</strong> $1"
+    },
+    "searchOutputPointRecentGamesGameType": {
+        "message": "&nbsp;<strong>Game Length:</strong> $1"
+    },
+    "searchOutputPointRecentGamesMode": {
+        "message": "&nbsp;<strong>Game Length:</strong> $1"
+    },
+    "searchOutputPointRecentGamesMap": {
+        "message": "&nbsp;<strong>Game Length:</strong> $1"
+    },
+    "searchOutputPointRecentGamesLast": {
+        "message": "<strong>Last Game Type:</strong> $1"
+    },
+    "searchOutputSentenceGeneralUsername": {
+        "message": "<strong>Username:</strong> $1"
+    },
+    "searchOutputSentenceGeneralUUID": {
+        "message": "<strong>UUID:</strong> $1"
+    },
+    "searchOutputSentenceGeneralStatus": {
+        "message": "<strong>Status:</strong> $1"
+    },
+    "searchOutputSentenceGeneralStatusOnline": {
+        "message": "Online"
+    },
+    "searchOutputSentenceGeneralStatusOffline": {
+        "message": "Offline"
+    },
+    "searchOutputSentenceGeneralLimitedAPI": {
+        "message": "<strong>Limited API Data:</strong> $1"
+    },
+    "searchOutputSentenceGeneralUTCOffset": {
+        "message": "<strong>UTC Offset Used:</strong> $1"
+    },
+    "searchOutputSentenceGeneralFirstLogin": {
+        "message": "You logged in to Hypixel for the first time at <strong>$1</strong> on <strong>$2</strong>."
+    },
+    "searchOutputSentenceOnlineSettings": {
+        "message": "Your account is using the language <strong>$1</strong> and the version <strong>$2</strong> on Hypixel."
+    },
+    "searchOutputSentenceOnlineLastSession": {
+        "message": "Your current session began at <strong>$1</strong> on <strong>$2</strong>."
+    },
+    "searchOutputSentenceOnlineGamesCount": {
+        "message": "So far, you have played <strong>$1</strong> non-persistent (such as the Pit or SkyBlock) games."
+    },
+    "searchOutputSentenceOnlineGamesGame": {
+        "message": "You are currently playing <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>."
+    },
+    "searchOutputSentenceOfflineSettings": {
+        "message": "Your account last used the language <strong>$1</strong> and the version <strong>$2</strong> on Hypixel."
+    },
+    "searchOutputSentenceOfflineLastSession": {
+        "message": "Your last session started at <strong>$1</strong> on <strong>$2</strong> and ended <strong>$3</strong> later."
+    },
+    "searchOutputSentenceOfflineGamesCount": {
+        "message": "During this session, you played <strong>$1</strong> non-persistent (such as the Pit or SkyBlock) games."
+    },
+    "searchOutputSentenceOfflineGamesGame": {
+        "message": "You last played <strong>$1</strong> of the mode <strong>$2</strong> on the map <strong>$3</strong>."
+    },
+    "searchOutputSentenceOfflineGamesGame2": {
+        "message": "This game was played on the map <strong>$1</strong> and lasted for <strong>$2</strong>."
+    },
+    "searchOutputSentenceOfflineLastGame": {
+        "message": "Before disconnecting, you played or joined the lobby <strong>$1</strong>."
+    },
+    "searchOutputStatsBedwars": {
+        "message": "<strong>$1 Stats for Bed Wars:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>Total Games Joined:</b> $4<br>&nbsp;<b>Winstreak:</b> $5<br>&nbsp;<b>Final K/D:</b> $6<br>&nbsp;<b>K/D:</b> $7"
+    },
+    "searchOutputStatsDuels": {
+        "message": "<strong>$1 Stats for Duels:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>Cosmetic Count:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
+    },
+    "searchOutputStatsBlitz": {
+        "message": "<strong>$1 Stats for Blitz Survival:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
+    },
+    "searchOutputStatsPit": {
+        "message": "<strong>$1 Stats for the Pit:</strong><br>&nbsp;<b>Total Gold Earned:</b> $2<br>&nbsp;<b>Prestige:</b> $3<br>&nbsp;<b>Total Playtime:</b> $4 minutes<br>&nbsp;<b>Best Streak:</b> $5<br>&nbsp;<b>Chat Messages:</b> $6<br>&nbsp;<b>K/D Ratio:</b> $7<br>&nbsp;<b>Kills:</b> $8<br>&nbsp;<b>Deaths:</b> $9"
+    },
+    "searchOutputStatsSkywars": {
+        "message": "<strong>$1 Stats for SkyWars:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
+    },
+    "searchOutputStatsSpeedUHC": {
+        "message": "<strong>$1 Stats for Speed UHC:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
+    },
+    "searchOutputStatsUHC": {
+        "message": "<strong>$1 Stats for UHC Champions:</strong><br>&nbsp;<b>Level:</b> $2<br>&nbsp;<b>Coins:</b> $3<br>&nbsp;<b>K/D Ratio:</b> $4<br>&nbsp;<b>W/L Ratio:</b> $5<br>&nbsp;<b>Wins:</b> $6<br>&nbsp;<b>Kills:</b> $7<br>&nbsp;<b>Deaths:</b> $8"
+    },
+    "searchOutputStatsWalls": {
+        "message": "<strong>$1 Stats for the Walls:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
+    },
+    "searchOutputStatsMegaWalls": {
+        "message": "<strong>$1 Stats for Mega Walls:</strong><br>&nbsp;<b>Coins:</b> $2<br>&nbsp;<b>K/D Ratio:</b> $3<br>&nbsp;<b>W/L Ratio:</b> $4<br>&nbsp;<b>Wins:</b> $5<br>&nbsp;<b>Kills:</b> $6<br>&nbsp;<b>Deaths:</b> $7"
+    },
+    "searchInputPlaceholder": {
+        "message": "Username/UUID"
+    },
+    "searchInputSearch": {
+        "message": "Search"
+    },
+    "searchInputClear": {
         "message": "Clear"
     },
     "settings": {

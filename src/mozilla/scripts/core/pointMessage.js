@@ -4,35 +4,35 @@ const getMessage = runtime.i18n.getMessage;
 export function pointMessage({ username, uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { playtime, lastGame }, online: { gameType, mode, map }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
     const [recentGame = {}] = recentGames;
     const lines = [
-        getMessage('mainOutputPointGeneralUsername', username ?? ''),
-        getMessage('mainOutputPointGeneralUUID', replaceNull(uuid)),
-        getMessage('mainOutputPointGeneralStatus', isOnline
-            ? getMessage('mainOutputPointGeneralStatusOnline')
-            : getMessage('mainOutputPointGeneralStatusOffline')),
-        getMessage('mainOutputPointGeneralLimitedAPI', limitedAPI ? getMessage('yes') : getMessage('no')),
+        getMessage('searchOutputPointGeneralUsername', username ?? ''),
+        getMessage('searchOutputPointGeneralUUID', replaceNull(uuid)),
+        getMessage('searchOutputPointGeneralStatus', isOnline
+            ? getMessage('searchOutputPointGeneralStatusOnline')
+            : getMessage('searchOutputPointGeneralStatusOffline')),
+        getMessage('searchOutputPointGeneralLimitedAPI', limitedAPI ? getMessage('yes') : getMessage('no')),
     ];
     if (lastLoginMS || lastLogoutMS) {
-        lines.push(getMessage('mainOutputPointGeneralUTCOffset', createOffset()));
+        lines.push(getMessage('searchOutputPointGeneralUTCOffset', createOffset()));
     }
-    lines.push(getMessage('mainOutputPointGeneralVersion', replaceNull(version)), getMessage('mainOutputPointGeneralLanguage', replaceNull(language)));
+    lines.push(getMessage('searchOutputPointGeneralVersion', replaceNull(version)), getMessage('searchOutputPointGeneralLanguage', replaceNull(language)));
     if (settings.firstLogin) {
-        lines.push(getMessage('mainOutputPointGeneralFirstLogin', replaceNull(dateTime(firstLoginMS, settings.relativeTimestamps))));
+        lines.push(getMessage('searchOutputPointGeneralFirstLogin', replaceNull(dateTime(firstLoginMS, settings.relativeTimestamps))));
     }
-    lines.push(getMessage('mainOutputPointGeneralLastLogin', replaceNull(dateTime(lastLoginMS, settings.relativeTimestamps))));
+    lines.push(getMessage('searchOutputPointGeneralLastLogin', replaceNull(dateTime(lastLoginMS, settings.relativeTimestamps))));
     if (settings.lastLogout) {
-        lines.push(getMessage('mainOutputPointGeneralLastLogout', replaceNull(dateTime(lastLogoutMS, settings.relativeTimestamps))));
+        lines.push(getMessage('searchOutputPointGeneralLastLogout', replaceNull(dateTime(lastLogoutMS, settings.relativeTimestamps))));
     }
     if (isOnline) {
-        lines.push(getMessage('mainOutputPointOnlinePlaytime', replaceNull(cleanLength(timeAgo(lastLoginMS)))));
+        lines.push(getMessage('searchOutputPointOnlinePlaytime', replaceNull(cleanLength(timeAgo(lastLoginMS)))));
         if (recentGamesPlayed > 0) {
-            lines.push(getMessage('mainOutputPointOnlineGamesPlayed', String(recentGamesPlayed)));
+            lines.push(getMessage('searchOutputPointOnlineGamesPlayed', String(recentGamesPlayed)));
         }
-        lines.push(getMessage('mainOutputPointOnlineGameType', replaceNull(gameType)), getMessage('mainOutputPointOnlineMode', replaceNull(mode)), getMessage('mainOutputPointOnlineMap', replaceNull(map)));
+        lines.push(getMessage('searchOutputPointOnlineGameType', replaceNull(gameType)), getMessage('searchOutputPointOnlineMode', replaceNull(mode)), getMessage('searchOutputPointOnlineMap', replaceNull(map)));
     }
     else {
-        lines.push(getMessage('mainOutputPointOfflinePlaytime', replaceNull(playtime)));
+        lines.push(getMessage('searchOutputPointOfflinePlaytime', replaceNull(playtime)));
         if (recentGamesPlayed > 0) {
-            lines.push(getMessage('mainOutputPointOfflineGamesPlayed', String(recentGamesPlayed)));
+            lines.push(getMessage('searchOutputPointOfflineGamesPlayed', String(recentGamesPlayed)));
         }
         if (recentGame &&
             recentGame.startMS &&
@@ -40,10 +40,10 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
             lastLogoutMS &&
             recentGame.startMS > lastLoginMS &&
             recentGame.startMS < lastLogoutMS) {
-            lines.push(newLine(getMessage('mainOutputPointRecentGamesTitle')), getMessage('mainOutputPointRecentGamesStart', replaceNull(dateTime(recentGame.startMS, false))), getMessage('mainOutputPointRecentGamesPlaytime', replaceNull(recentGame.gameLength)), getMessage('mainOutputPointRecentGamesGameType', replaceNull(recentGame.gameType)), getMessage('mainOutputPointRecentGamesMode', replaceNull(recentGame.mode)), getMessage('mainOutputPointRecentGamesMap', replaceNull(recentGame.map)));
+            lines.push(newLine(getMessage('searchOutputPointRecentGamesTitle')), getMessage('searchOutputPointRecentGamesStart', replaceNull(dateTime(recentGame.startMS, false))), getMessage('searchOutputPointRecentGamesPlaytime', replaceNull(recentGame.gameLength)), getMessage('searchOutputPointRecentGamesGameType', replaceNull(recentGame.gameType)), getMessage('searchOutputPointRecentGamesMode', replaceNull(recentGame.mode)), getMessage('searchOutputPointRecentGamesMap', replaceNull(recentGame.map)));
         }
         else if (lastGame) {
-            lines.push(getMessage('mainOutputPointRecentGamesLast', lastGame));
+            lines.push(getMessage('searchOutputPointRecentGamesLast', lastGame));
         }
     }
     if (settings.gameStats === true &&
@@ -54,7 +54,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
             case 'Bed Wars':
             case 'Bedwars':
             case 'BEDWARS':
-                lines.push(newLine(getMessage('mainOutputStatsBedwars', [
+                lines.push(newLine(getMessage('searchOutputStatsBedwars', [
                     possessive,
                     bedwars.level,
                     bedwars.coins,
@@ -66,7 +66,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
                 break;
             case 'Duels':
             case 'DUELS':
-                lines.push(newLine(getMessage('mainOutputStatsDuels', [
+                lines.push(newLine(getMessage('searchOutputStatsDuels', [
                     possessive,
                     duels.coins,
                     duels.cosmetics,
@@ -81,7 +81,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
             case 'Blitz':
             case 'HungerGames':
             case 'SURVIVAL_GAMES':
-                lines.push(newLine(getMessage('mainOutputStatsBlitz', [
+                lines.push(newLine(getMessage('searchOutputStatsBlitz', [
                     possessive,
                     blitz.coins,
                     blitz.KD,
@@ -93,7 +93,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
                 break;
             case 'Pit':
             case 'PIT':
-                lines.push(newLine(getMessage('mainOutputStatsPit', [
+                lines.push(newLine(getMessage('searchOutputStatsPit', [
                     possessive,
                     pit.gold,
                     pit.prestige,
@@ -107,7 +107,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
                 break;
             case 'SkyWars':
             case 'SKYWARS':
-                lines.push(newLine(getMessage('mainOutputStatsSkywars', [
+                lines.push(newLine(getMessage('searchOutputStatsSkywars', [
                     possessive,
                     skywars.level,
                     skywars.coins,
@@ -121,7 +121,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
             case 'Speed UHC':
             case 'SpeedUHC':
             case 'SPEED_UHC':
-                lines.push(newLine(getMessage('mainOutputStatsSpeedUHC', [
+                lines.push(newLine(getMessage('searchOutputStatsSpeedUHC', [
                     possessive,
                     speedUHC.coins,
                     speedUHC.KD,
@@ -133,7 +133,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
                 break;
             case 'UHC Champions':
             case 'UHC':
-                lines.push(newLine(getMessage('mainOutputStatsUHC', [
+                lines.push(newLine(getMessage('searchOutputStatsUHC', [
                     possessive,
                     uhc.level,
                     uhc.coins,
@@ -146,7 +146,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
                 break;
             case 'Walls':
             case 'WALLS':
-                lines.push(newLine(getMessage('mainOutputStatsWalls', [
+                lines.push(newLine(getMessage('searchOutputStatsWalls', [
                     possessive,
                     walls.coins,
                     walls.KD,
@@ -160,7 +160,7 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
             case 'MegaWalls':
             case 'Walls3':
             case 'WALLS3':
-                lines.push(newLine(getMessage('mainOutputStatsMegaWalls', [
+                lines.push(newLine(getMessage('searchOutputStatsMegaWalls', [
                     possessive,
                     megaWalls.coins,
                     megaWalls.KD,

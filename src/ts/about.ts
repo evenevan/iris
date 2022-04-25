@@ -7,7 +7,7 @@ import { runtime } from './utility/utility.js';
     i18n([
         'extensionName',
         'extensionDescription',
-        'main',
+        'search',
         'settings',
         'history',
         'about',

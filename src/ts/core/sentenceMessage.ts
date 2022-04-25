@@ -53,16 +53,16 @@ export function sentenceMessage(
         | Record<string, never>[];
 
     const block1: string[] = [
-        getMessage('mainOutputSentenceGeneralUsername', username ?? ''),
-        getMessage('mainOutputSentenceGeneralUUID', replaceNull(uuid)),
+        getMessage('searchOutputSentenceGeneralUsername', username ?? ''),
+        getMessage('searchOutputSentenceGeneralUUID', replaceNull(uuid)),
         getMessage(
-            'mainOutputSentenceGeneralStatus',
+            'searchOutputSentenceGeneralStatus',
             isOnline
-                ? getMessage('mainOutputSentenceGeneralStatusOnline')
-                : getMessage('mainOutputSentenceGeneralStatusOffline'),
+                ? getMessage('searchOutputSentenceGeneralStatusOnline')
+                : getMessage('searchOutputSentenceGeneralStatusOffline'),
         ),
         getMessage(
-            'mainOutputSentenceGeneralLimitedAPI',
+            'searchOutputSentenceGeneralLimitedAPI',
             limitedAPI ? getMessage('yes') : getMessage('no'),
         ),
     ];
@@ -75,13 +75,13 @@ export function sentenceMessage(
 
     if (lastLoginMS || lastLogoutMS) {
         block1.push(
-            getMessage('mainOutputSentenceGeneralUTCOffset', createOffset()),
+            getMessage('searchOutputSentenceGeneralUTCOffset', createOffset()),
         );
     }
 
     if (settings.firstLogin) {
         block2.push(
-            getMessage('mainOutputSentenceGeneralFirstLogin', [
+            getMessage('searchOutputSentenceGeneralFirstLogin', [
                 replaceNull(cleanTime(firstLoginMS)),
                 replaceNull(
                     cleanDateRelative(firstLoginMS, settings.firstLogin),
@@ -92,14 +92,14 @@ export function sentenceMessage(
 
     if (isOnline) {
         block2.push(
-            getMessage('mainOutputSentenceOnlineSettings', [
+            getMessage('searchOutputSentenceOnlineSettings', [
                 language,
                 replaceNull(version),
             ]),
         );
 
         const tempGameData: string[] = [
-            getMessage('mainOutputSentenceOnlineLastSession', [
+            getMessage('searchOutputSentenceOnlineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
                 replaceNull(
                     cleanDateRelative(lastLoginMS, settings.relativeTimestamps),
@@ -110,14 +110,14 @@ export function sentenceMessage(
         if (recentGames.length > 0) {
             tempGameData.push(
                 getMessage(
-                    'mainOutputSentenceOnlineGamesCount',
+                    'searchOutputSentenceOnlineGamesCount',
                     String(recentGamesPlayed),
                 ),
             );
         }
 
         tempGameData.push(
-            getMessage('mainOutputSentenceOnlineGamesGame', [
+            getMessage('searchOutputSentenceOnlineGamesGame', [
                 replaceNull(gameType),
                 replaceNull(mode),
                 replaceNull(map),
@@ -127,14 +127,14 @@ export function sentenceMessage(
         block3.push(tempGameData.join(' '));
     } else {
         block2.push(
-            getMessage('mainOutputSentenceOfflineSettings', [
+            getMessage('searchOutputSentenceOfflineSettings', [
                 language,
                 replaceNull(version),
             ]),
         );
 
         const tempGameData: string[] = [
-            getMessage('mainOutputSentenceOfflineLastSession', [
+            getMessage('searchOutputSentenceOfflineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
                 replaceNull(
                     cleanDateRelative(lastLoginMS, settings.relativeTimestamps),
@@ -148,10 +148,10 @@ export function sentenceMessage(
         if (recentGames.length > 0) {
             tempGameData.push(
                 getMessage(
-                    'mainOutputSentenceOfflineGamesCount',
+                    'searchOutputSentenceOfflineGamesCount',
                     String(recentGamesPlayed),
                 ),
-                getMessage('mainOutputSentenceOfflineGamesGame', [
+                getMessage('searchOutputSentenceOfflineGamesGame', [
                     replaceNull(recentGame.gameType),
                     replaceNull(recentGame.mode),
                     replaceNull(recentGame.map),
@@ -159,7 +159,7 @@ export function sentenceMessage(
             );
         } else if (lastGame) {
             tempGameData.push(
-                getMessage('mainOutputSentenceOfflineLastGame', [
+                getMessage('searchOutputSentenceOfflineLastGame', [
                     replaceNull(lastGame),
                 ]),
             );
@@ -182,7 +182,7 @@ export function sentenceMessage(
             case 'BEDWARS':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsBedwars',
+                        'searchOutputStatsBedwars',
                         [
                             possessive,
                             bedwars.level,
@@ -199,7 +199,7 @@ export function sentenceMessage(
             case 'DUELS':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsDuels',
+                        'searchOutputStatsDuels',
                         [
                             possessive,
                             duels.coins,
@@ -219,7 +219,7 @@ export function sentenceMessage(
             case 'SURVIVAL_GAMES':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsBlitz',
+                        'searchOutputStatsBlitz',
                         [
                             possessive,
                             blitz.coins,
@@ -236,7 +236,7 @@ export function sentenceMessage(
             case 'PIT':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsPit',
+                        'searchOutputStatsPit',
                         [
                             possessive,
                             pit.gold,
@@ -255,7 +255,7 @@ export function sentenceMessage(
             case 'SKYWARS':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsSkywars',
+                        'searchOutputStatsSkywars',
                         [
                             possessive,
                             skywars.level,
@@ -274,7 +274,7 @@ export function sentenceMessage(
             case 'SPEED_UHC':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsSpeedUHC',
+                        'searchOutputStatsSpeedUHC',
                         [
                             possessive,
                             speedUHC.coins,
@@ -291,7 +291,7 @@ export function sentenceMessage(
             case 'UHC':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsUHC',
+                        'searchOutputStatsUHC',
                         [
                             possessive,
                             uhc.level,
@@ -309,7 +309,7 @@ export function sentenceMessage(
             case 'WALLS':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsWalls',
+                        'searchOutputStatsWalls',
                         [
                             possessive,
                             walls.coins,
@@ -328,7 +328,7 @@ export function sentenceMessage(
             case 'WALLS3':
                 block4.push(
                     getMessage(
-                        'mainOutputStatsMegaWalls',
+                        'searchOutputStatsMegaWalls',
                         [
                             possessive,
                             megaWalls.coins,
