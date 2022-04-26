@@ -818,24 +818,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow: clip;
 }
 
-.overflow-scroll {
-  overflow: scroll;
-}
-
 .overflow-x-auto {
   overflow-x: auto;
 }
 
 .overflow-y-auto {
   overflow-y: auto;
-}
-
-.overflow-x-visible {
-  overflow-x: visible;
-}
-
-.overflow-y-visible {
-  overflow-y: visible;
 }
 
 .overflow-y-scroll {

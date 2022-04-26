@@ -20,7 +20,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
     if (settings.firstLogin) {
         block2.push(getMessage('searchOutputSentenceGeneralFirstLogin', [
             replaceNull(cleanTime(firstLoginMS)),
-            replaceNull(cleanDateRelative(firstLoginMS, settings.firstLogin)),
+            replaceNull(cleanDateRelative(firstLoginMS, settings.relativeTimestamps)),
         ]));
     }
     if (isOnline) {
@@ -222,5 +222,7 @@ function cleanDateRelative(ms, relative) {
     }
     return `${new Date(ms).toLocaleString(undefined, {
         dateStyle: 'medium',
-    })}${relative ? ` (${getMessage('relative', String(cleanLength(timeAgo(ms))))})` : ''}`;
+    })}${relative === true
+        ? ` (${getMessage('relative', String(cleanLength(timeAgo(ms))))})`
+        : ''}`;
 }

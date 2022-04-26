@@ -228,7 +228,7 @@
         "message": "Show Last Logout"
     },
     "settingsSettingsLastLogoutTooltip" : {
-        "message": "When enabled, one's last logout will be shown in the output. This does not work when the \"Use Sentences\" option is enabled."
+        "message": "When enabled and \"Use Sentences\" is disabled, one's last logout will be shown in the output."
     },
     "settingsSettingsRelativeTimestamps" : {
         "message":  "Show Relative Timestamps"
@@ -297,6 +297,6 @@
         "message": "Chrome Web Store"
     },
     "aboutMozillaListing": {
-        "message": "Mozilla Add-ons"
+        "message": "Firefox Add-ons"
     }
 }

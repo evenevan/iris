@@ -84,7 +84,10 @@ export function sentenceMessage(
             getMessage('searchOutputSentenceGeneralFirstLogin', [
                 replaceNull(cleanTime(firstLoginMS)),
                 replaceNull(
-                    cleanDateRelative(firstLoginMS, settings.firstLogin),
+                    cleanDateRelative(
+                        firstLoginMS,
+                        settings.relativeTimestamps,
+                    ),
                 ),
             ]),
         );
@@ -380,6 +383,8 @@ function cleanDateRelative(ms: number | null, relative: boolean) {
     return `${new Date(ms).toLocaleString(undefined, {
         dateStyle: 'medium',
     })}${
-        relative ? ` (${getMessage('relative', String(cleanLength(timeAgo(ms))))})` : ''
+        relative === true
+            ? ` (${getMessage('relative', String(cleanLength(timeAgo(ms))))})`
+            : ''
     }`;
 }
