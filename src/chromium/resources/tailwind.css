@@ -818,10 +818,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow: clip;
 }
 
-.overflow-x-auto {
-  overflow-x: auto;
-}
-
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -1295,14 +1291,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .peer:placeholder-shown ~ .peer-placeholder-shown\:hover\:bg-neutral-300:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(212 212 212 / var(--tw-bg-opacity));
-}
-
-.peer:valid ~ .peer-valid\:outline-2 {
-  outline-width: 2px;
-}
-
-.peer:valid ~ .peer-valid\:outline-green-800 {
-  outline-color: #166534;
 }
 
 .peer:-moz-placeholder-shown:valid ~ .peer-placeholder-shown\:peer-valid\:outline-0 {
