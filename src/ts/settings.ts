@@ -24,6 +24,8 @@ import { runtime } from './utility/utility.js';
         'settingsSettingsHypixelAPI',
         'settingsSettingsHypixelAPITooltip',
         'settingsHypixelAPITitle',
+        'settingsHypixelAPIDescription_1',
+        'settingsHypixelAPIDescription_2',
         'settingsHypixelAPITestKeyButton',
     ]);
 
@@ -111,8 +113,7 @@ import { runtime } from './utility/utility.js';
                 )!.record.totalQueries;
 
                 testAPIKeyResultSpan.textContent = runtime.i18n
-                    .getMessage('settingsHypixelAPI200')
-                    .replace('{{ uses }}', String(uses));
+                    .getMessage('settingsHypixelAPI200', String(uses));
             }
             break;
             case 403: testAPIKeyResultSpan.innerHTML = runtime.i18n

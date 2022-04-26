@@ -257,6 +257,12 @@
     "settingsHypixelAPITitle": {
         "message": "Hypixel API"
     },
+    "settingsHypixelAPIDescription_1": {
+        "message": "Get a API key with "
+    },
+    "settingsHypixelAPIDescription_2": {
+        "message": " on Hypixel."
+    },
     "settingsHypixelAPIInputPlaceholder": {
         "message": "Hypixel API Key"
     },
@@ -264,7 +270,7 @@
         "message": "Test Key"
     },
     "settingsHypixelAPI200": {
-        "message": "Working API key! Your API key has {{ uses }} uses."
+        "message": "Working API key! Your API key has $1 uses."
     },
     "settingsHypixelAPI403": {
         "message": "Invalid API key! Get a new API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."

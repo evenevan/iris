@@ -22,6 +22,8 @@ import { runtime } from './utility/utility.js';
         'settingsSettingsHypixelAPI',
         'settingsSettingsHypixelAPITooltip',
         'settingsHypixelAPITitle',
+        'settingsHypixelAPIDescription_1',
+        'settingsHypixelAPIDescription_2',
         'settingsHypixelAPITestKeyButton',
     ]);
     const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
@@ -74,8 +76,7 @@ import { runtime } from './utility/utility.js';
                 {
                     const uses = (await Request.tryParse(request)).record.totalQueries;
                     testAPIKeyResultSpan.textContent = runtime.i18n
-                        .getMessage('settingsHypixelAPI200')
-                        .replace('{{ uses }}', String(uses));
+                        .getMessage('settingsHypixelAPI200', String(uses));
                 }
                 break;
             case 403:
