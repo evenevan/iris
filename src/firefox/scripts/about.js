@@ -10,6 +10,7 @@ import { runtime } from './utility/utility.js';
         'about',
         'aboutChromeListing',
         'aboutMozillaListing',
+        'aboutGitHub',
     ]);
     const copyright = document.getElementById('aboutCopyright');
     copyright.innerHTML = runtime.i18n.getMessage('aboutCopyright', [

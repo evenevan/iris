@@ -22,8 +22,6 @@ import { runtime } from './utility/utility.js';
         'settingsSettingsHypixelAPI',
         'settingsSettingsHypixelAPITooltip',
         'settingsHypixelAPITitle',
-        'settingsHypixelAPIDescription_1',
-        'settingsHypixelAPIDescription_2',
         'settingsHypixelAPITestKeyButton',
     ]);
     const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
@@ -41,6 +39,8 @@ import { runtime } from './utility/utility.js';
             }, 300);
         });
     });
+    const settingsHypixelAPIDescription = document.getElementById('settingsHypixelAPIDescription');
+    settingsHypixelAPIDescription.innerHTML = runtime.i18n.getMessage('settingsHypixelAPIDescription');
     const apiKeyInput = document.getElementById('apiKey');
     const testAPIKeyButton = document.getElementById('testAPIKey');
     const testAPIKeyResultSpan = document.getElementById('testAPIKeyResult');

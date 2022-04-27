@@ -24,8 +24,6 @@ import { runtime } from './utility/utility.js';
         'settingsSettingsHypixelAPI',
         'settingsSettingsHypixelAPITooltip',
         'settingsHypixelAPITitle',
-        'settingsHypixelAPIDescription_1',
-        'settingsHypixelAPIDescription_2',
         'settingsHypixelAPITestKeyButton',
     ]);
 
@@ -50,6 +48,14 @@ import { runtime } from './utility/utility.js';
                 }, 300);
             });
         });
+
+    const settingsHypixelAPIDescription = document.getElementById(
+        'settingsHypixelAPIDescription',
+    ) as HTMLSpanElement;
+
+    settingsHypixelAPIDescription.innerHTML = runtime.i18n.getMessage(
+        'settingsHypixelAPIDescription',
+    );
 
     const apiKeyInput = document.getElementById(
         'apiKey',

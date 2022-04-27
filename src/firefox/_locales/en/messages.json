@@ -257,11 +257,8 @@
     "settingsHypixelAPITitle": {
         "message": "Hypixel API"
     },
-    "settingsHypixelAPIDescription_1": {
-        "message": "Get a API key with "
-    },
-    "settingsHypixelAPIDescription_2": {
-        "message": " on Hypixel."
+    "settingsHypixelAPIDescription": {
+        "message": "Get a API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
     },
     "settingsHypixelAPIInputPlaceholder": {
         "message": "Hypixel API Key"
@@ -304,5 +301,8 @@
     },
     "aboutMozillaListing": {
         "message": "Firefox Add-ons"
+    },
+    "aboutGitHub": {
+        "message": "GitHub"
     }
 }

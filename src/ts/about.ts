@@ -13,6 +13,7 @@ import { runtime } from './utility/utility.js';
         'about',
         'aboutChromeListing',
         'aboutMozillaListing',
+        'aboutGitHub',
     ]);
 
     const copyright = document.getElementById(
