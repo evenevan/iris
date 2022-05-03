@@ -258,7 +258,7 @@
         "message": "Hypixel API"
     },
     "settingsHypixelAPIDescription": {
-        "message": "Get a API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
+        "message": "Get an API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
     },
     "settingsHypixelAPIInputPlaceholder": {
         "message": "Hypixel API Key"
