@@ -5,7 +5,7 @@
         <link href="./resources/tailwind.css" rel="stylesheet">
         <script rel="preload" src="./scripts/history.js" type="module"></script>
     </head>
-    <body class="flex flex-row bg-neutral-100 dark:bg-neutral-900 w-[25rem] h-[35rem] font-sans text-black dark:text-white">
+    <body class="flex flex-row bg-neutral-100 dark:bg-neutral-900 w-[25rem] h-[35rem] font-sans text-black dark:text-white overflow-y-hidden">
         <div class="sticky flex flex-col items-center justify-start left-0 w-[12.5%] h-full z-[100] bg-neutral-300 dark:bg-neutral-800 gap-6 pt-4">
             <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#dcaf4e">
                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
@@ -44,68 +44,11 @@
                 </button>
 			</form>
         </div>
-        <div class="relative flex flex-col w-[87.5%] h-full p-2 overflow-y-auto">
+        <div id="container" class="relative flex flex-col w-[87.5%] h-full p-2 overflow-y-auto">
             <div id="output" class="flex flex-col font-normal gap-2"></div>
             <div id="noHistory" class="hidden w-full h-fit peer">
                 <div class="flex flex-col w-full h-[6rem] items-center justify-center bg-neutral-300 dark:bg-neutral-800 rounded-sm p-4">
                     <span id="historyNoHistoryText" class="font-semibold text-base"></span>
-                </div>
-            </div>
-            <div id="loading" class="flex flex-col w-full animate-[pulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] gap-2">
-                <div class="flex flex-col w-full h-fit bg-neutral-300 dark:bg-neutral-800 rounded-sm p-2">
-                    <div class="flex w-full h-fit justify-between mb-5">
-                        <div class="w-1/12 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-1/2 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col h-fit gap-3">
-                        <div class="w-1/6 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-1/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-5/6 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                </div>
-                <div class="flex flex-col w-full h-fit bg-neutral-300 dark:bg-neutral-800 rounded-sm p-2">
-                    <div class="flex w-full h-fit justify-between mb-5">
-                        <div class="w-1/12 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-1/2 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col h-fit gap-3">
-                        <div class="w-2/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-5/6 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-1/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                </div>
-                <div class="flex flex-col w-full h-fit bg-neutral-300 dark:bg-neutral-800 rounded-sm p-2">
-                    <div class="flex w-full h-fit justify-between mb-5">
-                        <div class="w-1/12 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-1/2 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col h-fit gap-3">
-                        <div class="w-2/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    <div class="w-1/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    <div class="w-full h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                </div>
-                <div class="flex flex-col w-full h-fit bg-neutral-300 dark:bg-neutral-800 rounded-sm p-2">
-                    <div class="flex w-full h-fit justify-between mb-5">
-                        <div class="w-1/12 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-1/2 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col h-fit gap-3">
-                        <div class="w-1/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-2/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-5/6 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                </div>
-                <div class="flex flex-col w-full h-fit bg-neutral-300 dark:bg-neutral-800 rounded-sm p-2">
-                    <div class="flex w-full h-fit justify-between mb-5">
-                        <div class="w-1/12 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-1/2 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
-                    <div class="flex flex-col h-fit gap-3">
-                        <div class="w-1/6 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-2/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                        <div class="w-1/3 h-2 bg-neutral-600 dark:bg-neutral-500 rounded-full"></div>
-                    </div>
                 </div>
             </div>
         </div>
