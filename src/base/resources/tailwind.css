@@ -1400,6 +1400,16 @@ Ensure the default browser behavior of the `hidden` attribute.
     background-color: rgb(64 64 64 / var(--tw-bg-opacity));
   }
 
+  .dark\:bg-neutral-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(115 115 115 / var(--tw-bg-opacity));
+  }
+
+  .dark\:bg-neutral-400 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(163 163 163 / var(--tw-bg-opacity));
+  }
+
   .dark\:fill-neutral-500 {
     fill: #737373;
   }

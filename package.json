@@ -10,8 +10,8 @@
     },
     "scripts": {
         "copy": "xcopy \"./src\\base\" \"src\\chromium\" /S /E /Y && xcopy \"./src\\base\" \"src\\firefox\" /S /E /Y",
-        "tailwind": "npx tailwindcss -i ./resources/source.css -o ./src/base/resources/tailwind.css",
         "ts": "npx tsc -p .",
+        "tailwind": "npx tailwindcss -i ./resources/source.css -o ./src/base/resources/tailwind.css",
         "build": "npm run ts && npm run tailwind && npm run copy"
     }
 }
