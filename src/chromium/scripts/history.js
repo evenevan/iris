@@ -1,5 +1,5 @@
 import { i18n, replaceNull, } from './utility/i18n.js';
-import { runtime, timeout } from './utility/utility.js';
+import { runtime, timeout, } from './utility/utility.js';
 (async () => {
     i18n([
         'search',
@@ -26,7 +26,8 @@ import { runtime, timeout } from './utility/utility.js';
     container.addEventListener('scroll', async () => {
         if (Math.abs(container.scrollHeight -
             container.scrollTop -
-            container.clientHeight) <= 500) {
+            container.clientHeight) <= 500 &&
+            index < history.length) {
             await generateHistory();
         }
     });
@@ -34,7 +35,6 @@ import { runtime, timeout } from './utility/utility.js';
         const playerArray = [];
         const increase = Math.min(history.length, Math.max(index * 2.5, 25));
         for (; index < increase; index += 1) {
-            console.count();
             const searchEpoch = Number(history[index].epoch);
             playerArray.push(`
                 <div id="output" class="flex flex-col font-normal gap-2 peer">
