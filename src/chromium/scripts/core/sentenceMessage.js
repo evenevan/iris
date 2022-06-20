@@ -1,6 +1,6 @@
 import { cleanLength, cleanTime, createOffset, runtime, timeAgo, } from '../utility/utility.js';
 import { replaceNull } from '../utility/i18n.js';
-const getMessage = runtime.i18n.getMessage;
+const { getMessage } = runtime.i18n;
 export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { lastGame }, online: { gameType, mode, map }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
     const [recentGame = {}] = recentGames;
     const block1 = [
@@ -72,10 +72,10 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
         }
         block3.push(tempGameData.join(' '));
     }
-    if (settings.gameStats === true &&
-        ((isOnline === true && gameType) ||
-            (isOnline === false && recentGame.gameType) ||
-            (isOnline === false && lastGame))) {
+    if (settings.gameStats === true
+        && ((isOnline === true && gameType)
+            || (isOnline === false && recentGame.gameType)
+            || (isOnline === false && lastGame))) {
         switch (gameType ?? recentGame.gameType ?? lastGame) {
             case 'Bed Wars':
             case 'Bedwars':
@@ -88,7 +88,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     bedwars.winStreak,
                     bedwars.finalKD,
                     bedwars.KD,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
             case 'Duels':
             case 'DUELS':
@@ -101,7 +101,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     duels.wins,
                     duels.kills,
                     duels.deaths,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
             case 'Blitz Survival Games':
             case 'Blitz':
@@ -115,7 +115,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     blitz.wins,
                     blitz.kills,
                     blitz.deaths,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
             case 'Pit':
             case 'PIT':
@@ -129,7 +129,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     pit.KD,
                     pit.kills,
                     pit.deaths,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
             case 'SkyWars':
             case 'SKYWARS':
@@ -142,7 +142,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     skywars.wins,
                     skywars.kills,
                     skywars.deaths,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
             case 'Speed UHC':
             case 'SpeedUHC':
@@ -155,7 +155,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     speedUHC.wins,
                     speedUHC.kills,
                     speedUHC.deaths,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
             case 'UHC Champions':
             case 'UHC':
@@ -168,7 +168,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     uhc.wins,
                     uhc.kills,
                     uhc.deaths,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
             case 'Walls':
             case 'WALLS':
@@ -180,7 +180,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     walls.wins,
                     walls.kills,
                     walls.deaths,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
             case 'Mega Walls':
             case 'MegaWalls':
@@ -194,9 +194,9 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
                     megaWalls.wins,
                     megaWalls.kills,
                     megaWalls.deaths,
-                ].map(item => String(item))));
+                ].map((item) => String(item))));
                 break;
-            //No default
+            // no default
         }
     }
     const messages = [
@@ -205,7 +205,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
         block3.join(' '),
         block4.join(' '),
     ]
-        .map(block => (settings.thirdPerson
+        .map((block) => (settings.thirdPerson
         ? block
             .replace(/Your/gim, possessive)
             .replace(/You/gim, username ?? '')
@@ -215,9 +215,9 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
 }
 function cleanDateRelative(ms, relative) {
     const date = new Date(Number(ms));
-    if (!ms ||
-        ms < 0 ||
-        Object.prototype.toString.call(date) !== '[object Date]') {
+    if (!ms
+        || ms < 0
+        || Object.prototype.toString.call(date) !== '[object Date]') {
         return null;
     }
     return `${new Date(ms).toLocaleString(undefined, {

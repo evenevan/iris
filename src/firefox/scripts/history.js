@@ -24,10 +24,10 @@ import { runtime, timeout, } from './utility/utility.js';
     let index = 0;
     await generateHistory();
     container.addEventListener('scroll', async () => {
-        if (Math.abs(container.scrollHeight -
-            container.scrollTop -
-            container.clientHeight) <= 500 &&
-            index < history.length) {
+        if (Math.abs(container.scrollHeight
+            - container.scrollTop
+            - container.clientHeight) <= 500
+            && index < history.length) {
             await generateHistory();
         }
     });

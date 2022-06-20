@@ -1,4 +1,4 @@
-//Defaults
+// Defaults
 const userHistory = {
     lastSearchCleared: false,
     lastSearch: null,
@@ -7,13 +7,13 @@ const userHistory = {
 
 const userSettings = {
     apiKey: '',
-    firstLogin: true, //Show First Login
-    gameStats: true, //Show Game Stats
-    hypixelAPI: false, //Use Hypixel API
-    lastLogout: false, //Show Last Logout
-    relativeTimestamps: true, //Show Relative Timestamps
-    sentences: false, //Use Sentences
-    thirdPerson: false, //Use Third Person
+    firstLogin: true, // Show First Login
+    gameStats: true, // Show Game Stats
+    hypixelAPI: false, // Use Hypixel API
+    lastLogout: false, // Show Last Logout
+    relativeTimestamps: true, // Show Relative Timestamps
+    sentences: false, // Use Sentences
+    thirdPerson: false, // Use Third Person
 };
 
 let runtime = chrome;
@@ -23,11 +23,11 @@ try {
 // eslint-disable-next-line no-empty
 } catch {}
 
-//Install/Update Handling
-runtime.runtime.onInstalled.addListener(async details => {
+// Install/Update Handling
+runtime.runtime.onInstalled.addListener(async (details) => {
     if (
-        details.reason === runtime.runtime.OnInstalledReason.INSTALL ||
-        details.reason === runtime.runtime.OnInstalledReason.UPDATE
+        details.reason === runtime.runtime.OnInstalledReason.INSTALL
+        || details.reason === runtime.runtime.OnInstalledReason.UPDATE
     ) {
         const local = await runtime.storage.local.get(null) ?? {};
         const sync = await runtime.storage.sync.get(null) ?? {};
@@ -37,17 +37,17 @@ runtime.runtime.onInstalled.addListener(async details => {
         const newLocal = {
             lastSearchCleared: localIsLegacy
                 ? local.playerHistory.lastSearchCleared
-                : local?.lastSearchCleared ??
-                userHistory.lastSearchCleared,
+                : local?.lastSearchCleared
+                ?? userHistory.lastSearchCleared,
             lastSearch: localIsLegacy
-                ? local.playerHistory.lastSearches[0] ??
-                userHistory.lastSearchCleared
-                : local?.lastSearch ??
-                userHistory.lastSearch,
+                ? local.playerHistory.lastSearches[0]
+                ?? userHistory.lastSearchCleared
+                : local?.lastSearch
+                ?? userHistory.lastSearch,
             history: localIsLegacy
                 ? local.playerHistory.lastSearches
-                : local?.history ??
-                userHistory.history,
+                : local?.history
+                ?? userHistory.history,
         };
 
         const syncIsLegacy = 'userOptions' in sync;
@@ -55,36 +55,36 @@ runtime.runtime.onInstalled.addListener(async details => {
         const newSync = {
             apiKey: syncIsLegacy
                 ? sync.userOptions.apiKey
-                : sync?.apiKey ??
-                userSettings.apiKey,
+                : sync?.apiKey
+                ?? userSettings.apiKey,
             firstLogin: syncIsLegacy
                 ? sync.userOptions.firstLogin
-                : sync?.firstLogin ??
-                userSettings.firstLogin,
+                : sync?.firstLogin
+                ?? userSettings.firstLogin,
             gameStats: syncIsLegacy
                 ? sync.userOptions.gameStats
-                : sync?.gameStats ??
-                userSettings.gameStats,
+                : sync?.gameStats
+                ?? userSettings.gameStats,
             hypixelAPI: syncIsLegacy
                 ? sync.userOptions.useHypixelAPI
-                : sync?.hypixelAPI ??
-                userSettings.hypixelAPI,
+                : sync?.hypixelAPI
+                ?? userSettings.hypixelAPI,
             lastLogout: syncIsLegacy
                 ? sync.userOptions.lastLogout
-                : sync?.lastLogout ??
-                userSettings.lastLogout,
+                : sync?.lastLogout
+                ?? userSettings.lastLogout,
             relativeTimestamps: syncIsLegacy
                 ? sync.userOptions.relativeTimestamps
-                : sync?.relativeTimestamps ??
-                userSettings.relativeTimestamps,
+                : sync?.relativeTimestamps
+                ?? userSettings.relativeTimestamps,
             sentences: syncIsLegacy
                 ? sync.userOptions.paragraphOutput
-                : sync?.sentences ??
-                userSettings.sentences,
+                : sync?.sentences
+                ?? userSettings.sentences,
             thirdPerson: syncIsLegacy
                 ? sync.userOptions.authorNameOutput
-                : sync?.thirdPerson ??
-                userSettings.thirdPerson,
+                : sync?.thirdPerson
+                ?? userSettings.thirdPerson,
         };
 
         await runtime.storage.local.clear();

@@ -43,13 +43,13 @@ import {
     container.addEventListener('scroll', async () => {
         if (
             Math.abs(
-                container.scrollHeight -
-                container.scrollTop -
-                container.clientHeight,
-            ) <= 500 &&
-            index < history.length
+                container.scrollHeight
+                - container.scrollTop
+                - container.clientHeight,
+            ) <= 500
+            && index < history.length
         ) {
-           await generateHistory();
+            await generateHistory();
         }
     });
 
@@ -67,9 +67,9 @@ import {
                             <span class="font-semibold text-sm">${index + 1}</span>
                             <span class="font-semibold text-sm">
                                 ${new Date(searchEpoch).toLocaleString(undefined, {
-                                    timeStyle: 'medium',
-                                    dateStyle: 'medium',
-                                })}
+        timeStyle: 'medium',
+        dateStyle: 'medium',
+    })}
                             </span>
                         </div>
                         <span class="break-words text-xs">

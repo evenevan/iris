@@ -9,7 +9,7 @@ import { processHypixel } from './processHypixel.js';
 import { processSlothpixel } from './processSlothpixel.js';
 import { replaceNull } from '../utility/i18n.js';
 
-const getMessage = runtime.i18n.getMessage;
+const { getMessage } = runtime.i18n;
 
 export function sentenceMessage(
     {
@@ -176,11 +176,11 @@ export function sentenceMessage(
     }
 
     if (
-        settings.gameStats === true &&
-        (
-            (isOnline === true && gameType) ||
-            (isOnline === false && recentGame.gameType) ||
-            (isOnline === false && lastGame)
+        settings.gameStats === true
+        && (
+            (isOnline === true && gameType)
+            || (isOnline === false && recentGame.gameType)
+            || (isOnline === false && lastGame)
         )
     ) {
         switch (gameType ?? recentGame.gameType ?? lastGame) {
@@ -198,7 +198,7 @@ export function sentenceMessage(
                             bedwars.winStreak,
                             bedwars.finalKD,
                             bedwars.KD,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
@@ -216,7 +216,7 @@ export function sentenceMessage(
                             duels.wins,
                             duels.kills,
                             duels.deaths,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
@@ -235,7 +235,7 @@ export function sentenceMessage(
                             blitz.wins,
                             blitz.kills,
                             blitz.deaths,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
@@ -254,7 +254,7 @@ export function sentenceMessage(
                             pit.KD,
                             pit.kills,
                             pit.deaths,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
@@ -272,7 +272,7 @@ export function sentenceMessage(
                             skywars.wins,
                             skywars.kills,
                             skywars.deaths,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
@@ -290,7 +290,7 @@ export function sentenceMessage(
                             speedUHC.wins,
                             speedUHC.kills,
                             speedUHC.deaths,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
@@ -308,7 +308,7 @@ export function sentenceMessage(
                             uhc.wins,
                             uhc.kills,
                             uhc.deaths,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
@@ -325,7 +325,7 @@ export function sentenceMessage(
                             walls.wins,
                             walls.kills,
                             walls.deaths,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
@@ -344,11 +344,11 @@ export function sentenceMessage(
                             megaWalls.wins,
                             megaWalls.kills,
                             megaWalls.deaths,
-                        ].map(item => String(item)),
+                        ].map((item) => String(item)),
                     ),
                 );
                 break;
-            //No default
+            // no default
         }
     }
 
@@ -358,7 +358,7 @@ export function sentenceMessage(
         block3.join(' '),
         block4.join(' '),
     ]
-        .map(block => (
+        .map((block) => (
             settings.thirdPerson
                 ? block
                     .replace(/Your/gim, possessive)
@@ -373,9 +373,9 @@ export function sentenceMessage(
 function cleanDateRelative(ms: number | null, relative: boolean) {
     const date = new Date(Number(ms));
     if (
-        !ms ||
-        ms < 0 ||
-        Object.prototype.toString.call(date) !== '[object Date]'
+        !ms
+        || ms < 0
+        || Object.prototype.toString.call(date) !== '[object Date]'
     ) {
         return null;
     }

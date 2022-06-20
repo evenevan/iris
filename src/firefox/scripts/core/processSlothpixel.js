@@ -1,6 +1,6 @@
 import { cleanGameMode, cleanGameType, cleanLength, maxDecimals, } from '../utility/utility.js';
 /* eslint-disable camelcase */
-//Turns the Hypixel API format into a custom format for consistency
+// Turns the Hypixel API format into a custom format for consistency
 export function processSlothpixel({ username = '', uuid = null, first_login = null, language = 'ENGLISH', last_login = null, last_logout = null, last_game = null, mc_version = null, stats: { BedWars = {}, Duels = {
     general: {},
 }, Blitz = {}, Pit = {}, SkyWars = {}, SpeedUHC = {}, UHC = {}, Walls = {}, MegaWalls = {}, } = {}, }, { online = null, game: { type = null, mode = null, map = null, } = {}, }, recentGamesData) {
@@ -66,9 +66,9 @@ function recentGamesFormatter({ last_login, last_logout, recentGamesData = [], }
             if (game.startMS < last_login)
                 break;
             recentGames.push(game);
-            if (!last_login ||
-                !last_logout ||
-                (game.startMS > last_login && game.startMS < last_logout)) {
+            if (!last_login
+                || !last_logout
+                || (game.startMS > last_login && game.startMS < last_logout)) {
                 if (i <= 99)
                     recentGamesPlayed += 1;
             }

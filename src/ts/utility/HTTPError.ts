@@ -1,7 +1,10 @@
 export class HTTPError extends Error {
     readonly response: Response | null;
+
     readonly status: number;
+
     readonly statusText: string | null;
+
     readonly url: string;
 
     constructor({
@@ -14,10 +17,10 @@ export class HTTPError extends Error {
         url: string;
     }) {
         super(
-            message ??
-            response?.statusText ??
-            String(response?.status) ??
-            'Unknown',
+            message
+            ?? response?.statusText
+            ?? String(response?.status)
+            ?? 'Unknown',
         );
         this.name = 'HTTPError';
         this.response = response ?? null;

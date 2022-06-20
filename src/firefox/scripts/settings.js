@@ -24,11 +24,12 @@ import { runtime } from './utility/utility.js';
         'settingsHypixelAPITitle',
         'settingsHypixelAPITestKeyButton',
     ]);
-    //No optional dashes as Hypixel API keys must have them
+    // No optional dashes as Hypixel API keys must have them
     const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
     const userSettings = await runtime.storage.sync.get(null);
     document.querySelectorAll('input[type=checkbox]')
-        .forEach(checkbox => {
+        .forEach((element) => {
+        const checkbox = element;
         checkbox.checked = userSettings[checkbox.id];
         checkbox.addEventListener('change', async () => {
             await runtime.storage.sync.set({

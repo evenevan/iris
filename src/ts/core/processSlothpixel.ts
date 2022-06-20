@@ -7,7 +7,7 @@ import {
 
 /* eslint-disable camelcase */
 
-//Turns the Hypixel API format into a custom format for consistency
+// Turns the Hypixel API format into a custom format for consistency
 export function processSlothpixel(
     {
         username = '',
@@ -100,27 +100,27 @@ export function processSlothpixel(
         version: mc_version,
         offline: online
             ? {
-                  playtime: null,
-                  lastGame: null,
-              }
+                playtime: null,
+                lastGame: null,
+            }
             : {
-                  playtime:
+                playtime:
                   last_login && last_logout && last_login < last_logout
-                        ? cleanLength(last_logout - last_login)
-                        : null,
-                  lastGame: cleanGameType(last_game),
-              },
+                      ? cleanLength(last_logout - last_login)
+                      : null,
+                lastGame: cleanGameType(last_game),
+            },
         online: online
             ? {
-                  gameType: cleanGameType(type),
-                  mode: cleanGameMode(mode),
-                  map: map,
-              }
+                gameType: cleanGameType(type),
+                mode: cleanGameMode(mode),
+                map: map,
+            }
             : {
-                  gameType: null,
-                  mode: null,
-                  map: null,
-              },
+                gameType: null,
+                mode: null,
+                map: null,
+            },
         bedwars: bedwarsStats(BedWars),
         duels: duelsStats(Duels.general),
         blitz: blitzStats(Blitz),
@@ -157,9 +157,9 @@ function recentGamesFormatter({
             if (game.startMS < last_login) break;
             recentGames.push(game);
             if (
-                !last_login ||
-                !last_logout ||
-                (game.startMS > last_login && game.startMS < last_logout)
+                !last_login
+                || !last_logout
+                || (game.startMS > last_login && game.startMS < last_logout)
             ) {
                 if (i <= 99) recentGamesPlayed += 1;
             }

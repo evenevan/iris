@@ -19,7 +19,7 @@ export async function getHypixel(uuid: string, apiKey: string) {
     ];
 
     const responses = await Promise.all(
-        urls.map(async url => {
+        urls.map(async (url) => {
             const response = await request.request(url, fetchOptions);
 
             if (response.ok === false) {
@@ -35,7 +35,7 @@ export async function getHypixel(uuid: string, apiKey: string) {
     );
 
     const data = await Promise.all(
-        responses.map(response => Request.tryParse<{
+        responses.map((response) => Request.tryParse<{
             [key: string]: unknown
         }>(response)),
     );

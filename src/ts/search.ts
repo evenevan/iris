@@ -46,9 +46,9 @@ import {
     ]) as Pick<Local, 'lastSearch' | 'lastSearchCleared'>;
 
     if (
-        lastSearchCleared === false &&
-        lastSearch &&
-        lastSearch?.apiData
+        lastSearchCleared === false
+        && lastSearch
+        && lastSearch?.apiData
     ) {
         output.innerHTML = settings.sentences === true
             ? sentenceMessage(lastSearch.apiData, settings)
@@ -87,7 +87,6 @@ import {
                 ? playerValue
                 : await getUUID(playerValue);
 
-
             apiData = settings.hypixelAPI === true
                 ? await getHypixel(uuid, settings.apiKey)
                 : await getSlothpixel(uuid);
@@ -104,17 +103,17 @@ import {
                     playerValue,
                 );
             } else if (
-                error instanceof HTTPError &&
-                settings.hypixelAPI === false
+                error instanceof HTTPError
+                && settings.hypixelAPI === false
             ) {
                 output.innerHTML = runtime.i18n.getMessage(
                     'searchOutputErrorSlothpixel',
                     playerValue,
                 );
             } else if (
-                error instanceof HTTPError &&
-                error.status === 403 &&
-                settings.hypixelAPI === true
+                error instanceof HTTPError
+                && error.status === 403
+                && settings.hypixelAPI === true
             ) {
                 output.innerHTML = runtime.i18n.getMessage(
                     'searchOutputErrorHypixelInvalidKey',
@@ -149,8 +148,8 @@ import {
 
             const bytes = () => new TextEncoder()
                 .encode(Object.entries(newHistory ?? {})
-                .map(([subKey, subvalue]) => subKey + JSON.stringify(subvalue))
-                .join(''))
+                    .map(([subKey, subvalue]) => subKey + JSON.stringify(subvalue))
+                    .join(''))
                 .length;
 
             newHistory.unshift(historyEntry);

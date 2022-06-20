@@ -6,7 +6,7 @@ interface History {
     uuid: string | null,
     username: string | null,
     apiData: ReturnType<typeof processHypixel> &
-        ReturnType<typeof processSlothpixel>,
+    ReturnType<typeof processSlothpixel>,
     epoch: number,
 }
 

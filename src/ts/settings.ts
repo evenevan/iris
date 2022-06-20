@@ -27,12 +27,14 @@ import { runtime } from './utility/utility.js';
         'settingsHypixelAPITestKeyButton',
     ]);
 
-    //No optional dashes as Hypixel API keys must have them
+    // No optional dashes as Hypixel API keys must have them
     const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
     const userSettings = await runtime.storage.sync.get(null) as Sync;
 
     document.querySelectorAll<HTMLInputElement>('input[type=checkbox]')
-        .forEach(checkbox => {
+        .forEach((element) => {
+            const checkbox = element;
+
             checkbox.checked = userSettings[
                 checkbox.id as keyof typeof userSettings
             ] as boolean;
@@ -122,10 +124,10 @@ import { runtime } from './utility/utility.js';
                 testAPIKeyResultSpan.textContent = runtime.i18n
                     .getMessage('settingsHypixelAPI200', String(uses));
             }
-            break;
+                break;
             case 403: testAPIKeyResultSpan.innerHTML = runtime.i18n
                 .getMessage('settingsHypixelAPI403');
-            break;
+                break;
             default: testAPIKeyResultSpan.textContent = runtime.i18n
                 .getMessage('settingsHypixelAPIdefault');
         }

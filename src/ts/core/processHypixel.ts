@@ -8,7 +8,7 @@ import {
 
 /* eslint-disable camelcase */
 
-//Turns the Hypixel API format into a custom format for consistency
+// Turns the Hypixel API format into a custom format for consistency
 export function processHypixel(
     {
         displayname = '',
@@ -103,27 +103,27 @@ export function processHypixel(
         version: mcVersionRp,
         offline: online
             ? {
-                  playtime: null,
-                  lastGame: null,
-              }
+                playtime: null,
+                lastGame: null,
+            }
             : {
-                  playtime:
+                playtime:
                   lastLogin && lastLogout && lastLogin < lastLogout
-                          ? cleanLength(lastLogout - lastLogin)
-                          : null,
-                  lastGame: cleanGameType(mostRecentGameType),
-              },
+                      ? cleanLength(lastLogout - lastLogin)
+                      : null,
+                lastGame: cleanGameType(mostRecentGameType),
+            },
         online: online
             ? {
-                  gameType: cleanGameType(gameType),
-                  mode: cleanGameMode(mode),
-                  map: map,
-              }
+                gameType: cleanGameType(gameType),
+                mode: cleanGameMode(mode),
+                map: map,
+            }
             : {
-                  gameType: null,
-                  mode: null,
-                  map: null,
-              },
+                gameType: null,
+                mode: null,
+                map: null,
+            },
         bedwars: bedwarsStats(BedWars, achievements),
         duels: duelsStats(Duels),
         blitz: blitzStats(HungerGames),
@@ -166,9 +166,9 @@ function recentGamesFormatter({
             recentGames.push(game);
 
             if (
-                !lastLogin ||
-                !lastLogout ||
-                (game.startMS > lastLogin && game.startMS < lastLogout)
+                !lastLogin
+                || !lastLogout
+                || (game.startMS > lastLogin && game.startMS < lastLogout)
             ) {
                 if (i <= 99) recentGamesPlayed += 1;
             }

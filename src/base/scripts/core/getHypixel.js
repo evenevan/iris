@@ -25,7 +25,7 @@ export async function getHypixel(uuid, apiKey) {
         }
         return response;
     }));
-    const data = await Promise.all(responses.map(response => Request.tryParse(response)));
+    const data = await Promise.all(responses.map((response) => Request.tryParse(response)));
     if (data[0]?.player) {
         const processed = processHypixel(data[0].player, data[1], data[2]);
         return processed;

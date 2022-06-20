@@ -17,16 +17,16 @@ export class Request {
             if (response.ok === true) {
                 return response;
             }
-            if (this.try < this.tryLimit &&
-                response.status >= 500 &&
-                response.status < 600) {
-                return this.request(url, fetchOptions);
+            if (this.try < this.tryLimit
+                && response.status >= 500
+                && response.status < 600) {
+                return await this.request(url, fetchOptions);
             }
             return response;
         }
         catch (error) {
             if (this.try < this.tryLimit) {
-                return this.request(url, fetchOptions);
+                return await this.request(url, fetchOptions);
             }
             throw new AbortError({
                 message: error?.message,

@@ -28,9 +28,9 @@ import { runtime, timeout, } from './utility/utility.js';
         'lastSearch',
         'lastSearchCleared',
     ]);
-    if (lastSearchCleared === false &&
-        lastSearch &&
-        lastSearch?.apiData) {
+    if (lastSearchCleared === false
+        && lastSearch
+        && lastSearch?.apiData) {
         output.innerHTML = settings.sentences === true
             ? sentenceMessage(lastSearch.apiData, settings)
             : pointMessage(lastSearch.apiData, settings);
@@ -68,13 +68,13 @@ import { runtime, timeout, } from './utility/utility.js';
             if (error instanceof NotFoundError) {
                 output.innerHTML = runtime.i18n.getMessage('searchOutputErrorNotFound', playerValue);
             }
-            else if (error instanceof HTTPError &&
-                settings.hypixelAPI === false) {
+            else if (error instanceof HTTPError
+                && settings.hypixelAPI === false) {
                 output.innerHTML = runtime.i18n.getMessage('searchOutputErrorSlothpixel', playerValue);
             }
-            else if (error instanceof HTTPError &&
-                error.status === 403 &&
-                settings.hypixelAPI === true) {
+            else if (error instanceof HTTPError
+                && error.status === 403
+                && settings.hypixelAPI === true) {
                 output.innerHTML = runtime.i18n.getMessage('searchOutputErrorHypixelInvalidKey');
             }
             else if (error instanceof HTTPError) {

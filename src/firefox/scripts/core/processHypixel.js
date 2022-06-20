@@ -1,6 +1,6 @@
 import { cleanGameMode, cleanGameType, cleanLength, createRatio, uhcScoreToLevel, } from '../utility/utility.js';
 /* eslint-disable camelcase */
-//Turns the Hypixel API format into a custom format for consistency
+// Turns the Hypixel API format into a custom format for consistency
 export function processHypixel({ displayname = '', uuid = null, firstLogin = null, lastLogin = null, lastLogout = null, mcVersionRp = null, mostRecentGameType = null, userLanguage = 'ENGLISH', stats: { BedWars = {}, Duels = {}, HungerGames = {}, Pit = {}, SkyWars = {}, SpeedUHC = {}, UHC = {}, Walls = {}, Walls3 = {}, } = {}, achievements = {}, }, { session: { online = false, gameType = null, mode = null, map = null, } = {}, }, recentGamesData) {
     const { recentGames, recentGamesPlayed } = recentGamesFormatter({
         lastLogin: lastLogin,
@@ -64,9 +64,9 @@ function recentGamesFormatter({ lastLogin, lastLogout, recentGamesData: { games 
             if (game.startMS < lastLogin)
                 break;
             recentGames.push(game);
-            if (!lastLogin ||
-                !lastLogout ||
-                (game.startMS > lastLogin && game.startMS < lastLogout)) {
+            if (!lastLogin
+                || !lastLogout
+                || (game.startMS > lastLogin && game.startMS < lastLogout)) {
                 if (i <= 99)
                     recentGamesPlayed += 1;
             }

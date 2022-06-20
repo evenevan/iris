@@ -13,7 +13,7 @@ export async function getSlothpixel(uuid: string) {
     ];
 
     const responses = await Promise.all(
-        urls.map(async url => {
+        urls.map(async (url) => {
             const response = await request.request(url);
 
             if (response.ok === false) {
@@ -33,7 +33,7 @@ export async function getSlothpixel(uuid: string) {
     );
 
     const data = await Promise.all(
-        responses.map(response => Request.tryParse<unknown>(response)),
+        responses.map((response) => Request.tryParse<unknown>(response)),
     ) as [
         {
             [key: string]: unknown

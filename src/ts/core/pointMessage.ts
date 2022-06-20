@@ -9,7 +9,7 @@ import { processHypixel } from './processHypixel.js';
 import { processSlothpixel } from './processSlothpixel.js';
 import { replaceNull } from '../utility/i18n.js';
 
-const getMessage = runtime.i18n.getMessage;
+const { getMessage } = runtime.i18n;
 
 export function pointMessage(
     {
@@ -144,12 +144,12 @@ export function pointMessage(
         }
 
         if (
-            recentGame &&
-            recentGame.startMS &&
-            lastLoginMS &&
-            lastLogoutMS &&
-            recentGame.startMS > lastLoginMS &&
-            recentGame.startMS < lastLogoutMS
+            recentGame
+            && recentGame.startMS
+            && lastLoginMS
+            && lastLogoutMS
+            && recentGame.startMS > lastLoginMS
+            && recentGame.startMS < lastLogoutMS
         ) {
             lines.push(
                 newLine(getMessage('searchOutputPointRecentGamesTitle')),
@@ -180,10 +180,10 @@ export function pointMessage(
     }
 
     if (
-        settings.gameStats === true &&
-        ((isOnline === true && gameType) ||
-            (isOnline === false && recentGame.gameType) ||
-            (isOnline === false && lastGame))
+        settings.gameStats === true
+        && ((isOnline === true && gameType)
+            || (isOnline === false && recentGame.gameType)
+            || (isOnline === false && lastGame))
     ) {
         switch (gameType ?? recentGame.gameType ?? lastGame) {
             case 'Bed Wars':
@@ -201,7 +201,7 @@ export function pointMessage(
                                 bedwars.winStreak,
                                 bedwars.finalKD,
                                 bedwars.KD,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
@@ -221,7 +221,7 @@ export function pointMessage(
                                 duels.wins,
                                 duels.kills,
                                 duels.deaths,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
@@ -242,7 +242,7 @@ export function pointMessage(
                                 blitz.wins,
                                 blitz.kills,
                                 blitz.deaths,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
@@ -263,7 +263,7 @@ export function pointMessage(
                                 pit.KD,
                                 pit.kills,
                                 pit.deaths,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
@@ -283,7 +283,7 @@ export function pointMessage(
                                 skywars.wins,
                                 skywars.kills,
                                 skywars.deaths,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
@@ -303,7 +303,7 @@ export function pointMessage(
                                 speedUHC.wins,
                                 speedUHC.kills,
                                 speedUHC.deaths,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
@@ -323,7 +323,7 @@ export function pointMessage(
                                 uhc.wins,
                                 uhc.kills,
                                 uhc.deaths,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
@@ -342,7 +342,7 @@ export function pointMessage(
                                 walls.wins,
                                 walls.kills,
                                 walls.deaths,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
@@ -363,12 +363,12 @@ export function pointMessage(
                                 megaWalls.wins,
                                 megaWalls.kills,
                                 megaWalls.deaths,
-                            ].map(item => String(item)),
+                            ].map((item) => String(item)),
                         ),
                     ),
                 );
                 break;
-            //No default
+            // no default
         }
     }
 
@@ -378,9 +378,9 @@ export function pointMessage(
 function dateTime(ms: number | null, relative: boolean) {
     const date = new Date(Number(ms));
     if (
-        !ms ||
-        ms < 0 ||
-        Object.prototype.toString.call(date) !== '[object Date]'
+        !ms
+        || ms < 0
+        || Object.prototype.toString.call(date) !== '[object Date]'
     ) {
         return null;
     }
