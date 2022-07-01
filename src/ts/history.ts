@@ -1,4 +1,4 @@
-import type { Local } from './@types/main';
+import type { Local } from './@types';
 import {
     i18n,
     replaceNull,

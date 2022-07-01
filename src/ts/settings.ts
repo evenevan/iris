@@ -1,4 +1,4 @@
-import type { Sync } from './@types/main';
+import type { Sync } from './@types';
 import { i18n } from './utility/i18n.js';
 import { Request } from './utility/Request.js';
 import { runtime } from './utility/utility.js';

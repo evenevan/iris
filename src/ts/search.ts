@@ -1,7 +1,7 @@
 import type {
     Local,
     Sync,
-} from './@types/main';
+} from './@types';
 import { getHypixel } from './core/getHypixel.js';
 import { getSlothpixel } from './core/getSlothpixel.js';
 import { getUUID } from './core/getUUID.js';

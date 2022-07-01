@@ -1,4 +1,8 @@
 {
+    "name": "iris",
+    "description": "A tool made to check any Hypixel player's last session easily and quickly!",
+    "license": "MIT",
+    "author": "Attituding <Attituding@outlook.com>",
     "devDependencies": {
         "@types/chrome": "^0.0.190",
         "@typescript-eslint/eslint-plugin": "^5.29.0",
