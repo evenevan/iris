@@ -9,10 +9,6 @@ import { NotFoundError } from './utility/NotFoundError.js';
 import { runtime, timeout, } from './utility/utility.js';
 (async () => {
     i18n([
-        'search',
-        'settings',
-        'history',
-        'about',
         'searchInputSearch',
         'searchInputClear',
     ]);
@@ -36,7 +32,6 @@ import { runtime, timeout, } from './utility/utility.js';
             : pointMessage(lastSearch.apiData, settings);
     }
     player.addEventListener('input', () => {
-        console.log('x');
         search.disabled = player.validity.valid === false;
     });
     search.addEventListener('click', async () => {

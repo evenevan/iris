@@ -4,17 +4,9 @@ import { runtime } from './utility/utility.js';
     i18n([
         'extensionName',
         'extensionDescription',
-        'search',
-        'settings',
-        'history',
-        'about',
-        'aboutChromeListing',
-        'aboutMozillaListing',
-        'aboutGitHub',
     ]);
     const copyright = document.getElementById('aboutCopyright');
     copyright.innerHTML = runtime.i18n.getMessage('aboutCopyright', [
         runtime.runtime.getManifest().version,
-        String(new Date().getFullYear()),
     ]);
 })();

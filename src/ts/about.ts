@@ -7,13 +7,6 @@ import { runtime } from './utility/utility.js';
     i18n([
         'extensionName',
         'extensionDescription',
-        'search',
-        'settings',
-        'history',
-        'about',
-        'aboutChromeListing',
-        'aboutMozillaListing',
-        'aboutGitHub',
     ]);
 
     const copyright = document.getElementById(
@@ -21,10 +14,8 @@ import { runtime } from './utility/utility.js';
     ) as HTMLSpanElement;
 
     copyright.innerHTML = runtime.i18n.getMessage(
-        'aboutCopyright',
-        [
+        'aboutCopyright', [
             runtime.runtime.getManifest().version,
-            String(new Date().getFullYear()),
         ],
     );
 })();

@@ -17,10 +17,6 @@ import {
 
 (async () => {
     i18n([
-        'search',
-        'settings',
-        'history',
-        'about',
         'searchInputSearch',
         'searchInputClear',
     ]);
@@ -56,7 +52,6 @@ import {
     }
 
     player.addEventListener('input', () => {
-        console.log('x');
         search.disabled = player.validity.valid === false;
     });
 

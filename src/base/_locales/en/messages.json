@@ -17,7 +17,7 @@
     "no": {
         "message": "No"
     },
-    "search": {
+    "searchTooltip": {
         "message": "Search"
     },
     "searchOutputErrorHypixelNoKey": {
@@ -105,13 +105,13 @@
         "message": "&nbsp;<strong>Game Length:</strong> $1"
     },
     "searchOutputPointRecentGamesGameType": {
-        "message": "&nbsp;<strong>Game Length:</strong> $1"
+        "message": "&nbsp;<strong>Game Type:</strong> $1"
     },
     "searchOutputPointRecentGamesMode": {
-        "message": "&nbsp;<strong>Game Length:</strong> $1"
+        "message": "&nbsp;<strong>Game Mode:</strong> $1"
     },
     "searchOutputPointRecentGamesMap": {
-        "message": "&nbsp;<strong>Game Length:</strong> $1"
+        "message": "&nbsp;<strong>Game Map:</strong> $1"
     },
     "searchOutputPointRecentGamesLast": {
         "message": "<strong>Last Game Type:</strong> $1"
@@ -206,7 +206,7 @@
     "searchInputClear": {
         "message": "Clear"
     },
-    "settings": {
+    "settingsTooltip": {
         "message": "Settings"
     },
     "settingsSettingsTitle" : {
@@ -275,7 +275,7 @@
     "settingsHypixelAPIdefault": {
         "message": "Something went wrong! Please try again later."
     },
-    "history": {
+    "historyTooltip": {
         "message": "History"
     },
     "historyOutputInput": {
@@ -290,7 +290,7 @@
     "historyNoHistoryText": {
         "message": "Your search history will show up here"
     },
-    "about": {
+    "aboutTooltip": {
         "message": "About"
     },
     "aboutCopyright": {
