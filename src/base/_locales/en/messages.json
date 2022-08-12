@@ -17,8 +17,26 @@
     "no": {
         "message": "No"
     },
-    "searchTooltip": {
+    "baseSearchTooltip": {
         "message": "Search"
+    },
+    "baseSettingsTooltip": {
+        "message": "Settings"
+    },
+    "baseHistoryTooltip": {
+        "message": "History"
+    },
+    "baseAboutTooltip": {
+        "message": "About"
+    },
+    "baseGitHubTooltip": {
+        "message": "GitHub"
+    },
+    "baseChromeListingTooltip": {
+        "message": "Chrome Web Store"
+    },
+    "baseFirefoxListingTooltip": {
+        "message": "Firefox Add-ons"
     },
     "searchOutputErrorHypixelNoKey": {
         "message": "You do not have a Hypixel API key to use! Please either switch to the Slothpixel API or get a Hypixel API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
@@ -206,9 +224,6 @@
     "searchInputClear": {
         "message": "Clear"
     },
-    "settingsTooltip": {
-        "message": "Settings"
-    },
     "settingsSettingsTitle" : {
         "message": "Settings"
     },
@@ -275,9 +290,6 @@
     "settingsHypixelAPIdefault": {
         "message": "Something went wrong! Please try again later."
     },
-    "historyTooltip": {
-        "message": "History"
-    },
     "historyOutputInput": {
         "message": "Input"
     },
@@ -289,9 +301,6 @@
     },
     "historyNoHistoryText": {
         "message": "Your search history will show up here"
-    },
-    "aboutTooltip": {
-        "message": "About"
     },
     "aboutCopyright": {
         "message": "© $1 <a class=\"text-accent\" href=\"https://attituding.live\" target=\"_blank\">Attituding</a>. All rights reserved."

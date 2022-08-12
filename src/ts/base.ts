@@ -1,10 +1,13 @@
 import { i18n } from './utility/i18n.js';
 
 i18n([
-    'searchTooltip',
-    'settingsTooltip',
-    'historyTooltip',
-    'aboutTooltip',
+    'baseSearchTooltip',
+    'baseSettingsTooltip',
+    'baseHistoryTooltip',
+    'baseAboutTooltip',
+    'baseGitHubTooltip',
+    'baseChromeListingTooltip',
+    'baseFirefoxListingTooltip',
 ]);
 
 /* eslint-disable no-param-reassign */
