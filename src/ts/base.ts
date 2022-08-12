@@ -7,11 +7,17 @@ i18n([
     'aboutTooltip',
 ]);
 
-const iframe = document.getElementById('iframe') as HTMLDivElement;
+/* eslint-disable no-param-reassign */
+
 const search = document.getElementById('search') as HTMLButtonElement;
 const settings = document.getElementById('settings') as HTMLButtonElement;
 const history = document.getElementById('history') as HTMLButtonElement;
 const about = document.getElementById('about') as HTMLButtonElement;
+
+const searchIframe = document.getElementById('searchIframe') as HTMLIFrameElement;
+const settingsIframe = document.getElementById('settingsIframe') as HTMLIFrameElement;
+const historyIframe = document.getElementById('historyIframe') as HTMLIFrameElement;
+const aboutIframe = document.getElementById('aboutIframe') as HTMLIFrameElement;
 
 search.addEventListener('click', () => {
     updateIFrame('search');
@@ -30,9 +36,25 @@ about.addEventListener('click', () => {
 });
 
 function updateIFrame(type: string) {
-    search.disabled = search.id === type;
-    settings.disabled = settings.id === type;
-    history.disabled = history.id === type;
-    about.disabled = about.id === type;
-    iframe.attributes.getNamedItem('src')!.value = `./${type}.html`;
+    [
+        search,
+        settings,
+        history,
+        about,
+    ].forEach((page) => {
+        page.disabled = page.id === type;
+    });
+
+    [
+        searchIframe,
+        settingsIframe,
+        historyIframe,
+        aboutIframe,
+    ].forEach((iFrame) => {
+        if (`${type}Iframe` === iFrame.id) {
+            iFrame.classList.remove('hidden');
+        } else {
+            iFrame.classList.add('hidden');
+        }
+    });
 }

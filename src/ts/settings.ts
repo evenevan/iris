@@ -72,8 +72,9 @@ import { runtime } from './utility/utility.js';
         'testAPIKeyLoading',
     ) as HTMLDivElement;
 
-    apiKeyInput.placeholder = runtime.i18n
-        .getMessage('settingsHypixelAPIInputPlaceholder');
+    apiKeyInput.placeholder = runtime.i18n.getMessage(
+        'settingsHypixelAPIInputPlaceholder',
+    );
 
     apiKeyInput.value = userSettings.apiKey || '';
 
@@ -81,6 +82,9 @@ import { runtime } from './utility/utility.js';
 
     apiKeyInput.addEventListener('input', async () => {
         testAPIKeyButton.disabled = !apiKeyInput.value.match(uuidRegex);
+        testAPIKeyResultSpan.textContent = '';
+        testAPIKeyLoading.classList.add('hidden');
+
         if (apiKeyInput.value.match(uuidRegex) || apiKeyInput.value === '') {
             await runtime.storage.sync.set({
                 apiKey: apiKeyInput.value,

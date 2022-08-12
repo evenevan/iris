@@ -43,12 +43,13 @@ import { runtime } from './utility/utility.js';
     const testAPIKeyButton = document.getElementById('testAPIKey');
     const testAPIKeyResultSpan = document.getElementById('testAPIKeyResult');
     const testAPIKeyLoading = document.getElementById('testAPIKeyLoading');
-    apiKeyInput.placeholder = runtime.i18n
-        .getMessage('settingsHypixelAPIInputPlaceholder');
+    apiKeyInput.placeholder = runtime.i18n.getMessage('settingsHypixelAPIInputPlaceholder');
     apiKeyInput.value = userSettings.apiKey || '';
     testAPIKeyButton.disabled = !apiKeyInput.value.match(uuidRegex);
     apiKeyInput.addEventListener('input', async () => {
         testAPIKeyButton.disabled = !apiKeyInput.value.match(uuidRegex);
+        testAPIKeyResultSpan.textContent = '';
+        testAPIKeyLoading.classList.add('hidden');
         if (apiKeyInput.value.match(uuidRegex) || apiKeyInput.value === '') {
             await runtime.storage.sync.set({
                 apiKey: apiKeyInput.value,

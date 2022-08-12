@@ -31,6 +31,25 @@ import { runtime, timeout, } from './utility/utility.js';
             ? sentenceMessage(lastSearch.apiData, settings)
             : pointMessage(lastSearch.apiData, settings);
     }
+    runtime.storage.onChanged.addListener((changes) => {
+        console.log(changes);
+        if ((changes.firstLogin
+            || changes.gameStats
+            || changes.lastLogout
+            || changes.relativeTimestamps
+            || changes.sentences
+            || changes.thirdPerson)
+            && lastSearchCleared === false
+            && lastSearch
+            && lastSearch.apiData) {
+            Object.entries(changes).forEach(([key, value]) => {
+                settings[key] = value.newValue;
+            });
+            output.innerHTML = settings.sentences === true
+                ? sentenceMessage(lastSearch.apiData, settings)
+                : pointMessage(lastSearch.apiData, settings);
+        }
+    });
     player.addEventListener('input', () => {
         search.disabled = player.validity.valid === false;
     });

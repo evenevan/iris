@@ -2,9 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.counter {
+    counter-reset: section;
+}
+  
+.count:before {
+    counter-increment: section;
+    content: counter(section);
+}
+
 /* Width */ /* Scrollbar */
 ::-webkit-scrollbar {
-    width: 15px;
+    width: 12px;
 }
  
 /* Handle */ /* Scrollbar */

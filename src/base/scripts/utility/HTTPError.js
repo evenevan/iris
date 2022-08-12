@@ -1,4 +1,8 @@
 export class HTTPError extends Error {
+    response;
+    status;
+    statusText;
+    url;
     constructor({ message, response, url, }) {
         super(message
             ?? response?.statusText

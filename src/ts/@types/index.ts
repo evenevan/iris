@@ -1,7 +1,7 @@
 import type { processHypixel } from '../core/processHypixel';
 import type { processSlothpixel } from '../core/processSlothpixel';
 
-interface History {
+export interface History {
     input: string,
     uuid: string | null,
     username: string | null,
@@ -11,12 +11,14 @@ interface History {
 }
 
 export interface Local {
+    [key: string]: unknown;
     lastSearchCleared: boolean,
     lastSearch: History | null,
     history: History[],
 }
 
 export interface Sync {
+    [key: string]: unknown;
     apiKey: string,
     firstLogin: boolean,
     gameStats: boolean,

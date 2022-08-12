@@ -733,6 +733,10 @@ video {
   max-height: fit-content;
 }
 
+.w-full {
+  width: 100%;
+}
+
 .w-\[25rem\] {
   width: 25rem;
 }
@@ -753,10 +757,6 @@ video {
 
 .w-\[87\.5\%\] {
   width: 87.5%;
-}
-
-.w-full {
-  width: 100%;
 }
 
 .w-4 {
@@ -1120,12 +1120,21 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.counter {
+  counter-reset: section;
+}
+
+.count:before {
+  counter-increment: section;
+  content: counter(section);
+}
+
 /* Width */
 
 /* Scrollbar */
 
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 12px;
 }
 
 /* Handle */
