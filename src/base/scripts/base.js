@@ -17,6 +17,8 @@ const searchIframe = document.getElementById('searchIframe');
 const settingsIframe = document.getElementById('settingsIframe');
 const historyIframe = document.getElementById('historyIframe');
 const aboutIframe = document.getElementById('aboutIframe');
+// Somehow removes a weird flash ¯\_(ツ)_/¯
+searchIframe.classList.remove('hidden');
 search.addEventListener('click', () => {
     updateIFrame('search');
 });

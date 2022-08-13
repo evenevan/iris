@@ -22,6 +22,9 @@ const settingsIframe = document.getElementById('settingsIframe') as HTMLIFrameEl
 const historyIframe = document.getElementById('historyIframe') as HTMLIFrameElement;
 const aboutIframe = document.getElementById('aboutIframe') as HTMLIFrameElement;
 
+// Somehow removes a weird flash ¯\_(ツ)_/¯
+searchIframe.classList.remove('hidden');
+
 search.addEventListener('click', () => {
     updateIFrame('search');
 });
