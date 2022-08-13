@@ -7,7 +7,7 @@ import { runtime, timeout, } from './utility/utility.js';
     const { history, } = await runtime.storage.local.get([
         'history',
     ]);
-    console.log('a', history);
+    console.log('debug', history);
     const container = document.getElementById('container');
     const output = document.getElementById('output');
     const input = runtime.i18n.getMessage('historyOutputInput');

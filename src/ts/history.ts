@@ -19,7 +19,7 @@ import {
         'history',
     ]) as Pick<Local, 'history'>;
 
-    console.log('a', history);
+    console.log('debug', history);
 
     const container = document.getElementById('container') as HTMLDivElement;
     const output = document.getElementById('output') as HTMLSpanElement;

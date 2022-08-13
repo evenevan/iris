@@ -44,7 +44,7 @@ import {
     if (
         lastSearchCleared === false
         && lastSearch
-        && lastSearch?.apiData
+        && lastSearch.apiData
     ) {
         output.innerHTML = settings.sentences === true
             ? sentenceMessage(lastSearch.apiData, settings)
@@ -52,7 +52,6 @@ import {
     }
 
     runtime.storage.onChanged.addListener((changes) => {
-        console.log(changes);
         if (
             (
                 changes.firstLogin

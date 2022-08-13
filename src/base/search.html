@@ -8,7 +8,7 @@
         <script rel="preload" src="./scripts/search.js" type="module"></script>
     </head>
     <body class="h-[35rem] w-full p-2 font-sans text-black dark:text-white">
-        <form class="flex flex-col gap-2">
+        <form class="flex h-full flex-col gap-2">
             <div class="relative">
                 <svg
                     class="absolute left-2 top-2 h-4 w-4 fill-neutral-700 dark:fill-neutral-400"
@@ -53,7 +53,7 @@
                     <span id="searchInputClear" class="select-none text-sm font-semibold"></span>
                 </button>
             </div>
-            <div class="relative flex h-full w-full overflow-y-scroll">
+            <div class="flex h-full w-full overflow-y-scroll">
                 <div
                     id="output"
                     style="word-wrap: break-word"
@@ -61,7 +61,7 @@
                     >&#65279;</div
                 >
                 <div
-                    class="absolute -m-2 hidden h-full w-full items-center justify-center peer-empty:flex"
+                    class="-m-2 hidden h-full w-full items-center justify-center peer-empty:flex"
                 >
                     <div
                         id="loading"
