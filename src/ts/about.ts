@@ -3,19 +3,17 @@ import {
 } from './utility/i18n.js';
 import { runtime } from './utility/utility.js';
 
-(async () => {
-    i18n([
-        'extensionName',
-        'extensionDescription',
-    ]);
+i18n([
+    'extensionName',
+    'extensionDescription',
+]);
 
-    const copyright = document.getElementById(
-        'aboutCopyright',
-    ) as HTMLSpanElement;
+const copyright = document.getElementById(
+    'aboutCopyright',
+) as HTMLSpanElement;
 
-    copyright.innerHTML = runtime.i18n.getMessage(
-        'aboutCopyright', [
-            runtime.runtime.getManifest().version,
-        ],
-    );
-})();
+copyright.innerHTML = runtime.i18n.getMessage(
+    'aboutCopyright', [
+        runtime.runtime.getManifest().version,
+    ],
+);

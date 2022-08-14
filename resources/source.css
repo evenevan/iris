@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.base-button-svg {
+    @apply fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white
+}
+
+.base-button-tooltip {
+    @apply absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700
+}
+
 .counter {
     counter-reset: section;
 }

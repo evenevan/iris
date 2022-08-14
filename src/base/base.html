@@ -27,9 +27,14 @@
                     clip-rule="evenodd"
                 />
             </svg>
-            <button id="search" class="group relative h-8 w-8 cursor-pointer" type="submit" disabled>
+            <button
+                id="search"
+                class="group relative h-8 w-8 cursor-pointer"
+                type="submit"
+                disabled
+            >
                 <svg
-                    class="duration-30 peer fill-neutral-600 transition-colors group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
+                    class="base-button-svg peer"
                     width="32"
                     height="32"
                     xmlns="http://www.w3.org/2000/svg"
@@ -45,12 +50,12 @@
                 </svg>
                 <div
                     id="baseSearchTooltip"
-                    class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
+                    class="base-button-tooltip"
                 ></div>
             </button>
             <button id="settings" class="group relative h-8 w-8 cursor-pointer" type="submit">
                 <svg
-                    class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
+                    class="base-button-svg peer"
                     width="32"
                     height="32"
                     xmlns="http://www.w3.org/2000/svg"
@@ -66,12 +71,12 @@
                 </svg>
                 <div
                     id="baseSettingsTooltip"
-                    class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
+                    class="base-button-tooltip"
                 ></div>
             </button>
             <button id="history" class="group relative h-8 w-8 cursor-pointer" type="submit">
                 <svg
-                    class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
+                    class="base-button-svg peer"
                     width="32"
                     height="32"
                     xmlns="http://www.w3.org/2000/svg"
@@ -87,12 +92,12 @@
                 </svg>
                 <div
                     id="baseHistoryTooltip"
-                    class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
+                    class="base-button-tooltip"
                 ></div>
             </button>
             <button id="about" class="group relative h-8 w-8 cursor-pointer" type="submit">
                 <svg
-                    class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
+                    class="base-button-svg peer"
                     width="32"
                     height="32"
                     xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +113,7 @@
                 </svg>
                 <div
                     id="baseAboutTooltip"
-                    class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
+                    class="base-button-tooltip"
                 ></div>
             </button>
             <div class="mt-auto mb-2 flex flex-col items-center justify-center gap-6">
@@ -116,7 +121,7 @@
                     <button class="group relative" type="submit">
                         <!-- Octicons/mark-github -->
                         <svg
-                            class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
+                            class="base-button-svg peer"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
                             width="30"
@@ -129,7 +134,7 @@
                         </svg>
                         <div
                             id="baseGitHubTooltip"
-                            class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
+                            class="base-button-tooltip"
                         ></div>
                     </button>
                 </form>
@@ -141,7 +146,7 @@
                     <button class="group relative" type="submit">
                         <!-- https://www.svgrepo.com/svg/171831/chrome -->
                         <svg
-                            class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
+                            class="base-button-svg peer"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 305 305"
                             width="30"
@@ -162,7 +167,7 @@
                         </svg>
                         <div
                             id="baseChromeListingTooltip"
-                            class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
+                            class="base-button-tooltip"
                         ></div>
                     </button>
                 </form>
@@ -174,7 +179,7 @@
                     <button class="group relative" type="submit">
                         <!-- https://materialdesignicons.com/icon/firefox -->
                         <svg
-                            class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
+                            class="base-button-svg peer"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="1.5 1.5 21 21"
                             width="30"
@@ -186,17 +191,32 @@
                         </svg>
                         <div
                             id="baseFirefoxListingTooltip"
-                            class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
+                            class="base-button-tooltip"
                         ></div>
                     </button>
                 </form>
             </div>
         </div>
         <div class="relative flex h-full w-[87.5%] flex-col overflow-y-auto">
-            <iframe id="searchIframe" class="h-full w-full hidden" src="./search.html"></iframe> 
-            <iframe id="settingsIframe" class="h-full w-full hidden" src="./settings.html" loading="lazy"></iframe> 
-            <iframe id="historyIframe" class="h-full w-full hidden" src="./history.html" loading="lazy"></iframe> 
-            <iframe id="aboutIframe" class="h-full w-full hidden" src="./about.html" loading="lazy"></iframe> 
+            <iframe id="searchIframe" class="hidden h-full w-full" src="./search.html"></iframe>
+            <iframe
+                id="settingsIframe"
+                class="hidden h-full w-full"
+                src="./settings.html"
+                loading="lazy"
+            ></iframe>
+            <iframe
+                id="historyIframe"
+                class="hidden h-full w-full"
+                src="./history.html"
+                loading="lazy"
+            ></iframe>
+            <iframe
+                id="aboutIframe"
+                class="hidden h-full w-full"
+                src="./about.html"
+                loading="lazy"
+            ></iframe>
         </div>
     </body>
 </html>

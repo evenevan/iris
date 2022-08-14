@@ -282,7 +282,7 @@
         "message": "Test Key"
     },
     "settingsHypixelAPI200": {
-        "message": "Working API key! Your API key has $1 uses."
+        "message": "Working API key! Your API key has been used $1 time(s)."
     },
     "settingsHypixelAPI403": {
         "message": "Invalid API key! Get a new API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
