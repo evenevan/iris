@@ -7,120 +7,8 @@
         <link href="./resources/tailwind.css" rel="stylesheet" />
         <script rel="preload" src="./scripts/search.js" type="module"></script>
     </head>
-    <body
-        class="flex h-[35rem] w-[25rem] flex-row overflow-y-hidden bg-neutral-100 font-sans text-black dark:bg-neutral-900 dark:text-white"
-    >
-        <div
-            class="sticky left-0 z-[100] flex h-full w-[12.5%] flex-col items-center justify-start gap-6 bg-neutral-300 pt-4 dark:bg-neutral-800"
-        >
-            <svg
-                width="32"
-                height="32"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="#dcaf4e"
-            >
-                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                <path
-                    fill-rule="evenodd"
-                    d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                    clip-rule="evenodd"
-                />
-            </svg>
-            <form class="h-8 w-8" action="./search.html">
-                <button class="group relative cursor-pointer" type="submit" disabled>
-                    <svg
-                        class="duration-30 peer fill-neutral-600 transition-colors group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
-                        width="32"
-                        height="32"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            class="stroke-current stroke-[0px]"
-                            fill-rule="evenodd"
-                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-                    <div
-                        id="search"
-                        class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
-                    ></div>
-                </button>
-            </form>
-            <form class="h-8 w-8" action="./settings.html">
-                <button class="group relative cursor-pointer" type="submit">
-                    <svg
-                        class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
-                        width="32"
-                        height="32"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            class="stroke-current stroke-[0px]"
-                            fill-rule="evenodd"
-                            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-                    <div
-                        id="settings"
-                        class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
-                    ></div>
-                </button>
-            </form>
-            <form class="h-8 w-8" action="./history.html">
-                <button class="group relative cursor-pointer" type="submit">
-                    <svg
-                        class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
-                        width="32"
-                        height="32"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            class="stroke-current stroke-[0px]"
-                            fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-                    <div
-                        id="history"
-                        class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
-                    ></div>
-                </button>
-            </form>
-            <form class="h-8 w-8" action="./about.html">
-                <button class="group relative cursor-pointer" type="submit">
-                    <svg
-                        class="peer fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white"
-                        width="32"
-                        height="32"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            class="stroke-current stroke-[0px]"
-                            fill-rule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-                    <div
-                        id="about"
-                        class="absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700"
-                    ></div>
-                </button>
-            </form>
-        </div>
-        <form class="flex h-full w-[87.5%] flex-col gap-2 p-2">
+    <body class="h-[35rem] w-full p-2 font-sans text-black dark:text-white">
+        <form class="flex h-full flex-col gap-2">
             <div class="relative">
                 <svg
                     class="absolute left-2 top-2 h-4 w-4 fill-neutral-700 dark:fill-neutral-400"
@@ -165,16 +53,14 @@
                     <span id="searchInputClear" class="select-none text-sm font-semibold"></span>
                 </button>
             </div>
-            <div class="relative flex h-full w-full overflow-y-scroll">
+            <div class="flex h-full w-full overflow-y-scroll">
                 <div
                     id="output"
                     style="word-wrap: break-word"
-                    class="peer h-full max-w-full translate-y-0 translate-x-0 scale-100 whitespace-normal break-words text-sm font-normal transition-all duration-500 ease-in-out empty:-translate-y-56 empty:-translate-x-32 empty:scale-0"
+                    class="peer h-full max-w-full translate-y-0 translate-x-0 scale-100 whitespace-normal break-words pr-2 text-sm font-normal transition-all duration-500 ease-in-out empty:-translate-y-56 empty:-translate-x-32 empty:scale-0"
                     >&#65279;</div
                 >
-                <div
-                    class="absolute -m-2 hidden h-full w-full items-center justify-center peer-empty:flex"
-                >
+                <div class="-m-2 hidden h-full w-full items-center justify-center peer-empty:flex">
                     <div
                         id="loading"
                         class="hidden h-10 w-10 animate-spin rounded-full border-[5px] border-neutral-200 border-t-black dark:border-neutral-800 dark:border-t-white"
