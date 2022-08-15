@@ -904,11 +904,6 @@ video {
   border-top-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
-.bg-neutral-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
-}
-
 .bg-neutral-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(212 212 212 / var(--tw-bg-opacity));
@@ -922,6 +917,11 @@ video {
 .bg-accent {
   --tw-bg-opacity: 1;
   background-color: rgb(220 175 78 / var(--tw-bg-opacity));
+}
+
+.bg-neutral-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
 }
 
 .fill-neutral-700 {
@@ -1028,14 +1028,14 @@ video {
   font-weight: 500;
 }
 
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
 .text-neutral-700 {
   --tw-text-opacity: 1;
   color: rgb(64 64 64 / var(--tw-text-opacity));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .text-accent {
@@ -1079,6 +1079,23 @@ video {
 
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.root {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  .root {
+    --tw-bg-opacity: 1;
+    background-color: rgb(23 23 23 / var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
 }
 
 .base-button-svg {
@@ -1190,7 +1207,7 @@ video {
   border-left: 4px solid transparent;
   background-clip: content-box;
   --tw-bg-opacity: 1;
-  background-color: rgb(245 245 245 / var(--tw-bg-opacity))
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1206,7 +1223,7 @@ video {
   border-left: 4px solid transparent;
   background-clip: content-box;
   --tw-bg-opacity: 1;
-  background-color: rgb(212 212 212 / var(--tw-bg-opacity))
+  background-color: rgb(212 212 212 / var(--tw-bg-opacity));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1451,11 +1468,6 @@ video {
     border-top-color: rgb(255 255 255 / var(--tw-border-opacity));
   }
 
-  .dark\:bg-neutral-900 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(23 23 23 / var(--tw-bg-opacity));
-  }
-
   .dark\:bg-neutral-800 {
     --tw-bg-opacity: 1;
     background-color: rgb(38 38 38 / var(--tw-bg-opacity));
@@ -1476,18 +1488,23 @@ video {
     background-color: rgb(64 64 64 / var(--tw-bg-opacity));
   }
 
-  .dark\:fill-neutral-400 {
-    fill: #a3a3a3;
+  .dark\:bg-neutral-900 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(23 23 23 / var(--tw-bg-opacity));
   }
 
-  .dark\:text-white {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+  .dark\:fill-neutral-400 {
+    fill: #a3a3a3;
   }
 
   .dark\:text-neutral-400 {
     --tw-text-opacity: 1;
     color: rgb(163 163 163 / var(--tw-text-opacity));
+  }
+
+  .dark\:text-white {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 
   .dark\:placeholder\:text-neutral-400::-moz-placeholder {

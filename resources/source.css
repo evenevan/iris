@@ -2,18 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+.root {
+    @apply bg-neutral-100 font-sans text-black dark:bg-neutral-900 dark:text-white;
+}
+
 .base-button-svg {
-    @apply fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white
+    @apply fill-neutral-600 transition-colors duration-300 group-hover:fill-black group-disabled:fill-black group-hover:group-disabled:fill-black dark:fill-neutral-500 group-hover:dark:fill-white dark:group-disabled:fill-white dark:group-hover:group-disabled:fill-white;
 }
 
 .base-button-tooltip {
-    @apply absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700
+    @apply absolute left-12 top-0 z-[60] flex h-full w-max -translate-x-20 scale-0 items-center rounded-sm bg-neutral-400 px-3 text-xs font-medium opacity-0 transition-all duration-100 ease-in-out peer-hover:translate-x-0 peer-hover:scale-100 peer-hover:opacity-100 peer-hover:delay-300 dark:bg-neutral-700;
 }
 
 .counter {
     counter-reset: section;
 }
-  
+
 .count:before {
     counter-increment: section;
     content: counter(section);
@@ -23,17 +27,17 @@
 ::-webkit-scrollbar {
     width: 12px;
 }
- 
+
 /* Handle */ /* Scrollbar */
 ::-webkit-scrollbar-thumb {
     border-left: 4px solid transparent;
     background-clip: content-box;
-    @apply bg-neutral-100 dark:bg-neutral-800
+    @apply bg-neutral-100 dark:bg-neutral-800;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     border-left: 4px solid transparent;
     background-clip: content-box;
-     @apply bg-neutral-300 dark:bg-neutral-600
+    @apply bg-neutral-300 dark:bg-neutral-600;
 }
