@@ -12,16 +12,11 @@ export class HTTPError extends Error {
         response,
         url,
     }: {
-        message?: string,
-        response?: Response,
+        message?: string;
+        response?: Response;
         url: string;
     }) {
-        super(
-            message
-            ?? response?.statusText
-            ?? String(response?.status)
-            ?? 'Unknown',
-        );
+        super(message ?? response?.statusText ?? String(response?.status) ?? 'Unknown');
         this.name = 'HTTPError';
         this.response = response ?? null;
         this.status = response?.status ?? 500;

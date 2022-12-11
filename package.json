@@ -4,18 +4,20 @@
     "license": "MIT",
     "author": "Attituding <attituding@outlook.com>",
     "devDependencies": {
-        "@types/chrome": "^0.0.193",
-        "@typescript-eslint/eslint-plugin": "^5.33.0",
-        "@typescript-eslint/parser": "^5.33.0",
-        "eslint": "^8.22.0",
+        "@tsconfig/strictest": "^1.0.2",
+        "@types/chrome": "^0.0.204",
+        "@typescript-eslint/eslint-plugin": "^5.46.0",
+        "@typescript-eslint/parser": "^5.46.0",
+        "eslint": "^8.29.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-config-airbnb-typescript": "^17.0.0",
         "eslint-plugin-import": "^2.26.0",
-        "prettier-plugin-tailwindcss": "^0.1.13",
-        "tailwindcss": "^3.1.8",
-        "typescript": "^4.7.4"
+        "prettier-plugin-tailwindcss": "^0.2.1",
+        "tailwindcss": "^3.2.4",
+        "typescript": "^4.9.4"
     },
     "scripts": {
+        "format": "prettier --write \"**/*.ts\" && eslint --fix \"**/*.ts\"",
         "copy": "xcopy \"./src\\base\" \"src\\chromium\" /S /E /Y && xcopy \"./src\\base\" \"src\\firefox\" /S /E /Y",
         "ts": "npx tsc -p .",
         "tailwind": "npx tailwindcss -i ./resources/source.css -o ./src/base/resources/tailwind.css",

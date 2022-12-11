@@ -1,13 +1,15 @@
 {
+    "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
-        "target": "es2022",
+        "target": "ES2022",
         "module": "ES2022",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "strict": true,
-        "alwaysStrict": true,
-        "esModuleInterop": true,
-        "downlevelIteration": true,
+        "allowJs": false,
+        "checkJs": false,
+        "exactOptionalPropertyTypes": false,
+        "noPropertyAccessFromIndexSignature": false,
         "outDir": "src/base/scripts",
+        "types": [
+            "chrome",
+        ]
     }
 }

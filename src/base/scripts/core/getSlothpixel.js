@@ -23,6 +23,6 @@ export async function getSlothpixel(uuid) {
         }
         return response;
     }));
-    const data = await Promise.all(responses.map((response) => Request.tryParse(response)));
+    const data = (await Promise.all(responses.map((response) => Request.tryParse(response))));
     return processSlothpixel(data[0], data[1], data[2]);
 }

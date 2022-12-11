@@ -32,14 +32,14 @@ export async function getSlothpixel(uuid: string) {
         }),
     );
 
-    const data = await Promise.all(
+    const data = (await Promise.all(
         responses.map((response) => Request.tryParse<unknown>(response)),
-    ) as [
+    )) as [
         {
-            [key: string]: unknown
+            [key: string]: unknown;
         },
         {
-            [key: string]: unknown
+            [key: string]: unknown;
         },
         unknown,
     ];

@@ -3,11 +3,7 @@ import modes from '../assets/modes.js';
 
 export function cleanDate(ms: number | null) {
     const newDate = new Date(Number(ms));
-    if (
-        !ms
-        || ms < 0
-        || Object.prototype.toString.call(newDate) !== '[object Date]'
-    ) {
+    if (!ms || ms < 0 || Object.prototype.toString.call(newDate) !== '[object Date]') {
         return null;
     }
 
@@ -38,9 +34,7 @@ export function cleanGameType(type: string | null) {
         return null;
     }
 
-    const gameType = gameTypes[
-        type as keyof typeof gameTypes
-    ];
+    const gameType = gameTypes[type as keyof typeof gameTypes];
 
     return gameType ?? type;
 }
@@ -90,11 +84,7 @@ export function createRatio(first = 0, second = 0) {
 
 export function cleanTime(ms: number | null) {
     const newDate = new Date(Number(ms));
-    if (
-        !ms
-        || ms < 0
-        || Object.prototype.toString.call(newDate) !== '[object Date]'
-    ) {
+    if (!ms || ms < 0 || Object.prototype.toString.call(newDate) !== '[object Date]') {
         return null;
     }
 
@@ -105,10 +95,7 @@ export function cleanTime(ms: number | null) {
 
 export function maxDecimals(value: number, decimals = 2) {
     const decimalValue = 10 ** decimals;
-    return (
-        Math.round((Number(value) + Number.EPSILON) * decimalValue)
-        / decimalValue
-    );
+    return Math.round((Number(value) + Number.EPSILON) * decimalValue) / decimalValue;
 }
 
 export function newLine(string: string) {
@@ -120,7 +107,7 @@ export let runtime = chrome;
 
 try {
     runtime = browser;
-// eslint-disable-next-line no-empty
+    // eslint-disable-next-line no-empty
 } catch {}
 
 export function timeAgo(ms: number | null) {
@@ -137,8 +124,7 @@ export function timeout(number: number) {
 // Taken from https://github.com/slothpixel/core/blob/master/util/calculateUhcLevel.js under the MIT License
 export function uhcScoreToLevel(xp: number) {
     const scores = [
-        0, 10, 60, 210, 460, 960, 1710, 2710, 5210, 10210, 13210, 16210, 19210,
-        22210, 25210,
+        0, 10, 60, 210, 460, 960, 1710, 2710, 5210, 10210, 13210, 16210, 19210, 22210, 25210,
     ];
 
     let level = 0;

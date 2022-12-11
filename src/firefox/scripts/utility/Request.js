@@ -20,9 +20,7 @@ export class Request {
             if (response.ok === true) {
                 return response;
             }
-            if (this.try < this.tryLimit
-                && response.status >= 500
-                && response.status < 600) {
+            if (this.try < this.tryLimit && response.status >= 500 && response.status < 600) {
                 return await this.request(url, fetchOptions);
             }
             return response;

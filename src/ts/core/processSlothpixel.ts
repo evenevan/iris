@@ -1,9 +1,4 @@
-import {
-    cleanGameMode,
-    cleanGameType,
-    cleanLength,
-    maxDecimals,
-} from '../utility/utility.js';
+import { cleanGameMode, cleanGameType, cleanLength, maxDecimals } from '../utility/utility.js';
 
 /* eslint-disable camelcase */
 
@@ -32,49 +27,51 @@ export function processSlothpixel(
             MegaWalls = {},
         } = {},
     }: {
-        username: string | null,
-        uuid: string | null,
-        first_login: number | null,
-        language: string,
-        last_login: number | null,
-        last_logout: number | null,
-        last_game: string | null,
-        mc_version: string | null,
-        stats: {
-            BedWars: ReturnType<typeof bedwarsStats> | Record<string, never>,
-            Duels: {
-                general: ReturnType<typeof duelsStats> | Record<string, never>,
-            } | Record<string, never>,
-            Blitz: ReturnType<typeof blitzStats> | Record<string, never>,
-            Pit: ReturnType<typeof pitStats> | Record<string, never>,
-            SkyWars: ReturnType<typeof skywarsStats> | Record<string, never>,
-            SpeedUHC: ReturnType<typeof speedUHCStats> | Record<string, never>,
-            UHC: ReturnType<typeof uhcStats> | Record<string, never>,
-            Walls: ReturnType<typeof wallsStats> | Record<string, never>,
-            MegaWalls: ReturnType<typeof megaWallsStats> | Record<string, never>,
-        } | Record<string, never>,
+        username: string | null;
+        uuid: string | null;
+        first_login: number | null;
+        language: string;
+        last_login: number | null;
+        last_logout: number | null;
+        last_game: string | null;
+        mc_version: string | null;
+        stats:
+        | {
+            BedWars: ReturnType<typeof bedwarsStats> | Record<string, never>;
+            Duels:
+            | {
+                general: ReturnType<typeof duelsStats> | Record<string, never>;
+            }
+            | Record<string, never>;
+            Blitz: ReturnType<typeof blitzStats> | Record<string, never>;
+            Pit: ReturnType<typeof pitStats> | Record<string, never>;
+            SkyWars: ReturnType<typeof skywarsStats> | Record<string, never>;
+            SpeedUHC: ReturnType<typeof speedUHCStats> | Record<string, never>;
+            UHC: ReturnType<typeof uhcStats> | Record<string, never>;
+            Walls: ReturnType<typeof wallsStats> | Record<string, never>;
+            MegaWalls: ReturnType<typeof megaWallsStats> | Record<string, never>;
+        }
+        | Record<string, never>;
     },
     {
         online = null,
-        game: {
-            type = null,
-            mode = null,
-            map = null,
-        } = {},
+        game: { type = null, mode = null, map = null } = {},
     }: {
-        online: boolean | null,
-        game: {
-            type: string | null,
-            mode: string | null,
-            map: string | null,
-        } | Record<string, never>,
+        online: boolean | null;
+        game:
+        | {
+            type: string | null;
+            mode: string | null;
+            map: string | null;
+        }
+        | Record<string, never>;
     },
     recentGamesData: {
-        date: number | null,
-        ended: number | null,
-        gameType: string | null,
-        mode: string | null,
-        map: string | null,
+        date: number | null;
+        ended: number | null;
+        gameType: string | null;
+        mode: string | null;
+        map: string | null;
     }[],
 ) {
     const { recentGames, recentGamesPlayed } = recentGamesFormatter({
@@ -92,9 +89,7 @@ export function processSlothpixel(
         lastLogoutMS: last_logout,
         limitedAPI: !last_login || !last_logout || last_login < 1494864734000,
         isOnline: online,
-        possessive: username?.endsWith('s')
-            ? `${username}'`
-            : `${username ?? ''}'s`,
+        possessive: username?.endsWith('s') ? `${username}'` : `${username ?? ''}'s`,
         recentGames: recentGames,
         recentGamesPlayed: recentGamesPlayed,
         version: mc_version,
@@ -105,9 +100,9 @@ export function processSlothpixel(
             }
             : {
                 playtime:
-                  last_login && last_logout && last_login < last_logout
-                      ? cleanLength(last_logout - last_login)
-                      : null,
+                      last_login && last_logout && last_login < last_logout
+                          ? cleanLength(last_logout - last_login)
+                          : null,
                 lastGame: cleanGameType(last_game),
             },
         online: online
@@ -138,22 +133,24 @@ function recentGamesFormatter({
     last_logout,
     recentGamesData = [],
 }: {
-    last_login: number | null,
-    last_logout: number | null,
+    last_login: number | null;
+    last_logout: number | null;
     recentGamesData: {
-        date: number | null,
-        ended: number | null,
-        gameType: string | null,
-        mode: string | null,
-        map: string | null,
-    }[],
+        date: number | null;
+        ended: number | null;
+        gameType: string | null;
+        mode: string | null;
+        map: string | null;
+    }[];
 }) {
     const recentGames = [];
     let recentGamesPlayed = 0;
 
     for (let i = 0; i < recentGamesData.length; i += 1) {
-        const game = processAGame(recentGamesData[i]);
-        if (game.startMS && last_login) {
+        const recentGameData = recentGamesData[i];
+        const game = recentGameData && processAGame(recentGameData);
+
+        if (game && game.startMS && last_login) {
             if (game.startMS < last_login) break;
             recentGames.push(game);
             if (
@@ -179,18 +176,16 @@ function processAGame({
     mode = null,
     map = null,
 }: {
-    date: number | null,
-    ended: number | null,
-    gameType: string | null,
-    mode: string | null,
-    map: string | null,
+    date: number | null;
+    ended: number | null;
+    gameType: string | null;
+    mode: string | null;
+    map: string | null;
 }) {
     return {
         startMS: date,
         endMS: ended,
-        gameLength: ended && date
-            ? cleanLength(ended - date)
-            : null,
+        gameLength: ended && date ? cleanLength(ended - date) : null,
         gameType: cleanGameType(gameType),
         mode: cleanGameMode(mode),
         map: map,
@@ -237,14 +232,7 @@ function duelsStats({
     };
 }
 
-function blitzStats({
-    coins = 0,
-    k_d = 0,
-    win_loss = 0,
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function blitzStats({ coins = 0, k_d = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: maxDecimals(k_d),
@@ -297,14 +285,7 @@ function skywarsStats({
     };
 }
 
-function speedUHCStats({
-    coins = 0,
-    kd = 0,
-    win_loss = 0,
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function speedUHCStats({ coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: maxDecimals(kd),
@@ -315,15 +296,7 @@ function speedUHCStats({
     };
 }
 
-function uhcStats({
-    level = 0,
-    coins = 0,
-    kd = 0,
-    win_loss = 0,
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function uhcStats({ level = 0, coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         level: level,
         coins: coins,
@@ -335,14 +308,7 @@ function uhcStats({
     };
 }
 
-function wallsStats({
-    coins = 0,
-    kd = 0,
-    win_loss = 0,
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function wallsStats({ coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: maxDecimals(kd),

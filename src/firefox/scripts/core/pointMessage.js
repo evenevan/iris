@@ -1,4 +1,4 @@
-import { cleanLength, createOffset, newLine, runtime, timeAgo, } from '../utility/utility.js';
+import { cleanLength, createOffset, newLine, runtime, timeAgo } from '../utility/utility.js';
 import { replaceNull } from '../utility/i18n.js';
 const { getMessage } = runtime.i18n;
 export function pointMessage({ username, uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { playtime, lastGame }, online: { gameType, mode, map }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
@@ -177,13 +177,13 @@ export function pointMessage({ username, uuid, firstLoginMS, language, lastLogin
 }
 function dateTime(ms, relative) {
     const date = new Date(Number(ms));
-    if (!ms
-        || ms < 0
-        || Object.prototype.toString.call(date) !== '[object Date]') {
+    if (!ms || ms < 0 || Object.prototype.toString.call(date) !== '[object Date]') {
         return null;
     }
     return `${new Date(ms).toLocaleString(undefined, {
         timeStyle: 'medium',
         dateStyle: 'medium',
-    })}${relative ? `<br>&nbsp;&#8627; ${getMessage('relative', String(cleanLength(timeAgo(ms))))}` : ''}`;
+    })}${relative
+        ? `<br>&nbsp;&#8627; ${getMessage('relative', String(cleanLength(timeAgo(ms))))}`
+        : ''}`;
 }

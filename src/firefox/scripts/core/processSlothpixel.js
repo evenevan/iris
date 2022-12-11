@@ -1,9 +1,9 @@
-import { cleanGameMode, cleanGameType, cleanLength, maxDecimals, } from '../utility/utility.js';
+import { cleanGameMode, cleanGameType, cleanLength, maxDecimals } from '../utility/utility.js';
 /* eslint-disable camelcase */
 // Turns the Hypixel API format into a custom format for consistency
 export function processSlothpixel({ username = '', uuid = null, first_login = null, language = 'ENGLISH', last_login = null, last_logout = null, last_game = null, mc_version = null, stats: { BedWars = {}, Duels = {
     general: {},
-}, Blitz = {}, Pit = {}, SkyWars = {}, SpeedUHC = {}, UHC = {}, Walls = {}, MegaWalls = {}, } = {}, }, { online = null, game: { type = null, mode = null, map = null, } = {}, }, recentGamesData) {
+}, Blitz = {}, Pit = {}, SkyWars = {}, SpeedUHC = {}, UHC = {}, Walls = {}, MegaWalls = {}, } = {}, }, { online = null, game: { type = null, mode = null, map = null } = {}, }, recentGamesData) {
     const { recentGames, recentGamesPlayed } = recentGamesFormatter({
         last_login: last_login,
         last_logout: last_logout,
@@ -18,9 +18,7 @@ export function processSlothpixel({ username = '', uuid = null, first_login = nu
         lastLogoutMS: last_logout,
         limitedAPI: !last_login || !last_logout || last_login < 1494864734000,
         isOnline: online,
-        possessive: username?.endsWith('s')
-            ? `${username}'`
-            : `${username ?? ''}'s`,
+        possessive: username?.endsWith('s') ? `${username}'` : `${username ?? ''}'s`,
         recentGames: recentGames,
         recentGamesPlayed: recentGamesPlayed,
         version: mc_version,
@@ -61,8 +59,9 @@ function recentGamesFormatter({ last_login, last_logout, recentGamesData = [], }
     const recentGames = [];
     let recentGamesPlayed = 0;
     for (let i = 0; i < recentGamesData.length; i += 1) {
-        const game = processAGame(recentGamesData[i]);
-        if (game.startMS && last_login) {
+        const recentGameData = recentGamesData[i];
+        const game = recentGameData && processAGame(recentGameData);
+        if (game && game.startMS && last_login) {
             if (game.startMS < last_login)
                 break;
             recentGames.push(game);
@@ -83,9 +82,7 @@ function processAGame({ date = null, ended = null, gameType = null, mode = null,
     return {
         startMS: date,
         endMS: ended,
-        gameLength: ended && date
-            ? cleanLength(ended - date)
-            : null,
+        gameLength: ended && date ? cleanLength(ended - date) : null,
         gameType: cleanGameType(gameType),
         mode: cleanGameMode(mode),
         map: map,
@@ -113,7 +110,7 @@ function duelsStats({ coins = 0, packages = [], kd_ratio = 0, win_loss_ratio = 0
         deaths: deaths,
     };
 }
-function blitzStats({ coins = 0, k_d = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0, }) {
+function blitzStats({ coins = 0, k_d = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: maxDecimals(k_d),
@@ -146,7 +143,7 @@ function skywarsStats({ level = 0, coins = 0, kill_death_ratio = 0, win_loss_rat
         deaths: deaths,
     };
 }
-function speedUHCStats({ coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0, }) {
+function speedUHCStats({ coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: maxDecimals(kd),
@@ -156,7 +153,7 @@ function speedUHCStats({ coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, d
         deaths: deaths,
     };
 }
-function uhcStats({ level = 0, coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0, }) {
+function uhcStats({ level = 0, coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         level: level,
         coins: coins,
@@ -167,7 +164,7 @@ function uhcStats({ level = 0, coins = 0, kd = 0, win_loss = 0, wins = 0, kills 
         deaths: deaths,
     };
 }
-function wallsStats({ coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0, }) {
+function wallsStats({ coins = 0, kd = 0, win_loss = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: maxDecimals(kd),

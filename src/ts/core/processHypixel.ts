@@ -32,52 +32,51 @@ export function processHypixel(
         } = {},
         achievements = {},
     }: {
-        displayname: string | null,
-        uuid: string | null,
-        firstLogin: number | null,
-        lastLogin: number | null,
-        lastLogout: number | null,
-        mcVersionRp: string | null,
-        mostRecentGameType: string | null,
-        userLanguage: string,
-        stats: {
-            BedWars: ReturnType<typeof bedwarsStats> | Record<string, never>,
-            Duels: ReturnType<typeof duelsStats> | Record<string, never>,
-            HungerGames: ReturnType<typeof blitzStats> | Record<string, never>,
-            Pit: ReturnType<typeof pitStats> | Record<string, never>,
-            SkyWars: ReturnType<typeof skywarsStats> | Record<string, never>,
-            SpeedUHC: ReturnType<typeof speedUHCStats> | Record<string, never>,
-            UHC: ReturnType<typeof uhcStats> | Record<string, never>,
-            Walls: ReturnType<typeof wallsStats> | Record<string, never>,
-            Walls3: ReturnType<typeof megaWallsStats> | Record<string, never>,
-        } | Record<string, never>,
+        displayname: string | null;
+        uuid: string | null;
+        firstLogin: number | null;
+        lastLogin: number | null;
+        lastLogout: number | null;
+        mcVersionRp: string | null;
+        mostRecentGameType: string | null;
+        userLanguage: string;
+        stats:
+        | {
+            BedWars: ReturnType<typeof bedwarsStats> | Record<string, never>;
+            Duels: ReturnType<typeof duelsStats> | Record<string, never>;
+            HungerGames: ReturnType<typeof blitzStats> | Record<string, never>;
+            Pit: ReturnType<typeof pitStats> | Record<string, never>;
+            SkyWars: ReturnType<typeof skywarsStats> | Record<string, never>;
+            SpeedUHC: ReturnType<typeof speedUHCStats> | Record<string, never>;
+            UHC: ReturnType<typeof uhcStats> | Record<string, never>;
+            Walls: ReturnType<typeof wallsStats> | Record<string, never>;
+            Walls3: ReturnType<typeof megaWallsStats> | Record<string, never>;
+        }
+        | Record<string, never>;
         achievements: {
-            [key: string]: unknown,
-        },
+            [key: string]: unknown;
+        };
     },
     {
-        session: {
-            online = false,
-            gameType = null,
-            mode = null,
-            map = null,
-        } = {},
+        session: { online = false, gameType = null, mode = null, map = null } = {},
     }: {
-        session: {
-            online: boolean | null,
-            gameType: string | null,
-            mode: string | null,
-            map: string | null,
-        } | Record<string, never>,
+        session:
+        | {
+            online: boolean | null;
+            gameType: string | null;
+            mode: string | null;
+            map: string | null;
+        }
+        | Record<string, never>;
     },
     recentGamesData: {
         games: {
-            date: number | null,
-            ended: number | null,
-            gameType: string | null,
-            mode: string | null,
-            map: string | null,
-        }[]
+            date: number | null;
+            ended: number | null;
+            gameType: string | null;
+            mode: string | null;
+            map: string | null;
+        }[];
     },
 ) {
     const { recentGames, recentGamesPlayed } = recentGamesFormatter({
@@ -95,9 +94,7 @@ export function processHypixel(
         lastLogoutMS: lastLogout,
         limitedAPI: !lastLogin || !lastLogout || lastLogin < 1494864734000,
         isOnline: online,
-        possessive: displayname?.endsWith('s')
-            ? `${displayname}'`
-            : `${displayname ?? ''}'s`,
+        possessive: displayname?.endsWith('s') ? `${displayname}'` : `${displayname ?? ''}'s`,
         recentGames: recentGames,
         recentGamesPlayed: recentGamesPlayed,
         version: mcVersionRp,
@@ -108,9 +105,9 @@ export function processHypixel(
             }
             : {
                 playtime:
-                  lastLogin && lastLogout && lastLogin < lastLogout
-                      ? cleanLength(lastLogout - lastLogin)
-                      : null,
+                      lastLogin && lastLogout && lastLogin < lastLogout
+                          ? cleanLength(lastLogout - lastLogin)
+                          : null,
                 lastGame: cleanGameType(mostRecentGameType),
             },
         online: online
@@ -139,28 +136,28 @@ export function processHypixel(
 function recentGamesFormatter({
     lastLogin,
     lastLogout,
-    recentGamesData: {
-        games = [],
-    },
+    recentGamesData: { games = [] },
 }: {
-    lastLogin: number | null,
-    lastLogout: number | null,
+    lastLogin: number | null;
+    lastLogout: number | null;
     recentGamesData: {
         games: {
-            date: number | null,
-            ended: number | null,
-            gameType: string | null,
-            mode: string | null,
-            map: string | null,
-        }[],
-    }
+            date: number | null;
+            ended: number | null;
+            gameType: string | null;
+            mode: string | null;
+            map: string | null;
+        }[];
+    };
 }) {
     const recentGames = [];
     let recentGamesPlayed = 0;
 
     for (let i = 0; i < games.length; i += 1) {
-        const game = processAGame(games[i]);
-        if (game.startMS && lastLogin) {
+        const recentGamesDataGame = games[i];
+        const game = recentGamesDataGame && processAGame(recentGamesDataGame);
+
+        if (game && game.startMS && lastLogin) {
             if (game.startMS < lastLogin) break;
 
             recentGames.push(game);
@@ -188,18 +185,16 @@ function processAGame({
     mode = null,
     map = null,
 }: {
-    date: number | null,
-    ended: number | null,
-    gameType: string | null,
-    mode: string | null,
-    map: string | null,
+    date: number | null;
+    ended: number | null;
+    gameType: string | null;
+    mode: string | null;
+    map: string | null;
 }) {
     return {
         startMS: date,
         endMS: ended,
-        gameLength: ended && date
-            ? cleanLength(ended - date)
-            : null,
+        gameLength: ended && date ? cleanLength(ended - date) : null,
         gameType: cleanGameType(gameType),
         mode: cleanGameMode(mode),
         map: map,
@@ -217,9 +212,7 @@ function bedwarsStats(
         kills_bedwars = 0,
         deaths_bedwars = 0,
     },
-    {
-        bedwars_level = 0,
-    },
+    { bedwars_level = 0 },
 ) {
     return {
         level: bedwars_level,
@@ -232,13 +225,7 @@ function bedwarsStats(
     };
 }
 
-function duelsStats({
-    coins = 0,
-    packages = [],
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function duelsStats({ coins = 0, packages = [], wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         cosmetics: packages.length,
@@ -250,12 +237,7 @@ function duelsStats({
     };
 }
 
-function blitzStats({
-    coins = 0,
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function blitzStats({ coins = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: createRatio(kills, deaths),
@@ -275,9 +257,7 @@ function pitStats(
         kills = 0,
         deaths = 0,
     },
-    {
-        pit_prestiges = 0,
-    },
+    { pit_prestiges = 0 },
 ) {
     return {
         gold: cash_earned,
@@ -292,15 +272,8 @@ function pitStats(
 }
 
 function skywarsStats(
-    {
-        coins = 0,
-        wins = 0,
-        kills = 0,
-        deaths = 0,
-    },
-    {
-        skywars_you_re_a_star = 0,
-    },
+    { coins = 0, wins = 0, kills = 0, deaths = 0 },
+    { skywars_you_re_a_star = 0 },
 ) {
     return {
         level: skywars_you_re_a_star,
@@ -313,13 +286,7 @@ function skywarsStats(
     };
 }
 
-function speedUHCStats({
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}, {
-    coins = 0,
-}) {
+function speedUHCStats({ wins = 0, kills = 0, deaths = 0 }, { coins = 0 }) {
     return {
         coins: coins,
         KD: createRatio(kills, deaths),
@@ -330,13 +297,7 @@ function speedUHCStats({
     };
 }
 
-function uhcStats({
-    score = 0,
-    coins = 0,
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function uhcStats({ score = 0, coins = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         level: uhcScoreToLevel(score),
         coins: coins,
@@ -348,12 +309,7 @@ function uhcStats({
     };
 }
 
-function wallsStats({
-    coins = 0,
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function wallsStats({ coins = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: createRatio(kills, deaths),
@@ -364,12 +320,7 @@ function wallsStats({
     };
 }
 
-function megaWallsStats({
-    coins = 0,
-    wins = 0,
-    kills = 0,
-    deaths = 0,
-}) {
+function megaWallsStats({ coins = 0, wins = 0, kills = 0, deaths = 0 }) {
     return {
         coins: coins,
         KD: createRatio(kills, deaths),

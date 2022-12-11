@@ -1,12 +1,6 @@
-import {
-    cleanLength,
-    cleanTime,
-    createOffset,
-    runtime,
-    timeAgo,
-} from '../utility/utility.js';
-import { processHypixel } from './processHypixel.js';
-import { processSlothpixel } from './processSlothpixel.js';
+import { cleanLength, cleanTime, createOffset, runtime, timeAgo } from '../utility/utility.js';
+import type { processHypixel } from './processHypixel.js';
+import type { processSlothpixel } from './processSlothpixel.js';
 import { replaceNull } from '../utility/i18n.js';
 
 const { getMessage } = runtime.i18n;
@@ -48,9 +42,7 @@ export function sentenceMessage(
         thirdPerson: boolean;
     },
 ): string {
-    const [recentGame = {}] = recentGames as
-        | typeof recentGames
-        | Record<string, never>[];
+    const [recentGame = {}] = recentGames as typeof recentGames | Record<string, never>[];
 
     const block1: string[] = [
         getMessage('searchOutputSentenceGeneralUsername', username ?? ''),
@@ -74,48 +66,33 @@ export function sentenceMessage(
     const block4: string[] = [];
 
     if (lastLoginMS || lastLogoutMS) {
-        block1.push(
-            getMessage('searchOutputSentenceGeneralUTCOffset', createOffset()),
-        );
+        block1.push(getMessage('searchOutputSentenceGeneralUTCOffset', createOffset()));
     }
 
     if (settings.firstLogin) {
         block2.push(
             getMessage('searchOutputSentenceGeneralFirstLogin', [
                 replaceNull(cleanTime(firstLoginMS)),
-                replaceNull(
-                    cleanDateRelative(
-                        firstLoginMS,
-                        settings.relativeTimestamps,
-                    ),
-                ),
+                replaceNull(cleanDateRelative(firstLoginMS, settings.relativeTimestamps)),
             ]),
         );
     }
 
     if (isOnline) {
         block2.push(
-            getMessage('searchOutputSentenceOnlineSettings', [
-                language,
-                replaceNull(version),
-            ]),
+            getMessage('searchOutputSentenceOnlineSettings', [language, replaceNull(version)]),
         );
 
         const tempGameData: string[] = [
             getMessage('searchOutputSentenceOnlineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
-                replaceNull(
-                    cleanDateRelative(lastLoginMS, settings.relativeTimestamps),
-                ),
+                replaceNull(cleanDateRelative(lastLoginMS, settings.relativeTimestamps)),
             ]),
         ];
 
         if (recentGames.length > 0) {
             tempGameData.push(
-                getMessage(
-                    'searchOutputSentenceOnlineGamesCount',
-                    String(recentGamesPlayed),
-                ),
+                getMessage('searchOutputSentenceOnlineGamesCount', String(recentGamesPlayed)),
             );
         }
 
@@ -130,34 +107,22 @@ export function sentenceMessage(
         block3.push(tempGameData.join(' '));
     } else {
         block2.push(
-            getMessage('searchOutputSentenceOfflineSettings', [
-                language,
-                replaceNull(version),
-            ]),
+            getMessage('searchOutputSentenceOfflineSettings', [language, replaceNull(version)]),
         );
 
         const tempGameData: string[] = [
             getMessage('searchOutputSentenceOfflineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
+                replaceNull(cleanDateRelative(lastLoginMS, settings.relativeTimestamps)),
                 replaceNull(
-                    cleanDateRelative(lastLoginMS, settings.relativeTimestamps),
-                ),
-                replaceNull(
-                    cleanLength(
-                        lastLogoutMS && lastLoginMS
-                            ? lastLogoutMS - lastLoginMS
-                            : null,
-                    ),
+                    cleanLength(lastLogoutMS && lastLoginMS ? lastLogoutMS - lastLoginMS : null),
                 ),
             ]),
         ];
 
         if (recentGames.length > 0) {
             tempGameData.push(
-                getMessage(
-                    'searchOutputSentenceOfflineGamesCount',
-                    String(recentGamesPlayed),
-                ),
+                getMessage('searchOutputSentenceOfflineGamesCount', String(recentGamesPlayed)),
                 getMessage('searchOutputSentenceOfflineGamesGame', [
                     replaceNull(recentGame.gameType),
                     replaceNull(recentGame.mode),
@@ -166,9 +131,7 @@ export function sentenceMessage(
             );
         } else if (lastGame) {
             tempGameData.push(
-                getMessage('searchOutputSentenceOfflineLastGame', [
-                    replaceNull(lastGame),
-                ]),
+                getMessage('searchOutputSentenceOfflineLastGame', [replaceNull(lastGame)]),
             );
         }
 
@@ -177,11 +140,9 @@ export function sentenceMessage(
 
     if (
         settings.gameStats === true
-        && (
-            (isOnline === true && gameType)
+        && ((isOnline === true && gameType)
             || (isOnline === false && recentGame.gameType)
-            || (isOnline === false && lastGame)
-        )
+            || (isOnline === false && lastGame))
     ) {
         switch (gameType ?? recentGame.gameType ?? lastGame) {
             case 'Bed Wars':
@@ -352,19 +313,10 @@ export function sentenceMessage(
         }
     }
 
-    const messages = [
-        block1.join('<br>'),
-        block2.join(' '),
-        block3.join(' '),
-        block4.join(' '),
-    ]
-        .map((block) => (
-            settings.thirdPerson
-                ? block
-                    .replace(/Your/gim, possessive)
-                    .replace(/You/gim, username ?? '')
-                : block
-        ))
+    const messages = [block1.join('<br>'), block2.join(' '), block3.join(' '), block4.join(' ')]
+        .map((block) => (settings.thirdPerson
+            ? block.replace(/Your/gim, possessive).replace(/You/gim, username ?? '')
+            : block))
         .join('<br><br>');
 
     return messages;
@@ -372,19 +324,13 @@ export function sentenceMessage(
 
 function cleanDateRelative(ms: number | null, relative: boolean) {
     const date = new Date(Number(ms));
-    if (
-        !ms
-        || ms < 0
-        || Object.prototype.toString.call(date) !== '[object Date]'
-    ) {
+    if (!ms || ms < 0 || Object.prototype.toString.call(date) !== '[object Date]') {
         return null;
     }
 
     return `${new Date(ms).toLocaleString(undefined, {
         dateStyle: 'medium',
     })}${
-        relative === true
-            ? ` (${getMessage('relative', String(cleanLength(timeAgo(ms))))})`
-            : ''
+        relative === true ? ` (${getMessage('relative', String(cleanLength(timeAgo(ms))))})` : ''
     }`;
 }

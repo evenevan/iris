@@ -1,6 +1,6 @@
 import { HTTPError } from './HTTPError.js';
 export class AbortError extends HTTPError {
-    constructor({ message, url, }) {
+    constructor({ message, url }) {
         super({
             message: message,
             url: url,

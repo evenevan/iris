@@ -21,9 +21,8 @@ i18n([
 ]);
 // No optional dashes as Hypixel API keys must have them
 const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[45][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
-const userSettings = await runtime.storage.sync.get(null);
-document.querySelectorAll('input[type=checkbox]')
-    .forEach((element) => {
+const userSettings = (await runtime.storage.sync.get(null));
+document.querySelectorAll('input[type=checkbox]').forEach((element) => {
     const checkbox = element;
     checkbox.checked = userSettings[checkbox.id];
     checkbox.addEventListener('change', async () => {
@@ -73,15 +72,13 @@ testAPIKeyButton.addEventListener('click', async () => {
         case 200:
             {
                 const uses = (await Request.tryParse(request)).record.totalQueries;
-                testAPIKeyResultSpan.textContent = runtime.i18n
-                    .getMessage('settingsHypixelAPI200', String(uses));
+                testAPIKeyResultSpan.textContent = runtime.i18n.getMessage('settingsHypixelAPI200', String(uses));
             }
             break;
         case 403:
-            testAPIKeyResultSpan.innerHTML = runtime.i18n
-                .getMessage('settingsHypixelAPI403');
+            testAPIKeyResultSpan.innerHTML = runtime.i18n.getMessage('settingsHypixelAPI403');
             break;
-        default: testAPIKeyResultSpan.textContent = runtime.i18n
-            .getMessage('settingsHypixelAPIdefault');
+        default:
+            testAPIKeyResultSpan.textContent = runtime.i18n.getMessage('settingsHypixelAPIdefault');
     }
 });

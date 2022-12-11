@@ -2,9 +2,7 @@ import gameTypes from '../assets/gameTypes.js';
 import modes from '../assets/modes.js';
 export function cleanDate(ms) {
     const newDate = new Date(Number(ms));
-    if (!ms
-        || ms < 0
-        || Object.prototype.toString.call(newDate) !== '[object Date]') {
+    if (!ms || ms < 0 || Object.prototype.toString.call(newDate) !== '[object Date]') {
         return null;
     }
     return new Date(Date.now()).toLocaleString(undefined, {
@@ -70,9 +68,7 @@ export function createRatio(first = 0, second = 0) {
 }
 export function cleanTime(ms) {
     const newDate = new Date(Number(ms));
-    if (!ms
-        || ms < 0
-        || Object.prototype.toString.call(newDate) !== '[object Date]') {
+    if (!ms || ms < 0 || Object.prototype.toString.call(newDate) !== '[object Date]') {
         return null;
     }
     return new Date(Date.now()).toLocaleString(undefined, {
@@ -81,8 +77,7 @@ export function cleanTime(ms) {
 }
 export function maxDecimals(value, decimals = 2) {
     const decimalValue = 10 ** decimals;
-    return (Math.round((Number(value) + Number.EPSILON) * decimalValue)
-        / decimalValue);
+    return Math.round((Number(value) + Number.EPSILON) * decimalValue) / decimalValue;
 }
 export function newLine(string) {
     return `<br>${string}`;
@@ -107,8 +102,7 @@ export function timeout(number) {
 // Taken from https://github.com/slothpixel/core/blob/master/util/calculateUhcLevel.js under the MIT License
 export function uhcScoreToLevel(xp) {
     const scores = [
-        0, 10, 60, 210, 460, 960, 1710, 2710, 5210, 10210, 13210, 16210, 19210,
-        22210, 25210,
+        0, 10, 60, 210, 460, 960, 1710, 2710, 5210, 10210, 13210, 16210, 19210, 22210, 25210,
     ];
     let level = 0;
     // eslint-disable-next-line no-restricted-syntax

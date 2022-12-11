@@ -6,11 +6,8 @@ import { sentenceMessage } from './core/sentenceMessage.js';
 import { HTTPError } from './utility/HTTPError.js';
 import { i18n } from './utility/i18n.js';
 import { NotFoundError } from './utility/NotFoundError.js';
-import { runtime, timeout, } from './utility/utility.js';
-i18n([
-    'searchInputSearch',
-    'searchInputClear',
-]);
+import { runtime, timeout } from './utility/utility.js';
+i18n(['searchInputSearch', 'searchInputClear']);
 const uuidRegex = /^[0-9a-fA-F]{8}(-?)[0-9a-fA-F]{4}(-?)[1-5][0-9a-fA-F]{3}(-?)[89ABab][0-9a-fA-F]{3}(-?)[0-9a-fA-F]{12}$/;
 const loading = document.getElementById('loading');
 const player = document.getElementById('player');
@@ -18,11 +15,11 @@ const search = document.getElementById('searchButton');
 const clear = document.getElementById('clear');
 const output = document.getElementById('output');
 player.placeholder = runtime.i18n.getMessage('searchInputPlaceholder');
-const settings = await runtime.storage.sync.get(null);
-const searchHistory = await runtime.storage.local.get([
+const settings = (await runtime.storage.sync.get(null));
+const searchHistory = (await runtime.storage.local.get([
     'lastSearch',
     'lastSearchCleared',
-]);
+]));
 if (searchHistory.lastSearchCleared === false
     && searchHistory.lastSearch
     && searchHistory.lastSearch.apiData) {
@@ -64,9 +61,7 @@ search.addEventListener('click', async () => {
         return;
     }
     try {
-        uuid = playerValue.match(uuidRegex)
-            ? playerValue
-            : await getUUID(playerValue);
+        uuid = playerValue.match(uuidRegex) ? playerValue : await getUUID(playerValue);
         apiData = settings.hypixelAPI === true
             ? await getHypixel(uuid, settings.apiKey)
             : await getSlothpixel(uuid);
@@ -79,8 +74,7 @@ search.addEventListener('click', async () => {
         if (error instanceof NotFoundError) {
             output.innerHTML = runtime.i18n.getMessage('searchOutputErrorNotFound', playerValue);
         }
-        else if (error instanceof HTTPError
-            && settings.hypixelAPI === false) {
+        else if (error instanceof HTTPError && settings.hypixelAPI === false) {
             output.innerHTML = runtime.i18n.getMessage('searchOutputErrorSlothpixel', playerValue);
         }
         else if (error instanceof HTTPError
@@ -92,7 +86,8 @@ search.addEventListener('click', async () => {
             output.innerHTML = runtime.i18n.getMessage('searchOutputErrorHypixel', String(error.status));
         }
         else {
-            output.innerHTML = runtime.i18n.getMessage('searchOutputErrorGeneric', error?.stack ?? JSON.stringify(error, Object.getOwnPropertyNames(error), 4));
+            output.innerHTML = runtime.i18n.getMessage('searchOutputErrorGeneric', error?.stack
+                ?? JSON.stringify(error, Object.getOwnPropertyNames(error), 4));
         }
     }
     finally {
@@ -103,12 +98,10 @@ search.addEventListener('click', async () => {
             apiData: apiData ?? null,
             epoch: Date.now(),
         };
-        const { history: newHistory, } = await runtime.storage.local.get('history');
-        const bytes = () => new TextEncoder()
-            .encode(Object.entries(newHistory ?? {})
+        const { history: newHistory } = await runtime.storage.local.get('history');
+        const bytes = () => new TextEncoder().encode(Object.entries(newHistory ?? {})
             .map(([subKey, subvalue]) => subKey + JSON.stringify(subvalue))
-            .join(''))
-            .length;
+            .join('')).length;
         newHistory.unshift(historyEntry);
         while (bytes() > 1000000) {
             newHistory.pop();

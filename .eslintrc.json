@@ -4,7 +4,7 @@
         "es6": true
     },
     "parserOptions": {
-        "ecmaVersion": 2021,
+        "ecmaVersion": 2022,
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
@@ -20,7 +20,7 @@
             }
         ],
         "class-methods-use-this": ["off"],
-        "eol-last": ["error", "never"],
+        "eol-last": ["error", "always"],
         "function-paren-newline": ["error", "consistent"],
         "import/prefer-default-export": ["off"],
         "indent": "off",
@@ -31,6 +31,13 @@
             }
         ],
         "no-console": ["off"],
-        "object-shorthand": ["error", "never"]
+        "object-curly-newline": ["error", {
+            "consistent": true
+        }],
+        "object-shorthand": ["error", "never"],
+        "sort-imports": ["error", {
+            "ignoreCase": true,
+            "ignoreDeclarationSort": true
+        }]
     }
 }

@@ -36,7 +36,7 @@ export async function getHypixel(uuid: string, apiKey: string) {
 
     const data = await Promise.all(
         responses.map((response) => Request.tryParse<{
-            [key: string]: unknown
+            [key: string]: unknown;
         }>(response)),
     );
 

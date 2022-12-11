@@ -1,4 +1,4 @@
-import { cleanLength, cleanTime, createOffset, runtime, timeAgo, } from '../utility/utility.js';
+import { cleanLength, cleanTime, createOffset, runtime, timeAgo } from '../utility/utility.js';
 import { replaceNull } from '../utility/i18n.js';
 const { getMessage } = runtime.i18n;
 export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLoginMS, lastLogoutMS, limitedAPI, isOnline, possessive, recentGames, recentGamesPlayed, version, offline: { lastGame }, online: { gameType, mode, map }, bedwars, duels, blitz, pit, skywars, speedUHC, uhc, walls, megaWalls, }, settings) {
@@ -24,10 +24,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
         ]));
     }
     if (isOnline) {
-        block2.push(getMessage('searchOutputSentenceOnlineSettings', [
-            language,
-            replaceNull(version),
-        ]));
+        block2.push(getMessage('searchOutputSentenceOnlineSettings', [language, replaceNull(version)]));
         const tempGameData = [
             getMessage('searchOutputSentenceOnlineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
@@ -45,17 +42,12 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
         block3.push(tempGameData.join(' '));
     }
     else {
-        block2.push(getMessage('searchOutputSentenceOfflineSettings', [
-            language,
-            replaceNull(version),
-        ]));
+        block2.push(getMessage('searchOutputSentenceOfflineSettings', [language, replaceNull(version)]));
         const tempGameData = [
             getMessage('searchOutputSentenceOfflineLastSession', [
                 replaceNull(cleanTime(lastLoginMS)),
                 replaceNull(cleanDateRelative(lastLoginMS, settings.relativeTimestamps)),
-                replaceNull(cleanLength(lastLogoutMS && lastLoginMS
-                    ? lastLogoutMS - lastLoginMS
-                    : null)),
+                replaceNull(cleanLength(lastLogoutMS && lastLoginMS ? lastLogoutMS - lastLoginMS : null)),
             ]),
         ];
         if (recentGames.length > 0) {
@@ -66,9 +58,7 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
             ]));
         }
         else if (lastGame) {
-            tempGameData.push(getMessage('searchOutputSentenceOfflineLastGame', [
-                replaceNull(lastGame),
-            ]));
+            tempGameData.push(getMessage('searchOutputSentenceOfflineLastGame', [replaceNull(lastGame)]));
         }
         block3.push(tempGameData.join(' '));
     }
@@ -199,30 +189,19 @@ export function sentenceMessage({ username, uuid, firstLoginMS, language, lastLo
             // no default
         }
     }
-    const messages = [
-        block1.join('<br>'),
-        block2.join(' '),
-        block3.join(' '),
-        block4.join(' '),
-    ]
+    const messages = [block1.join('<br>'), block2.join(' '), block3.join(' '), block4.join(' ')]
         .map((block) => (settings.thirdPerson
-        ? block
-            .replace(/Your/gim, possessive)
-            .replace(/You/gim, username ?? '')
+        ? block.replace(/Your/gim, possessive).replace(/You/gim, username ?? '')
         : block))
         .join('<br><br>');
     return messages;
 }
 function cleanDateRelative(ms, relative) {
     const date = new Date(Number(ms));
-    if (!ms
-        || ms < 0
-        || Object.prototype.toString.call(date) !== '[object Date]') {
+    if (!ms || ms < 0 || Object.prototype.toString.call(date) !== '[object Date]') {
         return null;
     }
     return `${new Date(ms).toLocaleString(undefined, {
         dateStyle: 'medium',
-    })}${relative === true
-        ? ` (${getMessage('relative', String(cleanLength(timeAgo(ms))))})`
-        : ''}`;
+    })}${relative === true ? ` (${getMessage('relative', String(cleanLength(timeAgo(ms))))})` : ''}`;
 }

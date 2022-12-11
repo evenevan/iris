@@ -42,21 +42,11 @@ about.addEventListener('click', () => {
 });
 
 function updateIFrame(type: string) {
-    [
-        search,
-        settings,
-        history,
-        about,
-    ].forEach((page) => {
+    [search, settings, history, about].forEach((page) => {
         page.disabled = page.id === type;
     });
 
-    [
-        searchIframe,
-        settingsIframe,
-        historyIframe,
-        aboutIframe,
-    ].forEach((iFrame) => {
+    [searchIframe, settingsIframe, historyIframe, aboutIframe].forEach((iFrame) => {
         if (`${type}Iframe` === iFrame.id) {
             iFrame.classList.remove('hidden');
         } else {

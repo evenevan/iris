@@ -1,11 +1,7 @@
-import { i18n, replaceNull, } from './utility/i18n.js';
-import { runtime, timeout, } from './utility/utility.js';
-i18n([
-    'historyNoHistoryText',
-]);
-const { history, } = await runtime.storage.local.get([
-    'history',
-]);
+import { i18n, replaceNull } from './utility/i18n.js';
+import { runtime, timeout } from './utility/utility.js';
+i18n(['historyNoHistoryText']);
+const { history } = (await runtime.storage.local.get(['history']));
 console.log('debug', history);
 const container = document.getElementById('container');
 const output = document.getElementById('output');
@@ -15,9 +11,7 @@ const uuid = runtime.i18n.getMessage('historyOutputUUID');
 let index = 0;
 await generateHistory();
 container.addEventListener('scroll', async () => {
-    if (Math.abs(container.scrollHeight
-        - container.scrollTop
-        - container.clientHeight) <= 500
+    if (Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) <= 500
         && index < history.length) {
         await generateHistory();
     }
@@ -31,7 +25,10 @@ async function generateHistory() {
     const playerArray = [];
     const increase = Math.min(history.length, Math.max(index * 2, 25));
     for (; index < increase; index += 1) {
-        playerArray.push(generateItem(history[index]));
+        const item = history[index];
+        if (item) {
+            playerArray.push(generateItem(item));
+        }
     }
     await timeout(1);
     output.innerHTML += playerArray.join('');

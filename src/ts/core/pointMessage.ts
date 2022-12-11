@@ -1,12 +1,6 @@
-import {
-    cleanLength,
-    createOffset,
-    newLine,
-    runtime,
-    timeAgo,
-} from '../utility/utility.js';
-import { processHypixel } from './processHypixel.js';
-import { processSlothpixel } from './processSlothpixel.js';
+import { cleanLength, createOffset, newLine, runtime, timeAgo } from '../utility/utility.js';
+import type { processHypixel } from './processHypixel.js';
+import type { processSlothpixel } from './processSlothpixel.js';
 import { replaceNull } from '../utility/i18n.js';
 
 const { getMessage } = runtime.i18n;
@@ -48,9 +42,7 @@ export function pointMessage(
         thirdPerson: boolean;
     },
 ): string {
-    const [recentGame = {}] = recentGames as
-        | typeof recentGames
-        | Record<string, never>[];
+    const [recentGame = {}] = recentGames as typeof recentGames | Record<string, never>[];
 
     const lines: string[] = [
         getMessage('searchOutputPointGeneralUsername', username ?? ''),
@@ -68,9 +60,7 @@ export function pointMessage(
     ];
 
     if (lastLoginMS || lastLogoutMS) {
-        lines.push(
-            getMessage('searchOutputPointGeneralUTCOffset', createOffset()),
-        );
+        lines.push(getMessage('searchOutputPointGeneralUTCOffset', createOffset()));
     }
 
     lines.push(
@@ -82,9 +72,7 @@ export function pointMessage(
         lines.push(
             getMessage(
                 'searchOutputPointGeneralFirstLogin',
-                replaceNull(
-                    dateTime(firstLoginMS, settings.relativeTimestamps),
-                ),
+                replaceNull(dateTime(firstLoginMS, settings.relativeTimestamps)),
             ),
         );
     }
@@ -100,9 +88,7 @@ export function pointMessage(
         lines.push(
             getMessage(
                 'searchOutputPointGeneralLastLogout',
-                replaceNull(
-                    dateTime(lastLogoutMS, settings.relativeTimestamps),
-                ),
+                replaceNull(dateTime(lastLogoutMS, settings.relativeTimestamps)),
             ),
         );
     }
@@ -116,12 +102,7 @@ export function pointMessage(
         );
 
         if (recentGamesPlayed > 0) {
-            lines.push(
-                getMessage(
-                    'searchOutputPointOnlineGamesPlayed',
-                    String(recentGamesPlayed),
-                ),
-            );
+            lines.push(getMessage('searchOutputPointOnlineGamesPlayed', String(recentGamesPlayed)));
         }
 
         lines.push(
@@ -130,16 +111,11 @@ export function pointMessage(
             getMessage('searchOutputPointOnlineMap', replaceNull(map)),
         );
     } else {
-        lines.push(
-            getMessage('searchOutputPointOfflinePlaytime', replaceNull(playtime)),
-        );
+        lines.push(getMessage('searchOutputPointOfflinePlaytime', replaceNull(playtime)));
 
         if (recentGamesPlayed > 0) {
             lines.push(
-                getMessage(
-                    'searchOutputPointOfflineGamesPlayed',
-                    String(recentGamesPlayed),
-                ),
+                getMessage('searchOutputPointOfflineGamesPlayed', String(recentGamesPlayed)),
             );
         }
 
@@ -165,14 +141,8 @@ export function pointMessage(
                     'searchOutputPointRecentGamesGameType',
                     replaceNull(recentGame.gameType),
                 ),
-                getMessage(
-                    'searchOutputPointRecentGamesMode',
-                    replaceNull(recentGame.mode),
-                ),
-                getMessage(
-                    'searchOutputPointRecentGamesMap',
-                    replaceNull(recentGame.map),
-                ),
+                getMessage('searchOutputPointRecentGamesMode', replaceNull(recentGame.mode)),
+                getMessage('searchOutputPointRecentGamesMap', replaceNull(recentGame.map)),
             );
         } else if (lastGame) {
             lines.push(getMessage('searchOutputPointRecentGamesLast', lastGame));
@@ -377,16 +347,16 @@ export function pointMessage(
 
 function dateTime(ms: number | null, relative: boolean) {
     const date = new Date(Number(ms));
-    if (
-        !ms
-        || ms < 0
-        || Object.prototype.toString.call(date) !== '[object Date]'
-    ) {
+    if (!ms || ms < 0 || Object.prototype.toString.call(date) !== '[object Date]') {
         return null;
     }
 
     return `${new Date(ms).toLocaleString(undefined, {
         timeStyle: 'medium',
         dateStyle: 'medium',
-    })}${relative ? `<br>&nbsp;&#8627; ${getMessage('relative', String(cleanLength(timeAgo(ms))))}` : ''}`;
+    })}${
+        relative
+            ? `<br>&nbsp;&#8627; ${getMessage('relative', String(cleanLength(timeAgo(ms))))}`
+            : ''
+    }`;
 }

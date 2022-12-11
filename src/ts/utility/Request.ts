@@ -7,10 +7,7 @@ export class Request {
 
     readonly tryLimit: number;
 
-    constructor(config?: {
-        retryLimit?: number,
-        restRequestTimeout?: number,
-    }) {
+    constructor(config?: { retryLimit?: number; restRequestTimeout?: number }) {
         this.restRequestTimeout = config?.restRequestTimeout ?? 5000;
 
         this.try = 0;
@@ -22,10 +19,7 @@ export class Request {
         this.try += 1;
 
         const controller = new AbortController();
-        const abortTimeout = setTimeout(
-            () => controller.abort(),
-            this.restRequestTimeout,
-        );
+        const abortTimeout = setTimeout(() => controller.abort(), this.restRequestTimeout);
 
         try {
             const response = await fetch(url, {
@@ -37,11 +31,7 @@ export class Request {
                 return response;
             }
 
-            if (
-                this.try < this.tryLimit
-                && response.status >= 500
-                && response.status < 600
-            ) {
+            if (this.try < this.tryLimit && response.status >= 500 && response.status < 600) {
                 return await this.request(url, fetchOptions);
             }
 
@@ -60,9 +50,7 @@ export class Request {
         }
     }
 
-    static async tryParse<Type>(
-        response: Response,
-    ): Promise<Type | null> {
+    static async tryParse<Type>(response: Response): Promise<Type | null> {
         try {
             const data = await response.json();
             return data;
