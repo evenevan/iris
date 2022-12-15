@@ -17,8 +17,8 @@
         "typescript": "^4.9.4"
     },
     "scripts": {
-        "format": "prettier --write \"**/*.ts\" && eslint --fix \"**/*.ts\"",
         "copy": "xcopy \"./src\\base\" \"src\\chromium\" /S /E /Y && xcopy \"./src\\base\" \"src\\firefox\" /S /E /Y",
+        "format": "prettier --write \"**/*.ts\" && eslint --fix \"**/*.ts\"",
         "ts": "npx tsc -p .",
         "tailwind": "npx tailwindcss -i ./resources/source.css -o ./src/base/resources/tailwind.css",
         "build": "npm run ts && npm run tailwind && npm run copy"
