@@ -303,7 +303,7 @@
         "message": "Your search history will show up here"
     },
     "aboutCopyright": {
-        "message": "© $1 <a class=\"text-accent\" href=\"https://attituding.live\" target=\"_blank\">Attituding</a>. All rights reserved."
+        "message": "© $1 <a class=\"text-accent\" href=\"https://attituding.xyz\" target=\"_blank\">Attituding</a>. All rights reserved."
     },
     "aboutChromeListing": {
         "message": "Chrome Web Store"
