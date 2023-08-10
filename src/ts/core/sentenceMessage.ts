@@ -1,6 +1,5 @@
 import { cleanLength, cleanTime, createOffset, runtime, timeAgo } from '../utility/utility.js';
 import type { processHypixel } from './processHypixel.js';
-import type { processSlothpixel } from './processSlothpixel.js';
 import { replaceNull } from '../utility/i18n.js';
 
 const { getMessage } = runtime.i18n;
@@ -30,12 +29,11 @@ export function sentenceMessage(
         uhc,
         walls,
         megaWalls,
-    }: ReturnType<typeof processHypixel> & ReturnType<typeof processSlothpixel>,
+    }: ReturnType<typeof processHypixel>,
     settings: {
-        apiKey: string;
         firstLogin: boolean;
         gameStats: boolean;
-        hypixelAPI: boolean;
+        serverUrl: string;
         lastLogout: boolean;
         relativeTimestamps: boolean;
         sentences: boolean;

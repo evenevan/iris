@@ -1,11 +1,10 @@
 import type { processHypixel } from '../core/processHypixel';
-import type { processSlothpixel } from '../core/processSlothpixel';
 
 export interface History {
     input: string;
     uuid: string | null;
     username: string | null;
-    apiData: ReturnType<typeof processHypixel> & ReturnType<typeof processSlothpixel>;
+    apiData: ReturnType<typeof processHypixel>;
     epoch: number;
 }
 
@@ -18,10 +17,9 @@ export interface Local {
 
 export interface Sync {
     [key: string]: unknown;
-    apiKey: string;
     firstLogin: boolean;
     gameStats: boolean;
-    hypixelAPI: boolean;
+    serverUrl: string;
     lastLogout: boolean;
     relativeTimestamps: boolean;
     sentences: boolean;

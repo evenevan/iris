@@ -9,7 +9,7 @@ const userSettings = {
     apiKey: '',
     firstLogin: true, // Show First Login
     gameStats: true, // Show Game Stats
-    hypixelAPI: false, // Use Hypixel API
+    serverUrl: 'https://hypixel-api.attituding.workers.dev/iris', // https://github.com/attituding/hypixel-api
     lastLogout: false, // Show Last Logout
     relativeTimestamps: true, // Show Relative Timestamps
     sentences: false, // Use Sentences
@@ -56,9 +56,7 @@ runtime.runtime.onInstalled.addListener(async (details) => {
             gameStats: syncIsLegacy
                 ? sync.userOptions.gameStats
                 : sync?.gameStats ?? userSettings.gameStats,
-            hypixelAPI: syncIsLegacy
-                ? sync.userOptions.useHypixelAPI
-                : sync?.hypixelAPI ?? userSettings.hypixelAPI,
+            serverUrl: sync?.serverUrl ?? userSettings.serverUrl,
             lastLogout: syncIsLegacy
                 ? sync.userOptions.lastLogout
                 : sync?.lastLogout ?? userSettings.lastLogout,

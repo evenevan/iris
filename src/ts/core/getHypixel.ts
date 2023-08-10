@@ -3,24 +3,18 @@ import { Request } from '../utility/Request.js';
 import { HTTPError } from '../utility/HTTPError.js';
 import { NotFoundError } from '../utility/NotFoundError.js';
 
-export async function getHypixel(uuid: string, apiKey: string) {
+export async function getHypixel(uuid: string, serverUrl: string) {
     const request = new Request();
 
-    const fetchOptions = {
-        headers: {
-            'API-Key': apiKey,
-        },
-    };
-
     const urls = [
-        `https://api.hypixel.net/player?uuid=${uuid}`,
-        `https://api.hypixel.net/status?uuid=${uuid}`,
-        `https://api.hypixel.net/recentGames?uuid=${uuid}`,
+        `${serverUrl}/player?uuid=${uuid}`,
+        `${serverUrl}/status?uuid=${uuid}`,
+        `${serverUrl}/recentGames?uuid=${uuid}`,
     ];
 
     const responses = await Promise.all(
         urls.map(async (url) => {
-            const response = await request.request(url, fetchOptions);
+            const response = await request.request(url);
 
             if (response.ok === false) {
                 throw new HTTPError({

@@ -6,8 +6,6 @@ i18n(['historyNoHistoryText']);
 
 const { history } = (await runtime.storage.local.get(['history'])) as Pick<Local, 'history'>;
 
-console.log('debug', history);
-
 const container = document.getElementById('container') as HTMLDivElement;
 const output = document.getElementById('output') as HTMLSpanElement;
 
@@ -45,6 +43,7 @@ async function generateHistory() {
         }
     }
 
+    // avoid blocking the main thread
     await timeout(1);
 
     output.innerHTML += playerArray.join('');

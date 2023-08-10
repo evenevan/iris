@@ -1,13 +1,12 @@
 import type { History, Local, Sync } from './@types/index.js';
 import { getHypixel } from './core/getHypixel.js';
-import { getSlothpixel } from './core/getSlothpixel.js';
 import { getUUID } from './core/getUUID.js';
 import { pointMessage } from './core/pointMessage.js';
 import { sentenceMessage } from './core/sentenceMessage.js';
 import { HTTPError } from './utility/HTTPError.js';
 import { i18n } from './utility/i18n.js';
 import { NotFoundError } from './utility/NotFoundError.js';
-import { runtime, timeout } from './utility/utility.js';
+import { runtime } from './utility/utility.js';
 
 i18n(['searchInputSearch', 'searchInputClear']);
 
@@ -56,6 +55,8 @@ runtime.storage.onChanged.addListener((changes) => {
         output.innerHTML = settings.sentences === true
             ? sentenceMessage(searchHistory.lastSearch.apiData, settings)
             : pointMessage(searchHistory.lastSearch.apiData, settings);
+    } else if (changes.serverUrl) {
+        settings.serverUrl = changes.serverUrl.newValue;
     }
 });
 
@@ -75,20 +76,10 @@ search.addEventListener('click', async () => {
     output.textContent = '';
     loading.classList.remove('hidden');
 
-    if (settings.hypixelAPI === true && settings.apiKey === '') {
-        await timeout(250);
-
-        output.innerHTML = runtime.i18n.getMessage('searchOutputErrorHypixelNoKey');
-
-        return;
-    }
-
     try {
         uuid = playerValue.match(uuidRegex) ? playerValue : await getUUID(playerValue);
 
-        apiData = settings.hypixelAPI === true
-            ? await getHypixel(uuid, settings.apiKey)
-            : await getSlothpixel(uuid);
+        apiData = await getHypixel(uuid, settings.serverUrl);
 
         const message = settings.sentences === true
             ? sentenceMessage(apiData, settings)
@@ -96,26 +87,19 @@ search.addEventListener('click', async () => {
 
         output.innerHTML = message;
     } catch (error) {
+        console.log(error);
         if (error instanceof NotFoundError) {
             output.innerHTML = runtime.i18n.getMessage('searchOutputErrorNotFound', playerValue);
-        } else if (error instanceof HTTPError && settings.hypixelAPI === false) {
-            output.innerHTML = runtime.i18n.getMessage('searchOutputErrorSlothpixel', playerValue);
-        } else if (
-            error instanceof HTTPError
-            && error.status === 403
-            && settings.hypixelAPI === true
-        ) {
-            output.innerHTML = runtime.i18n.getMessage('searchOutputErrorHypixelInvalidKey');
         } else if (error instanceof HTTPError) {
             output.innerHTML = runtime.i18n.getMessage(
-                'searchOutputErrorHypixel',
+                'searchOutputError',
                 String(error.status),
             );
         } else {
             output.innerHTML = runtime.i18n.getMessage(
                 'searchOutputErrorGeneric',
                 (error as Error)?.stack
-                    ?? JSON.stringify(error, Object.getOwnPropertyNames(error), 4),
+                ?? JSON.stringify(error, Object.getOwnPropertyNames(error), 4),
             );
         }
     } finally {

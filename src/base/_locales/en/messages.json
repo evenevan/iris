@@ -38,23 +38,14 @@
     "baseFirefoxListingTooltip": {
         "message": "Firefox Add-ons"
     },
-    "searchOutputErrorHypixelNoKey": {
-        "message": "You do not have a Hypixel API key to use! Please either switch to the Slothpixel API or get a Hypixel API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
-    },
     "searchOutputErrorNotFound": {
         "message": "The query \"$1\" doesn't seem to be a valid player. <a class=\"break-words text-accent\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
     },
-    "searchOutputErrorSlothpixel": {
-        "message": "The query \"$1\" returned an error. It may be invalid. Switching to the Hypixel API may resolve this issue. The Slothpixel API is known to be unreliable at times. <a class=\"break-words text-accent\" href=\"https://namemc.com/search?q=$1\" title=\"Opens a new tab to NameMC with your search query\" target=\"_blank\">Search NameMC</a>"
-    },
-    "searchOutputErrorHypixelInvalidKey": {
-        "message": "Invalid API key! Please either switch to the Slothpixel API or get a new API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
-    },
-    "searchOutputErrorHypixel": {
-        "message": "An unexpected HTTP code of $1 was returned. Try switching to the Slothpixel API if this persists or try again later."
-    },
     "searchOutputErrorGeneric": {
         "message": "Whoops! This is an unexpected error. Please report this error with the following: <b>$1</b>"
+    },
+    "searchOutputError": {
+        "message": "An unexpected HTTP code of $1 was returned. Please try again later and notify the extension developer if this persists."
     },
     "searchOutputPointGeneralUsername": {
         "message": "<strong>Username:</strong> $1"
@@ -263,32 +254,14 @@
     "settingsSettingsThirdPersonTooltip" : {
         "message":  "When \"Use Sentences\" is also enabled, the player's name will be used instead of \"you\", \"your\", etc."
     },
-    "settingsSettingsHypixelAPI" : {
-        "message":  "Use Hypixel API"
+    "settingsSettingsServerUrl" : {
+        "message":  "hypixel-api Instance"
     },
-    "settingsSettingsHypixelAPITooltip" : {
-        "message":  "When enabled, the Hypixel API will be used instead of the Slothpixel API. This requires a Hypixel API key."
+    "settingsSettingsServerUrlTooltip" : {
+        "message":  "Set the instance of hypixel-api used. You can host one yourself with https://github.com/attituding/hypixel-api."
     },
-    "settingsHypixelAPITitle": {
-        "message": "Hypixel API"
-    },
-    "settingsHypixelAPIDescription": {
-        "message": "Get an API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
-    },
-    "settingsHypixelAPIInputPlaceholder": {
-        "message": "Hypixel API Key"
-    },
-    "settingsHypixelAPITestKeyButton": {
-        "message": "Test Key"
-    },
-    "settingsHypixelAPI200": {
-        "message": "Working API key! Your API key has been used $1 time(s)."
-    },
-    "settingsHypixelAPI403": {
-        "message": "Invalid API key! Get a new API key with <span class=\"text-accent\"><b>/api</b></span> on Hypixel."
-    },
-    "settingsHypixelAPIdefault": {
-        "message": "Something went wrong! Please try again later."
+    "settingsSettingsServerUrlPlaceholder": {
+        "message": "hypixel-api Instance"
     },
     "historyOutputInput": {
         "message": "Input"
