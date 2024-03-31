@@ -2,7 +2,7 @@
     "name": "iris",
     "description": "A tool made to check any Hypixel player's last session easily and quickly!",
     "license": "MIT",
-    "author": "Attituding <attituding@outlook.com>",
+    "author": "Evan <attituding@outlook.com>",
     "devDependencies": {
         "@tsconfig/strictest": "^2.0.1",
         "@types/chrome": "^0.0.243",
@@ -21,6 +21,7 @@
         "format": "prettier --write \"**/*.ts\" && eslint --fix \"**/*.ts\"",
         "ts": "npx tsc -p .",
         "tailwind": "npx tailwindcss -i ./resources/source.css -o ./src/base/resources/tailwind.css",
-        "build": "npm run ts && npm run tailwind && npm run copy"
+        "build": "npm run ts && npm run tailwind && npm run copy && npm run zip",
+        "zip": "(if not exist dist mkdir dist) && cd src/chromium && 7z a -tzip ../../dist/chromium.zip * && cd ../firefox && 7z a -tzip ../../dist/firefox.zip *"
     }
 }

@@ -6,5 +6,5 @@ i18n(['extensionName', 'extensionDescription']);
 const copyright = document.getElementById('aboutCopyright') as HTMLSpanElement;
 
 copyright.innerHTML = runtime.i18n.getMessage('aboutCopyright', [
-    runtime.runtime.getManifest().version,
+    String(new Date().getFullYear()),
 ]);
