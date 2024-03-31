@@ -276,7 +276,7 @@
         "message": "Your search history will show up here"
     },
     "aboutCopyright": {
-        "message": "© $1. All rights reserved."
+        "message": "v$1 © $2. All rights reserved."
     },
     "aboutChromeListing": {
         "message": "Chrome Web Store"
