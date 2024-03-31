@@ -18,10 +18,10 @@
     },
     "scripts": {
         "copy": "xcopy \"./src\\base\" \"src\\chromium\" /S /E /Y && xcopy \"./src\\base\" \"src\\firefox\" /S /E /Y",
-        "format": "prettier --write \"**/*.ts\" && eslint --fix \"**/*.ts\"",
+        "clear": "(if exist src\\chromium\\_locales rmdir src\\chromium\\_locales /s /q) && (if exist src\\chromium\\assets rmdir src\\chromium\\assets /s /q) && (if exist src\\chromium\\resources rmdir src\\chromium\\resources /s /q) && (if exist src\\chromium\\scripts rmdir src\\chromium\\scripts /s /q) && (if exist src\\chromium\\about.html del src\\chromium\\about.html /s /q) && (if exist src\\chromium\\base.html del src\\chromium\\base.html /s /q) && (if exist src\\chromium\\history.html del src\\chromium\\history.html /s /q) && (if exist src\\chromium\\search.html del src\\chromium\\search.html /s /q) && (if exist src\\chromium\\settings.html del src\\chromium\\settings.html /s /q) && (if exist src\\firefox\\_locales rmdir src\\firefox\\_locales /s /q) && (if exist src\\firefox\\assets rmdir src\\firefox\\assets /s /q) && (if exist src\\firefox\\resources rmdir src\\firefox\\resources /s /q) && (if exist src\\firefox\\scripts rmdir src\\firefox\\scripts /s /q) && (if exist src\\firefox\\about.html del src\\firefox\\about.html /s /q) && (if exist src\\firefox\\base.html del src\\firefox\\base.html /s /q) && (if exist src\\firefox\\history.html del src\\firefox\\history.html /s /q) && (if exist src\\firefox\\search.html del src\\firefox\\search.html /s /q) && (if exist src\\firefox\\settings.html del src\\firefox\\settings.html /s /q)",
         "ts": "npx tsc -p .",
         "tailwind": "npx tailwindcss -i ./resources/source.css -o ./src/base/resources/tailwind.css",
-        "build": "npm run ts && npm run tailwind && npm run copy && npm run zip",
+        "build": "npm run clear && npm run ts && npm run tailwind && npm run copy && npm run zip",
         "zip": "(if not exist dist mkdir dist) && cd src/chromium && 7z a -tzip ../../dist/chromium.zip * && cd ../firefox && 7z a -tzip ../../dist/firefox.zip *"
     }
 }
