@@ -1,1 +1,0 @@
-Hypixel mode and game type translations are courtesy of the Slothpixel project (with some modifications) https://github.com/slothpixel/hypixelconstants
